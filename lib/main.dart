@@ -1,65 +1,35 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:admin/constants.dart';
-import 'package:admin/controllers/MenuController.dart';
-import 'package:admin/screens/main/main_screen.dart';
+import 'package:admin/controllers/test_navigation_controller.dart';
+import 'package:admin/routing/routes.dart';
+import 'package:admin/screens/page_config.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
+import 'Services/theme.dart';
+import 'controllers/menu_controller.dart';
+import 'controllers/main_navigation_controller.dart';
+import 'screens/error/PageNotFound.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(GetMaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: EhTheme.lightTheme,
+    darkTheme: EhTheme.darkTheme,
+    color: Colors.white,
+    //home: Home(),
+    initialRoute: rootRoute,
+    unknownRoute: GetPage(
+        name: '/not-found',
+        page: () => PageNotFound(),
+        transition: Transition.fadeIn),
+    getPages: pageConfig,
+    initialBinding: InitAppBinding(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class InitAppBinding extends Bindings {
   @override
-  Widget build(BuildContext context) {
-    return AdaptiveTheme(
-      light: ThemeData.light().copyWith(
-        scaffoldBackgroundColor: creamColor,
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: Colors.black),
-        canvasColor: snowColor,
-      ),
-      dark: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: bgColor,
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: Colors.white),
-        canvasColor: secondaryColor,
-      ),
-      initial: AdaptiveThemeMode.light,
-      builder: (theme, darkTheme) => MaterialApp(
-        title: 'Adaptive Theme Demo',
-        theme: theme,
-        darkTheme: darkTheme,
-        debugShowCheckedModeBanner: false,
-        home: MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-              create: (context) => MenuController(),
-            ),
-          ],
-          child: MainScreen(),
-        ),
-      ),
-    );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Admin Panel',
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: bgColor,
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: Colors.white),
-        canvasColor: secondaryColor,
-      ),
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => MenuController(),
-          ),
-        ],
-        child: MainScreen(),
-      ),
-    );
+  void dependencies() {
+    Get.lazyPut<MenuController>(() => MenuController());
+    Get.lazyPut<MainNavigationController>(() => MainNavigationController());
+    Get.lazyPut<TestNavigationController>(() => TestNavigationController());
   }
 }

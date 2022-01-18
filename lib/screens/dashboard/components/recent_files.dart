@@ -22,17 +22,18 @@ class RecentFiles extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Recent Files",
+            "Recent Orders",
             style: Theme.of(context).textTheme.subtitle1,
           ),
           SizedBox(
             width: double.infinity,
+            height: 500,
             child: DataTable2(
               columnSpacing: defaultPadding,
               minWidth: 600,
               columns: [
                 DataColumn(
-                  label: Text("File Name"),
+                  label: Text("Order Number"),
                 ),
                 DataColumn(
                   label: Text("Date"),

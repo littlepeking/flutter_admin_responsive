@@ -1,6 +1,3 @@
-import 'package:admin/controllers/main_navigation_controller.dart';
-import 'package:admin/controllers/test_navigation_controller.dart';
-import 'package:admin/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -17,10 +14,7 @@ class SideMenu extends StatelessWidget {
           DrawerHeader(
             child: Center(
                 child: Container(
-              child: Text(
-                'Enhantec WMS',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
+              child: Text('Enhantec'),
               alignment: Alignment.center,
               width: 200,
               height: 200,
@@ -28,36 +22,29 @@ class SideMenu extends StatelessWidget {
             // child: Image.asset("assets/images/Home.png"),
           ),
           DrawerListTile(
-            title: "DashBoard",
+            title: "Dashboard",
             svgSrc: "assets/icons/menu_dashbord.svg",
-            press: () {
-              MainNavigationController.instance
-                  .navigateTo(mainNavigationMainPanelPageRoute);
-            },
+            press: () {},
           ),
           DrawerListTile(
-            title: "Inbound",
+            title: "Transaction",
             svgSrc: "assets/icons/menu_tran.svg",
-            press: () {
-              MainNavigationController.instance
-                  .navigateTo(mainNavigationMyTasksPageRoute);
-            },
+            press: () {},
           ),
           DrawerListTile(
-            title: "Outbound",
+            title: "Task",
             svgSrc: "assets/icons/menu_task.svg",
-            press: () {
-              TestNavigationController.instance
-                  .navigateTo(mainNavigationMyTestPageRoute);
-            },
+            press: () {},
           ),
           DrawerListTile(
-            title: "Inventory",
+            title: "Documents",
             svgSrc: "assets/icons/menu_doc.svg",
-            press: () {
-              TestNavigationController.instance
-                  .navigateTo(mainNavigationMyTestPageRoute2);
-            },
+            press: () {},
+          ),
+          DrawerListTile(
+            title: "Store",
+            svgSrc: "assets/icons/menu_store.svg",
+            press: () {},
           ),
           DrawerListTile(
             title: "Notification",
@@ -65,7 +52,7 @@ class SideMenu extends StatelessWidget {
             press: () {},
           ),
           DrawerListTile(
-            title: "Alert",
+            title: "Profile",
             svgSrc: "assets/icons/menu_profile.svg",
             press: () {},
           ),
