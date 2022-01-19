@@ -7,16 +7,47 @@ class Test extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Expanded(
-          child: SizedBox(
-              height: 40,
-              child: const DecoratedBox(
-                  decoration: const BoxDecoration(
+    return LayoutBuilder(builder: (context, constraint) {
+      return SafeArea(
+          child: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraint.maxHeight),
+          child: IntrinsicHeight(
+            child: Column(
+              children: <Widget>[
+                Text("Header"),
+                Text("Footer"),
+                Expanded(
+                    child: SizedBox(
+                        height: 100,
+                        child: const DecoratedBox(
+                            decoration: const BoxDecoration(
+                              color: Colors.red,
+                            ),
+                            child: Center(child: Text("test19"))))),
+                Expanded(
+                  child: Container(
+                    height: 300,
+                    color: Colors.blue,
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 300,
                     color: Colors.red,
                   ),
-                  child: Center(child: Text("test1"))))),
-      Expanded(child: Container())
-    ]);
+                ),
+                Expanded(
+                  child: Container(
+                    height: 300,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ));
+    });
   }
 }

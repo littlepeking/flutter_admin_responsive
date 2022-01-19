@@ -31,6 +31,12 @@ class DashboardScreen extends GetView {
                 initialRoute: mainNavigationMainPanelPageRoute,
               ),
             ),
+            SizedBox(
+                child: DecoratedBox(
+                    decoration: const BoxDecoration(
+                      color: Colors.black87,
+                    ),
+                    child: Center(child: Text("Footer")))),
           ],
         ),
       ),
