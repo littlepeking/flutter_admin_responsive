@@ -36,7 +36,7 @@ class DashboardScreen extends GetView {
                     decoration: const BoxDecoration(
                       color: Colors.black87,
                     ),
-                    child: Center(child: Text("Footer")))),
+                    child: Center(child: Text("inner Footer")))),
           ],
         ),
       ),
