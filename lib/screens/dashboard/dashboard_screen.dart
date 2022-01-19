@@ -11,7 +11,8 @@ class DashboardScreen extends GetView {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.all(defaultPadding),
+        padding: EdgeInsets.only(
+            left: defaultPadding, right: defaultPadding, top: defaultPadding),
         child: Column(
           children: [
             Header(),
@@ -31,12 +32,12 @@ class DashboardScreen extends GetView {
                 initialRoute: mainNavigationMainPanelPageRoute,
               ),
             ),
-            SizedBox(
-                child: DecoratedBox(
-                    decoration: const BoxDecoration(
-                      color: Colors.black87,
-                    ),
-                    child: Center(child: Text("inner Footer")))),
+            // SizedBox(
+            //     child: DecoratedBox(
+            //         decoration: BoxDecoration(
+            //           color: Get.theme.scaffoldBackgroundColor,
+            //         ),
+            //         child: Center(child: Text("inner Footer")))),
           ],
         ),
       ),

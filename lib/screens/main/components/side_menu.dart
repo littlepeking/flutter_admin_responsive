@@ -3,6 +3,7 @@ import 'package:admin/controllers/test_navigation_controller.dart';
 import 'package:admin/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -41,6 +42,7 @@ class SideMenu extends StatelessWidget {
             press: () {
               MainNavigationController.instance
                   .navigateTo(mainNavigationMyTasksPageRoute);
+              Get.back();
             },
           ),
           DrawerListTile(
