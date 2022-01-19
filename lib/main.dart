@@ -19,7 +19,7 @@ void main() {
     unknownRoute: GetPage(
         name: '/not-found',
         page: () => PageNotFound(),
-        transition: Transition.fadeIn),
+        transition: EhTheme.defaultTransition),
     getPages: pageConfig,
     initialBinding: InitAppBinding(),
   ));

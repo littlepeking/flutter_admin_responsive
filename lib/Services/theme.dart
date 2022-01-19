@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EhTheme {
+  static Transition defaultTransition = Transition.zoom;
+
   static ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
       primaryColor: Colors.amber,

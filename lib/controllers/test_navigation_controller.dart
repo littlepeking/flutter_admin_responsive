@@ -36,6 +36,6 @@ PageRoute _getPageRoute(settings, Widget child) {
   return GetPageRoute(
     settings: settings,
     page: () => child,
-    transition: Transition.noTransition,
+    transition: Transition.downToUp,
   );
 }

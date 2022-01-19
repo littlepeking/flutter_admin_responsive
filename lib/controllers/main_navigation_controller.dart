@@ -1,3 +1,4 @@
+import 'package:admin/Services/theme.dart';
 import 'package:admin/routing/routes.dart';
 import 'package:admin/screens/dashboard/components/main_panel.dart';
 import 'package:admin/screens/dashboard/components/my_tasks.dart';
@@ -44,6 +45,6 @@ PageRoute _getPageRoute(settings, Widget child) {
   return GetPageRoute(
     settings: settings,
     page: () => child,
-    transition: Transition.noTransition,
+    transition: EhTheme.defaultTransition,
   );
 }
