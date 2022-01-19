@@ -1,3 +1,4 @@
+import 'package:admin/Services/theme.dart';
 import 'package:admin/routing/routes.dart';
 import 'package:admin/screens/dashboard/components/test.dart';
 import 'package:admin/screens/dashboard/components/test2.dart';
@@ -36,6 +37,6 @@ PageRoute _getPageRoute(settings, Widget child) {
   return GetPageRoute(
     settings: settings,
     page: () => child,
-    transition: Transition.downToUp,
+    transition: EhTheme.defaultTransition,
   );
 }
