@@ -1,8 +1,8 @@
 import 'package:admin/models/MyFiles.dart';
-import 'package:admin/responsive.dart';
+import 'package:admin/common/Utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../constants.dart';
+import '../../../common/constants.dart';
 import 'file_info_card.dart';
 
 class MyTasks extends GetView {
@@ -24,24 +24,6 @@ class MyTasks extends GetView {
             ),
             Row(
               children: [
-                ElevatedButton.icon(
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: defaultPadding * 1.5,
-                      vertical: defaultPadding /
-                          (Responsive.isMobile(context) ? 2 : 1),
-                    ),
-                  ),
-                  onPressed: () {
-                    Get.changeThemeMode(
-                        Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
-                  },
-                  icon: Icon(Icons.ac_unit_sharp),
-                  label: Text("Change Theme"),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
                 ElevatedButton.icon(
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.symmetric(

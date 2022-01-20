@@ -1,6 +1,6 @@
-import 'package:admin/controllers/menu_controller.dart';
-import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/dashboard_screen.dart';
+import '/common/controllers/menu_controller.dart';
+import '/common/Utils/responsive.dart';
+import '/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/side_menu.dart';

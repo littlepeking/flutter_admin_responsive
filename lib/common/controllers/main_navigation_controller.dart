@@ -1,5 +1,5 @@
-import 'package:admin/Services/theme.dart';
-import 'package:admin/routing/routes.dart';
+import 'package:admin/common/Utils/theme.dart';
+import 'package:admin/common/routing/routes.dart';
 import 'package:admin/screens/dashboard/components/main_panel.dart';
 import 'package:admin/screens/dashboard/components/my_tasks.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,8 @@ class MainNavigationController extends GetxController {
   //final GlobalKey<NavigatorState>? navigatorKey = Get.nestedKey(1);
 
   Future<dynamic>? navigateTo(String routeName) {
-    return navigatorKey.currentState!.popAndPushNamed(routeName);
+    navigatorKey.currentState!.popAndPushNamed(routeName);
+    Get.back();
     //return Get.toNamed(routeName, id: 1);
     //Get.toNamed(routeName,        id: navigatorKey.hashCode); //do not use GET since it can only accept id instead of globalkey
   }

@@ -1,11 +1,12 @@
-import 'package:admin/controllers/test_navigation_controller.dart';
-import 'package:admin/routing/routes.dart';
-import 'package:admin/screens/page_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'Services/theme.dart';
-import 'controllers/menu_controller.dart';
-import 'controllers/main_navigation_controller.dart';
+import 'common/Utils/theme.dart';
+import 'common/controllers/main_navigation_controller.dart';
+import 'common/controllers/menu_controller.dart';
+import 'common/controllers/test_navigation_controller.dart';
+import 'common/i18n/messages.dart';
+import 'common/routing/routes.dart';
+import 'screens/page_config.dart';
 import 'screens/error/PageNotFound.dart';
 
 void main() {
@@ -22,6 +23,9 @@ void main() {
         transition: EhTheme.defaultTransition),
     getPages: pageConfig,
     initialBinding: InitAppBinding(),
+    translations: Messages(), // your translations
+    locale: Locale('zh', 'CN'), // translations will be displayed in that locale
+    fallbackLocale: Locale('en', 'US'),
   ));
 }
 

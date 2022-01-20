@@ -1,12 +1,9 @@
-import 'package:admin/controllers/test_navigation_controller.dart';
-import 'package:admin/routing/routes.dart';
 import 'package:admin/screens/dashboard/components/recent_files.dart';
 import 'package:admin/screens/dashboard/components/storage_details.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
-import '../../../responsive.dart';
-import 'my_tasks.dart';
+import '../../../common/constants.dart';
+import '../../../common/Utils/responsive.dart';
 import 'package:get/get.dart';
 
 class MainPanelWidget extends GetView {

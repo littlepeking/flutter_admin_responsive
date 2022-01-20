@@ -1,8 +1,8 @@
-import 'package:admin/controllers/main_navigation_controller.dart';
-import 'package:admin/routing/routes.dart';
+import 'package:admin/common/controllers/main_navigation_controller.dart';
+import 'package:admin/common/routing/routes.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
+import '../../common/constants.dart';
 import 'components/header.dart';
 import 'package:get/get.dart';
 
@@ -17,27 +17,13 @@ class DashboardScreen extends GetView {
           children: [
             Header(),
             SizedBox(height: defaultPadding),
-            // MainPanelWidget(),
             Expanded(
-              // child: ListView(
-              //   padding: const EdgeInsets.all(8),
-              //   children: <Widget>[
-              //     Text('List 1'),
-              //     Text('List 2'),
-              //     Text('List 3'),
-              //   ],
               child: Navigator(
                 key: MainNavigationController.instance.navigatorKey,
                 onGenerateRoute: generateRoute,
                 initialRoute: mainNavigationMainPanelPageRoute,
               ),
             ),
-            // SizedBox(
-            //     child: DecoratedBox(
-            //         decoration: BoxDecoration(
-            //           color: Get.theme.scaffoldBackgroundColor,
-            //         ),
-            //         child: Center(child: Text("inner Footer")))),
           ],
         ),
       ),

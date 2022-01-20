@@ -1,8 +1,13 @@
-import 'package:admin/controllers/menu_controller.dart';
-import 'package:admin/responsive.dart';
+import 'package:admin/common/controllers/main_navigation_controller.dart';
+import 'package:admin/common/routing/routes.dart';
+import 'package:get/get.dart';
+
+import '/common/controllers/menu_controller.dart';
+import '/common/Utils/responsive.dart';
+import '/common/widgets/ImageButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../constants.dart';
+import '/common/constants.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -18,53 +23,55 @@ class Header extends StatelessWidget {
             icon: Icon(Icons.menu),
             onPressed: MenuController.instance.controlMenu,
           ),
-        if (!Responsive.isMobile(context))
-          Text(
-            "Dashboard",
-            style: Theme.of(context).textTheme.headline6,
-          ),
-        if (!Responsive.isMobile(context))
+        // if (!Responsive.isMobile(context))
+        //   Text(
+        //     "WMS",
+        //     style: Theme.of(context).textTheme.headline6,
+        //   ),
+        if (!Responsive.isMobile(context) && !Responsive.isTablet(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
-        Expanded(child: SearchField()),
-        ProfileCard()
+        Expanded(flex: 2, child: SearchField()),
+        ImageButton(
+          text: 'Notification'.tr,
+          icon: Icon(Icons.notifications),
+          onPressed: () {
+            // MainNavigationController.instance
+            //     .navigateTo(mainNavigationMyTasksPageRoute);
+          },
+        ),
+        SizedBox(width: 0),
+        ImageButton(
+          text: 'Personalization'.tr,
+          icon: Icon(Icons.account_circle),
+          onPressed: () {
+            // MainNavigationController.instance
+            //     .navigateTo(mainNavigationMyTasksPageRoute);
+          },
+        ),
+        SizedBox(width: 0),
+        ImageButton(
+            text: 'changeTheme'.tr,
+            icon: Icon(Icons.ac_unit_sharp),
+            onPressed: () {
+              Get.changeThemeMode(
+                  Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+            }),
+        SizedBox(width: 0),
+        ImageButton(
+            text: 'changeLocale'.tr,
+            icon: Icon(Icons.language),
+            onPressed: () {
+              var enLocale = Locale('en', 'US');
+              var cnLocale = Locale('zh', 'CN');
+              if (Get.locale == enLocale) {
+                Get.updateLocale(cnLocale);
+              } else {
+                Get.updateLocale(enLocale);
+              }
+            }),
+        SizedBox(width: 0),
+        ImageButton(text: 'quit'.tr, icon: Icon(Icons.logout), onPressed: () {})
       ],
-    );
-  }
-}
-
-class ProfileCard extends StatelessWidget {
-  const ProfileCard({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: defaultPadding),
-      padding: EdgeInsets.symmetric(
-        horizontal: defaultPadding,
-        vertical: defaultPadding / 2,
-      ),
-      decoration: BoxDecoration(
-        color: Theme.of(context).canvasColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        border: Border.all(color: Colors.white10),
-      ),
-      child: Row(
-        children: [
-          Image.asset(
-            "assets/images/profile_pic.png",
-            height: 38,
-          ),
-          if (!Responsive.isMobile(context))
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("Figo Cheng"),
-            ),
-          Icon(Icons.keyboard_arrow_down),
-        ],
-      ),
     );
   }
 }

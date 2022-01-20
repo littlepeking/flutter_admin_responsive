@@ -1,8 +1,5 @@
-import 'package:admin/controllers/main_navigation_controller.dart';
-import 'package:admin/controllers/menu_controller.dart';
-import 'package:admin/controllers/test_navigation_controller.dart';
-import 'package:admin/routing/routes.dart';
-import 'package:admin/screens/main/home.dart';
+import 'package:admin/common/routing/routes.dart';
+import 'package:admin/screens/home/home.dart';
 import 'package:get/get.dart';
 
 List<GetPage<dynamic>>? pageConfig = [

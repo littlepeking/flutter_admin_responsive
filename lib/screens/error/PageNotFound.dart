@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../widgets/custom_text.dart';
+import '../../common/widgets/custom_text.dart';
 
 class PageNotFound extends StatelessWidget {
   @override

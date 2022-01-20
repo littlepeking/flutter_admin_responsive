@@ -1,6 +1,7 @@
-import 'package:admin/controllers/main_navigation_controller.dart';
-import 'package:admin/controllers/test_navigation_controller.dart';
-import 'package:admin/routing/routes.dart';
+import 'package:admin/common/controllers/main_navigation_controller.dart';
+import 'package:admin/common/controllers/test_navigation_controller.dart';
+import 'package:admin/common/routing/routes.dart';
+import 'package:admin/common/widgets/ImageButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -15,18 +16,26 @@ class SideMenu extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
-          DrawerHeader(
-            child: Center(
-                child: Container(
-              child: Text(
-                'Enhantec WMS',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              alignment: Alignment.center,
-              width: 200,
-              height: 200,
-            )),
-            // child: Image.asset("assets/images/Home.png"),
+          Container(
+            height: 135,
+            child: DrawerHeader(
+              child: Center(
+                  child: Column(
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Image.asset(
+                    "assets/images/enhantec.png",
+                    height: 70,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              )),
+              // child: Image.asset("assets/images/Home.png"),
+            ),
           ),
           DrawerListTile(
             title: "DashBoard",
@@ -42,7 +51,6 @@ class SideMenu extends StatelessWidget {
             press: () {
               MainNavigationController.instance
                   .navigateTo(mainNavigationMyTasksPageRoute);
-              Get.back();
             },
           ),
           DrawerListTile(

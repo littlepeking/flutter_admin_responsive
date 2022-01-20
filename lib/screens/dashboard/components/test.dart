@@ -15,8 +15,7 @@ class Test extends StatelessWidget {
           child: IntrinsicHeight(
             child: Column(
               children: <Widget>[
-                Text("Header"),
-                Text("Footer"),
+                Text("Inner Header"),
                 Expanded(
                     child: SizedBox(
                         height: 100,

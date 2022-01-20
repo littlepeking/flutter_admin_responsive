@@ -2,7 +2,7 @@ import 'package:admin/models/MyFiles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../constants.dart';
+import '../../../common/constants.dart';
 
 class FileInfoCard extends StatelessWidget {
   const FileInfoCard({
@@ -57,15 +57,11 @@ class FileInfoCard extends StatelessWidget {
             children: [
               Text(
                 "${info.numOfFiles} Files",
-                style: Theme.of(context)
-                    .textTheme
-                    .caption,
+                style: Theme.of(context).textTheme.caption,
               ),
               Text(
                 info.totalStorage!,
-                style: Theme.of(context)
-                    .textTheme
-                    .caption,
+                style: Theme.of(context).textTheme.caption,
               ),
             ],
           )
