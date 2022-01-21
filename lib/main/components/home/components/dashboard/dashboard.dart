@@ -9,8 +9,7 @@ class Dashboard extends GetView {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.only(
-            left: defaultPadding, right: defaultPadding, top: defaultPadding),
+        padding: EdgeInsets.only(left: defaultPadding, top: defaultPadding),
         child: Column(
           children: [
             Header(),
