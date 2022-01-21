@@ -6,7 +6,7 @@ import 'common/controllers/menu_controller.dart';
 import 'common/controllers/test_navigation_controller.dart';
 import 'common/i18n/messages.dart';
 import 'common/routing/routes.dart';
-import 'modules/error/PageNotFound.dart';
+import 'components/error/PageNotFound.dart';
 import 'components/page_config.dart';
 
 void main() {
