@@ -1,5 +1,3 @@
-import 'package:admin/common/controllers/main_navigation_controller.dart';
-import 'package:admin/common/routing/routes.dart';
 import 'package:get/get.dart';
 
 import '/common/controllers/menu_controller.dart';
