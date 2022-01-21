@@ -6,6 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tabbed_view/tabbed_view.dart';
 
+import 'dashboard/components/wmsPanel/components/TestComponent/TestController.dart';
+import 'dashboard/components/wmsPanel/components/TestComponent/test2.dart';
+
 class SideMenu extends GetView<WmsPanelNavigationController> {
   const SideMenu({
     Key? key,
@@ -48,7 +51,11 @@ class SideMenu extends GetView<WmsPanelNavigationController> {
             title: "Outbound".tr,
             svgSrc: "assets/icons/menu_tran.svg",
             press: () {
-              controller.addTab(TabData(text: "OutBound", content: Test()));
+              controller.addTab(
+                  TabData(text: "OutBound", content: Test2(), keepAlive: true),
+                  () {
+                Get.create<TestController>(() => TestController());
+              });
             },
           ),
           DrawerListTile(
@@ -62,7 +69,7 @@ class SideMenu extends GetView<WmsPanelNavigationController> {
             title: "Configuration".tr,
             svgSrc: "assets/icons/menu_doc.svg",
             press: () {
-              WmsPanelNavigationController.instance.navigateTo("/myTest2");
+              DashBoardNavigationController.instance.navigateTo("/myTasks");
             },
           ),
           DrawerListTile(
