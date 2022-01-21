@@ -1,12 +1,13 @@
 import 'package:eh_flutter_framework/common/constants.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/controllers/main_panel_navigation_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/controllers/dashboard_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'header.dart';
 import 'package:get/get.dart';
 
-class Dashboard extends GetView {
+class Dashboard extends GetView<DashBoardNavigationController> {
   @override
   Widget build(BuildContext context) {
+    Get.put(DashBoardNavigationController());
     return SafeArea(
       child: Container(
         padding: EdgeInsets.only(left: defaultPadding, top: defaultPadding),
@@ -16,9 +17,9 @@ class Dashboard extends GetView {
             SizedBox(height: defaultPadding),
             Expanded(
               child: Navigator(
-                key: MainPanelNavigationController.instance.navigatorKey,
+                key: controller.navigatorKey,
                 onGenerateRoute: generateRoute,
-                initialRoute: "/mainPanel",
+                initialRoute: "/wmsPanel",
               ),
             ),
           ],

@@ -1,10 +1,12 @@
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/controllers/main_panel_navigation_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/mainPanel/controllers/test_navigation_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/TestComponent/test.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/controllers/dashboard_navigation_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/controllers/wms_panel_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:tabbed_view/tabbed_view.dart';
 
-class SideMenu extends StatelessWidget {
+class SideMenu extends GetView<WmsPanelNavigationController> {
   const SideMenu({
     Key? key,
   }) : super(key: key);
@@ -39,28 +41,28 @@ class SideMenu extends StatelessWidget {
             title: 'Inbound'.tr,
             svgSrc: "assets/icons/menu_dashbord.svg",
             press: () {
-              MainPanelNavigationController.instance.navigateTo("/mainPanel");
+              DashBoardNavigationController.instance.navigateTo("/wmsPanel");
             },
           ),
           DrawerListTile(
             title: "Outbound".tr,
             svgSrc: "assets/icons/menu_tran.svg",
             press: () {
-              MainPanelNavigationController.instance.navigateTo("/myTasks");
+              controller.addTab(TabData(text: "OutBound", content: Test()));
             },
           ),
           DrawerListTile(
             title: "Inventory".tr,
             svgSrc: "assets/icons/menu_task.svg",
             press: () {
-              TestNavigationController.instance.navigateTo('/myTest');
+              WmsPanelNavigationController.instance.navigateTo('/myTest');
             },
           ),
           DrawerListTile(
             title: "Configuration".tr,
             svgSrc: "assets/icons/menu_doc.svg",
             press: () {
-              TestNavigationController.instance.navigateTo("/myTest2");
+              WmsPanelNavigationController.instance.navigateTo("/myTest2");
             },
           ),
           DrawerListTile(

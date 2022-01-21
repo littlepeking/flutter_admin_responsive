@@ -3,9 +3,6 @@ import 'package:get/get.dart';
 import '../common/Utils/theme.dart';
 import '../common/i18n/messages.dart';
 import 'components/home/components/error/PageNotFound.dart';
-import 'components/home/components/dashboard/controllers/main_panel_navigation_controller.dart';
-import 'controllers/menu_controller.dart';
-import 'components/home/components/dashboard/components/mainPanel/controllers/test_navigation_controller.dart';
 import 'routes/page_config.dart';
 
 void main() {
@@ -30,10 +27,5 @@ void main() {
 
 class InitAppBinding extends Bindings {
   @override
-  void dependencies() {
-    Get.lazyPut<MenuController>(() => MenuController());
-    Get.lazyPut<MainPanelNavigationController>(
-        () => MainPanelNavigationController());
-    Get.lazyPut<TestNavigationController>(() => TestNavigationController());
-  }
+  void dependencies() {}
 }

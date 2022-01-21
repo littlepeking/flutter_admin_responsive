@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'components/dashboard/dashboard.dart';
 import 'components/side_menu.dart';
 
-class Home extends StatelessWidget {
+class Home extends GetView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
