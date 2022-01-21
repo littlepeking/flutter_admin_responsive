@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'common/Utils/theme.dart';
-import 'common/controllers/main_navigation_controller.dart';
-import 'common/controllers/menu_controller.dart';
-import 'common/controllers/test_navigation_controller.dart';
-import 'common/i18n/messages.dart';
-import 'common/routing/routes.dart';
-import 'components/error/PageNotFound.dart';
-import 'components/page_config.dart';
+import '../common/Utils/theme.dart';
+import '../common/i18n/messages.dart';
+import 'components/home/components/error/PageNotFound.dart';
+import 'components/home/components/dashboard/controllers/main_panel_navigation_controller.dart';
+import 'controllers/menu_controller.dart';
+import 'components/home/components/dashboard/components/mainPanel/controllers/test_navigation_controller.dart';
+import 'routes/page_config.dart';
 
 void main() {
   runApp(GetMaterialApp(
@@ -16,7 +15,7 @@ void main() {
     darkTheme: EhTheme.darkTheme,
     color: Colors.white,
     //home: Home(),
-    initialRoute: rootRoute,
+    initialRoute: '/',
     unknownRoute: GetPage(
         name: '/not-found',
         page: () => PageNotFound(),
@@ -33,7 +32,8 @@ class InitAppBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<MenuController>(() => MenuController());
-    Get.lazyPut<MainNavigationController>(() => MainNavigationController());
+    Get.lazyPut<MainPanelNavigationController>(
+        () => MainPanelNavigationController());
     Get.lazyPut<TestNavigationController>(() => TestNavigationController());
   }
 }

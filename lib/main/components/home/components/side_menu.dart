@@ -1,6 +1,5 @@
-import '/common/controllers/main_navigation_controller.dart';
-import '/common/controllers/test_navigation_controller.dart';
-import '/common/routing/routes.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/controllers/main_panel_navigation_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/mainPanel/controllers/test_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -40,32 +39,28 @@ class SideMenu extends StatelessWidget {
             title: 'Inbound'.tr,
             svgSrc: "assets/icons/menu_dashbord.svg",
             press: () {
-              MainNavigationController.instance
-                  .navigateTo(mainNavigationMainPanelPageRoute);
+              MainPanelNavigationController.instance.navigateTo("/mainPanel");
             },
           ),
           DrawerListTile(
             title: "Outbound".tr,
             svgSrc: "assets/icons/menu_tran.svg",
             press: () {
-              MainNavigationController.instance
-                  .navigateTo(mainNavigationMyTasksPageRoute);
+              MainPanelNavigationController.instance.navigateTo("/myTasks");
             },
           ),
           DrawerListTile(
             title: "Inventory".tr,
             svgSrc: "assets/icons/menu_task.svg",
             press: () {
-              TestNavigationController.instance
-                  .navigateTo(mainNavigationMyTestPageRoute);
+              TestNavigationController.instance.navigateTo('/myTest');
             },
           ),
           DrawerListTile(
             title: "Configuration".tr,
             svgSrc: "assets/icons/menu_doc.svg",
             press: () {
-              TestNavigationController.instance
-                  .navigateTo(mainNavigationMyTestPageRoute2);
+              TestNavigationController.instance.navigateTo("/myTest2");
             },
           ),
           DrawerListTile(

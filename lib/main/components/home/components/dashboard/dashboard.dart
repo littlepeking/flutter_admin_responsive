@@ -1,9 +1,7 @@
-import '/common/controllers/main_navigation_controller.dart';
-import '/common/routing/routes.dart';
+import 'package:eh_flutter_framework/common/constants.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/controllers/main_panel_navigation_controller.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../common/constants.dart';
-import 'components/header.dart';
+import 'header.dart';
 import 'package:get/get.dart';
 
 class Dashboard extends GetView {
@@ -19,9 +17,9 @@ class Dashboard extends GetView {
             SizedBox(height: defaultPadding),
             Expanded(
               child: Navigator(
-                key: MainNavigationController.instance.navigatorKey,
+                key: MainPanelNavigationController.instance.navigatorKey,
                 onGenerateRoute: generateRoute,
-                initialRoute: mainNavigationMainPanelPageRoute,
+                initialRoute: "/mainPanel",
               ),
             ),
           ],

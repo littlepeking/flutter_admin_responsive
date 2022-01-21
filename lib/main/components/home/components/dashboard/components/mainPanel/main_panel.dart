@@ -1,11 +1,9 @@
+import 'package:eh_flutter_framework/common/Utils/responsive.dart';
+import 'package:eh_flutter_framework/common/constants.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/mainPanel/controllers/test_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '/common/controllers/test_navigation_controller.dart';
-import '/common/routing/routes.dart';
-import '../../../../../common/constants.dart';
-import '../../../../../common/Utils/responsive.dart';
-
-import 'Notifications.dart';
+import 'components/Notifications/Notifications.dart';
 
 class MainPanelWidget extends GetView {
   const MainPanelWidget({
@@ -30,7 +28,7 @@ class MainPanelWidget extends GetView {
                   child: Navigator(
                 key: TestNavigationController.instance.navigatorKey,
                 onGenerateRoute: generateRoute,
-                initialRoute: mainNavigationMyTestPageRoute,
+                initialRoute: '/myTest',
               )),
             ],
           ),

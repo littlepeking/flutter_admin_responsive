@@ -1,8 +1,6 @@
-import '/components/home/components/dashboard/components/test.dart';
-import '/components/home/components/dashboard/components/test2.dart';
-
-import '../Utils/theme.dart';
-import '../routing/routes.dart';
+import 'package:eh_flutter_framework/common/Utils/theme.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/mainPanel/components/TestComponent/test.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/mainPanel/components/TestComponent/test2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,9 +24,9 @@ class TestNavigationController extends GetxController {
 
 Route? generateRoute(RouteSettings settings) {
   switch (settings.name) {
-    case mainNavigationMyTestPageRoute:
+    case '/myTest':
       return _getPageRoute(settings, Test());
-    case mainNavigationMyTestPageRoute2:
+    case "/myTest2":
       return _getPageRoute(settings, Test2());
     default:
   }

@@ -1,11 +1,9 @@
-import '/common/routing/routes.dart';
+import 'package:eh_flutter_framework/main/components/home/home.dart';
 import 'package:get/get.dart';
-
-import 'home/home.dart';
 
 List<GetPage<dynamic>>? pageConfig = [
   GetPage(
-    name: rootRoute,
+    name: '/',
     page: () => Home(),
     binding: BindingsBuilder(() {
       // Get.lazyPut<MenuController>(() => MenuController());

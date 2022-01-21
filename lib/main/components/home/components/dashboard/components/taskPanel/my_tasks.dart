@@ -1,8 +1,9 @@
-import '/models/MyFiles.dart';
+import 'package:eh_flutter_framework/common/constants.dart';
+import 'package:eh_flutter_framework/main/models/MyFiles.dart';
+
 import '/common/Utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../common/constants.dart';
 import 'file_info_card.dart';
 
 class MyTasks extends GetView {

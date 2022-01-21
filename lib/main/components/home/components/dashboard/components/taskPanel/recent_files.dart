@@ -1,9 +1,8 @@
-import '/models/RecentFile.dart';
 import 'package:data_table_2/data_table_2.dart';
+import 'package:eh_flutter_framework/common/constants.dart';
+import 'package:eh_flutter_framework/main/models/RecentFile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../../../../common/constants.dart';
 
 class RecentFiles extends StatelessWidget {
   const RecentFiles({

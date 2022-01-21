@@ -1,6 +1,6 @@
+import 'package:eh_flutter_framework/main/controllers/menu_controller.dart';
 import 'package:get/get.dart';
 
-import '/common/controllers/menu_controller.dart';
 import '/common/Utils/responsive.dart';
 import '/common/widgets/ImageButton.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class Header extends StatelessWidget {
           icon: Icon(Icons.notifications),
           onPressed: () {
             // MainNavigationController.instance
-            //     .navigateTo(mainNavigationMyTasksPageRoute);
+            //     .navigateTo("/myTasks");
           },
         ),
         SizedBox(width: 0),
@@ -43,7 +43,7 @@ class Header extends StatelessWidget {
           icon: Icon(Icons.account_circle),
           onPressed: () {
             // MainNavigationController.instance
-            //     .navigateTo(mainNavigationMyTasksPageRoute);
+            //     .navigateTo("/myTasks");
           },
         ),
         SizedBox(width: 0),

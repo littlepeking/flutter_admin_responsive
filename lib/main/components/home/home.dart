@@ -1,4 +1,4 @@
-import '/common/controllers/menu_controller.dart';
+import 'package:eh_flutter_framework/main/controllers/menu_controller.dart';
 import '/common/Utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
