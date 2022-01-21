@@ -1,6 +1,6 @@
-import 'package:admin/common/controllers/main_navigation_controller.dart';
-import 'package:admin/common/controllers/test_navigation_controller.dart';
-import 'package:admin/common/routing/routes.dart';
+import '/common/controllers/main_navigation_controller.dart';
+import '/common/controllers/test_navigation_controller.dart';
+import '/common/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';

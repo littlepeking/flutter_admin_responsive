@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/constants.dart';
+import '../../../../../common/constants.dart';
 import 'chart.dart';
 import 'storage_info_card.dart';
 
-class StarageDetails extends StatelessWidget {
-  const StarageDetails({
+class Notifications extends StatelessWidget {
+  const Notifications({
     Key? key,
   }) : super(key: key);
 

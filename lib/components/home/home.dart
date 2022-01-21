@@ -1,6 +1,6 @@
 import '/common/controllers/menu_controller.dart';
 import '/common/Utils/responsive.dart';
-import '/screens/dashboard/dashboard_screen.dart';
+import '/components/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/side_menu.dart';
@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
                   Expanded(
                     // It takes 5/6 part of the screen
                     flex: 5,
-                    child: DashboardScreen(),
+                    child: Dashboard(),
                   ),
                 ],
               ),

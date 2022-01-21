@@ -1,6 +1,7 @@
-import 'package:admin/common/routing/routes.dart';
-import 'package:admin/screens/home/home.dart';
+import '/common/routing/routes.dart';
 import 'package:get/get.dart';
+
+import 'home/home.dart';
 
 List<GetPage<dynamic>>? pageConfig = [
   GetPage(

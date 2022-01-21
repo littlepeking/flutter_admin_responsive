@@ -1,12 +1,12 @@
-import 'package:admin/common/controllers/main_navigation_controller.dart';
-import 'package:admin/common/routing/routes.dart';
+import '/common/controllers/main_navigation_controller.dart';
+import '/common/routing/routes.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/constants.dart';
+import '../../../../common/constants.dart';
 import 'components/header.dart';
 import 'package:get/get.dart';
 
-class DashboardScreen extends GetView {
+class Dashboard extends GetView {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

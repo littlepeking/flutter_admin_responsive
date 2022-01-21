@@ -28,7 +28,7 @@ class Header extends StatelessWidget {
         //   ),
         if (!Responsive.isMobile(context) && !Responsive.isTablet(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
-        Expanded(flex: 2, child: SearchField()),
+        // Expanded(flex: 2, child: SearchField()),
         ImageButton(
           text: 'Notification'.tr,
           icon: Icon(Icons.notifications),

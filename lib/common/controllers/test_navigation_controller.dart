@@ -1,7 +1,8 @@
-import 'package:admin/common/Utils/theme.dart';
-import 'package:admin/common/routing/routes.dart';
-import 'package:admin/screens/dashboard/components/test.dart';
-import 'package:admin/screens/dashboard/components/test2.dart';
+import '/components/home/components/dashboard/components/test.dart';
+import '/components/home/components/dashboard/components/test2.dart';
+
+import '../Utils/theme.dart';
+import '../routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

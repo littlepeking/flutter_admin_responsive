@@ -1,11 +1,11 @@
-import 'package:admin/common/controllers/test_navigation_controller.dart';
-import 'package:admin/common/routing/routes.dart';
-import 'package:admin/screens/dashboard/components/storage_details.dart';
 import 'package:flutter/material.dart';
-
-import '../../../common/constants.dart';
-import '../../../common/Utils/responsive.dart';
 import 'package:get/get.dart';
+import '/common/controllers/test_navigation_controller.dart';
+import '/common/routing/routes.dart';
+import '../../../../../common/constants.dart';
+import '../../../../../common/Utils/responsive.dart';
+
+import 'Notifications.dart';
 
 class MainPanelWidget extends GetView {
   const MainPanelWidget({
@@ -24,7 +24,7 @@ class MainPanelWidget extends GetView {
             children: [
               if (Responsive.isMobile(context))
                 SizedBox(height: defaultPadding),
-              if (Responsive.isMobile(context)) StarageDetails(),
+              if (Responsive.isMobile(context)) Notifications(),
               //Biz widget goes here
               Expanded(
                   child: Navigator(
@@ -40,7 +40,7 @@ class MainPanelWidget extends GetView {
         if (!Responsive.isMobile(context))
           Expanded(
             flex: 2,
-            child: StarageDetails(),
+            child: Notifications(),
           ),
       ],
     ));
