@@ -3,6 +3,7 @@ import 'package:admin/common/controllers/test_navigation_controller.dart';
 import 'package:admin/common/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -36,7 +37,7 @@ class SideMenu extends StatelessWidget {
             ),
           ),
           DrawerListTile(
-            title: "DashBoard",
+            title: 'Inbound'.tr,
             svgSrc: "assets/icons/menu_dashbord.svg",
             press: () {
               MainNavigationController.instance
@@ -44,7 +45,7 @@ class SideMenu extends StatelessWidget {
             },
           ),
           DrawerListTile(
-            title: "Inbound",
+            title: "Outbound".tr,
             svgSrc: "assets/icons/menu_tran.svg",
             press: () {
               MainNavigationController.instance
@@ -52,7 +53,7 @@ class SideMenu extends StatelessWidget {
             },
           ),
           DrawerListTile(
-            title: "Outbound",
+            title: "Inventory".tr,
             svgSrc: "assets/icons/menu_task.svg",
             press: () {
               TestNavigationController.instance
@@ -60,7 +61,7 @@ class SideMenu extends StatelessWidget {
             },
           ),
           DrawerListTile(
-            title: "Inventory",
+            title: "Configuration".tr,
             svgSrc: "assets/icons/menu_doc.svg",
             press: () {
               TestNavigationController.instance
@@ -68,17 +69,7 @@ class SideMenu extends StatelessWidget {
             },
           ),
           DrawerListTile(
-            title: "Notification",
-            svgSrc: "assets/icons/menu_notification.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Alert",
-            svgSrc: "assets/icons/menu_profile.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Settings",
+            title: "SystemManagement".tr,
             svgSrc: "assets/icons/menu_setting.svg",
             press: () {},
           ),

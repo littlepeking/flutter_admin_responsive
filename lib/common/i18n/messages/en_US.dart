@@ -3,5 +3,11 @@ Map<String, String> enUSMessages = {
   'quit': 'Quit',
   'changeLocale': 'Switch Language',
   'changeTheme': 'Switch Theme',
-  'Notification': 'Notifications'
+  'Notification': 'Notifications',
+  'Inbound': 'Inbound',
+  'Outbound': 'Oubound',
+  'Inventory': 'Inventory',
+  'Configuration': 'Configuration',
+  'SystemManagement': 'System Management',
+  'Report': 'Report'
 };
