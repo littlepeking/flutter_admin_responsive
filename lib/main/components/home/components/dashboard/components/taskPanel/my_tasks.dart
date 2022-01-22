@@ -1,7 +1,7 @@
-import 'package:eh_flutter_framework/common/constants.dart';
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
+import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/models/MyFiles.dart';
 
-import '/common/Utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'file_info_card.dart';

@@ -1,4 +1,4 @@
-import '/common/Utils/responsive.dart';
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 

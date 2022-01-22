@@ -1,8 +1,8 @@
 import 'package:eh_flutter_framework/main/common/constants.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/taskPanel/storage_info_card.dart';
 import 'package:flutter/material.dart';
 
 import 'chart.dart';
+import 'storage_info_card.dart';
 
 class Notifications extends StatelessWidget {
   const Notifications({

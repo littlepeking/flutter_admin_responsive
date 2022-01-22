@@ -1,13 +1,12 @@
-import 'package:eh_flutter_framework/common/utils/themeController.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/controllers/wms_panel_navigation_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
+import 'package:eh_flutter_framework/main/common/constants.dart';
+import 'package:eh_flutter_framework/main/common/widgets/ImageButton.dart';
 import 'package:eh_flutter_framework/main/controllers/menu_controller.dart';
 import 'package:get/get.dart';
-
-import '/common/Utils/responsive.dart';
-import '/common/widgets/ImageButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '/common/constants.dart';
+
+import '../../../../common/utils/ThemeController.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -16,7 +15,6 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ThemeController());
     return Row(
       children: [
         if (!Responsive.isDesktop(context))
@@ -56,10 +54,10 @@ class Header extends StatelessWidget {
             onPressed: () {
               Get.changeThemeMode(
                   Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
-              if (Get.isDarkMode ==
-                  WmsPanelNavigationController.instance.isDarkMode.value)
-                WmsPanelNavigationController.instance.isDarkMode.toggle();
-              print(WmsPanelNavigationController.instance.isDarkMode.value);
+              if (Get.isDarkMode == ThemeController.instance.isDarkMode.value) {
+                ThemeController.instance.isDarkMode.toggle();
+                //  print(ThemeController.instance.isDarkMode);
+              }
             }),
         SizedBox(width: 0),
         ImageButton(

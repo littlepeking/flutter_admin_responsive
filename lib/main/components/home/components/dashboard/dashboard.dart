@@ -1,4 +1,4 @@
-import 'package:eh_flutter_framework/common/constants.dart';
+import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/controllers/dashboard_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'header.dart';

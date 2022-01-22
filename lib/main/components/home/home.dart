@@ -1,5 +1,5 @@
+import 'package:eh_flutter_framework/main/common/Utils/responsive.dart';
 import 'package:eh_flutter_framework/main/controllers/menu_controller.dart';
-import '/common/Utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/dashboard/dashboard.dart';

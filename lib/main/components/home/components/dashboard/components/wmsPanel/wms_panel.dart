@@ -1,6 +1,6 @@
-import 'package:eh_flutter_framework/common/Utils/responsive.dart';
-import 'package:eh_flutter_framework/common/constants.dart';
-import 'package:eh_flutter_framework/common/utils/ThemeController.dart';
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
+import 'package:eh_flutter_framework/main/common/constants.dart';
+import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/controllers/wms_panel_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,10 +12,7 @@ class WmsPanelWidget extends GetView<WmsPanelNavigationController> {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Get.put(ThemeController(), permanent: true);
-    Get.put(WmsPanelNavigationController(), permanent: true); //状态持久保留
-
-    ThemeController themeController = Get.find();
+    Get.put(WmsPanelNavigationController(), permanent: true);
     return Container(
         child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,10 +45,11 @@ class WmsPanelWidget extends GetView<WmsPanelNavigationController> {
   }
 
   generateTabbedView() {
+    ThemeController themeController = Get.find();
     var theme = Obx(() {
       var tabbedView =
           TabbedView(controller: TabbedViewController(controller.tabDataList));
-      TabbedViewThemeData themeData = controller.isDarkMode.isTrue
+      TabbedViewThemeData themeData = themeController.isDarkMode.isTrue
           ? TabbedViewThemeData.dark()
           : TabbedViewThemeData.classic();
       themeData.tabsArea
