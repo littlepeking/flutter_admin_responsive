@@ -10,6 +10,10 @@ class WmsPanelNavigationController extends GetxController {
   static WmsPanelNavigationController instance =
       Get.find<WmsPanelNavigationController>();
 
+  var count = 0.obs;
+
+  var isDarkMode = true.obs;
+
   final List<TabData> tabDataList = <TabData>[
     TabData(
         text: 'welcomePage',
@@ -40,6 +44,11 @@ class WmsPanelNavigationController extends GetxController {
   }
 
   goBack() => navigatorKey.currentState!.pop();
+
+  @override
+  onClose() {
+    print("close wms panel controller...");
+  }
 }
 
 Route? generateRoute(RouteSettings settings) {

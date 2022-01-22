@@ -1,3 +1,5 @@
+import 'package:eh_flutter_framework/common/utils/themeController.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/controllers/wms_panel_navigation_controller.dart';
 import 'package:eh_flutter_framework/main/controllers/menu_controller.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +16,7 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ThemeController());
     return Row(
       children: [
         if (!Responsive.isDesktop(context))
@@ -53,6 +56,10 @@ class Header extends StatelessWidget {
             onPressed: () {
               Get.changeThemeMode(
                   Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+              if (Get.isDarkMode ==
+                  WmsPanelNavigationController.instance.isDarkMode.value)
+                WmsPanelNavigationController.instance.isDarkMode.toggle();
+              print(WmsPanelNavigationController.instance.isDarkMode.value);
             }),
         SizedBox(width: 0),
         ImageButton(
