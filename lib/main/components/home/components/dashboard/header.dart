@@ -54,10 +54,8 @@ class Header extends StatelessWidget {
             onPressed: () {
               Get.changeThemeMode(
                   Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
-              if (Get.isDarkMode == ThemeController.instance.isDarkMode.value) {
-                ThemeController.instance.isDarkMode.toggle();
-                //  print(ThemeController.instance.isDarkMode);
-              }
+              ThemeController.instance.isDarkMode.value = !Get.isDarkMode;
+              //  print(ThemeController.instance.isDarkMode);
             }),
         SizedBox(width: 0),
         ImageButton(
