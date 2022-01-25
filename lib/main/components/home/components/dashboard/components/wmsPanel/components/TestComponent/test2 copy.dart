@@ -10,8 +10,6 @@ class Test2 extends GetWidget<TestController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.create(() => TestController());
-
     return Column(children: [
       ElevatedButton(
           onPressed: () {

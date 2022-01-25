@@ -9,5 +9,6 @@ Map<String, String> zhCNMessages = {
   'Inventory': '库存',
   'Configuration': '配置',
   'SystemManagement': '系统管理',
-  'Report': '报表'
+  'Report': '报表',
+  'WelcomePage': '欢迎页'
 };

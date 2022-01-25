@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/utils/NavigationKeys.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/wms_panel.dart';
@@ -19,14 +20,24 @@ class DashBoardNavigationController extends GetxController {
 //   goBack() => navigatorKey!.currentState!.pop();
 // }
 
-  final GlobalKey<NavigatorState> navigatorKey =
-      new GlobalKey<NavigatorState>(debugLabel: 'dashboard');
+  final GlobalKey<NavigatorState>? navigatorKey =
+      Get.nestedKey(NavigationKeys.dashBoardNavKey);
   //final GlobalKey<NavigatorState>? navigatorKey = Get.nestedKey(1);
 
   Future<dynamic>? navigateTo(String routeName) {
-    navigatorKey.currentState!.popAndPushNamed(routeName);
-    if (Responsive.isMobile(Get.context!) || Responsive.isTablet(Get.context!))
+    Get.offAndToNamed(routeName, id: NavigationKeys.dashBoardNavKey);
+
+    /*
+        Navigator.push(
+        context,
+        MaterialPageRoute(
+        opaque: false, builder: (BuildContext context) => NextScreen()));
+    */
+
+    if (Responsive.isMobile(Get.context!) ||
+        Responsive.isTablet(Get.context!)) {
       Get.back();
+    }
     //return Get.toNamed(routeName, id: 1);
     //Get.toNamed(routeName,        id: navigatorKey.hashCode); //do not use GET since it can only accept id instead of globalkey
   }
@@ -45,8 +56,8 @@ Route? generateRoute(RouteSettings settings) {
 
 PageRoute _getPageRoute(settings, Widget child) {
   return GetPageRoute(
-    settings: settings,
-    page: () => child,
-    transition: EhTheme.defaultTransition,
-  );
+      settings: settings,
+      page: () => child,
+      transition: EhTheme.defaultTransition,
+      opaque: false);
 }

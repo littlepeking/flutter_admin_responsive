@@ -51,8 +51,10 @@ class SideMenu extends GetView<WmsPanelNavigationController> {
             svgSrc: "assets/icons/menu_tran.svg",
             press: () {
               controller.addTab(
-                  TabData(text: "OutBound", content: Test2(), keepAlive: true),
-                  () {
+                  TabData(
+                      text: "Outbound".tr,
+                      content: Test2(),
+                      keepAlive: true), () {
                 Get.create<TestController>(() => TestController());
               });
             },

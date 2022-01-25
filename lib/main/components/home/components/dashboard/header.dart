@@ -1,6 +1,7 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/ImageButton.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/controllers/wms_panel_navigation_controller.dart';
 import 'package:eh_flutter_framework/main/controllers/menu_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,8 @@ class Header extends StatelessWidget {
               Get.changeThemeMode(
                   Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
               ThemeController.instance.isDarkMode.value = !Get.isDarkMode;
+              WmsPanelNavigationController.instance.isDarkMode.value =
+                  !Get.isDarkMode;
               //  print(ThemeController.instance.isDarkMode);
             }),
         SizedBox(width: 0),

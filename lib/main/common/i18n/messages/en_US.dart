@@ -9,5 +9,6 @@ Map<String, String> enUSMessages = {
   'Inventory': 'Inventory',
   'Configuration': 'Configuration',
   'SystemManagement': 'System Management',
-  'Report': 'Report'
+  'Report': 'Report',
+  'WelcomePage': 'Welcome Page'
 };
