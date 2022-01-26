@@ -14,37 +14,35 @@ class EHTabsView extends StatelessWidget {
       children: [
         EHTabHeader(controller: controller),
         Flexible(
-            child: Container(
-              child: Obx(() => IndexedStack(
-                    index: controller.selectedIndex.value,
-                    children: controller.tabsData.map((data) {
-                      print(controller.toString());
-                      return SizedBox(
-                        height: 100,
-                        child: Container(
-                          height: 100,
-                          // width: 300,
-                          alignment: Alignment.center,
-                          color: Colors.blue,
-                          child: Text(data.tabName),
-                        ),
-                      );
-                    }).toList(),
-                    //[
-                    // SingleChildScrollView(
-                    //   child: SizedBox(
-                    //     height: 1000,
-                    //     // width: 500,
-                    //     child: Container(
-                    //       color: Colors.red,
-                    //       child: Test2(),
-                    //     ),
-                    //   ),
-                    // ),
-                    //]
-                  )),
-            ),
-            flex: 5)
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.red, border: Border.all(color: Colors.grey)),
+            child: Obx(() => IndexedStack(
+                  index: controller.selectedIndex.value,
+                  children: controller.tabsData.map((data) {
+                    return Container(
+                      //height: 100,
+                      // width: 300,
+                      alignment: Alignment.center,
+                      color: Colors.blue,
+                      child: data.widget,
+                    );
+                  }).toList(),
+                  //[
+                  // SingleChildScrollView(
+                  //   child: SizedBox(
+                  //     height: 1000,
+                  //     // width: 500,
+                  //     child: Container(
+                  //       color: Colors.red,
+                  //       child: Test2(),
+                  //     ),
+                  //   ),
+                  // ),
+                  //]
+                )),
+          ),
+        )
       ],
     );
   }

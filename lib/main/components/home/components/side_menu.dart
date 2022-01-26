@@ -51,15 +51,7 @@ class SideMenu extends GetView<WmsPanelNavigationController> {
           DrawerListTile(
             title: "Outbound".tr,
             svgSrc: "assets/icons/menu_tran.svg",
-            press: () {
-              controller.addTab(
-                  TabData(
-                      text: "Outbound".tr,
-                      content: Test2(),
-                      keepAlive: true), () {
-                Get.create<TestController>(() => TestController());
-              });
-            },
+            press: () {},
           ),
           DrawerListTile(
             title: "Inventory".tr,
@@ -67,7 +59,8 @@ class SideMenu extends GetView<WmsPanelNavigationController> {
             press: () {
               EHTabsViewController controller =
                   Get.find<EHTabsViewController>(tag: wmsMainPanelTabsViewTag);
-              controller.addTab("aaa", Text('11'));
+
+              controller.addTab("aaa", Test2(tabName: '1'));
             },
           ),
           DrawerListTile(

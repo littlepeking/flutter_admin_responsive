@@ -12,7 +12,6 @@ class EHTabHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,
       child: Row(
         children: [
           IconButton(
@@ -26,25 +25,43 @@ class EHTabHeader extends StatelessWidget {
               icon: Icon(Icons.arrow_left)),
           Flexible(
               child: SizedBox(
-                  height: 50,
+                  height: 40,
                   child: Obx(
                     () => ScrollablePositionedList.builder(
                       initialScrollIndex: 0,
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.tabsData.length,
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(top: 10),
                       itemBuilder: (context, index) {
-                        return Container(
-                            width: 150,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blueAccent)),
-                            alignment: Alignment.center,
-                            child: InkWell(
-                                child: Text(
-                                  controller.tabsData[index].tabName.tr,
-                                  textAlign: TextAlign.center,
-                                ),
-                                onTap: () => controller.removeTab(index)));
+                        return Row(
+                          children: [
+                            Container(
+                                width: 150,
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                  top: BorderSide(
+                                      width: 1.0, color: Colors.grey.shade600),
+                                  left: BorderSide(
+                                      width: 1.0, color: Colors.grey.shade900),
+                                  right: BorderSide(
+                                      width: 1.0, color: Colors.grey.shade900),
+                                  bottom: BorderSide.none,
+                                )),
+                                alignment: Alignment.center,
+                                child: InkWell(
+                                    child: Text(
+                                      controller.tabsData[index].tabName.tr,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    onTap: () => controller.removeTab(index))),
+                            Container(
+                              width: 10,
+                              // decoration: BoxDecoration(
+                              //     border: Border(
+                              //         bottom: BorderSide(color: Colors.grey))),
+                            )
+                          ],
+                        );
                       },
                       itemScrollController: controller.itemScrollController,
                       itemPositionsListener: controller.itemPositionsListener,

@@ -3,14 +3,16 @@ import 'package:get/get.dart';
 
 import 'TestController.dart';
 
-class Test2 extends GetWidget<TestController> {
+class Test2 extends StatelessWidget {
   final String? tabName;
 
   const Test2({Key? key, this.tabName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    //Get.put(TestController());
     Get.create(() => TestController());
+    TestController controller = Get.find();
 
     return Column(children: [
       Text(tabName ?? 'NO NAME'),

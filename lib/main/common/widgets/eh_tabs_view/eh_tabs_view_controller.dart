@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/scrollable_positioned_list/lib/item_positions_listener.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/tab_data.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ class EHTabsViewController extends GetxController {
   //选中的TAB索引
   var selectedIndex = 0.obs;
 
-  var _innerScrollingIndex = 0.obs;
+  //var _innerScrollingIndex = 0.obs;
 
   List<TabData> tabsData = <TabData>[].obs;
 
@@ -55,11 +56,21 @@ class EHTabsViewController extends GetxController {
     }
 
     tabsData.removeAt(index);
+
+    if (Responsive.isMobile(Get.context!) ||
+        Responsive.isTablet(Get.context!)) {
+      Get.back();
+    }
   }
 
   addTab(String tabName, Widget widget) {
     tabsData.add(TabData(tabName, widget));
     // _innerScrollingIndex.value = tabsData.length - 1;
     itemScrollController.jumpTo(index: (tabsData.length - 1));
+
+    if (Responsive.isMobile(Get.context!) ||
+        Responsive.isTablet(Get.context!)) {
+      Get.back();
+    }
   }
 }

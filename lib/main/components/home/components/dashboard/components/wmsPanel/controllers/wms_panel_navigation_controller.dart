@@ -1,10 +1,8 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/Utils/theme.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/TestComponent/test.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tabbed_view/tabbed_view.dart';
 
 class WmsPanelNavigationController extends GetxController {
   static WmsPanelNavigationController instance =
@@ -15,27 +13,6 @@ class WmsPanelNavigationController extends GetxController {
   var isDarkMode = true.obs;
 
   var pageIndex = 0.obs;
-
-  final List<TabData> tabDataList = <TabData>[
-    TabData(
-        text: 'WelcomePage'.tr,
-        content: Padding(
-            child: EHText(
-              text: 'Welcome to use enhantec products!'.tr,
-            ),
-            padding: EdgeInsets.all(8)),
-        keepAlive: true,
-        closable: false),
-  ].obs;
-
-  addTab(TabData tabData, Function initTabFunc) {
-    initTabFunc();
-    tabDataList.add(tabData);
-    if (Responsive.isMobile(Get.context!) ||
-        Responsive.isTablet(Get.context!)) {
-      Get.back();
-    }
-  }
 
   final GlobalKey<NavigatorState> navigatorKey =
       new GlobalKey<NavigatorState>(debugLabel: 'test');

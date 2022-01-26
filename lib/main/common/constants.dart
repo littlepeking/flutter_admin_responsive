@@ -7,6 +7,6 @@ const bgColor = Color(0xFF212332);
 const creamColor = Color(0xFFFFFFFF);
 const snowColor = Color(0xFFFFFAFA);
 
-const defaultPadding = 16.0;
+const defaultPadding = 8.0;
 
 const String wmsMainPanelTabsViewTag = 'wmsMainPanelTabsViewTag';
