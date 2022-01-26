@@ -33,35 +33,68 @@ class EHTabHeader extends StatelessWidget {
                       itemCount: controller.tabsData.length,
                       padding: EdgeInsets.only(top: 10),
                       itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            Container(
-                                width: 150,
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                  top: BorderSide(
-                                      width: 1.0, color: Colors.grey.shade600),
-                                  left: BorderSide(
-                                      width: 1.0, color: Colors.grey.shade900),
-                                  right: BorderSide(
-                                      width: 1.0, color: Colors.grey.shade900),
-                                  bottom: BorderSide.none,
-                                )),
-                                alignment: Alignment.center,
-                                child: InkWell(
-                                    child: Text(
-                                      controller.tabsData[index].tabName.tr,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    onTap: () => controller.removeTab(index))),
-                            Container(
-                              width: 10,
-                              // decoration: BoxDecoration(
-                              //     border: Border(
-                              //         bottom: BorderSide(color: Colors.grey))),
-                            )
-                          ],
-                        );
+                        print("index:" + index.toString());
+                        return Obx(() {
+                          if (index >= controller.tabsData.length)
+                            return SizedBox(); //增加此判断是因为删除TAB页时会越界，怀疑是ScrollablePositionedList的bug
+                          else
+                            return Row(
+                              children: [
+                                Container(
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                      top: BorderSide(
+                                          width: 1.0 *
+                                              (controller.selectedIndex.value ==
+                                                      index
+                                                  ? 3
+                                                  : 1),
+                                          color: Colors.grey.shade600),
+                                      left: BorderSide(
+                                          width: 1.0,
+                                          color: Colors.grey.shade600),
+                                      right: BorderSide(
+                                          width: 1.0,
+                                          color: Colors.grey.shade600),
+                                      bottom: BorderSide.none,
+                                    )),
+                                    alignment: Alignment.center,
+                                    child: MouseRegion(
+                                      cursor: SystemMouseCursors.click,
+                                      child: GestureDetector(
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                '   ' +
+                                                    controller.tabsData[index]
+                                                        .tabName.tr +
+                                                    '   ',
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              InkWell(
+                                                  child: Icon(
+                                                    Icons.close,
+                                                    size: 15,
+                                                  ),
+                                                  onTap: () => controller
+                                                      .removeTab(index)),
+                                              SizedBox(width: 5)
+                                            ],
+                                          ),
+                                          onTap: () {
+                                            controller.selectedIndex.value =
+                                                index;
+                                          }),
+                                    )),
+                                Container(
+                                  width: 3,
+                                  // decoration: BoxDecoration(
+                                  //     border: Border(
+                                  //         bottom: BorderSide(color: Colors.grey))),
+                                )
+                              ],
+                            );
+                        });
                       },
                       itemScrollController: controller.itemScrollController,
                       itemPositionsListener: controller.itemPositionsListener,

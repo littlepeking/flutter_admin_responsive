@@ -51,7 +51,7 @@ class EHTabsViewController extends GetxController {
   }
 
   removeTab(int index) {
-    if (index == selectedIndex.value) {
+    if (index <= selectedIndex.value) {
       if (selectedIndex.value != 0) selectedIndex--;
     }
 
@@ -67,6 +67,8 @@ class EHTabsViewController extends GetxController {
     tabsData.add(TabData(tabName, widget));
     // _innerScrollingIndex.value = tabsData.length - 1;
     itemScrollController.jumpTo(index: (tabsData.length - 1));
+
+    selectedIndex.value = tabsData.length - 1;
 
     if (Responsive.isMobile(Get.context!) ||
         Responsive.isTablet(Get.context!)) {

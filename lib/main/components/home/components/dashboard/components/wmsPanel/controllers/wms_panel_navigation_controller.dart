@@ -8,11 +8,11 @@ class WmsPanelNavigationController extends GetxController {
   static WmsPanelNavigationController instance =
       Get.find<WmsPanelNavigationController>();
 
-  var count = 0.obs;
+  //var count = 0.obs;
 
-  var isDarkMode = true.obs;
+  //var isDarkMode = true.obs;
 
-  var pageIndex = 0.obs;
+  //var pageIndex = 0.obs;
 
   final GlobalKey<NavigatorState> navigatorKey =
       new GlobalKey<NavigatorState>(debugLabel: 'test');

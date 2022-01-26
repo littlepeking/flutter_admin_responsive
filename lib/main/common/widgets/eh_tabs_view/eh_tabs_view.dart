@@ -20,6 +20,7 @@ class EHTabsView extends StatelessWidget {
             child: Obx(() => IndexedStack(
                   index: controller.selectedIndex.value,
                   children: controller.tabsData.map((data) {
+                    print(data);
                     return Container(
                       //height: 100,
                       // width: 300,

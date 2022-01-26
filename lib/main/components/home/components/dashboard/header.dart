@@ -56,8 +56,8 @@ class Header extends StatelessWidget {
               Get.changeThemeMode(
                   Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
               ThemeController.instance.isDarkMode.value = !Get.isDarkMode;
-              WmsPanelNavigationController.instance.isDarkMode.value =
-                  !Get.isDarkMode;
+              // WmsPanelNavigationController.instance.isDarkMode.value =
+              //     !Get.isDarkMode;
               //  print(ThemeController.instance.isDarkMode);
             }),
         SizedBox(width: 0),
