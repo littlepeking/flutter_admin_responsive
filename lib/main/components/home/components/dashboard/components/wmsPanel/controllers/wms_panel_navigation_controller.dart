@@ -1,7 +1,6 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/Utils/theme.dart';
-import 'package:eh_flutter_framework/main/common/widgets/scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:eh_flutter_framework/main/common/widgets/custom_text.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/TestComponent/test.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,13 +16,11 @@ class WmsPanelNavigationController extends GetxController {
 
   var pageIndex = 0.obs;
 
-  ItemScrollController wmsItemScrollController = ItemScrollController();
-
   final List<TabData> tabDataList = <TabData>[
     TabData(
         text: 'WelcomePage'.tr,
         content: Padding(
-            child: CustomText(
+            child: EHText(
               text: 'Welcome to use enhantec products!'.tr,
             ),
             padding: EdgeInsets.all(8)),

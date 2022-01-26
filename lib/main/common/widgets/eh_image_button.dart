@@ -2,12 +2,12 @@ import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 
-class ImageButton extends StatelessWidget {
+class EHImageButton extends StatelessWidget {
   final Icon icon;
   final String text;
   final VoidCallback onPressed;
 
-  const ImageButton(
+  const EHImageButton(
       {Key? key,
       required this.icon,
       required this.text,

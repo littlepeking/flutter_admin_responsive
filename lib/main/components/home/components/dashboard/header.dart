@@ -1,6 +1,6 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/constants.dart';
-import 'package:eh_flutter_framework/main/common/widgets/ImageButton.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_image_button.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/controllers/wms_panel_navigation_controller.dart';
 import 'package:eh_flutter_framework/main/controllers/menu_controller.dart';
 import 'package:get/get.dart';
@@ -31,7 +31,7 @@ class Header extends StatelessWidget {
         if (!Responsive.isMobile(context) && !Responsive.isTablet(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
         // Expanded(flex: 2, child: SearchField()),
-        ImageButton(
+        EHImageButton(
           text: 'Notification'.tr,
           icon: Icon(Icons.notifications),
           onPressed: () {
@@ -40,7 +40,7 @@ class Header extends StatelessWidget {
           },
         ),
         SizedBox(width: 0),
-        ImageButton(
+        EHImageButton(
           text: 'Personalization'.tr,
           icon: Icon(Icons.account_circle),
           onPressed: () {
@@ -49,7 +49,7 @@ class Header extends StatelessWidget {
           },
         ),
         SizedBox(width: 0),
-        ImageButton(
+        EHImageButton(
             text: 'changeTheme'.tr,
             icon: Icon(Icons.ac_unit_sharp),
             onPressed: () {
@@ -61,7 +61,7 @@ class Header extends StatelessWidget {
               //  print(ThemeController.instance.isDarkMode);
             }),
         SizedBox(width: 0),
-        ImageButton(
+        EHImageButton(
             text: 'changeLocale'.tr,
             icon: Icon(Icons.language),
             onPressed: () {
@@ -74,7 +74,8 @@ class Header extends StatelessWidget {
               }
             }),
         SizedBox(width: 0),
-        ImageButton(text: 'quit'.tr, icon: Icon(Icons.logout), onPressed: () {})
+        EHImageButton(
+            text: 'quit'.tr, icon: Icon(Icons.logout), onPressed: () {})
       ],
     );
   }

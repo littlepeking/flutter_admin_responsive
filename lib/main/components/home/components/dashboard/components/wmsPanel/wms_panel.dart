@@ -1,11 +1,13 @@
 import 'dart:math';
 
+import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/TabHeader.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/tab_data.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/controllers/wms_panel_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tabbed_view/tabbed_view.dart';
 
 import 'components/TestComponent/TestController.dart';
 import 'components/TestComponent/test.dart';
@@ -23,52 +25,39 @@ class WmsPanelWidget extends GetView<WmsPanelNavigationController> {
 
     const double tabWidth = 100;
 
-    Map<String, Widget> OpenedTabs = {'Orders': Test(), 'Asn': Test2()};
+    EHTabsViewController wmsPanelTabsController =
+        Get.put(EHTabsViewController(), tag: wmsMainPanelTabsViewTag);
+    wmsPanelTabsController.tabsData = [
+      TabData('Welcome1', Text('Welcome')),
+      TabData('Orders2', Test()),
+      TabData('Welcome3', Text('Welcome')),
+      TabData('Orders4', Test()),
+      TabData('Welcome5', Text('Welcome')),
+      TabData('Orders6', Test()),
+      TabData('Welcome7', Text('Welcome')),
+      TabData('Orders8', Test()),
+      TabData('Welcome9', Text('Welcome')),
+      TabData('Orders10', Test()),
+      TabData('Welcome1', Text('Welcome')),
+      TabData('Orders12', Test()),
+      TabData('Asn', Test2(tabName: 'Asn'))
+    ].obs;
 
     return Column(
       children: [
-        Container(height: 50, child: TabHeader()),
-        SizedBox(
-            child: ElevatedButton(
-                child: Text('switch page'),
-                onPressed: () {
-                  if (WmsPanelNavigationController.instance.pageIndex.value ==
-                      0) {
-                    WmsPanelNavigationController.instance.pageIndex.value = 1;
-                  } else {
-                    WmsPanelNavigationController.instance.pageIndex.value = 0;
-                  }
-                })),
-        Flexible(
-            child: Container(
-              child: Obx(() => IndexedStack(
-                    index:
-                        WmsPanelNavigationController.instance.pageIndex.value,
-                    children: [
-                      SingleChildScrollView(
-                        child: SizedBox(
-                          height: 1000,
-                          width: 500,
-                          child: Container(
-                            color: Colors.red,
-                            child: Test2(),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 1500,
-                        child: Container(
-                          height: 100,
-                          width: 300,
-                          alignment: Alignment.center,
-                          color: Colors.blue,
-                          child: Test2(),
-                        ),
-                      ),
-                    ],
-                  )),
-            ),
-            flex: 5)
+        Container(
+            height: 500, child: EHTabsView(controller: wmsPanelTabsController)),
+        // SizedBox(
+        //     child: ElevatedButton(
+        //         child: Text('switch page'),
+        //         onPressed: () {
+        //           if (WmsPanelNavigationController.instance.pageIndex.value ==
+        //               0) {
+        //             WmsPanelNavigationController.instance.pageIndex.value = 1;
+        //           } else {
+        //             WmsPanelNavigationController.instance.pageIndex.value = 0;
+        //           }
+        //         })),
       ],
     );
 
@@ -99,22 +88,5 @@ class WmsPanelWidget extends GetView<WmsPanelNavigationController> {
     //     //   ),
     //   ],
     // ));
-  }
-
-  generateTabbedView() {
-    ThemeController themeController = Get.find();
-    var theme = Obx(() {
-      var tabbedView =
-          TabbedView(controller: TabbedViewController(controller.tabDataList));
-      TabbedViewThemeData themeData = themeController.isDarkMode.isTrue
-          ? TabbedViewThemeData.dark()
-          : TabbedViewThemeData.classic();
-      themeData.tabsArea
-        ..initialGap = 20
-        ..middleGap = 5
-        ..minimalFinalGap = 5;
-      return TabbedViewTheme(child: tabbedView, data: themeData);
-    });
-    return theme;
   }
 }

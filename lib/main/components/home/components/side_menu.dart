@@ -1,3 +1,5 @@
+import 'package:eh_flutter_framework/main/common/constants.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/controllers/dashboard_navigation_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/controllers/wms_panel_navigation_controller.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +65,9 @@ class SideMenu extends GetView<WmsPanelNavigationController> {
             title: "Inventory".tr,
             svgSrc: "assets/icons/menu_task.svg",
             press: () {
-              WmsPanelNavigationController.instance.navigateTo('/myTest');
+              EHTabsViewController controller =
+                  Get.find<EHTabsViewController>(tag: wmsMainPanelTabsViewTag);
+              controller.addTab("aaa", Text('11'));
             },
           ),
           DrawerListTile(

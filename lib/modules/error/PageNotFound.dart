@@ -1,4 +1,4 @@
-import 'package:eh_flutter_framework/main/common/widgets/custom_text.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
 import 'package:flutter/material.dart';
 
 class PageNotFound extends StatelessWidget {
@@ -18,7 +18,7 @@ class PageNotFound extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomText(
+              EHText(
                 text: "Page not found",
                 size: 24,
                 weight: FontWeight.bold,

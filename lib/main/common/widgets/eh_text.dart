@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CustomText extends StatelessWidget {
+class EHText extends StatelessWidget {
   final String text;
   final double? size;
   final Color? color;
   final FontWeight? weight;
 
-  const CustomText(
+  const EHText(
       {Key? key, required this.text, this.size, this.color, this.weight})
       : super(key: key);
 
