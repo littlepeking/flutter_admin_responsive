@@ -2,6 +2,7 @@ import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/tab_data.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/controllers/wms_panel_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,14 @@ class WmsPanelWidget extends GetView<WmsPanelNavigationController> {
         Get.put(EHTabsViewController(), tag: wmsMainPanelTabsViewTag);
 
     wmsPanelTabsController.tabsData = [
-      TabData('Welcome', SizedBox()),
+      TabData(
+          'Welcome',
+          Container(
+            padding: EdgeInsets.all(50),
+            child: EHText(
+                weight: FontWeight.bold,
+                text: 'Welcome use Enhantec Logistics Products!'.tr),
+          )),
     ].obs;
 
     return EHTabsView(controller: wmsPanelTabsController);

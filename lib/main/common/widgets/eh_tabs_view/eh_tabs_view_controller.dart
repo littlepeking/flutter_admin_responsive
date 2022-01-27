@@ -27,35 +27,33 @@ class EHTabsViewController extends GetxController {
   var minFullViewPortItemIndex = 0.obs;
 
   next() {
-    // if (_innerScrollingIndex.value < tabsData.length - 1 &&
-    //     maxFullViewPortItemIndex.value < tabsData.length - 1) {
-    //   _innerScrollingIndex++;
-    //   itemScrollController.jumpTo(index: _innerScrollingIndex.value);
-    // }
-
     if (maxFullViewPortItemIndex.value < tabsData.length - 1) {
       itemScrollController.jumpTo(index: (minViewPortItemIndex.value + 1));
     }
   }
 
   previous() {
-    // if (minFullViewPortItemIndex.value == 0) {
-    //   _innerScrollingIndex.value = 0;
-    // } else if (_innerScrollingIndex.value > 0) {
-    //   _innerScrollingIndex--;
-    //   itemScrollController.jumpTo(index: _innerScrollingIndex.value);
-    //   }
     if (minFullViewPortItemIndex.value > 0) {
-      itemScrollController.jumpTo(index: (minFullViewPortItemIndex.value - 1));
+      int tempIndex = minFullViewPortItemIndex.value - 1;
+
+      while (tempIndex > 0 && !tabsData[tempIndex].isActive) tempIndex--;
+
+      itemScrollController.jumpTo(index: (tempIndex));
     }
   }
 
   removeTab(int index) {
-    if (index <= selectedIndex.value) {
-      if (selectedIndex.value != 0) selectedIndex--;
-    }
+    tabsData[index] = new TabData(
+        tabsData[index].tabName,
+        SizedBox(
+          width: 0,
+        ),
+        isActive: false);
 
-    tabsData.removeAt(index);
+    if (index == selectedIndex.value) {
+      while (selectedIndex.value != 0 &&
+          !tabsData[selectedIndex.value].isActive) selectedIndex--;
+    }
 
     if (Responsive.isMobile(Get.context!) ||
         Responsive.isTablet(Get.context!)) {
@@ -63,8 +61,8 @@ class EHTabsViewController extends GetxController {
     }
   }
 
-  addTab(String tabName, Widget widget) {
-    tabsData.add(TabData(tabName, widget));
+  addTab(String tabName, Widget widget, {bool closeable = false}) {
+    tabsData.add(TabData(tabName.tr, widget, closable: closeable));
     // _innerScrollingIndex.value = tabsData.length - 1;
     itemScrollController.jumpTo(index: (tabsData.length - 1));
 

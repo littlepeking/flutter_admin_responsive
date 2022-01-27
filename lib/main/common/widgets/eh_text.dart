@@ -15,9 +15,10 @@ class EHText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-          fontSize: size ?? 16,
-          color: color ?? Colors.black,
-          fontWeight: weight ?? FontWeight.normal),
+          fontSize: size ?? Theme.of(context).textTheme.bodyText1!.fontSize,
+          color: color ?? Theme.of(context).textTheme.bodyText1!.color,
+          fontWeight:
+              weight ?? Theme.of(context).textTheme.bodyText1!.fontWeight),
     );
   }
 }

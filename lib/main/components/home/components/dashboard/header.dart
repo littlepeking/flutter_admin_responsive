@@ -1,7 +1,6 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_image_button.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/controllers/wms_panel_navigation_controller.dart';
 import 'package:eh_flutter_framework/main/controllers/menu_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';

@@ -5,9 +5,6 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:tabbed_view/tabbed_view.dart';
-
-import 'dashboard/components/wmsPanel/components/TestComponent/TestController.dart';
 import 'dashboard/components/wmsPanel/components/TestComponent/test2.dart';
 
 class SideMenu extends GetView<WmsPanelNavigationController> {
@@ -60,7 +57,7 @@ class SideMenu extends GetView<WmsPanelNavigationController> {
               EHTabsViewController controller =
                   Get.find<EHTabsViewController>(tag: wmsMainPanelTabsViewTag);
 
-              controller.addTab("aaa", Test2(tabName: '1'));
+              controller.addTab("Orders", Test2(tabName: '1'), closeable: true);
             },
           ),
           DrawerListTile(

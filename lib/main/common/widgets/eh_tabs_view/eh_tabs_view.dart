@@ -15,17 +15,14 @@ class EHTabsView extends StatelessWidget {
         EHTabHeader(controller: controller),
         Flexible(
           child: Container(
-            decoration: BoxDecoration(
-                color: Colors.red, border: Border.all(color: Colors.grey)),
+            decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
             child: Obx(() => IndexedStack(
                   index: controller.selectedIndex.value,
                   children: controller.tabsData.map((data) {
                     print(data);
                     return Container(
-                      //height: 100,
-                      // width: 300,
-                      alignment: Alignment.center,
-                      color: Colors.blue,
+                      alignment: Alignment.topLeft,
+                      //color: Colors.grey,
                       child: data.widget,
                     );
                   }).toList(),

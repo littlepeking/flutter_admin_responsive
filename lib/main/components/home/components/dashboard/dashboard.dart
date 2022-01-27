@@ -11,7 +11,8 @@ class Dashboard extends GetView<DashBoardNavigationController> {
     Get.put(DashBoardNavigationController());
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.all(defaultPadding),
+        padding: EdgeInsets.only(
+            left: defaultPadding, right: defaultPadding, top: defaultPadding),
         child: Column(
           children: [
             Header(),

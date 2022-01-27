@@ -33,10 +33,14 @@ class EHTabHeader extends StatelessWidget {
                       itemCount: controller.tabsData.length,
                       padding: EdgeInsets.only(top: 10),
                       itemBuilder: (context, index) {
-                        print("index:" + index.toString());
                         return Obx(() {
-                          if (index >= controller.tabsData.length)
-                            return SizedBox(); //增加此判断是因为删除TAB页时会越界，怀疑是ScrollablePositionedList的bug
+                          // if (index >= controller.tabsData.length)
+                          //   return SizedBox(); //增加此判断是因为删除TAB页时会越界，怀疑是ScrollablePositionedList的bug
+                          if (!controller.tabsData[index].isActive)
+                            // return placeholder when tab is inactive.
+                            return Container(
+                              width: 0,
+                            );
                           else
                             return Row(
                               children: [
@@ -70,14 +74,23 @@ class EHTabHeader extends StatelessWidget {
                                                         .tabName.tr +
                                                     '   ',
                                                 textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontWeight: controller
+                                                                .selectedIndex
+                                                                .value ==
+                                                            index
+                                                        ? FontWeight.w600
+                                                        : FontWeight.normal),
                                               ),
-                                              InkWell(
-                                                  child: Icon(
-                                                    Icons.close,
-                                                    size: 15,
-                                                  ),
-                                                  onTap: () => controller
-                                                      .removeTab(index)),
+                                              if (controller
+                                                  .tabsData[index].closable)
+                                                InkWell(
+                                                    child: Icon(
+                                                      Icons.close,
+                                                      size: 15,
+                                                    ),
+                                                    onTap: () => controller
+                                                        .removeTab(index)),
                                               SizedBox(width: 5)
                                             ],
                                           ),
