@@ -12,7 +12,7 @@ class EHTabsViewController extends GetxController {
 
   //var _innerScrollingIndex = 0.obs;
 
-  List<TabData> tabsData = <TabData>[].obs;
+  RxList<TabData> tabsData = <TabData>[].obs;
 
   ItemScrollController itemScrollController = ItemScrollController();
 
@@ -43,12 +43,15 @@ class EHTabsViewController extends GetxController {
   }
 
   removeTab(int index) {
-    tabsData[index] = new TabData(
-        tabsData[index].tabName,
-        SizedBox(
-          width: 0,
-        ),
-        isActive: false);
+    // tabsData[index] = new TabData(
+    //     tabsData[index].tabName,
+    //     SizedBox(
+    //       width: 0,
+    //     ),
+    //     isActive: false);
+
+    tabsData[index].isActive = false;
+    tabsData.refresh();
 
     if (index == selectedIndex.value) {
       while (selectedIndex.value != 0 &&

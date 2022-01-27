@@ -11,6 +11,6 @@ Map<String, String> zhCNMessages = {
   'SystemManagement': '系统管理',
   'Report': '报表',
   'Welcome': '欢迎页',
-  'Welcome use Enhantec Logistics Products!': '欢迎使用殷汉供应链产品 !',
+  'Welcome use Enhantec Logistics System Suite!': '欢迎使用殷汉供应链系统套件！',
   'Orders': '订单管理'
 };

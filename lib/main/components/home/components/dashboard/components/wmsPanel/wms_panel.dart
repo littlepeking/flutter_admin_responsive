@@ -25,7 +25,7 @@ class WmsPanelWidget extends GetView<WmsPanelNavigationController> {
             padding: EdgeInsets.all(50),
             child: EHText(
                 weight: FontWeight.bold,
-                text: 'Welcome use Enhantec Logistics Products!'.tr),
+                text: 'Welcome use Enhantec Logistics System Suite!'.tr),
           )),
     ].obs;
 
