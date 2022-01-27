@@ -471,12 +471,18 @@ class _ScrollablePositionedListState extends State<ScrollablePositionedList>
       // Scroll directly.
       final localScrollAmount = itemPosition.itemLeadingEdge *
           primary.scrollController.position.viewportDimension;
-      await primary.scrollController.animateTo(
-          primary.scrollController.offset +
-              localScrollAmount -
-              alignment * primary.scrollController.position.viewportDimension,
-          duration: duration,
-          curve: curve);
+      // await primary.scrollController.animateTo(
+      //     primary.scrollController.offset +
+      //         localScrollAmount -
+      //         alignment * primary.scrollController.position.viewportDimension,
+      //     duration: duration,
+      //     curve: curve);
+
+      //john --REDUCE ANIMATION TIMES
+      if (itemPosition.itemTrailingEdge > 0.95)
+        primary.scrollController.jumpTo(primary.scrollController.offset +
+            localScrollAmount -
+            alignment * primary.scrollController.position.viewportDimension);
     } else {
       final scrollAmount = _screenScrollCount *
           primary.scrollController.position.viewportDimension;

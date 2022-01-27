@@ -57,6 +57,8 @@ class EHTabsViewController extends GetxController {
       while (selectedIndex.value != 0 &&
           !tabsData[selectedIndex.value].isActive) selectedIndex--;
     }
+    //add animation after removed last item
+    itemScrollController.jumpTo(index: minFullViewPortItemIndex.value);
 
     if (Responsive.isMobile(Get.context!) ||
         Responsive.isTablet(Get.context!)) {
@@ -66,8 +68,12 @@ class EHTabsViewController extends GetxController {
 
   addTab(String tabName, Widget widget, {bool closeable = false}) {
     tabsData.add(TabData(tabName.tr, widget, closable: closeable));
-    // _innerScrollingIndex.value = tabsData.length - 1;
-    itemScrollController.jumpTo(index: (tabsData.length - 1));
+    // itemScrollController.jumpTo(index: (tabsData.length - 1));
+    itemScrollController.scrollTo(
+      index: (tabsData.length - 1),
+      duration: Duration(microseconds: 1),
+      curve: Curves.linear,
+    );
 
     selectedIndex.value = tabsData.length - 1;
 
