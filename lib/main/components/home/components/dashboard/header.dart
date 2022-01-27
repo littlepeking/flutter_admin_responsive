@@ -38,15 +38,15 @@ class Header extends StatelessWidget {
             //     .navigateTo("/myTasks");
           },
         ),
-        SizedBox(width: 0),
-        EHImageButton(
-          text: 'Personalization'.tr,
-          icon: Icon(Icons.account_circle),
-          onPressed: () {
-            // MainNavigationController.instance
-            //     .navigateTo("/myTasks");
-          },
-        ),
+        // SizedBox(width: 0),
+        // EHImageButton(
+        //   text: 'Personalization'.tr,
+        //   icon: Icon(Icons.account_circle),
+        //   onPressed: () {
+        //     // MainNavigationController.instance
+        //     //     .navigateTo("/myTasks");
+        //   },
+        // ),
         SizedBox(width: 0),
         EHImageButton(
             text: 'changeTheme'.tr,

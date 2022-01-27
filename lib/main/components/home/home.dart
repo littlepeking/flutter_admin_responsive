@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/Utils/responsive.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
 import 'package:eh_flutter_framework/main/controllers/menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,11 +35,8 @@ class Home extends GetView {
             ),
             SizedBox(
                 height: 20,
-                child: Text(
-                  " Copyright © 2022 Enhantec",
-                  style: TextStyle(
-                    color: Get.theme.backgroundColor,
-                  ),
+                child: EHText(
+                  text: " Copyright © 2022 Enhantec",
                 ))
           ]),
         ));
