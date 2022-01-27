@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/scrollable_positioned_list/lib/item_positions_listener.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/scrollable_positioned_list/lib/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
@@ -75,11 +76,27 @@ class EHTabHeader extends StatelessWidget {
                                                     '   ',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
+                                                    color: controller
+                                                                .selectedIndex
+                                                                .value ==
+                                                            index
+                                                        ? ThemeController
+                                                                .instance
+                                                                .isDarkMode
+                                                                .isTrue
+                                                            ? Colors.white
+                                                            : Colors.black
+                                                        : ThemeController
+                                                                .instance
+                                                                .isDarkMode
+                                                                .isTrue
+                                                            ? Colors.white70
+                                                            : Colors.black54,
                                                     fontWeight: controller
                                                                 .selectedIndex
                                                                 .value ==
                                                             index
-                                                        ? FontWeight.w600
+                                                        ? FontWeight.bold
                                                         : FontWeight.normal),
                                               ),
                                               if (controller
