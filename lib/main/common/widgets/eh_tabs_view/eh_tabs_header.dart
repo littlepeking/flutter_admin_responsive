@@ -92,12 +92,17 @@ class EHTabHeader extends StatelessWidget {
                                                                 .isTrue
                                                             ? Colors.white70
                                                             : Colors.black54,
-                                                    fontWeight: controller
-                                                                .selectedIndex
-                                                                .value ==
-                                                            index
-                                                        ? FontWeight.bold
-                                                        : FontWeight.normal),
+                                                    fontWeight:
+                                                        controller.selectedIndex
+                                                                        .value ==
+                                                                    index &&
+                                                                ThemeController
+                                                                    .instance
+                                                                    .isDarkMode
+                                                                    .isFalse
+                                                            ? FontWeight.bold
+                                                            : FontWeight
+                                                                .normal),
                                               ),
                                               if (controller
                                                   .tabsData[index].closable)
