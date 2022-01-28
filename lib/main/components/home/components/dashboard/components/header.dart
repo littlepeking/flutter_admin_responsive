@@ -41,6 +41,13 @@ class Header extends StatelessWidget {
           },
         ),
         EHImageButton(
+          text: 'TMS'.tr,
+          icon: Icon(Icons.transfer_within_a_station),
+          onPressed: () {
+            EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/tmsPanel");
+          },
+        ),
+        EHImageButton(
           text: 'Notification'.tr,
           icon: Icon(Icons.notifications),
           onPressed: () {

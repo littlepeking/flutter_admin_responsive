@@ -5,6 +5,8 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'components/tmsPanel/tms_panel.dart';
+
 class DashBoardNavigationController extends GetxController {
   static DashBoardNavigationController instance =
       Get.find<DashBoardNavigationController>();
@@ -16,6 +18,8 @@ class DashBoardNavigationController extends GetxController {
     switch (settings.name) {
       case "/wmsPanel":
         return EHNavigator.getPageRoute(settings, WmsPanelWidget());
+      case "/tmsPanel":
+        return EHNavigator.getPageRoute(settings, TmsPanelWidget());
       case "/myTasks":
         return EHNavigator.getPageRoute(settings, MyTasks());
       default:

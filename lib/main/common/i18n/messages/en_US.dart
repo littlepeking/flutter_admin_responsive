@@ -10,6 +10,6 @@ Map<String, String> enUSMessages = {
   'Configuration': 'Configuration',
   'SystemManagement': 'System Management',
   'Report': 'Report',
-  'WelcomePage': 'Welcome Page',
+  'Welcome Page': '@system Welcome Page',
   'Orders': 'Order Management'
 };

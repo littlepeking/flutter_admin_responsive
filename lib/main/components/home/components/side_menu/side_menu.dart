@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/tmsPanel/tms_panel_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/wms_panel_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +91,20 @@ class SideMenu extends StatelessWidget {
               content: Text("Transport Management".tr),
               children: [
                 TreeNode(
-                  content: Text("Shipment Orders".tr),
+                  content: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      child: Text("Shipment Orders".tr),
+                      onTap: () {
+                        TmsPanelController controller =
+                            Get.find<TmsPanelController>();
+
+                        controller.tabViewController.addTab(
+                            "Shipment Orders", Test2(tabName: '1'),
+                            closeable: true);
+                      },
+                    ),
+                  ),
                 ),
               ],
             )
