@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../common/utils/ThemeController.dart';
+import '../../../../../common/utils/ThemeController.dart';
 
 class Header extends StatelessWidget {
   const Header({
