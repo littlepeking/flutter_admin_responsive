@@ -22,12 +22,9 @@ class Home extends GetView {
                   if (Responsive.isDesktop(context))
                     SizedBox(
                       width: 250,
-                      // default flex = 1
-                      // and it takes 1/6 part of the screen
                       child: SideMenu(),
                     ),
                   Expanded(
-                    // It takes 5/6 part of the screen
                     child: Dashboard(),
                   ),
                 ],

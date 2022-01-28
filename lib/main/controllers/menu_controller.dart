@@ -8,7 +8,7 @@ class MenuController extends GetxController {
 
   GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
 
-  void controlMenu() {
+  void toggleDrawer() {
     if (!_scaffoldKey.currentState!.isDrawerOpen) {
       _scaffoldKey.currentState!.openDrawer();
     }

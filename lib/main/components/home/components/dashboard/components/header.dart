@@ -1,3 +1,5 @@
+import 'package:eh_flutter_framework/main/common/constants/NavigationKeys.dart';
+import 'package:eh_flutter_framework/main/common/utils/EHNavigator.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_image_button.dart';
@@ -20,7 +22,7 @@ class Header extends StatelessWidget {
         if (!Responsive.isDesktop(context))
           IconButton(
             icon: Icon(Icons.menu),
-            onPressed: MenuController.instance.controlMenu,
+            onPressed: MenuController.instance.toggleDrawer,
           ),
         // if (!Responsive.isMobile(context))
         //   Text(
@@ -30,12 +32,19 @@ class Header extends StatelessWidget {
         if (!Responsive.isMobile(context) && !Responsive.isTablet(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
         // Expanded(flex: 2, child: SearchField()),
+
+        EHImageButton(
+          text: 'WMS'.tr,
+          icon: Icon(Icons.cabin),
+          onPressed: () {
+            EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/wmsPanel");
+          },
+        ),
         EHImageButton(
           text: 'Notification'.tr,
           icon: Icon(Icons.notifications),
           onPressed: () {
-            // MainNavigationController.instance
-            //     .navigateTo("/myTasks");
+            EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/myTasks");
           },
         ),
         // SizedBox(width: 0),

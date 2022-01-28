@@ -3,13 +3,21 @@ import 'package:get/get.dart';
 
 import 'TestController.dart';
 
-class Test2 extends StatelessWidget {
+class Test2 extends StatefulWidget {
   final String? tabName;
-
   const Test2({Key? key, this.tabName}) : super(key: key);
 
   @override
+  _Test2State createState() => _Test2State();
+}
+
+class _Test2State extends State<Test2>
+    with AutomaticKeepAliveClientMixin<Test2> {
+  String? tabName;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     //Get.put(TestController());
     Get.create(() => TestController());
     TestController controller = Get.find();
@@ -32,4 +40,7 @@ class Test2 extends StatelessWidget {
                   }))))),
     ]);
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

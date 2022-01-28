@@ -1,5 +1,4 @@
 import 'package:eh_flutter_framework/main/common/constants.dart';
-import 'package:eh_flutter_framework/main/common/utils/NavigationKeys.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/dashboard_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'components/header.dart';
@@ -19,8 +18,8 @@ class Dashboard extends GetView<DashBoardNavigationController> {
             SizedBox(height: defaultPadding),
             Expanded(
               child: Navigator(
-                key: Get.nestedKey(NavigationKeys.dashBoardNavKey),
-                onGenerateRoute: generateRoute,
+                key: controller.navigatorKey,
+                onGenerateRoute: controller.generateRoute,
                 initialRoute: "/wmsPanel",
               ),
             ),

@@ -22,4 +22,9 @@ class _Test2State extends State<Test2> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 }

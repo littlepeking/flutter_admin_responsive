@@ -1,7 +1,4 @@
-import 'package:eh_flutter_framework/main/common/constants.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/dashboard_navigation_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/controllers/wms_panel_navigation_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/wms_panel_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
@@ -17,6 +14,9 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SideMenuController controller = Get.put(SideMenuController());
+    controller.treeController.collapseAll();
+    controller.treeController.expandNode(ValueKey('wms'));
+    controller.treeController.expandNode(ValueKey('tms'));
 
     return Drawer(
         child: ListView(children: [
@@ -47,6 +47,7 @@ class SideMenu extends StatelessWidget {
           treeController: controller.treeController,
           nodes: [
             TreeNode(
+              key: ValueKey("wms"),
               content: Text(
                 'Warehouse Management'.tr,
                 textAlign: TextAlign.center,
@@ -61,11 +62,11 @@ class SideMenu extends StatelessWidget {
                         child: GestureDetector(
                           child: Text("Asn".tr),
                           onTap: () {
-                            EHTabsViewController controller =
-                                Get.find<EHTabsViewController>(
-                                    tag: wmsMainPanelTabsViewTag);
+                            WmsPanelController controller =
+                                Get.find<WmsPanelController>();
 
-                            controller.addTab("Orders", Test2(tabName: '1'),
+                            controller.tabViewController.addTab(
+                                "Orders", Test2(tabName: '1'),
                                 closeable: true);
                           },
                         ),
@@ -85,6 +86,7 @@ class SideMenu extends StatelessWidget {
               ],
             ),
             TreeNode(
+              key: ValueKey("tms"),
               content: Text("Transport Management".tr),
               children: [
                 TreeNode(

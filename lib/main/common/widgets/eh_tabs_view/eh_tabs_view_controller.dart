@@ -4,15 +4,23 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/tab_data.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../eh_text.dart';
 import 'scrollable_positioned_list/lib/scrollable_positioned_list.dart';
 
 class EHTabsViewController extends GetxController {
   //选中的TAB索引
   var selectedIndex = 0.obs;
 
-  //var _innerScrollingIndex = 0.obs;
+  static TabData welcomeTabData = TabData(
+      'Welcome',
+      Container(
+        padding: EdgeInsets.all(50),
+        child: EHText(
+            weight: FontWeight.bold,
+            text: 'Welcome use Enhantec Logistics System Suite!'.tr),
+      ));
 
-  RxList<TabData> tabsData = <TabData>[].obs;
+  RxList<TabData> tabsData = <TabData>[welcomeTabData].obs;
 
   ItemScrollController itemScrollController = ItemScrollController();
 
@@ -81,5 +89,10 @@ class EHTabsViewController extends GetxController {
         Responsive.isTablet(Get.context!)) {
       Get.back();
     }
+  }
+
+  reset() {
+    tabsData = <TabData>[welcomeTabData].obs;
+    selectedIndex = 0.obs;
   }
 }
