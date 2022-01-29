@@ -1,11 +1,9 @@
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/tmsPanel/tms_panel_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/wms_panel_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
+import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import '../dashboard/components/wmsPanel/components/TestComponent/test2.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -15,9 +13,6 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SideMenuController controller = Get.put(SideMenuController());
-    controller.treeController.collapseAll();
-    controller.treeController.expandNode(ValueKey('wms'));
-    controller.treeController.expandNode(ValueKey('tms'));
 
     return Drawer(
         child: ListView(children: [
@@ -42,109 +37,12 @@ class SideMenu extends StatelessWidget {
           // child: Image.asset("assets/images/Home.png"),
         ),
       ),
-      TreeView(
+      Obx(() => TreeView(
           iconSize: 20,
           indent: 10,
           treeController: controller.treeController,
-          nodes: [
-            TreeNode(
-              key: ValueKey("wms"),
-              content: Text(
-                'Warehouse Management'.tr,
-                textAlign: TextAlign.center,
-              ),
-              children: [
-                TreeNode(
-                  content: Text("Inbound".tr),
-                  children: [
-                    TreeNode(
-                      content: MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          child: Text("Asn".tr),
-                          onTap: () {
-                            WmsPanelController controller =
-                                Get.find<WmsPanelController>();
-
-                            controller.tabViewController.addTab(
-                                "Orders", Test2(tabName: '1'),
-                                closeable: true);
-                          },
-                        ),
-                      ),
-                    ),
-                    TreeNode(content: Text("Asn Details".tr)),
-                  ],
-                ),
-                TreeNode(
-                  content: Text("Outbound".tr),
-                  children: [
-                    TreeNode(content: Text("Orders".tr)),
-                    TreeNode(content: Text("Order Details".tr)),
-                    TreeNode(content: Text("Pick Details".tr)),
-                  ],
-                ),
-              ],
-            ),
-            TreeNode(
-              key: ValueKey("tms"),
-              content: Text("Transport Management".tr),
-              children: [
-                TreeNode(
-                  content: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      child: Text("Shipment Orders".tr),
-                      onTap: () {
-                        TmsPanelController controller =
-                            Get.find<TmsPanelController>();
-
-                        controller.tabViewController.addTab(
-                            "Shipment Orders", Test2(tabName: '1'),
-                            closeable: true);
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            )
-          ]
-          // DrawerListTile(
-          //   title: 'Inbound'.tr,
-          //   svgSrc: "assets/icons/menu_dashbord.svg",
-          //   press: () {
-          //     DashBoardNavigationController.instance.navigateTo("/wmsPanel");
-          //   },
-          // ),
-          // DrawerListTile(
-          //   title: "Outbound".tr,
-          //   svgSrc: "assets/icons/menu_tran.svg",
-          //   press: () {},
-          // ),
-          // DrawerListTile(
-          //   title: "Inventory".tr,
-          //   svgSrc: "assets/icons/menu_task.svg",
-          //   press: () {
-          //     EHTabsViewController controller =
-          //         Get.find<EHTabsViewController>(tag: wmsMainPanelTabsViewTag);
-
-          //     controller.addTab("Orders", Test2(tabName: '1'), closeable: true);
-          //   },
-          // ),
-          // DrawerListTile(
-          //   title: "Configuration".tr,
-          //   svgSrc: "assets/icons/menu_doc.svg",
-          //   press: () {
-          //     DashBoardNavigationController.instance.navigateTo("/myTasks");
-          //   },
-          // ),
-          // DrawerListTile(
-          //   title: "SystemManagement".tr,
-          //   svgSrc: "assets/icons/menu_setting.svg",
-          //   press: () {},
-          // ),
-
-          ),
+          nodes: SideMenuController.getMenu(
+              GlobalDataController.instance.system.value))),
     ]));
   }
 }

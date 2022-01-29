@@ -4,6 +4,7 @@ import 'common/Utils/theme.dart';
 import 'common/i18n/messages.dart';
 import 'common/utils/ThemeController.dart';
 import 'components/home/components/error/PageNotFound.dart';
+import 'controllers/global_data_controller.dart';
 import 'routes/page_config.dart';
 
 void main() {
@@ -30,5 +31,6 @@ class InitAppBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(ThemeController(), permanent: true);
+    Get.put(GlobalDataController(), permanent: true);
   }
 }

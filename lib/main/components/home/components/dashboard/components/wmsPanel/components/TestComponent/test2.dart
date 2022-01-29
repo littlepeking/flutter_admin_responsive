@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'TestController.dart';
 
 class Test2 extends StatefulWidget {
-  final String? tabName;
-  const Test2({Key? key, this.tabName}) : super(key: key);
+  final String? param;
+  const Test2({Key? key, this.param}) : super(key: key);
 
   @override
   _Test2State createState() => _Test2State();
@@ -13,7 +13,7 @@ class Test2 extends StatefulWidget {
 
 class _Test2State extends State<Test2>
     with AutomaticKeepAliveClientMixin<Test2> {
-  String? tabName;
+  String? param;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _Test2State extends State<Test2>
     TestController controller = Get.find();
 
     return Column(children: [
-      Text(tabName ?? 'NO NAME'),
+      Text(param ?? 'NO param'),
       ElevatedButton(
           onPressed: () {
             controller.count++;
