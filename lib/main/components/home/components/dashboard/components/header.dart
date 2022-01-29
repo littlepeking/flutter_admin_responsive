@@ -33,24 +33,38 @@ class Header extends StatelessWidget {
           text: 'WMS'.tr,
           icon: Icon(Icons.cabin),
           onPressed: () {
-            GlobalDataController.instance.system.value = System.wms;
-            EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/wmsPanel");
+            if (System.wms != GlobalDataController.instance.system.value) {
+              GlobalDataController.instance.system.value = System.wms;
+              SideMenuController.instance.treeController.collapseAll();
+
+              EHNavigator.navigateTo(
+                  NavigationKeys.dashBoardNavKey, "/wmsPanel");
+            }
           },
         ),
         EHImageButton(
           text: 'TMS'.tr,
           icon: Icon(Icons.transfer_within_a_station),
           onPressed: () {
-            GlobalDataController.instance.system.value = System.tms;
-            EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/tmsPanel");
+            if (System.tms != GlobalDataController.instance.system.value) {
+              GlobalDataController.instance.system.value = System.tms;
+              SideMenuController.instance.treeController.collapseAll();
+              EHNavigator.navigateTo(
+                  NavigationKeys.dashBoardNavKey, "/tmsPanel");
+            }
           },
         ),
         EHImageButton(
           text: 'Notification'.tr,
           icon: Icon(Icons.notifications),
           onPressed: () {
-            GlobalDataController.instance.system.value = System.notification;
-            EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/myTasks");
+            if (System.notification !=
+                GlobalDataController.instance.system.value) {
+              GlobalDataController.instance.system.value = System.notification;
+              SideMenuController.instance.treeController.collapseAll();
+              EHNavigator.navigateTo(
+                  NavigationKeys.dashBoardNavKey, "/myTasks");
+            }
           },
         ),
         SizedBox(width: 0),

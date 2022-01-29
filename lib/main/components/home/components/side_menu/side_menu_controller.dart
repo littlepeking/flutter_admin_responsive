@@ -23,8 +23,6 @@ class SideMenuController extends GetxController {
   TreeController treeController = new TreeController(allNodesExpanded: false);
 
   static List<EHTreeNode> getMenu(System system) {
-    SideMenuController.instance.treeController.collapseAll();
-
     switch (system) {
       case System.wms:
         return wmsMenu;
