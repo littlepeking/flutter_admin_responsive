@@ -20,5 +20,7 @@ Map<String, String> zhCNMessages = {
   'Asn': '收货单',
   'Asn Details': '收货单明细',
   'Shipment Orders': '运单管理',
-  'Welcome Page': '@system欢迎页'
+  'Welcome Page': '@system欢迎页',
+  'Tasks': '任务',
+  'Notifications': '提醒'
 };
