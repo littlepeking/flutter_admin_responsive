@@ -12,6 +12,7 @@ void main() {
     debugShowCheckedModeBanner: false,
     theme: EhTheme.lightTheme,
     darkTheme: EhTheme.darkTheme,
+    themeMode: ThemeMode.dark,
     color: Colors.white,
     //home: Home(),
     initialRoute: '/',
