@@ -3,7 +3,8 @@ import 'package:eh_flutter_framework/main/common/utils/EHNavigator.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_image_button.dart';
-import 'package:eh_flutter_framework/main/controllers/menu_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
+import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,13 +23,8 @@ class Header extends StatelessWidget {
         if (!Responsive.isDesktop(context))
           IconButton(
             icon: Icon(Icons.menu),
-            onPressed: MenuController.instance.toggleDrawer,
+            onPressed: SideMenuController.instance.toggleDrawer,
           ),
-        // if (!Responsive.isMobile(context))
-        //   Text(
-        //     "WMS",
-        //     style: Theme.of(context).textTheme.headline6,
-        //   ),
         if (!Responsive.isMobile(context) && !Responsive.isTablet(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
         // Expanded(flex: 2, child: SearchField()),
@@ -37,6 +33,7 @@ class Header extends StatelessWidget {
           text: 'WMS'.tr,
           icon: Icon(Icons.cabin),
           onPressed: () {
+            GlobalDataController.instance.system.value = System.wms;
             EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/wmsPanel");
           },
         ),
@@ -44,6 +41,7 @@ class Header extends StatelessWidget {
           text: 'TMS'.tr,
           icon: Icon(Icons.transfer_within_a_station),
           onPressed: () {
+            GlobalDataController.instance.system.value = System.tms;
             EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/tmsPanel");
           },
         ),
@@ -51,18 +49,10 @@ class Header extends StatelessWidget {
           text: 'Notification'.tr,
           icon: Icon(Icons.notifications),
           onPressed: () {
+            GlobalDataController.instance.system.value = System.notification;
             EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/myTasks");
           },
         ),
-        // SizedBox(width: 0),
-        // EHImageButton(
-        //   text: 'Personalization'.tr,
-        //   icon: Icon(Icons.account_circle),
-        //   onPressed: () {
-        //     // MainNavigationController.instance
-        //     //     .navigateTo("/myTasks");
-        //   },
-        // ),
         SizedBox(width: 0),
         EHImageButton(
             text: 'changeTheme'.tr,
