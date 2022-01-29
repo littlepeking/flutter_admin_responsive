@@ -29,7 +29,10 @@ class _WmsPanelWidgetState extends State<WmsPanelWidget> {
               text: 'Welcome use Enhantec WMS System!'.tr),
         ));
 
-    return EHTabsView(controller: wmsPanelController.tabViewController);
+    return Column(children: [
+      Expanded(
+          child: EHTabsView(controller: wmsPanelController.tabViewController))
+    ]);
 
     //     if (!Responsive.isMobile(context)) SizedBox(width: defaultPadding),
     //     // On Mobile means if the screen is less than 850 we dont want to show it
