@@ -1,18 +1,15 @@
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/tab_data.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/wms_panel_controller.dart';
+import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WmsPanelWidget extends StatefulWidget {
+class WmsPanelWidget extends StatelessWidget {
   WmsPanelWidget({Key? key}) : super(key: key);
 
-  @override
-  _WmsPanelWidgetState createState() => _WmsPanelWidgetState();
-}
-
-class _WmsPanelWidgetState extends State<WmsPanelWidget> {
   @override
   Widget build(BuildContext context) {
     WmsPanelController wmsPanelController =

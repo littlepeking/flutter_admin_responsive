@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/constants.dart';
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/dashboard_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'components/header.dart';
@@ -14,7 +15,7 @@ class Dashboard extends GetView<DashBoardNavigationController> {
             left: defaultPadding, right: defaultPadding, top: defaultPadding),
         child: Column(
           children: [
-            Header(),
+            if (!Responsive.isMobile(context)) Header(),
             SizedBox(height: defaultPadding),
             Expanded(
               child: Navigator(
