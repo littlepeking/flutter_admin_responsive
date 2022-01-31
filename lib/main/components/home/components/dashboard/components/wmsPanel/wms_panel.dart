@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
+import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
@@ -27,10 +28,14 @@ class WmsPanelWidget extends StatelessWidget {
                     text: 'Welcome use Enhantec WMS System!'.tr),
               )));
 
-    return Column(children: [
-      Expanded(
-          child: EHTabsView(controller: wmsPanelController.tabViewController))
-    ]);
+    return PageStorage(
+        bucket: globalPageStorageBucket,
+        child: Column(children: [
+          Expanded(
+              child: EHTabsView(
+                  key: PageStorageKey('wmsPanelTabView'),
+                  controller: wmsPanelController.tabViewController))
+        ]));
 
     //     if (!Responsive.isMobile(context)) SizedBox(width: defaultPadding),
     //     // On Mobile means if the screen is less than 850 we dont want to show it

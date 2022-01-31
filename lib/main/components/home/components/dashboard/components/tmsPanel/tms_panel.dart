@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
+import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
@@ -32,6 +33,13 @@ class _TmsPanelWidgetState extends State<TmsPanelWidget> {
                     text: 'Welcome use Enhantec TMS System!'.tr),
               )));
 
-    return EHTabsView(controller: tmsPanelController.tabViewController);
+    return PageStorage(
+        bucket: globalPageStorageBucket,
+        child: Column(children: [
+          Expanded(
+              child: EHTabsView(
+                  key: PageStorageKey('tmsPanelTabView'),
+                  controller: tmsPanelController.tabViewController))
+        ]));
   }
 }
