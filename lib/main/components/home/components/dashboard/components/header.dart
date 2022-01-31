@@ -33,13 +33,12 @@ class Header extends StatelessWidget {
           text: 'WMS'.tr,
           icon: Icon(Icons.cabin),
           onPressed: () {
-            if (System.wms != GlobalDataController.instance.system.value) {
-              GlobalDataController.instance.system.value = System.wms;
-              SideMenuController.instance.treeController.collapseAll();
+            // if (System.wms != GlobalDataController.instance.system.value) {
+            GlobalDataController.instance.system.value = System.wms;
+            SideMenuController.instance.treeController.collapseAll();
 
-              EHNavigator.navigateTo(
-                  NavigationKeys.dashBoardNavKey, "/wmsPanel");
-            }
+            EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/wmsPanel");
+            // }
           },
         ),
         EHImageButton(

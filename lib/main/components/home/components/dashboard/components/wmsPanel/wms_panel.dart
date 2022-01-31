@@ -1,9 +1,9 @@
+import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/tab_data.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/wms_panel_controller.dart';
-import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,16 +15,18 @@ class WmsPanelWidget extends StatelessWidget {
     WmsPanelController wmsPanelController =
         Get.put(WmsPanelController(), permanent: true);
 
-    wmsPanelController.reset();
+    // wmsPanelController.reset();
 
-    wmsPanelController.tabViewController.tabsData[0] = TabData(
-        'Welcome Page'.trParams({'system': 'WMS'}),
-        Container(
-          padding: EdgeInsets.all(50),
-          child: EHText(
-              weight: FontWeight.bold,
-              text: 'Welcome use Enhantec WMS System!'.tr),
-        ));
+    if (wmsPanelController.tabViewController.tabsConfig.length == 0)
+      wmsPanelController.tabViewController.tabsConfig.add(EHTab(
+          'Welcome Page'.trParams({'system': 'WMS'}),
+          EHController(),
+          (controller) => Container(
+                padding: EdgeInsets.all(50),
+                child: EHText(
+                    weight: FontWeight.bold,
+                    text: 'Welcome use Enhantec WMS System!'.tr),
+              )));
 
     return Column(children: [
       Expanded(

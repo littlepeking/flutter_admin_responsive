@@ -31,13 +31,13 @@ class EHTabHeader extends StatelessWidget {
                     () => ScrollablePositionedList.builder(
                       initialScrollIndex: 0,
                       scrollDirection: Axis.horizontal,
-                      itemCount: controller.tabsData.length,
+                      itemCount: controller.tabsConfig.length,
                       padding: EdgeInsets.only(top: 10),
                       itemBuilder: (context, index) {
                         return Obx(() {
                           // if (index >= controller.tabsData.length)
                           //   return SizedBox(); //增加此判断是因为删除TAB页时会越界，怀疑是ScrollablePositionedList的bug
-                          if (!controller.tabsData[index].isActive)
+                          if (!controller.tabsConfig[index].isActive)
                             // return placeholder when tab is inactive.
                             return Container(
                               width: 0,
@@ -71,7 +71,7 @@ class EHTabHeader extends StatelessWidget {
                                             children: [
                                               Text(
                                                 '   ' +
-                                                    controller.tabsData[index]
+                                                    controller.tabsConfig[index]
                                                         .tabName.tr +
                                                     '   ',
                                                 textAlign: TextAlign.center,
@@ -105,7 +105,7 @@ class EHTabHeader extends StatelessWidget {
                                                                 .normal),
                                               ),
                                               if (controller
-                                                  .tabsData[index].closable)
+                                                  .tabsConfig[index].closable)
                                                 InkWell(
                                                     child: Icon(
                                                       Icons.close,

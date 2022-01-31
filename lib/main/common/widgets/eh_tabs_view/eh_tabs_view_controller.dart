@@ -1,6 +1,7 @@
+import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/scrollable_positioned_list/lib/item_positions_listener.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/tab_data.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,16 +12,7 @@ class EHTabsViewController extends GetxController {
   //选中的TAB索引
   var selectedIndex = 0.obs;
 
-  static TabData welcomeTabData = TabData(
-      'Welcome',
-      Container(
-        padding: EdgeInsets.all(50),
-        child: EHText(
-            weight: FontWeight.bold,
-            text: 'Welcome use Enhantec Logistics System Suite!'.tr),
-      ));
-
-  RxList<TabData> tabsData = <TabData>[welcomeTabData].obs;
+  RxList<EHTab> tabsConfig = <EHTab>[].obs;
 
   ItemScrollController itemScrollController = ItemScrollController();
 
@@ -35,7 +27,7 @@ class EHTabsViewController extends GetxController {
   var minFullViewPortItemIndex = 0.obs;
 
   next() {
-    if (maxFullViewPortItemIndex.value < tabsData.length - 1) {
+    if (maxFullViewPortItemIndex.value < tabsConfig.length - 1) {
       itemScrollController.jumpTo(index: (minViewPortItemIndex.value + 1));
     }
   }
@@ -44,7 +36,7 @@ class EHTabsViewController extends GetxController {
     if (minFullViewPortItemIndex.value > 0) {
       int tempIndex = minFullViewPortItemIndex.value - 1;
 
-      while (tempIndex > 0 && !tabsData[tempIndex].isActive) tempIndex--;
+      while (tempIndex > 0 && !tabsConfig[tempIndex].isActive) tempIndex--;
 
       itemScrollController.jumpTo(index: (tempIndex));
     }
@@ -58,12 +50,12 @@ class EHTabsViewController extends GetxController {
     //     ),
     //     isActive: false);
 
-    tabsData[index].isActive = false;
-    tabsData.refresh();
+    tabsConfig[index].isActive = false;
+    tabsConfig.refresh();
 
     if (index == selectedIndex.value) {
       while (selectedIndex.value != 0 &&
-          !tabsData[selectedIndex.value].isActive) selectedIndex--;
+          !tabsConfig[selectedIndex.value].isActive) selectedIndex--;
     }
     //add animation after removed last item
     itemScrollController.jumpTo(index: minFullViewPortItemIndex.value);
@@ -74,16 +66,16 @@ class EHTabsViewController extends GetxController {
     }
   }
 
-  addTab(String tabName, Widget widget, {bool closeable = false}) {
-    tabsData.add(TabData(tabName.tr, widget, closable: closeable));
+  addTab(EHTab tab) {
+    tabsConfig.add(tab);
     // itemScrollController.jumpTo(index: (tabsData.length - 1));
     itemScrollController.scrollTo(
-      index: (tabsData.length - 1),
+      index: (tabsConfig.length - 1),
       duration: Duration(microseconds: 1),
       curve: Curves.linear,
     );
 
-    selectedIndex.value = tabsData.length - 1;
+    selectedIndex.value = tabsConfig.length - 1;
 
     if (Responsive.isMobile(Get.context!) ||
         Responsive.isTablet(Get.context!)) {
@@ -92,7 +84,7 @@ class EHTabsViewController extends GetxController {
   }
 
   reset() {
-    tabsData = <TabData>[welcomeTabData].obs;
+    tabsConfig = <EHTab>[].obs;
     selectedIndex = 0.obs;
   }
 }

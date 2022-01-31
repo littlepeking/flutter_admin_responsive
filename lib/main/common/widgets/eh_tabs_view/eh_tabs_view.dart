@@ -18,11 +18,11 @@ class EHTabsView extends StatelessWidget {
             decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
             child: Obx(() => IndexedStack(
                   index: controller.selectedIndex.value,
-                  children: controller.tabsData.map((data) {
+                  children: controller.tabsConfig.map((tab) {
                     return Container(
                       alignment: Alignment.topLeft,
                       //color: Colors.grey,
-                      child: data.widget,
+                      child: tab.getTabWidgetFunc(tab.tabController),
                     );
                   }).toList(),
                   //[
