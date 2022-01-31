@@ -7,9 +7,9 @@ class EHTab<T extends EHController> {
   String tabName;
   T tabController;
   Function getTabWidgetFunc;
-  bool isActive;
+  //bool isActive;
   bool closable;
 
   EHTab(this.tabName, this.tabController, this.getTabWidgetFunc,
-      {this.isActive = true, this.closable = false});
+      {this.closable = false});
 }

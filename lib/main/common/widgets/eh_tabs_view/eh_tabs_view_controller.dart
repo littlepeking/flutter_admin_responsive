@@ -4,8 +4,6 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/scrollable
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../eh_text.dart';
 import 'scrollable_positioned_list/lib/scrollable_positioned_list.dart';
 
 class EHTabsViewController extends GetxController {
@@ -34,11 +32,7 @@ class EHTabsViewController extends GetxController {
 
   previous() {
     if (minFullViewPortItemIndex.value > 0) {
-      int tempIndex = minFullViewPortItemIndex.value - 1;
-
-      while (tempIndex > 0 && !tabsConfig[tempIndex].isActive) tempIndex--;
-
-      itemScrollController.jumpTo(index: (tempIndex));
+      itemScrollController.jumpTo(index: (minFullViewPortItemIndex.value - 1));
     }
   }
 
@@ -50,13 +44,12 @@ class EHTabsViewController extends GetxController {
     //     ),
     //     isActive: false);
 
-    tabsConfig[index].isActive = false;
+    tabsConfig.removeAt(index);
     tabsConfig.refresh();
 
-    if (index == selectedIndex.value) {
-      while (selectedIndex.value != 0 &&
-          !tabsConfig[selectedIndex.value].isActive) selectedIndex--;
-    }
+    if (index == selectedIndex.value && selectedIndex.value != 0)
+      selectedIndex--;
+
     //add animation after removed last item
     itemScrollController.jumpTo(index: minFullViewPortItemIndex.value);
 
