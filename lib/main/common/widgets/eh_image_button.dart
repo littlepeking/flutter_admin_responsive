@@ -34,12 +34,12 @@ class EHImageButton extends StatelessWidget {
               child: Row(
                 children: [
                   icon,
-                  if (!Responsive.isMobile(context))
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: defaultPadding / 2),
-                      child: Text(text),
-                    ),
+                  // if (!Responsive.isMobile(context))
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: defaultPadding / 2),
+                    child: Text(text),
+                  ),
                   SizedBox(width: 5),
                 ],
               ),

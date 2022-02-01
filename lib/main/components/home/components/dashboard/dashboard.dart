@@ -12,7 +12,9 @@ class Dashboard extends GetView<DashBoardNavigationController> {
     return SafeArea(
       child: Container(
         padding: EdgeInsets.only(
-            left: defaultPadding, right: defaultPadding, top: defaultPadding),
+            left: defaultPadding,
+            right: defaultPadding,
+            top: !Responsive.isMobile(context) ? defaultPadding : 0),
         child: Column(
           children: [
             if (!Responsive.isMobile(context)) Header(),

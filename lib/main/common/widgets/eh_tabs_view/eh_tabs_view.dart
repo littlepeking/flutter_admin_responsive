@@ -5,14 +5,19 @@ import 'package:get/get.dart';
 
 class EHTabsView extends StatelessWidget {
   final EHTabsViewController controller;
+  final Widget? preTabHeaderWidget;
 
-  EHTabsView({Key? key, required this.controller}) : super(key: key);
+  EHTabsView({Key? key, this.preTabHeaderWidget, required this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        EHTabHeader(controller: controller),
+        Row(children: [
+          preTabHeaderWidget ?? SizedBox(),
+          Expanded(child: EHTabHeader(controller: controller))
+        ]),
         Flexible(
           child: Container(
             decoration: BoxDecoration(border: Border.all(color: Colors.grey)),

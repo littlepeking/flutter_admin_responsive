@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/header.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:flutter/material.dart';
@@ -14,25 +15,29 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     SideMenuController controller = Get.put(SideMenuController());
 
+    var menuItems = [
+      SizedBox(
+        height: 10,
+      ),
+      Image.asset(
+        "assets/images/enhantec.png",
+        height: 70,
+      ),
+      SizedBox(
+        height: 20,
+      ),
+    ];
+
+    menuItems.addAll(getFunctionButtons());
+
     return Drawer(
         child: ListView(children: [
       Container(
-        height: 135,
+        height: 310,
         child: DrawerHeader(
           child: Center(
               child: Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Image.asset(
-                "assets/images/enhantec.png",
-                height: 70,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-            ],
+            children: menuItems,
           )),
           // child: Image.asset("assets/images/Home.png"),
         ),

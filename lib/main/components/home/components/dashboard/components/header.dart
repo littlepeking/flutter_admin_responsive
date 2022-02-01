@@ -19,84 +19,92 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
-        if (!Responsive.isDesktop(context))
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: SideMenuController.instance.toggleDrawer,
-          ),
-        if (!Responsive.isMobile(context) && !Responsive.isTablet(context))
-          Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
-        // Expanded(flex: 2, child: SearchField()),
-
-        EHImageButton(
-          text: 'WMS'.tr,
-          icon: Icon(Icons.cabin),
-          onPressed: () {
-            // if (System.wms != GlobalDataController.instance.system.value) {
-            GlobalDataController.instance.system.value = System.wms;
-            SideMenuController.instance.treeController.collapseAll();
-
-            EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/wmsPanel");
-            // }
-          },
-        ),
-        EHImageButton(
-          text: 'TMS'.tr,
-          icon: Icon(Icons.transfer_within_a_station),
-          onPressed: () {
-            if (System.tms != GlobalDataController.instance.system.value) {
-              GlobalDataController.instance.system.value = System.tms;
-              SideMenuController.instance.treeController.collapseAll();
-              EHNavigator.navigateTo(
-                  NavigationKeys.dashBoardNavKey, "/tmsPanel");
-            }
-          },
-        ),
-        EHImageButton(
-          text: 'Notification'.tr,
-          icon: Icon(Icons.notifications),
-          onPressed: () {
-            if (System.notification !=
-                GlobalDataController.instance.system.value) {
-              GlobalDataController.instance.system.value = System.notification;
-              SideMenuController.instance.treeController.collapseAll();
-              EHNavigator.navigateTo(
-                  NavigationKeys.dashBoardNavKey, "/myTasks");
-            }
-          },
-        ),
-        SizedBox(width: 0),
-        EHImageButton(
-            text: 'changeTheme'.tr,
-            icon: Icon(Icons.ac_unit_sharp),
-            onPressed: () {
-              Get.changeThemeMode(
-                  Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
-              ThemeController.instance.isDarkMode.value = !Get.isDarkMode;
-              // WmsPanelNavigationController.instance.isDarkMode.value =
-              //     !Get.isDarkMode;
-              //  print(ThemeController.instance.isDarkMode);
-            }),
-        SizedBox(width: 0),
-        EHImageButton(
-            text: 'changeLocale'.tr,
-            icon: Icon(Icons.language),
-            onPressed: () {
-              var enLocale = Locale('en', 'US');
-              var cnLocale = Locale('zh', 'CN');
-              if (Get.locale == enLocale) {
-                Get.updateLocale(cnLocale);
-              } else {
-                Get.updateLocale(enLocale);
-              }
-            }),
-        SizedBox(width: 0),
-        EHImageButton(
-            text: 'quit'.tr, icon: Icon(Icons.logout), onPressed: () {})
-      ],
+      children: getHeaderButtons(context),
     );
   }
+}
+
+List<Widget> getHeaderButtons(BuildContext context) {
+  List<Widget> buttons = [
+    if (!Responsive.isDesktop(context))
+      IconButton(
+        icon: Icon(Icons.menu),
+        onPressed: SideMenuController.instance.toggleDrawer,
+      ),
+    if (!Responsive.isMobile(context) && !Responsive.isTablet(context))
+      Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
+    // Expanded(flex: 2, child: SearchField()),
+
+    EHImageButton(text: 'quit'.tr, icon: Icon(Icons.logout), onPressed: () {})
+  ];
+  buttons.addAll(getFunctionButtons());
+
+  return buttons;
+}
+
+getFunctionButtons() {
+  return [
+    EHImageButton(
+      text: 'WMS'.tr,
+      icon: Icon(Icons.cabin),
+      onPressed: () {
+        // if (System.wms != GlobalDataController.instance.system.value) {
+        GlobalDataController.instance.system.value = System.wms;
+        SideMenuController.instance.treeController.collapseAll();
+
+        EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/wmsPanel");
+        // }
+      },
+    ),
+    EHImageButton(
+      text: 'TMS'.tr,
+      icon: Icon(Icons.transfer_within_a_station),
+      onPressed: () {
+        if (System.tms != GlobalDataController.instance.system.value) {
+          GlobalDataController.instance.system.value = System.tms;
+          SideMenuController.instance.treeController.collapseAll();
+          EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/tmsPanel");
+        }
+      },
+    ),
+    EHImageButton(
+      text: 'Notification'.tr,
+      icon: Icon(Icons.notifications),
+      onPressed: () {
+        if (System.notification != GlobalDataController.instance.system.value) {
+          GlobalDataController.instance.system.value = System.notification;
+          SideMenuController.instance.treeController.collapseAll();
+          EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/myTasks");
+        }
+      },
+    ),
+    SizedBox(width: 0),
+    EHImageButton(
+        text: 'changeTheme'.tr,
+        icon: Icon(Icons.ac_unit_sharp),
+        onPressed: () {
+          Get.changeThemeMode(
+              Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+          ThemeController.instance.isDarkMode.value = !Get.isDarkMode;
+          // WmsPanelNavigationController.instance.isDarkMode.value =
+          //     !Get.isDarkMode;
+          //  print(ThemeController.instance.isDarkMode);
+        }),
+    SizedBox(width: 0),
+    EHImageButton(
+        text: 'changeLocale'.tr,
+        icon: Icon(Icons.language),
+        onPressed: () {
+          var enLocale = Locale('en', 'US');
+          var cnLocale = Locale('zh', 'CN');
+          if (Get.locale == enLocale) {
+            Get.updateLocale(cnLocale);
+          } else {
+            Get.updateLocale(enLocale);
+          }
+        }),
+    SizedBox(width: 0)
+  ];
 }
 
 class SearchField extends StatelessWidget {
