@@ -36,7 +36,7 @@ class SideMenu extends StatelessWidget {
     return Drawer(
         child: ListView(children: [
       Container(
-        height: 175,
+        height: 180,
         child: DrawerHeader(
           child: Center(
               child: Column(
