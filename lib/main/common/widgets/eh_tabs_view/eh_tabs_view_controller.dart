@@ -46,7 +46,8 @@ class EHTabsViewController extends GetxController {
     tabsConfig.removeAt(index);
     tabsConfig.refresh();
 
-    if (selectedIndex.value != 0) selectedIndex--;
+    if (selectedIndex.value != 0 && index <= selectedIndex.value)
+      selectedIndex--;
 
     //add animation after removed last item
     if (!Responsive.isMobile(Get.context!))
