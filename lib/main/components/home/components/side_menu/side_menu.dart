@@ -22,14 +22,14 @@ class SideMenu extends StatelessWidget {
       ),
       Text(
         'Enhantec',
-        style: TextStyle(fontFamily: 'Righteous', fontSize: 40),
+        style: TextStyle(fontFamily: 'Righteous', fontSize: 30),
       ),
       // Image.asset(
       //   "assets/images/enhantec.png",
       //   height: 70,
       // ),
       SizedBox(
-        height: 20,
+        height: 10,
       ),
       if (Responsive.isMobile(context))
         Row(
@@ -40,7 +40,7 @@ class SideMenu extends StatelessWidget {
     return Drawer(
         child: ListView(children: [
       Container(
-        height: !Responsive.isDesktop(context) ? 180 : 120,
+        height: !Responsive.isDesktop(context) ? 145 : 100,
         child: DrawerHeader(
           child: Center(
               child: Column(
