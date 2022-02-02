@@ -9,7 +9,8 @@ class EHTab<T extends EHController> {
   Function getTabWidgetFunc;
   //bool isActive;
   bool closable;
+  bool showInBottomList; //Used only in mobile mode
 
   EHTab(this.tabName, this.tabController, this.getTabWidgetFunc,
-      {this.closable = false});
+      {this.closable = false, this.showInBottomList = true});
 }

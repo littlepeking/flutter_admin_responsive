@@ -1,7 +1,12 @@
+import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
+import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_header.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'eh_tabs_header_mobile.dart';
 
 class EHTabsView extends StatelessWidget {
   final EHTabsViewController controller;
@@ -16,11 +21,14 @@ class EHTabsView extends StatelessWidget {
       children: [
         Row(children: [
           preTabHeaderWidget ?? SizedBox(),
-          Expanded(child: EHTabHeader(controller: controller))
+          Responsive.isMobile(context)
+              ? Expanded(child: EHTabsHeaderMobile(controller: controller))
+              : Expanded(child: EHTabHeader(controller: controller)),
         ]),
         Flexible(
           child: Container(
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+            decoration: BoxDecoration(
+                border: Border.all(color: Get.theme.backgroundColor)),
             child: Obx(() => IndexedStack(
                   index: controller.selectedIndex.value,
                   children: controller.tabsConfig.map((tab) {

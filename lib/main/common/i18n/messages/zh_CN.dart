@@ -20,7 +20,10 @@ Map<String, String> zhCNMessages = {
   'Asn': '收货单',
   'Asn Details': '收货单明细',
   'Shipment Orders': '运单管理',
-  'Welcome Page': '@system欢迎页',
+  'Welcome Page': '欢迎使用殷汉@system',
   'Tasks': '任务',
-  'Notifications': '提醒'
+  'Notifications': '提醒',
+  'Message Infomation': '系统消息',
+  'Tab list is empty': '页签列表目前为空',
+  'Window List': '窗口列表'
 };

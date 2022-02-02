@@ -46,13 +46,13 @@ class EHTabsViewController extends GetxController {
     tabsConfig.removeAt(index);
     tabsConfig.refresh();
 
-    if (index == selectedIndex.value && selectedIndex.value != 0)
-      selectedIndex--;
+    if (selectedIndex.value != 0) selectedIndex--;
 
     //add animation after removed last item
-    itemScrollController.jumpTo(index: minFullViewPortItemIndex.value);
+    if (!Responsive.isMobile(Get.context!))
+      itemScrollController.jumpTo(index: minFullViewPortItemIndex.value);
 
-    if (Responsive.isMobile(Get.context!) ||
+    if ( //Responsive.isMobile(Get.context!) ||
         Responsive.isTablet(Get.context!)) {
       Get.back();
     }
@@ -61,11 +61,13 @@ class EHTabsViewController extends GetxController {
   addTab(EHTab tab) {
     tabsConfig.add(tab);
     // itemScrollController.jumpTo(index: (tabsData.length - 1));
-    itemScrollController.scrollTo(
-      index: (tabsConfig.length - 1),
-      duration: Duration(microseconds: 1),
-      curve: Curves.linear,
-    );
+    if (!Responsive.isMobile(Get.context!)) {
+      itemScrollController.scrollTo(
+        index: (tabsConfig.length - 1),
+        duration: Duration(microseconds: 1),
+        curve: Curves.linear,
+      );
+    }
 
     selectedIndex.value = tabsConfig.length - 1;
 

@@ -28,7 +28,8 @@ class WmsPanelWidget extends StatelessWidget {
                 child: EHText(
                     weight: FontWeight.bold,
                     text: 'Welcome use Enhantec WMS System!'.tr),
-              )));
+              ),
+          showInBottomList: false));
 
     return PageStorage(
         bucket: globalPageStorageBucket,

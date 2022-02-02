@@ -33,7 +33,8 @@ class _TmsPanelWidgetState extends State<TmsPanelWidget> {
                 child: EHText(
                     weight: FontWeight.bold,
                     text: 'Welcome use Enhantec TMS System!'.tr),
-              )));
+              ),
+          showInBottomList: false));
 
     return PageStorage(
         bucket: globalPageStorageBucket,
