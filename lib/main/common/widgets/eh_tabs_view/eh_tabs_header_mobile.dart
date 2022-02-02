@@ -18,7 +18,11 @@ class EHTabsHeaderMobile extends StatelessWidget {
                 child: Center(
                     child: EHText(
               text: controller
-                  .tabsConfig[controller.selectedIndex.value].tabName.tr,
+                  .tabsConfig[controller.selectedIndex.value].tabName
+                  .trParams(controller
+                          .tabsConfig[controller.selectedIndex.value]
+                          .tabTranslateParams ??
+                      {}),
               size: 18,
             ))),
             IconButton(

@@ -5,6 +5,7 @@ import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 
 class EHTab<T extends EHController> {
   String tabName;
+  Map<String, String>? tabTranslateParams;
   T tabController;
   Function getTabWidgetFunc;
   //bool isActive;
@@ -12,5 +13,7 @@ class EHTab<T extends EHController> {
   bool showInBottomList; //Used only in mobile mode
 
   EHTab(this.tabName, this.tabController, this.getTabWidgetFunc,
-      {this.closable = false, this.showInBottomList = true});
+      {this.tabTranslateParams,
+      this.closable = false,
+      this.showInBottomList = true});
 }

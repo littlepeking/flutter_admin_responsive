@@ -21,7 +21,7 @@ class WmsPanelWidget extends StatelessWidget {
 
     if (wmsPanelController.tabViewController.tabsConfig.length == 0)
       wmsPanelController.tabViewController.tabsConfig.add(EHTab(
-          'Welcome Page'.trParams({'system': 'WMS'}),
+          '%System Welcome Page',
           EHController(),
           (controller) => Container(
                 padding: EdgeInsets.all(50),
@@ -29,7 +29,8 @@ class WmsPanelWidget extends StatelessWidget {
                     weight: FontWeight.bold,
                     text: 'Welcome use Enhantec WMS System!'.tr),
               ),
-          showInBottomList: false));
+          showInBottomList: false,
+          tabTranslateParams: {'System': 'WMS'}));
 
     return PageStorage(
         bucket: globalPageStorageBucket,

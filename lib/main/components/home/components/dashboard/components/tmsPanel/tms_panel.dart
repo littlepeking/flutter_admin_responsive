@@ -26,7 +26,7 @@ class _TmsPanelWidgetState extends State<TmsPanelWidget> {
 
     if (tmsPanelController.tabViewController.tabsConfig.length == 0)
       tmsPanelController.tabViewController.tabsConfig.add(EHTab(
-          'Welcome Page'.trParams({'system': 'TMS'}),
+          '%System Welcome Page',
           EHController(),
           (controller) => Container(
                 padding: EdgeInsets.all(50),
@@ -34,7 +34,8 @@ class _TmsPanelWidgetState extends State<TmsPanelWidget> {
                     weight: FontWeight.bold,
                     text: 'Welcome use Enhantec TMS System!'.tr),
               ),
-          showInBottomList: false));
+          showInBottomList: false,
+          tabTranslateParams: {'System': 'TMS'}));
 
     return PageStorage(
         bucket: globalPageStorageBucket,

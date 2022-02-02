@@ -20,10 +20,14 @@ class SideMenu extends StatelessWidget {
       SizedBox(
         height: 10,
       ),
-      Image.asset(
-        "assets/images/enhantec.png",
-        height: 70,
+      Text(
+        'Enhantec',
+        style: TextStyle(fontFamily: 'Righteous', fontSize: 40),
       ),
+      // Image.asset(
+      //   "assets/images/enhantec.png",
+      //   height: 70,
+      // ),
       SizedBox(
         height: 20,
       ),

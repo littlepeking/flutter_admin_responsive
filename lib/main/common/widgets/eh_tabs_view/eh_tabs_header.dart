@@ -67,7 +67,12 @@ class EHTabHeader extends StatelessWidget {
                                               Text(
                                                 '   ' +
                                                     controller.tabsConfig[index]
-                                                        .tabName.tr +
+                                                        .tabName
+                                                        .trParams(controller
+                                                                .tabsConfig[
+                                                                    index]
+                                                                .tabTranslateParams ??
+                                                            {}) +
                                                     '   ',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
