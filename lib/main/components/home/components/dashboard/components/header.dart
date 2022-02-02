@@ -58,7 +58,7 @@ getFunctionButtons() {
     ),
     EHImageButton(
       text: 'TMS'.tr,
-      icon: Icon(Icons.transfer_within_a_station),
+      icon: Icon(Icons.local_shipping),
       onPressed: () {
         if (System.tms != GlobalDataController.instance.system.value) {
           GlobalDataController.instance.system.value = System.tms;

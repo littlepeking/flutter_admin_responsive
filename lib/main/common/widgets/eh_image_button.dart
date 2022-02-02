@@ -16,33 +16,38 @@ class EHImageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-            onTap: onPressed,
-            child: Container(
-              margin: EdgeInsets.only(left: defaultPadding),
-              padding: EdgeInsets.symmetric(
-                horizontal: defaultPadding,
-                vertical: defaultPadding / 2,
-              ),
-              decoration: BoxDecoration(
-                color: Theme.of(context).canvasColor,
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                border: Border.all(color: Colors.white10),
-              ),
-              child: Row(
-                children: [
-                  icon,
-                  // if (!Responsive.isMobile(context))
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: defaultPadding / 2),
-                    child: Text(text),
+    return (Responsive.isMobile(context))
+        ? IconButton(
+            onPressed: onPressed,
+            icon: icon,
+            tooltip: this.text,
+          )
+        : MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+                onTap: onPressed,
+                child: Container(
+                  margin: EdgeInsets.only(left: defaultPadding),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: defaultPadding,
+                    vertical: defaultPadding / 2,
                   ),
-                  SizedBox(width: 5),
-                ],
-              ),
-            )));
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).canvasColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(color: Colors.white10),
+                  ),
+                  child: Row(
+                    children: [
+                      icon,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding / 2),
+                        child: Text(text),
+                      ),
+                      SizedBox(width: 5),
+                    ],
+                  ),
+                )));
   }
 }

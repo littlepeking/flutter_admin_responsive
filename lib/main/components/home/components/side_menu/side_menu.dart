@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/header.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
@@ -26,14 +27,16 @@ class SideMenu extends StatelessWidget {
       SizedBox(
         height: 20,
       ),
+      if (Responsive.isMobile(context))
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: getFunctionButtons())
     ];
-
-    menuItems.addAll(getFunctionButtons());
 
     return Drawer(
         child: ListView(children: [
       Container(
-        height: 310,
+        height: 175,
         child: DrawerHeader(
           child: Center(
               child: Column(
