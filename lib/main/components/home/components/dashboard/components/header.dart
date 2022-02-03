@@ -35,7 +35,7 @@ List<Widget> getHeaderButtons(BuildContext context) {
       Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
     // Expanded(flex: 2, child: SearchField()),
 
-    EHImageButton(text: 'quit'.tr, icon: Icon(Icons.logout), onPressed: () {})
+    // EHImageButton(text: 'quit'.tr, icon: Icon(Icons.logout), onPressed: () {})
   ];
   buttons.addAll(getFunctionButtons());
 
