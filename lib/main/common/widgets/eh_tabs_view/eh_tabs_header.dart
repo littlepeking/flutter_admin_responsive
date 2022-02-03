@@ -180,7 +180,7 @@ class EHTabHeader extends StatelessWidget {
       int minFull;
       int maxFull;
       if (positions.isNotEmpty) {
-        print(positions);
+        //print(positions);
         // Determine the first visible item by finding the item with the
         // smallest trailing edge that is greater than 0.  i.e. the first
         // item whose trailing edge in visible in the viewport.

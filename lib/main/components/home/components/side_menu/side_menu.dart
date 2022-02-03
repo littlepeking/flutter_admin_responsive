@@ -49,12 +49,7 @@ class SideMenu extends StatelessWidget {
           // child: Image.asset("assets/images/Home.png"),
         ),
       ),
-      Obx(() => TreeView(
-          iconSize: 20,
-          indent: 10,
-          treeController: controller.treeController,
-          nodes: SideMenuController.getMenu(
-              GlobalDataController.instance.system.value))),
+      Obx(() => SideMenuController.getSideBarTreeView()),
     ]));
   }
 }

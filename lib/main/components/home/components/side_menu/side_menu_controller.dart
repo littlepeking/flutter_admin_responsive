@@ -20,7 +20,18 @@ class SideMenuController extends GetxController {
     }
   }
 
-  TreeController treeController = new TreeController(allNodesExpanded: false);
+  static TreeController getSideMenuController(System system) {
+    switch (system) {
+      case System.wms:
+        return Get.find<WmsPanelController>().sideMenuTreeController;
+      case System.tms:
+        return Get.find<TmsPanelController>().sideMenuTreeController;
+      case System.notification:
+        return Get.find<TaskPanelController>().sideMenuTreeController;
+      default:
+        throw Exception('no suitable menu found for' + system.toString());
+    }
+  }
 
   static List<EHTreeNode> getMenu(System system) {
     switch (system) {
@@ -33,5 +44,16 @@ class SideMenuController extends GetxController {
       default:
         throw Exception('no suitable menu found for' + system.toString());
     }
+  }
+
+  static TreeView getSideBarTreeView() {
+    return TreeView(
+        key: GlobalKey(
+            debugLabel: GlobalDataController.instance.system.value.name),
+        iconSize: 20,
+        indent: 10,
+        treeController:
+            getSideMenuController(GlobalDataController.instance.system.value),
+        nodes: getMenu(GlobalDataController.instance.system.value));
   }
 }
