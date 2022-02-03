@@ -30,18 +30,12 @@ class Home extends GetView {
                 ],
               ),
             ),
-            !Responsive.isMobile(context)
-                ? SizedBox(
-                    height: 20,
-                    child: EHText(
-                      text: " Copyright © 2022 Enhantec",
-                    ))
-                : SizedBox(
-                    height: 15,
-                    child: EHText(
-                      size: 10,
-                      text: " Copyright © 2022 Enhantec",
-                    ))
+            SizedBox(
+                height: Responsive.isDesktop(context) ? 20 : 13,
+                child: EHText(
+                  size: Responsive.isDesktop(context) ? 13 : 10,
+                  text: " Copyright © 2022 Enhantec",
+                ))
           ]),
         ));
   }

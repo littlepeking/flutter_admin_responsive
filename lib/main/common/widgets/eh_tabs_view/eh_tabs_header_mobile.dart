@@ -17,6 +17,7 @@ class EHTabsHeaderMobile extends StatelessWidget {
             Expanded(
                 child: Center(
                     child: EHText(
+              weight: FontWeight.bold,
               text: controller
                   .tabsConfig[controller.selectedIndex.value].tabName
                   .trParams(controller
