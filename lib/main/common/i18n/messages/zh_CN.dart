@@ -24,7 +24,7 @@ Map<String, String> zhCNMessages = {
   'Tasks': '任务',
   'Notifications': '提醒',
   'Message Infomation': '系统消息',
-  'Tab list is empty': '页签列表目前为空',
+  'Window list is empty': '窗口列表为空',
   'Window List': '窗口列表',
   'Routes': '路线'
 };
