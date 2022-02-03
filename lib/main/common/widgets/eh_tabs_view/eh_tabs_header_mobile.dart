@@ -73,10 +73,12 @@ class EHTabsHeaderMobile extends StatelessWidget {
                               text: entry.value.tabName.tr,
                             ),
                             leading: Icon(Icons.domain_verification),
-                            trailing: IconButton(
-                                icon: Icon(Icons.close),
-                                onPressed: () =>
-                                    controller.removeTab(entry.key)),
+                            trailing: entry.value.closable
+                                ? IconButton(
+                                    icon: Icon(Icons.close),
+                                    onPressed: () =>
+                                        controller.removeTab(entry.key))
+                                : SizedBox(),
                             onTap: () {
                               controller.selectedIndex.value = entry.key;
                               Get.back();

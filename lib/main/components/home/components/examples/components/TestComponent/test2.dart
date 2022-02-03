@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'TestController.dart';
 
 class Test2 extends EHStatelessWidget<TestController> {
-  Test2({Key? key, TestController? controller})
+  Test2({Key? key, required TestController controller})
       : super(key: key, controller: controller);
 
   @override
@@ -13,7 +13,7 @@ class Test2 extends EHStatelessWidget<TestController> {
     return Column(children: [
       ElevatedButton(
           onPressed: () {
-            controller!.count++;
+            controller.count++;
           },
           child: Text('add count')),
       Expanded(
@@ -23,7 +23,7 @@ class Test2 extends EHStatelessWidget<TestController> {
                   decoration: BoxDecoration(),
                   child: Center(child: Obx(() {
                     print(controller.toString());
-                    return Text(controller!.count.string);
+                    return Text(controller.count.string);
                   }))))),
     ]);
   }

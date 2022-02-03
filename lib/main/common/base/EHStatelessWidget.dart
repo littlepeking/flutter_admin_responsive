@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 
 abstract class EHStatelessWidget<T extends GetxController>
     extends StatelessWidget {
-  final T? controller;
+  final T controller;
 
-  EHStatelessWidget({Key? key, this.controller}) : super(key: key);
+  EHStatelessWidget({Key? key, required this.controller}) : super(key: key);
 
   T findController<T extends EHController>() {
     return Get.find<T>();

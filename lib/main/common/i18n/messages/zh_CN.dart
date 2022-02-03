@@ -1,6 +1,6 @@
 Map<String, String> zhCNMessages = {
   'Personalization': '个性化',
-  'quit': '退出',
+  'Quit': '退出',
   'changeLocale': '切换语言',
   'changeTheme': '切换主题',
   'Notification': '通知',
@@ -26,5 +26,9 @@ Map<String, String> zhCNMessages = {
   'Message Infomation': '系统消息',
   'Window list is empty': '窗口列表为空',
   'Window List': '窗口列表',
-  'Routes': '路线'
+  'Routes': '路线',
+  'General Info': '基本信息',
+  'Detail Info': '详细信息',
+  'Summary Info': '汇总信息',
+  'Other': '其他'
 };

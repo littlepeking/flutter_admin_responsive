@@ -27,6 +27,7 @@ class EHTabsView extends StatelessWidget {
         Flexible(
           child: Obx(
             () => Container(
+                padding: EdgeInsets.all(3),
                 decoration: BoxDecoration(
                     border: Border.all(
                         color: ThemeController.instance.isDarkMode.isTrue

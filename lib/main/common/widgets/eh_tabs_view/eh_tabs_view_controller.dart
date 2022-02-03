@@ -23,6 +23,8 @@ class EHTabsViewController extends GetxController {
 
   var minFullViewPortItemIndex = 0.obs;
 
+  bool showScrollArrow = true;
+
   next() {
     if (maxFullViewPortItemIndex.value < tabsConfig.length - 1) {
       itemScrollController.jumpTo(index: (minViewPortItemIndex.value + 1));
@@ -57,6 +59,10 @@ class EHTabsViewController extends GetxController {
         Responsive.isTablet(Get.context!)) {
       Get.back();
     }
+  }
+
+  initTabs(List<EHTab> tabs) {
+    tabsConfig = tabs.obs;
   }
 
   addTab(EHTab tab) {
