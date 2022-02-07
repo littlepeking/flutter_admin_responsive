@@ -17,36 +17,39 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
     controller.receiptDetailTabsViewController.showScrollArrow = false;
 
     controller.receiptHeaderTabsViewController.initTabs([
-      EHTab('General Info', controller.asnHeaderDataGridController, f),
+      EHTab('General Info', controller.asnHeaderDataGridController,
+          (EHController c) {
+        return PageStorage(
+            bucket: b,
+            child: EHDataGrid<EHDataGridController>(
+              controller: c,
+            ));
+      }),
       // EHTab('Summary Info', controller, (controller) => Center()),
       // EHTab('Other', controller, (controller) => EditingDataGrid()),
     ]);
-
-    // controller.receiptDetailTabsViewController.initTabs([
-    //   EHTab(
-    //       'General Info', controller, (controller) => JsonDataSourceDataGrid()),
-    //   EHTab(
-    //       'Detail Info', controller, (controller) => ColumnResizingDataGrid()),
-    //   EHTab('Other', controller, (controller) => Center()),
-    // ]);
+    controller.receiptDetailTabsViewController.initTabs([
+      EHTab('Detail Info', controller.asnDetailDataGridController,
+          (EHController c) {
+        return PageStorage(
+            bucket: b,
+            child: EHDataGrid<EHDataGridController>(
+              controller: c,
+            ));
+      }),
+      // EHTab('Summary Info', controller, (controller) => Center()),
+      // EHTab('Other', controller, (controller) => EditingDataGrid()),
+    ]);
 
     return Column(
       children: [
         Expanded(
             child: EHTabsView(
                 controller: controller.receiptHeaderTabsViewController)),
-        // Expanded(
-        //     child: EHTabsView(
-        //         controller: controller.receiptDetailTabsViewController)),
+        Expanded(
+            child: EHTabsView(
+                controller: controller.receiptDetailTabsViewController)),
       ],
     );
-  }
-
-  Widget f(EHController c) {
-    return PageStorage(
-        bucket: b,
-        child: EHDataGrid<EHDataGridController>(
-          controller: c,
-        ));
   }
 }

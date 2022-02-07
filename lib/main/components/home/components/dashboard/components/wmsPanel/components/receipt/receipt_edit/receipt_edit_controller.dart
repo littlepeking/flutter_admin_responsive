@@ -13,6 +13,9 @@ class ReceiptEditController extends EHController {
   EHDataGridController asnHeaderDataGridController =
       EHDataGridController(AsnHeaderDataGridSource());
 
+  EHDataGridController asnDetailDataGridController =
+      EHDataGridController(AsnHeaderDataGridSource());
+
   EHTabsViewController receiptDetailTabsViewController = EHTabsViewController();
 }
 
