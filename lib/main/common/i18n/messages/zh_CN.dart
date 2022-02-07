@@ -30,5 +30,6 @@ Map<String, String> zhCNMessages = {
   'General Info': '基本信息',
   'Detail Info': '详细信息',
   'Summary Info': '汇总信息',
-  'Other': '其他'
+  'Other': '其他',
+  'Filter...': '过滤条件'
 };

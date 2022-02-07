@@ -5,8 +5,7 @@ import 'package:get/get.dart';
 import 'TestController.dart';
 
 class Test2 extends EHStatelessWidget<TestController> {
-  Test2({Key? key, required TestController controller})
-      : super(key: key, controller: controller);
+  Test2({Key? key, controller}) : super(key: key, controller: controller);
 
   @override
   Widget build(BuildContext context) {

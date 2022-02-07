@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
@@ -18,20 +19,21 @@ class TmsPanelController extends GetxController {
           menuName: "Transport Management",
           children: [
             EHTreeNode(
+                icon: Icons.assignment,
                 menuName: "Shipment Orders",
-                icon: Icons.access_alarm,
                 onTap: () {
-                  tabViewController.addTab(
-                      (EHTab('Shipment Orders', TestController(),
-                          (TestController controller) {
+                  tabViewController.addTab((EHTab<TestController>(
+                      'Shipment Orders', TestController(),
+                      (TestController controller) {
                     return Test2(controller: controller);
                   }, closable: true)));
-                })
+                }),
+            EHTreeNode(
+              icon: Icons.alt_route,
+              menuName: "Routes",
+              children: [],
+            ),
           ],
-        ),
-        EHTreeNode(
-          menuName: "Routes",
-          children: [],
         ),
       ];
 

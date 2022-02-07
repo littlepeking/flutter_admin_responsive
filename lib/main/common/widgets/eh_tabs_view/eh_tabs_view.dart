@@ -5,6 +5,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_vi
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'eh_tabs_header_mobile.dart';
 
 class EHTabsView extends StatelessWidget {
@@ -22,7 +23,9 @@ class EHTabsView extends StatelessWidget {
           preTabHeaderWidget ?? SizedBox(),
           Responsive.isMobile(context)
               ? Expanded(child: EHTabsHeaderMobile(controller: controller))
-              : Expanded(child: EHTabHeader(controller: controller)),
+              : Expanded(
+                  child: EHTabHeader(
+                      key: PageStorageKey(UniqueKey), controller: controller)),
         ]),
         Flexible(
           child: Obx(
