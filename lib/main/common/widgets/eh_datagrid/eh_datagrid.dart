@@ -21,6 +21,12 @@ class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
   }
 
   getGridColumns() {
+    if (controller.dataGridSource.columnFilters.length == 0) {
+      this.controller.dataGridSource.getColumnsConfig().forEach(
+          (columnConfig) => controller.dataGridSource.columnFilters.putIfAbsent(
+              columnConfig.columnName, () => new TextEditingController()));
+    }
+
     List<GridColumn> gridColumnList = this
         .controller
         .dataGridSource
@@ -38,7 +44,7 @@ class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
                       height: 30,
                       child: TextField(
                         controller: controller.dataGridSource
-                            .columnFilterMap[columnConfig.columnName],
+                            .columnFilters[columnConfig.columnName],
                         textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(5),

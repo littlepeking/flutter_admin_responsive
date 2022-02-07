@@ -24,7 +24,7 @@ abstract class EHDataGridSource extends DataGridSource {
   double? totalPageNumber = 1;
 
   //Key: column name, value: filter value controller
-  Map<String, TextEditingController> columnFilterMap = Map();
+  Map<String, TextEditingController> columnFilters = Map();
 
   /// Instance of an order.
   List<Map> dataList = <Map>[];
@@ -33,6 +33,16 @@ abstract class EHDataGridSource extends DataGridSource {
   List<DataGridRow> dataGridRows = <DataGridRow>[];
 
   Future<List<Map>> getData();
+
+  Map<String, String> get filters {
+    Map<String, String> filters = Map();
+
+    columnFilters.entries.forEach((element) {
+      filters.putIfAbsent(element.key, () => element.value.text);
+    });
+
+    return filters;
+  }
 
   List<EHDataGridColumnConfig> getColumnsConfig();
 
