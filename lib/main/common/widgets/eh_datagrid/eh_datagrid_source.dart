@@ -39,13 +39,29 @@ abstract class EHDataGridSource extends DataGridSource {
   Future<List<Map>> getData();
 
   Map<String, String> get filters {
-    Map<String, String> filters = Map();
+    Map<String, String> _filters = Map();
 
     columnFilters.entries.forEach((element) {
-      filters.putIfAbsent(element.key, () => element.value.controller.text);
+      _filters.putIfAbsent(element.key, () => element.value.controller.text);
     });
 
-    return filters;
+    return _filters;
+  }
+
+  Map<String, String> get orderBy {
+    Map<String, String> _orderBy = Map();
+
+    columnFilters.entries.forEach((element) {
+      EHDataGridColumnSortType orderByVal = element.value.sort.value;
+      if (orderByVal != EHDataGridColumnSortType.None)
+        _orderBy.putIfAbsent(
+            element.key,
+            () => orderByVal
+                .toString()
+                .substring(orderByVal.toString().indexOf('.') + 1));
+    });
+
+    return _orderBy;
   }
 
   List<EHDataGridColumnConfig> getColumnsConfig();
