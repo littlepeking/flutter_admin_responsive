@@ -31,5 +31,11 @@ Map<String, String> zhCNMessages = {
   'Detail Info': '详细信息',
   'Summary Info': '汇总信息',
   'Other': '其他',
-  'Filter...': '过滤条件'
+  'Filter...': '过滤条件',
+  'id': 'ID',
+  'customerId': '客户代码',
+  'name': '客户名称',
+  'city': '城市',
+  'qty': '数量',
+  'date': '时间'
 };

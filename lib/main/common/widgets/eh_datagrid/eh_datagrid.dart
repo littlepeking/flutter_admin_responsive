@@ -40,6 +40,14 @@ class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
                   padding: const EdgeInsets.all(8),
                   alignment: Alignment.centerRight,
                   child: Column(children: [
+                    Text(
+                      columnConfig.columnHeaderName != null
+                          ? columnConfig.columnHeaderName!.tr
+                          : columnConfig.columnName.tr,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Divider(),
                     Container(
                       height: 30,
                       child: TextField(
@@ -53,13 +61,6 @@ class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
                         ),
                       ),
                     ),
-                    Divider(),
-                    Text(
-                      columnConfig.columnHeaderName != null
-                          ? columnConfig.columnHeaderName!.tr
-                          : columnConfig.columnName.tr,
-                      overflow: TextOverflow.ellipsis,
-                    )
                   ]))),
         )
         .toList();

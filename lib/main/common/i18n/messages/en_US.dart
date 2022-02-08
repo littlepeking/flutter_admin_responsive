@@ -11,5 +11,14 @@ Map<String, String> enUSMessages = {
   'SystemManagement': 'System Management',
   'Report': 'Report',
   '%System Welcome Page': '@System Welcome Page',
-  'Orders': 'Order Management'
+  'Orders': 'Order Management',
+  'Asn': 'ASN',
+  'Asn Details': 'ASN Details',
+  'Shipment Orders': 'Shipment Orders',
+  'id': 'ID',
+  'customerId': 'CUSTOMER ID',
+  'name': 'NAME',
+  'city': 'CITY',
+  'qty': 'QUANTITY',
+  'date': 'DATE'
 };

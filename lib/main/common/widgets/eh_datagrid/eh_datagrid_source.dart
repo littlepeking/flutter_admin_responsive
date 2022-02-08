@@ -9,6 +9,8 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import 'eh_datagrid_constants.dart';
 
+import 'package:intl/intl.dart';
+
 /// Set order's data collection to data grid source.
 abstract class EHDataGridSource extends DataGridSource {
   /// Creates the order data source class with required details.
@@ -132,7 +134,9 @@ abstract class EHDataGridSource extends DataGridSource {
         padding: padding,
         alignment: alignment,
         child: Text(
-          value.toString(),
+          value is DateTime
+              ? DateFormat('yyyy/MM/dd').format(value)
+              : value.toString(),
           overflow: textOverflow,
         ),
       );
@@ -149,7 +153,12 @@ abstract class EHDataGridSource extends DataGridSource {
     return DataGridRowAdapter(
         color: backgroundColor,
         cells: row.getCells().map<Widget>((DataGridCell dataCell) {
-          if (dataCell.columnName == 'id') {
+          EHDataGridColumnConfig columnConfig = getColumnsConfig()
+              .where((e) => e.columnName == dataCell.columnName)
+              .single;
+
+          if (columnConfig.columnType == EHDataGridColumnType.int ||
+              columnConfig.columnType == EHDataGridColumnType.double) {
             return buildWidget(
                 alignment: Alignment.centerRight, value: dataCell.value!);
           } else {
