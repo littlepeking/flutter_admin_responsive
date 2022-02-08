@@ -18,7 +18,6 @@ class EHText extends StatelessWidget {
         fontSize: size ?? Theme.of(context).textTheme.bodyText1!.fontSize,
         color: color ?? Theme.of(context).textTheme.bodyText1!.color,
         fontWeight: weight ?? Theme.of(context).textTheme.bodyText1!.fontWeight,
-        overflow: TextOverflow.ellipsis,
       ),
     );
   }

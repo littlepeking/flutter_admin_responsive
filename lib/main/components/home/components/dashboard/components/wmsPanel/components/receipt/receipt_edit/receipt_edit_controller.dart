@@ -22,16 +22,18 @@ class ReceiptEditController extends EHController {
 class AsnHeaderDataGridSource extends EHDataGridSource {
   List<Map> allDataRows = [];
 
+  List<EHDataGridColumnConfig> columnConfig = [
+    EHDataGridColumnConfig('id', EHDataGridColumnType.int),
+    EHDataGridColumnConfig('customerId', EHDataGridColumnType.int),
+    EHDataGridColumnConfig('name', EHDataGridColumnType.string),
+    EHDataGridColumnConfig('city', EHDataGridColumnType.string),
+    EHDataGridColumnConfig('qty', EHDataGridColumnType.double),
+    EHDataGridColumnConfig('date', EHDataGridColumnType.datatime),
+  ];
+
   @override
   List<EHDataGridColumnConfig> getColumnsConfig() {
-    return [
-      EHDataGridColumnConfig('id', EHDataGridColumnType.int),
-      EHDataGridColumnConfig('customerId', EHDataGridColumnType.int),
-      EHDataGridColumnConfig('name', EHDataGridColumnType.string),
-      EHDataGridColumnConfig('city', EHDataGridColumnType.string),
-      EHDataGridColumnConfig('qty', EHDataGridColumnType.double),
-      EHDataGridColumnConfig('date', EHDataGridColumnType.datatime),
-    ];
+    return columnConfig;
   }
 
   @override

@@ -1,5 +1,6 @@
 ///Package imports
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,8 +34,8 @@ class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
         .getColumnsConfig()
         .map(
           (columnConfig) => GridColumn(
-              minimumWidth: 120,
-              width: double.nan,
+              minimumWidth: 100,
+              width: columnConfig.width!.value,
               columnName: columnConfig.columnName,
               label: Container(
                   padding: const EdgeInsets.all(8),
@@ -47,7 +48,10 @@ class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Divider(),
+                    //   Divider(),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Container(
                       height: 30,
                       child: TextField(
@@ -79,8 +83,19 @@ class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
         rowsPerPage: this.controller.dataGridSource.pageSize!.value,
         allowSorting: false,
         allowColumnsResizing: true,
+        columnResizeMode: ColumnResizeMode.onResize,
         columnWidthMode: ColumnWidthMode.fill,
-        columns: getGridColumns()));
+        columns: getGridColumns(),
+        onColumnResizeUpdate: (ColumnResizeUpdateDetails args) {
+          EHDataGridColumnConfig column = this
+              .controller
+              .dataGridSource
+              .getColumnsConfig()
+              .where((element) => element.columnName == args.column.columnName)
+              .single;
+          column.width!.value = args.width;
+          return true;
+        }));
   }
 
   Widget _buildDataPager() {
@@ -93,7 +108,7 @@ class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
         onPageNavigationStart: (pagenumber) async {
           if (this.controller.dataGridSource.pageIndex != pagenumber) {
             this.controller.dataGridSource.pageIndex = pagenumber;
-            await this.controller.dataGridSource.refresh();
+            await this.controller.dataGridSource.handleRefresh();
           }
         },
         onPageNavigationEnd: (pagenumber) => {}, //hide spinner
@@ -102,7 +117,7 @@ class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
         pageCount: controller.dataGridSource.totalPageNumber!,
         onRowsPerPageChanged: (int? rowsPerPage) async {
           this.controller.dataGridSource.pageSize!.value = rowsPerPage!;
-          await this.controller.dataGridSource.refresh();
+          await this.controller.dataGridSource.handleRefresh();
         },
         direction: Axis.horizontal,
       ),

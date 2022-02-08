@@ -179,12 +179,6 @@ abstract class EHDataGridSource extends DataGridSource {
 
   @override
   Future<void> handleRefresh() async {
-    // dataList = await getData();
-    // buildDataGridRows();
-    // notifyListeners();
-  }
-
-  Future<void> refresh() async {
     dataList = await getData();
     buildDataGridRows();
     notifyListeners();
