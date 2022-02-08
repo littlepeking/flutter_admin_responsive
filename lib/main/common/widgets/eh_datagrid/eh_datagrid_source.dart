@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
+import '../eh_text.dart';
 import 'eh_datagrid_constants.dart';
 
 import 'package:intl/intl.dart';
@@ -133,11 +134,10 @@ abstract class EHDataGridSource extends DataGridSource {
       return Container(
         padding: padding,
         alignment: alignment,
-        child: Text(
-          value is DateTime
+        child: EHText(
+          text: value is DateTime
               ? DateFormat('yyyy/MM/dd').format(value)
               : value.toString(),
-          overflow: textOverflow,
         ),
       );
 

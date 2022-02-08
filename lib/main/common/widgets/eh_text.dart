@@ -12,13 +12,14 @@ class EHText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
+    return SelectableText(
       text,
       style: TextStyle(
-          fontSize: size ?? Theme.of(context).textTheme.bodyText1!.fontSize,
-          color: color ?? Theme.of(context).textTheme.bodyText1!.color,
-          fontWeight:
-              weight ?? Theme.of(context).textTheme.bodyText1!.fontWeight),
+        fontSize: size ?? Theme.of(context).textTheme.bodyText1!.fontSize,
+        color: color ?? Theme.of(context).textTheme.bodyText1!.color,
+        fontWeight: weight ?? Theme.of(context).textTheme.bodyText1!.fontWeight,
+        overflow: TextOverflow.ellipsis,
+      ),
     );
   }
 }
