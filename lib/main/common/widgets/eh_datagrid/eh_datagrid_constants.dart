@@ -1,1 +1,3 @@
-enum EHDataGridColumnType { date, datatime, int, double, string, bool }
+enum EHDataGridColumnType { Date, DateTime, int, double, String, Bool }
+
+enum EHDataGridColumnSortType { Asc, Desc, None }

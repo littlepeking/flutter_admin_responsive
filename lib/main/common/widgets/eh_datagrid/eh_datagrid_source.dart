@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 /// Dart import
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 
 /// Package imports
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ abstract class EHDataGridSource extends DataGridSource {
   double? totalPageNumber = 1;
 
   //Key: column name, value: filter value controller
-  Map<String, TextEditingController> columnFilters = Map();
+  Map<String, EHDateGridFilterInfo> columnFilters = Map();
 
   /// Instance of an order.
   List<Map> dataList = <Map>[];
@@ -41,7 +42,7 @@ abstract class EHDataGridSource extends DataGridSource {
     Map<String, String> filters = Map();
 
     columnFilters.entries.forEach((element) {
-      filters.putIfAbsent(element.key, () => element.value.text);
+      filters.putIfAbsent(element.key, () => element.value.controller.text);
     });
 
     return filters;
@@ -78,20 +79,20 @@ abstract class EHDataGridSource extends DataGridSource {
                   columnName: columnConfig.columnName,
                   value: row[columnConfig.columnName]);
             }
-          case EHDataGridColumnType.date:
-          case EHDataGridColumnType.datatime:
+          case EHDataGridColumnType.Date:
+          case EHDataGridColumnType.DateTime:
             {
               return DataGridCell<DateTime>(
                   columnName: columnConfig.columnName,
                   value: row[columnConfig.columnName]);
             }
-          case EHDataGridColumnType.string:
+          case EHDataGridColumnType.String:
             {
               return DataGridCell<String>(
                   columnName: columnConfig.columnName,
                   value: row[columnConfig.columnName]);
             }
-          case EHDataGridColumnType.bool:
+          case EHDataGridColumnType.Bool:
             {
               return DataGridCell<bool>(
                   columnName: columnConfig.columnName,

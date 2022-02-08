@@ -2,6 +2,7 @@
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,8 @@ import 'package:syncfusion_flutter_core/theme.dart';
 
 /// DataGrid Package
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+
+import 'eh_datagrid_constants.dart';
 
 /// Render data pager
 class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
@@ -22,11 +25,9 @@ class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
   }
 
   getGridColumns() {
-    if (controller.dataGridSource.columnFilters.length == 0) {
-      this.controller.dataGridSource.getColumnsConfig().forEach(
-          (columnConfig) => controller.dataGridSource.columnFilters.putIfAbsent(
-              columnConfig.columnName, () => new TextEditingController()));
-    }
+    this.controller.dataGridSource.getColumnsConfig().forEach((columnConfig) =>
+        controller.dataGridSource.columnFilters.putIfAbsent(
+            columnConfig.columnName, () => EHDateGridFilterInfo()));
 
     List<GridColumn> gridColumnList = this
         .controller
@@ -41,30 +42,108 @@ class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
                   padding: const EdgeInsets.all(8),
                   alignment: Alignment.centerRight,
                   child: Column(children: [
-                    Text(
-                      columnConfig.columnHeaderName != null
-                          ? columnConfig.columnHeaderName!.tr
-                          : columnConfig.columnName.tr,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              columnConfig.columnHeaderName != null
+                                  ? columnConfig.columnHeaderName!.tr
+                                  : columnConfig.columnName.tr,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Obx(
+                              () => Icon(
+                                this
+                                            .controller
+                                            .dataGridSource
+                                            .columnFilters[
+                                                columnConfig.columnName]!
+                                            .sort
+                                            .value ==
+                                        EHDataGridColumnSortType.Desc
+                                    ? Icons.arrow_downward
+                                    : this
+                                                .controller
+                                                .dataGridSource
+                                                .columnFilters[
+                                                    columnConfig.columnName]!
+                                                .sort
+                                                .value ==
+                                            EHDataGridColumnSortType.Asc
+                                        ? Icons.arrow_upward
+                                        : null,
+                                size: 15,
+                              ),
+                            )
+                          ],
+                        ),
+                        onTap: () {
+                          this
+                              .controller
+                              .dataGridSource
+                              .columnFilters
+                              .entries
+                              .where((e) => e.key != columnConfig.columnName)
+                              .forEach((e) {
+                            e.value.sort.value = EHDataGridColumnSortType.None;
+                          });
+
+                          switch (this
+                              .controller
+                              .dataGridSource
+                              .columnFilters[columnConfig.columnName]!
+                              .sort
+                              .value) {
+                            case EHDataGridColumnSortType.None:
+                              this
+                                  .controller
+                                  .dataGridSource
+                                  .columnFilters[columnConfig.columnName]!
+                                  .sort
+                                  .value = EHDataGridColumnSortType.Asc;
+                              break;
+
+                            case EHDataGridColumnSortType.Asc:
+                              this
+                                  .controller
+                                  .dataGridSource
+                                  .columnFilters[columnConfig.columnName]!
+                                  .sort
+                                  .value = EHDataGridColumnSortType.Desc;
+
+                              break;
+                            case EHDataGridColumnSortType.Desc:
+                              this
+                                  .controller
+                                  .dataGridSource
+                                  .columnFilters[columnConfig.columnName]!
+                                  .sort
+                                  .value = EHDataGridColumnSortType.None;
+
+                              break;
+                          }
+                          this.controller.dataGridSource.handleRefresh();
+                        }),
                     //   Divider(),
                     SizedBox(
                       height: 5,
                     ),
                     Container(
-                      height: 30,
-                      child: TextField(
-                        controller: controller.dataGridSource
-                            .columnFilters[columnConfig.columnName],
-                        textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(5),
-                          border: new OutlineInputBorder(),
-                          hintText: "Filter...".tr,
-                        ),
-                      ),
-                    ),
+                        height: 30,
+                        child: TextField(
+                          controller: controller
+                              .dataGridSource
+                              .columnFilters[columnConfig.columnName]!
+                              .controller,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(5),
+                            border: new OutlineInputBorder(),
+                            hintText: "Filter...".tr,
+                          ),
+                        )),
                   ]))),
         )
         .toList();

@@ -2,6 +2,7 @@ import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_source.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 
@@ -10,8 +11,16 @@ import 'dart:math' as math;
 class ReceiptEditController extends EHController {
   EHTabsViewController receiptHeaderTabsViewController = EHTabsViewController();
 
-  EHDataGridController asnHeaderDataGridController =
-      EHDataGridController(AsnHeaderDataGridSource());
+  late AsnHeaderDataGridSource headerSource;
+  late EHDataGridController asnHeaderDataGridController;
+
+  ReceiptEditController() {
+    AsnHeaderDataGridSource asnHeaderDataGridSource = AsnHeaderDataGridSource();
+    asnHeaderDataGridSource.columnFilters['id'] = EHDateGridFilterInfo();
+    asnHeaderDataGridSource.columnFilters['id']!.sort.value =
+        EHDataGridColumnSortType.Asc;
+    asnHeaderDataGridController = EHDataGridController(asnHeaderDataGridSource);
+  }
 
   EHDataGridController asnDetailDataGridController =
       EHDataGridController(AsnHeaderDataGridSource());
@@ -25,10 +34,10 @@ class AsnHeaderDataGridSource extends EHDataGridSource {
   List<EHDataGridColumnConfig> columnConfig = [
     EHDataGridColumnConfig('id', EHDataGridColumnType.int),
     EHDataGridColumnConfig('customerId', EHDataGridColumnType.int),
-    EHDataGridColumnConfig('name', EHDataGridColumnType.string),
-    EHDataGridColumnConfig('city', EHDataGridColumnType.string),
+    EHDataGridColumnConfig('name', EHDataGridColumnType.String),
+    EHDataGridColumnConfig('city', EHDataGridColumnType.String),
     EHDataGridColumnConfig('qty', EHDataGridColumnType.double),
-    EHDataGridColumnConfig('date', EHDataGridColumnType.datatime),
+    EHDataGridColumnConfig('date', EHDataGridColumnType.DateTime),
   ];
 
   @override
@@ -44,8 +53,9 @@ class AsnHeaderDataGridSource extends EHDataGridSource {
 
   /// Get orders collection
   List<Map> getOrders(List<Map> orderData) {
-    final int startIndex = orderData.isNotEmpty ? orderData.length : 0,
-        endIndex = startIndex + 25;
+    // final int startIndex = orderData.isNotEmpty ? orderData.length : 0,
+    //     endIndex = startIndex + 25;
+    final int startIndex = 0, endIndex = 25;
     for (int i = startIndex; i < endIndex; i++) {
       orderData.add({
         'id': 1000 + i,
