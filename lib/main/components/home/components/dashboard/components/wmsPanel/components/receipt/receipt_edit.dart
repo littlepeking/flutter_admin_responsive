@@ -3,9 +3,10 @@ import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_edit/receipt_detail_view.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_edit/receipt_edit_controller.dart';
 import 'package:flutter/material.dart';
+
+import 'receipt_detail_view.dart';
+import 'receipt_edit_controller.dart';
 
 PageStorageBucket b = PageStorageBucket();
 

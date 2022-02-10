@@ -52,7 +52,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                           ? ThemeController.getThemeColor(
                               Colors.white, Colors.black)
                           : ThemeController.getThemeColor(
-                              Colors.yellow, Colors.red)),
+                              Colors.yellow.shade200, Colors.red)),
                 ),
                 controller.mustInput
                     ? Padding(
@@ -93,7 +93,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                 controller.error,
                 style: TextStyle(
                     color: ThemeController.getThemeColor(
-                        Colors.yellow, Colors.red)),
+                        Colors.yellow.shade200, Colors.red)),
               ))
             ],
           ),

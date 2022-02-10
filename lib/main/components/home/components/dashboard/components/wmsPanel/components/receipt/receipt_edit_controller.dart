@@ -8,7 +8,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_vi
 
 import 'dart:math' as math;
 
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_edit/receipt_detail_view_controller.dart';
+import 'receipt_detail_view_controller.dart';
 
 class ReceiptEditController extends EHController {
   EHTabsViewController receiptHeaderTabsViewController = EHTabsViewController();

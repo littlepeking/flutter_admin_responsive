@@ -1,9 +1,9 @@
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field/eh_text_field.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_edit/receipt_detail_view_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
+import 'receipt_detail_view_controller.dart';
 
 class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
   ReceiptDetailView({Key? key, controller})
@@ -24,21 +24,28 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
             child: FocusTraversalGroup(
               child: Wrap(children: [
                 EHTextField(
-                  label: '测试',
-                  text: 'defval',
-                  mustInput: true,
-                  onChanged: (value) => print(value),
-                ),
+                    label: '测试',
+                    text: controller.receiptModel.value.receiptKey,
+                    mustInput: true,
+                    onChanged: (value) =>
+                        controller.receiptModel.update((model) {
+                          model!.receiptKey = value;
+                          print(model.receiptKey + '===' + model.customerName);
+                        })),
                 EHTextField(
                   label: '测试',
-                  text: '',
+                  text: controller.receiptModel.value.customerName,
                   mustInput: false,
                   width: 300,
-                  onChanged: (value) => print(value),
+                  onChanged: (value) => controller.receiptModel.update((model) {
+                    model!.customerName = value;
+                    print(model.receiptKey + '===' + model.customerName);
+                  }),
                 ),
                 EHTextField(
                   label: '',
                   text: '',
+                  enabled: false,
                   mustInput: true,
                   onChanged: (value) => print(value),
                 ),
