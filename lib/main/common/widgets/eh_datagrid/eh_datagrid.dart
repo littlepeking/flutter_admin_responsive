@@ -15,7 +15,7 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'eh_datagrid_constants.dart';
 
 /// Render data pager
-class EHDataGrid<T extends EHDataGridController> extends EHStatelessWidget<T> {
+class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
   /// Create data pager
   EHDataGrid({Key? key, controller}) : super(key: key, controller: controller);
   @override

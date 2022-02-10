@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 /// Dart import
+import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 
@@ -31,10 +32,10 @@ abstract class EHDataGridSource extends DataGridSource {
   Map<String, EHDateGridFilterInfo> columnFilters = Map();
 
   /// Instance of an order.
-  List<Map> dataList = <Map>[];
+  List<Map> _dataList = <Map>[];
 
   /// Instance of DataGridRow.
-  List<DataGridRow> dataGridRows = <DataGridRow>[];
+  List<DataGridRow> _dataGridRows = <DataGridRow>[];
 
   Future<List<Map>> getData();
 
@@ -68,7 +69,7 @@ abstract class EHDataGridSource extends DataGridSource {
 
   /// Building DataGridRows
   void buildDataGridRows() {
-    List<DataGridRow> rows = dataList.map<DataGridRow>((Map row) {
+    List<DataGridRow> rows = _dataList.map<DataGridRow>((Map row) {
       List<EHDataGridColumnConfig> columnsConfig = getColumnsConfig();
 
       if (isMobile) {
@@ -126,17 +127,17 @@ abstract class EHDataGridSource extends DataGridSource {
       return DataGridRow(cells: cellList);
     }).toList();
 
-    this.dataGridRows = rows;
+    this._dataGridRows = rows;
   }
 
   // Overrides
 
   @override
-  List<DataGridRow> get rows => dataGridRows;
+  List<DataGridRow> get rows => _dataGridRows;
 
   @override
   DataGridRowAdapter buildRow(DataGridRow row) {
-    final int rowIndex = dataGridRows.indexOf(row);
+    final int rowIndex = _dataGridRows.indexOf(row);
     Color backgroundColor = Colors.transparent;
     if ((rowIndex % 2) == 0) {
       backgroundColor = Colors.grey.withOpacity(0.07);
@@ -196,9 +197,13 @@ abstract class EHDataGridSource extends DataGridSource {
 
   @override
   Future<void> handleRefresh() async {
-    dataList = await getData();
-    buildDataGridRows();
-    notifyListeners();
+    try {
+      _dataList = await getData();
+      buildDataGridRows();
+      notifyListeners();
+    } catch (e) {
+      EHToastMessageHelper.showInfoMessage("Data update failed");
+    }
   }
 
   // @override

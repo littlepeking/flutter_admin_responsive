@@ -1,9 +1,9 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_edit/receipt_detail_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_edit/receipt_edit_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
           (EHController c) {
         return PageStorage(
             bucket: b,
-            child: EHDataGrid<EHDataGridController>(
+            child: EHDataGrid(
               controller: c,
             ));
       }),
@@ -29,11 +29,19 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
       // EHTab('Other', controller, (controller) => EditingDataGrid()),
     ]);
     controller.receiptDetailTabsViewController.initTabs([
-      EHTab('Detail Info', controller.asnDetailDataGridController,
+      EHTab('Detail Info', controller.receiptDetailInfoController,
           (EHController c) {
         return PageStorage(
             bucket: b,
-            child: EHDataGrid<EHDataGridController>(
+            child: ReceiptDetailView(
+              controller: c,
+            ));
+      }),
+      EHTab('Sub Grid Info', controller.asnDetailDataGridController,
+          (EHController c) {
+        return PageStorage(
+            bucket: b,
+            child: EHDataGrid(
               controller: c,
             ));
       }),

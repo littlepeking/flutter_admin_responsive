@@ -37,5 +37,6 @@ Map<String, String> zhCNMessages = {
   'name': '客户名称',
   'city': '城市',
   'qty': '数量',
-  'date': '时间'
+  'date': '时间',
+  'Data update failed': '数据获取失败，请检查网络'
 };
