@@ -26,14 +26,24 @@ class EHTabsViewController extends GetxController {
   bool showScrollArrow = true;
 
   next() {
-    if (maxFullViewPortItemIndex.value < tabsConfig.length - 1) {
-      itemScrollController.jumpTo(index: (minViewPortItemIndex.value + 1));
+    bool isNotFullyShownLastNotDeletedTab =
+        tabsConfig.indexOf(tabsConfig.where((e) => !e.isDeleted).last) >
+            maxFullViewPortItemIndex.value;
+    if (maxFullViewPortItemIndex.value < tabsConfig.length - 1 &&
+        isNotFullyShownLastNotDeletedTab) {
+      int toIndex = minViewPortItemIndex.value + 1;
+      while (tabsConfig[toIndex].isDeleted) toIndex++;
+      itemScrollController.jumpTo(index: toIndex);
     }
   }
 
   previous() {
     if (minFullViewPortItemIndex.value > 0) {
-      itemScrollController.jumpTo(index: (minFullViewPortItemIndex.value - 1));
+      int toIndex = minFullViewPortItemIndex.value - 1;
+
+      while (tabsConfig[toIndex].isDeleted) toIndex--;
+
+      itemScrollController.jumpTo(index: (toIndex));
     }
   }
 
@@ -45,11 +55,11 @@ class EHTabsViewController extends GetxController {
     //     ),
     //     isActive: false);
 
-    tabsConfig.removeAt(index);
+    tabsConfig[index].tabWidget = null;
+    tabsConfig[index].isDeleted = true;
     tabsConfig.refresh();
 
-    if (selectedIndex.value != 0 && index <= selectedIndex.value)
-      selectedIndex--;
+    while (tabsConfig[selectedIndex.value].isDeleted) selectedIndex--;
 
     //add animation after removed last item
     if (!Responsive.isMobile(Get.context!))

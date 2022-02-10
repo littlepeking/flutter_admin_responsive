@@ -9,6 +9,10 @@ class EHTab<T extends EHController> {
   Map<String, String>? tabTranslateParams;
   T tabController;
   Widget Function(T controller) getTabWidgetFunc;
+
+  bool isDeleted = false;
+
+  Widget? tabWidget;
   //bool isActive;
   bool closable;
   bool showInBottomList; //Used only in mobile mode

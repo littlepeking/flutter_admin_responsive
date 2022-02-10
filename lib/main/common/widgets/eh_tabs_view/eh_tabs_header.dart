@@ -38,8 +38,13 @@ class EHTabHeader extends StatelessWidget {
                       padding: EdgeInsets.only(top: 10),
                       itemBuilder: (context, index) {
                         return Obx(() {
-                          if (index >= controller.tabsConfig.length)
-                            return SizedBox(); //增加此判断是因为删除TAB页时会越界，怀疑是ScrollablePositionedList的bug
+                          // if (index >= controller.tabsData.length)
+                          //   return SizedBox(); //增加此判断是因为删除TAB页时会越界，怀疑是ScrollablePositionedList的bug
+                          if (controller.tabsConfig[index].isDeleted)
+                            // return placeholder when tab is inactive.
+                            return Container(
+                              width: 0,
+                            );
                           else
                             return Row(
                               children: [
@@ -215,7 +220,7 @@ class EHTabHeader extends StatelessWidget {
         controller.maxViewPortItemIndex.value = max;
         controller.maxFullViewPortItemIndex.value = maxFull;
         controller.minFullViewPortItemIndex.value = minFull;
-        print(controller.minFullViewPortItemIndex.value);
+        //  print(controller.minFullViewPortItemIndex.value);
       }
     } catch (e) {
       //BUG FIX: 刷新频率高时，会闪屏，报错

@@ -2,6 +2,7 @@ import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_header.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/wms_panel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,7 +43,12 @@ class EHTabsView extends StatelessWidget {
                     return Container(
                       alignment: Alignment.topLeft,
                       //color: Colors.grey,
-                      child: tab.getTabWidgetFunc(tab.tabController),
+                      child: tab.tabWidget = tab.tabWidget ??
+                          (() {
+                            print(
+                                'called tab.getTabWidgetFunc ${tab.tabController}');
+                            return tab.getTabWidgetFunc(tab.tabController);
+                          })(),
                     );
                   }).toList(),
                   //[
