@@ -38,5 +38,6 @@ Map<String, String> zhCNMessages = {
   'city': '城市',
   'qty': '数量',
   'date': '时间',
-  'Data update failed': '数据获取失败，请检查网络'
+  'Data update failed': '数据获取失败，请检查网络',
+  'This field cannot be empty': '字段不能为空'
 };
