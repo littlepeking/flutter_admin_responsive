@@ -157,6 +157,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
     // print(this.controller.dataGridSource.pageSize!);
 
     return Obx(() => SfDataGrid(
+        rowHeight: 35,
         headerRowHeight: this.controller.dataPagerHeight,
         source: this.controller.dataGridSource,
         rowsPerPage: this.controller.dataGridSource.pageSize!.value,
