@@ -60,7 +60,7 @@ class AsnHeaderDataGridSource extends EHDataGridSource {
   List<Map> getOrders(List<Map> orderData) {
     // final int startIndex = orderData.isNotEmpty ? orderData.length : 0,
     //     endIndex = startIndex + 25;
-    final int startIndex = 0, endIndex = 25;
+    final int startIndex = 0, endIndex = 100;
     for (int i = startIndex; i < endIndex; i++) {
       orderData.add({
         'id': 1000 + i,
