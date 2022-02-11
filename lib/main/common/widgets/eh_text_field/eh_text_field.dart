@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditPanelController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
@@ -44,35 +46,40 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
           width: this.width,
           child: Column(
             children: [
-              Row(children: [
-                SizedBox(width: 5),
-                Text(
-                  EHUtilHelper.isEmpty(controller.label)
-                      ? ''
-                      : controller.label + ':',
-                  style: TextStyle(
-                      // fontWeight:
-                      //     EHUtilHelper.isEmpty(controller.errorBucket![key])
-                      //         ? FontWeight.w500
-                      //         : FontWeight.bold,
-                      // color: EHUtilHelper.isEmpty(controller.errorBucket![key])
-                      //     ? ThemeController.getThemeColor(
-                      //         Colors.white, Colors.black)
-                      //     : ThemeController.getThemeColor(
-                      //         Colors.yellow.shade200, Colors.red)
-                      ),
-                ),
-                controller.mustInput
-                    ? Padding(
-                        padding: EdgeInsets.only(left: 5),
-                        child: Icon(
-                          Icons.star,
-                          color: Colors.red,
-                          size: 10,
+              Container(
+                height: 20,
+                child: Row(children: [
+                  SizedBox(width: 5),
+                  Text(
+                    EHUtilHelper.isEmpty(controller.label)
+                        ? ''
+                        : controller.label + ':',
+                    style: TextStyle(
+
+                        // fontWeight:
+                        //     EHUtilHelper.isEmpty(controller.errorBucket![key])
+                        //         ? FontWeight.w500
+                        //         : FontWeight.bold,
+                        // color: EHUtilHelper.isEmpty(controller.errorBucket![key])
+                        //     ? ThemeController.getThemeColor(
+                        //         Colors.white, Colors.black)
+                        //     : ThemeController.getThemeColor(
+                        //         Colors.yellow.shade200, Colors.red)
                         ),
-                      )
-                    : SizedBox()
-              ]),
+                  ),
+                  controller.mustInput
+                      ? Padding(
+                          padding: EdgeInsets.only(left: 5),
+                          child: Icon(
+                            Icons.check_circle,
+                            color: ThemeController.getThemeColor(
+                                Colors.yellow.shade200, Colors.red),
+                            size: 12,
+                          ),
+                        )
+                      : SizedBox()
+                ]),
+              ),
               Container(
                 height: 30,
                 child: TextField(
