@@ -97,13 +97,15 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                       controller.onChanged!(v);
                     }),
               ),
-              Center(
-                  child: Text(
-                controller.errorBucket![key] ?? '',
-                style: TextStyle(
-                    color: ThemeController.getThemeColor(
-                        Colors.yellow.shade200, Colors.red)),
-              ))
+              EHUtilHelper.isEmpty(controller.errorBucket![key])
+                  ? SizedBox()
+                  : Center(
+                      child: Text(
+                      controller.errorBucket![key],
+                      style: TextStyle(
+                          color: ThemeController.getThemeColor(
+                              Colors.yellow.shade200, Colors.red)),
+                    ))
             ],
           ),
         ));
