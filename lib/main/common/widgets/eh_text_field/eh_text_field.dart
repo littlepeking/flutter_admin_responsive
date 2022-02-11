@@ -102,7 +102,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
 }
 
 class EHTextFieldController extends EHController {
-  TextEditingController _textEditingController = new TextEditingController();
+  EHEditingController _textEditingController = new EHEditingController();
   GlobalKey<State<Tooltip>> tooltipKey = GlobalKey();
 
   RxBool _mustInput = false.obs;
@@ -167,5 +167,16 @@ class EHTextFieldController extends EHController {
     this.error = error;
     this.enabled = enabled;
     this.mustInput = mustInput;
+  }
+}
+
+class EHEditingController extends TextEditingController {
+  @override
+  set text(String newText) {
+    value = value.copyWith(
+      text: newText,
+      selection: TextSelection.collapsed(offset: newText.length),
+      composing: TextRange.empty,
+    );
   }
 }
