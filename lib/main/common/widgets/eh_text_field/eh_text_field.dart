@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
+import 'package:eh_flutter_framework/main/common/base/EHEditPanelController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
 import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
@@ -12,6 +13,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
       EHTextFieldController? controller,
       String label = '',
       String text = '',
+      Map? errorBucket,
       bool enabled = true,
       bool mustInput = false,
       this.width = 200,
@@ -22,6 +24,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                 EHTextFieldController(
                     label: label,
                     text: text,
+                    errorBucket: errorBucket,
                     onChanged: onChanged,
                     enabled: enabled,
                     mustInput: mustInput));
@@ -30,6 +33,9 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
 
   @override
   Widget build(BuildContext context) {
+    if (controller.errorBucket == null)
+      controller.errorBucket = EHEditPanelController.globalErrorBucket;
+
     return Obx(() => Container(
           padding: Responsive.isDesktop(context)
               ? EdgeInsets.symmetric(horizontal: 5)
@@ -45,14 +51,16 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                       ? ''
                       : controller.label + ':',
                   style: TextStyle(
-                      fontWeight: EHUtilHelper.isEmpty(controller.error)
-                          ? FontWeight.w500
-                          : FontWeight.bold,
-                      color: EHUtilHelper.isEmpty(controller.error)
-                          ? ThemeController.getThemeColor(
-                              Colors.white, Colors.black)
-                          : ThemeController.getThemeColor(
-                              Colors.yellow.shade200, Colors.red)),
+                      // fontWeight:
+                      //     EHUtilHelper.isEmpty(controller.errorBucket![key])
+                      //         ? FontWeight.w500
+                      //         : FontWeight.bold,
+                      // color: EHUtilHelper.isEmpty(controller.errorBucket![key])
+                      //     ? ThemeController.getThemeColor(
+                      //         Colors.white, Colors.black)
+                      //     : ThemeController.getThemeColor(
+                      //         Colors.yellow.shade200, Colors.red)
+                      ),
                 ),
                 controller.mustInput
                     ? Padding(
@@ -80,9 +88,10 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                     onChanged: (v) {
                       if (controller.mustInput) {
                         if (EHUtilHelper.isEmpty(v)) {
-                          controller.error = 'This field cannot be empty'.tr;
+                          controller.errorBucket![key] =
+                              'This field cannot be empty'.tr;
                         } else {
-                          controller.error = '';
+                          controller.errorBucket![key] = '';
                         }
                       }
                       controller.onChanged!(v);
@@ -90,7 +99,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
               ),
               Center(
                   child: Text(
-                controller.error,
+                controller.errorBucket![key] ?? '',
                 style: TextStyle(
                     color: ThemeController.getThemeColor(
                         Colors.yellow.shade200, Colors.red)),
@@ -106,6 +115,8 @@ class EHTextFieldController extends EHController {
   GlobalKey<State<Tooltip>> tooltipKey = GlobalKey();
 
   RxBool _mustInput = false.obs;
+
+  Map? errorBucket;
 
   get mustInput {
     return _mustInput.value;
@@ -123,16 +134,6 @@ class EHTextFieldController extends EHController {
 
   set label(v) {
     _label.value = v;
-  }
-
-  RxString _error = ''.obs;
-
-  get error {
-    return _error.value;
-  }
-
-  set error(v) {
-    _error.value = v;
   }
 
   RxBool _enabled = true.obs;
@@ -158,15 +159,15 @@ class EHTextFieldController extends EHController {
   EHTextFieldController(
       {String label = '',
       String text = '',
-      String error = '',
       bool enabled = true,
       bool mustInput = false,
-      this.onChanged}) {
+      this.onChanged,
+      Map? errorBucket}) {
     this.label = label;
     this.text = text;
-    this.error = error;
     this.enabled = enabled;
     this.mustInput = mustInput;
+    this.errorBucket = errorBucket;
   }
 }
 

@@ -11,12 +11,12 @@ class EhTheme {
           // buttonColor: Colors.amber,
           // disabledColor: Colors.grey,
           ),
-      // inputDecorationTheme: InputDecorationTheme(
-      //   //enabledBorder: _buildBorder(Colors.grey[600]!),
-      //   //    focusedBorder: _buildBorder(Colors.white),
-      //   //errorBorder: _buildBorder(Colors.red),
-      //   disabledBorder: _buildBorder(Colors.grey[400]!),
-      // ),
+      inputDecorationTheme: InputDecorationTheme(
+        enabledBorder: _buildBorder(Colors.grey[600]!),
+        focusedBorder: _buildBorder(Colors.white),
+        errorBorder: _buildBorder(Colors.red),
+        disabledBorder: _buildBorder(Colors.grey[400]!),
+      ),
       textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.white));
 
   static ThemeData lightTheme = ThemeData(

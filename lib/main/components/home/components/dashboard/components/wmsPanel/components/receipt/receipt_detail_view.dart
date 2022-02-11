@@ -11,6 +11,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> editFormKey = GlobalKey<FormState>();
+    GlobalKey textKey1 = GlobalKey();
+    GlobalKey textKey2 = GlobalKey();
     return Container(
       child: SingleChildScrollView(
           child: Container(
@@ -24,19 +26,42 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
             child: FocusTraversalGroup(
               child: Wrap(children: [
                 Obx(() => EHTextField(
-                    label: '测试',
-                    text: controller.receiptModel.value.receiptKey,
-                    mustInput: true,
-                    onChanged: (value) =>
-                        controller.receiptModel.update((model) {
-                          model!.receiptKey = value;
-                          print(model.receiptKey + '===' + model.customerName);
-                        }))),
+                      key: textKey1,
+                      text: controller.receiptModel.value.receiptKey,
+                      controller: EHTextFieldController(
+                          label: '测试',
+                          text: controller.receiptModel.value.receiptKey,
+                          mustInput: true,
+                          onChanged: (value) =>
+                              controller.receiptModel.update((model) {
+                                model!.receiptKey = value;
+                                print(model.receiptKey +
+                                    '===' +
+                                    model.customerName);
+                              })),
+                    )),
+                Obx(() => EHTextField(
+                      key: textKey2,
+                      text: controller.receiptModel.value.receiptKey,
+                      controller: EHTextFieldController(
+                          label: '测试',
+                          //errorBucket: controller.errorBucket,
+                          text: controller.receiptModel.value.receiptKey,
+                          mustInput: true,
+                          onChanged: (value) =>
+                              controller.receiptModel.update((model) {
+                                model!.receiptKey = value;
+                                print(model.receiptKey +
+                                    '===' +
+                                    model.customerName);
+                              })),
+                    )),
                 Obx(
                   () => EHTextField(
                       label: '测试',
                       text: controller.receiptModel.value.receiptKey,
-                      mustInput: false,
+                      errorBucket: controller.errorBucket,
+                      mustInput: true,
                       width: 300,
                       onChanged: (value) =>
                           controller.receiptModel.update((model) {
