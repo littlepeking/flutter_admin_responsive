@@ -98,7 +98,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                     }),
               ),
               EHUtilHelper.isEmpty(controller.errorBucket![key])
-                  ? SizedBox()
+                  ? SizedBox(height: Responsive.isMobile(context) ? 0 : 5)
                   : Center(
                       child: Text(
                       controller.errorBucket![key],
