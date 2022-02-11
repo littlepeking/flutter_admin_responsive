@@ -29,36 +29,30 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                       key: textKey1,
                       text: controller.receiptModel.value.receiptKey,
                       controller: EHTextFieldController(
-                          label: '测试',
+                          label: '测试1',
                           text: controller.receiptModel.value.receiptKey,
                           mustInput: true,
                           onChanged: (value) =>
                               controller.receiptModel.update((model) {
                                 model!.receiptKey = value;
-                                print(model.receiptKey +
-                                    '===' +
-                                    model.customerName);
                               })),
                     )),
                 Obx(() => EHTextField(
                       key: textKey2,
                       text: controller.receiptModel.value.receiptKey,
                       controller: EHTextFieldController(
-                          label: '测试',
+                          label: '测试2',
                           //errorBucket: controller.errorBucket,
                           text: controller.receiptModel.value.receiptKey,
                           mustInput: true,
                           onChanged: (value) =>
                               controller.receiptModel.update((model) {
                                 model!.receiptKey = value;
-                                print(model.receiptKey +
-                                    '===' +
-                                    model.customerName);
                               })),
                     )),
                 Obx(
                   () => EHTextField(
-                      label: '测试',
+                      label: controller.receiptModel.value.receiptKey,
                       text: controller.receiptModel.value.receiptKey,
                       errorBucket: controller.errorBucket,
                       mustInput: true,
@@ -66,12 +60,10 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                       onChanged: (value) =>
                           controller.receiptModel.update((model) {
                             model!.receiptKey = value;
-                            print(
-                                model.receiptKey + '===' + model.customerName);
                           })),
                 ),
                 EHTextField(
-                  label: '测试',
+                  label: '测试4',
                   text: '',
                   mustInput: true,
                   onChanged: (value) => print(value),

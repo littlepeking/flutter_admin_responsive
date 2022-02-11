@@ -24,7 +24,7 @@ class TmsPanelController extends GetxController {
                 onTap: () {
                   tabViewController.addTab((EHTab<TestController>(
                       'Shipment Orders', TestController(),
-                      (TestController controller) {
+                      (EHController controller) {
                     return Test2(controller: controller);
                   }, closable: true)));
                 }),
