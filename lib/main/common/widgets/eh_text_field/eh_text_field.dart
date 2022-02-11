@@ -100,11 +100,19 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
               EHUtilHelper.isEmpty(controller.errorBucket![key])
                   ? SizedBox(height: Responsive.isMobile(context) ? 0 : 5)
                   : Center(
-                      child: Text(
-                      controller.errorBucket![key],
-                      style: TextStyle(
-                          color: ThemeController.getThemeColor(
-                              Colors.yellow.shade200, Colors.red)),
+                      child: Row(
+                      children: [
+                        Icon(Icons.error_outline,
+                            size: 18,
+                            color: ThemeController.getThemeColor(
+                                Colors.yellow.shade200, Colors.red)),
+                        Text(
+                          controller.errorBucket![key],
+                          style: TextStyle(
+                              color: ThemeController.getThemeColor(
+                                  Colors.yellow.shade200, Colors.red)),
+                        ),
+                      ],
                     ))
             ],
           ),
