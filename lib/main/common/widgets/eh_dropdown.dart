@@ -115,7 +115,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                 child: DropdownButton2(
                   isExpanded: true,
                   hint: Text(
-                    'Select Item123213',
+                    'Select Item',
                     style: TextStyle(
                       fontSize: 14,
                       color: Theme.of(context).hintColor,

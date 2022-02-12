@@ -1,10 +1,7 @@
-import 'dart:html';
-
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditPanelController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
-import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
@@ -65,6 +62,10 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                       contentPadding: EdgeInsets.all(5),
                       border: new OutlineInputBorder(),
                     ),
+                    onEditingComplete: () {
+                      // Move the focus to the next node explicitly.
+                      FocusScope.of(context).nextFocus();
+                    },
                     controller: controller._textEditingController,
                     enabled: controller.enabled,
                     onChanged: (v) {
