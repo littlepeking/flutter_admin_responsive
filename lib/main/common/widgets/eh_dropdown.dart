@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 class EHDropdown extends EHStatelessWidget<EHDropDownController> {
   EHDropdown(
       {Key? key,
+      FocusNode? focusNode,
       String label = '',
       String selectedValue = ' ',
       Map<String, String>? items,
@@ -24,6 +25,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
             key: key,
             controller: controller ??
                 EHDropDownController(
+                    focusNode: focusNode,
                     label: label,
                     selectedValue: selectedValue,
                     items: items ?? {},
@@ -113,6 +115,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton2(
+                  focusNode: controller.focusNode,
                   isExpanded: true,
                   hint: Text(
                     'Select Item',
@@ -139,6 +142,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                             }
                           }
                           controller.onChanged!(v.toString());
+                          FocusScope.of(context).nextFocus();
                         }
                       : null,
                   buttonHeight: 23.4,
@@ -165,6 +169,8 @@ class EHDropDownController extends EHController {
   Map? errorBucket;
 
   RxString _selectedValue = ''.obs;
+
+  FocusNode? focusNode;
 
   get selectedValue {
     return _selectedValue.value;
@@ -204,14 +210,16 @@ class EHDropDownController extends EHController {
 
   ValueChanged<String>? onChanged;
 
-  EHDropDownController(
-      {String label = '',
-      String selectedValue = '',
-      bool enabled = true,
-      bool mustInput = false,
-      this.onChanged,
-      Map? errorBucket,
-      required Map<String, String> items}) {
+  EHDropDownController({
+    FocusNode? focusNode,
+    String label = '',
+    String selectedValue = '',
+    bool enabled = true,
+    bool mustInput = false,
+    this.onChanged,
+    Map? errorBucket,
+    required Map<String, String> items,
+  }) {
     this.items = items;
     this.selectedValue = selectedValue;
     this.enabled = enabled;

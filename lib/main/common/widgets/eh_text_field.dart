@@ -9,20 +9,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EHTextField extends EHStatelessWidget<EHTextFieldController> {
-  EHTextField(
-      {Key? key,
-      EHTextFieldController? controller,
-      String label = '',
-      String text = '',
-      Map? errorBucket,
-      bool enabled = true,
-      bool mustInput = false,
-      this.width = 200,
-      ValueChanged<String>? onChanged})
-      : super(
+  EHTextField({
+    Key? key,
+    FocusNode? focusNode,
+    EHTextFieldController? controller,
+    String label = '',
+    String text = '',
+    Map? errorBucket,
+    bool enabled = true,
+    bool mustInput = false,
+    bool? autoFocus = false,
+    this.width = 200,
+    ValueChanged<String>? onChanged,
+  }) : super(
             key: key,
             controller: controller ??
                 EHTextFieldController(
+                    focusNode: focusNode,
+                    autoFocus: autoFocus,
                     label: label,
                     text: text,
                     errorBucket: errorBucket,
@@ -55,6 +59,8 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
               Container(
                 height: 25,
                 child: TextField(
+                    autofocus: controller.autoFocus,
+                    focusNode: controller.focusNode,
                     textInputAction: TextInputAction.next,
                     maxLines: 1,
                     textAlignVertical: TextAlignVertical.center,
@@ -92,9 +98,21 @@ class EHTextFieldController extends EHController {
   EHEditingController _textEditingController = new EHEditingController();
   GlobalKey<State<Tooltip>> tooltipKey = GlobalKey();
 
-  RxBool _mustInput = false.obs;
-
   Map? errorBucket;
+
+  FocusNode? focusNode;
+
+  RxBool _autoFocus = false.obs;
+
+  get autoFocus {
+    return _autoFocus.value;
+  }
+
+  set autoFocus(v) {
+    _autoFocus.value = v;
+  }
+
+  RxBool _mustInput = false.obs;
 
   get mustInput {
     return _mustInput.value;
@@ -135,12 +153,15 @@ class EHTextFieldController extends EHController {
   ValueChanged<String>? onChanged;
 
   EHTextFieldController(
-      {String label = '',
+      {bool? autoFocus = false,
+      FocusNode? focusNode,
+      String label = '',
       String text = '',
       bool enabled = true,
       bool mustInput = false,
       this.onChanged,
       Map? errorBucket}) {
+    this.autoFocus = autoFocus;
     this.label = label;
     this.text = text;
     this.enabled = enabled;

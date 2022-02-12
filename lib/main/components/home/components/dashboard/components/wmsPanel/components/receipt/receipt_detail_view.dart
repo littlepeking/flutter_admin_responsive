@@ -16,6 +16,9 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
     GlobalKey textKey2 = GlobalKey();
     GlobalKey dropdownKey1 = GlobalKey();
     GlobalKey dropdownKey2 = GlobalKey();
+    FocusNode fn1 = FocusNode();
+
+    FocusNode fn2 = FocusNode();
     return Container(
       child: SingleChildScrollView(
           child: Container(
@@ -30,11 +33,13 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
               child: Wrap(children: [
                 Obx(() => EHTextField(
                       key: textKey1,
+                      autoFocus: true,
                       text: controller.receiptModel.value.receiptKey,
                       controller: EHTextFieldController(
                           label: '测试1',
                           text: controller.receiptModel.value.receiptKey,
                           mustInput: true,
+                          autoFocus: true,
                           onChanged: (value) =>
                               controller.receiptModel.update((model) {
                                 model!.receiptKey = value;
@@ -60,10 +65,12 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                       errorBucket: controller.errorBucket,
                       mustInput: true,
                       width: 300,
-                      onChanged: (value) =>
-                          controller.receiptModel.update((model) {
-                            model!.receiptKey = value;
-                          })),
+                      onChanged: (value) {
+                        controller.receiptModel.update((model) {
+                          model!.receiptKey = value;
+                        });
+                        // fn1.requestFocus();
+                      }),
                 ),
                 Obx(() => EHDropdown(
                       key: dropdownKey1,

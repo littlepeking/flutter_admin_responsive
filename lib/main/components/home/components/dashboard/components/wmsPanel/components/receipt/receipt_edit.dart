@@ -52,9 +52,9 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
 
     return Column(
       children: [
-        Expanded(
-            child: EHTabsView(
-                controller: controller.receiptHeaderTabsViewController)),
+        // Expanded(
+        //     child: EHTabsView(
+        //         controller: controller.receiptHeaderTabsViewController)),
         Expanded(
             child: EHTabsView(
                 controller: controller.receiptDetailTabsViewController)),
