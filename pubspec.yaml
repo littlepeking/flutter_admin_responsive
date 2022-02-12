@@ -37,13 +37,14 @@ dependencies:
   adaptive_theme: ^2.3.0
   scrollable_positioned_list: ^0.2.3
   flutter_simple_treeview: ^3.0.0-nullsafety.1
+  dropdown_button2: ^1.1.1
 
 
+# SYNC FUSTION DEPENDENCY -BEGIN
   url_launcher: ^6.0.2
   path_provider: ^2.0.1
   path_provider_macos: ^2.0.0
   desktop_window: 0.4.0
-
   syncfusion_flutter_datagrid_export: ^19.4.38-beta
   syncfusion_flutter_calendar: ^19.4.38
   syncfusion_flutter_datepicker: ^19.4.38
@@ -57,6 +58,7 @@ dependencies:
   syncfusion_flutter_signaturepad: ^19.4.38-beta
   syncfusion_flutter_pdfviewer: ^19.4.38-beta
   syncfusion_flutter_treemap: ^19.4.38-beta
+# SYNC FUSTION DEPENDENCY -END
 
 dev_dependencies:
   flutter_test:

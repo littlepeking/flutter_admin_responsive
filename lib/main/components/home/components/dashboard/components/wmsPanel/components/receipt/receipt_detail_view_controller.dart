@@ -3,6 +3,7 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class ReceiptDetailViewController extends EHEditPanelController {
-  Rx<ReceiptModel> receiptModel =
-      ReceiptModel(receiptKey: 'key001', customerName: 'cus001').obs;
+  Rx<ReceiptModel> receiptModel = ReceiptModel(
+          receiptKey: 'key001', customerName: 'cus001', dropdownValue: '')
+      .obs;
 }

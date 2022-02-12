@@ -56,7 +56,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                 label: controller.label,
               ),
               Container(
-                height: 30,
+                height: 25,
                 child: TextField(
                     textInputAction: TextInputAction.next,
                     maxLines: 1,

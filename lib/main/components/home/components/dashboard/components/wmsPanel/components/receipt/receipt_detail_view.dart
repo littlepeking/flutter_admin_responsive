@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_text_field/eh_text_field.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
     GlobalKey<FormState> editFormKey = GlobalKey<FormState>();
     GlobalKey textKey1 = GlobalKey();
     GlobalKey textKey2 = GlobalKey();
+    GlobalKey dropdownKey1 = GlobalKey();
+    GlobalKey dropdownKey2 = GlobalKey();
     return Container(
       child: SingleChildScrollView(
           child: Container(
@@ -62,11 +65,53 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                             model!.receiptKey = value;
                           })),
                 ),
-                EHTextField(
-                  label: '测试4',
-                  text: '',
-                  mustInput: true,
-                  onChanged: (value) => print(value),
+                Obx(() => EHDropdown(
+                      key: dropdownKey1,
+                      label: '测试4',
+                      mustInput: true,
+                      selectedValue:
+                          controller.receiptModel.value.dropdownValue,
+                      items: {
+                        '0': 'Item0',
+                        '1': 'Item1',
+                        '2': 'Item2',
+                        '3': 'Item222',
+                        '4': 'Item23',
+                      },
+                      onChanged: (value) =>
+                          controller.receiptModel.update((model) {
+                        model!.dropdownValue = value;
+                      }),
+                    )),
+                Obx(() => EHDropdown(
+                      key: dropdownKey2,
+                      label: '测试5',
+                      enabled: false,
+                      mustInput: true,
+                      selectedValue:
+                          controller.receiptModel.value.dropdownValue,
+                      width: 250,
+                      items: {
+                        '0': 'Item0',
+                        '1': 'Item1',
+                        '2': 'Item2',
+                      },
+                      onChanged: (value) =>
+                          controller.receiptModel.update((model) {
+                        model!.dropdownValue = value;
+                      }),
+                    )),
+                Obx(
+                  () => EHTextField(
+                      label: controller.receiptModel.value.receiptKey,
+                      text: controller.receiptModel.value.receiptKey,
+                      errorBucket: controller.errorBucket,
+                      mustInput: true,
+                      width: 300,
+                      onChanged: (value) =>
+                          controller.receiptModel.update((model) {
+                            model!.receiptKey = value;
+                          })),
                 ),
                 ElevatedButton(
                   onPressed: () {

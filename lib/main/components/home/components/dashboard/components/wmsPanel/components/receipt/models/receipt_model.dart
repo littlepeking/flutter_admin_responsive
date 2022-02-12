@@ -6,5 +6,10 @@ class ReceiptModel extends EHModel {
   String receiptKey;
 
   String customerName;
-  ReceiptModel({required this.receiptKey, required this.customerName});
+
+  String dropdownValue;
+  ReceiptModel(
+      {required this.receiptKey,
+      required this.customerName,
+      required this.dropdownValue});
 }
