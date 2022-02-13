@@ -1,6 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
-import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +16,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
     GlobalKey textKey2 = GlobalKey();
     GlobalKey dropdownKey1 = GlobalKey();
     GlobalKey dropdownKey2 = GlobalKey();
+    FocusNode n = FocusNode();
+    FocusNode fnButton = FocusNode();
 
     return Container(
       child: SingleChildScrollView(
@@ -33,24 +34,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                 Obx(() => EHTextField(
                       key: textKey1,
                       // autoFocus: true,
-                      text: controller.receiptModel.value.receiptKey,
                       controller: EHTextFieldController(
-                          focusNode: controller.fnText1,
-                          label: '测试1',
-                          text: controller.receiptModel.value.receiptKey,
-                          mustInput: true,
-                          //  autoFocus: true,
-                          onChanged: (value) =>
-                              controller.receiptModel.update((model) {
-                                model!.receiptKey = value;
-                              })),
-                    )),
-                Obx(() => EHTextField(
-                      key: textKey1,
-                      // autoFocus: true,
-                      text: controller.receiptModel.value.receiptKey,
-                      controller: EHTextFieldController(
-                          focusNode: controller.fnText1,
+                          autoFocus: true,
                           label: '测试1',
                           text: controller.receiptModel.value.receiptKey,
                           mustInput: true,
@@ -75,6 +60,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                     )),
                 Obx(
                   () => EHTextField(
+                      focusNode: n,
                       label: controller.receiptModel.value.receiptKey,
                       text: controller.receiptModel.value.receiptKey,
                       errorBucket: controller.errorBucket,
@@ -84,7 +70,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                         controller.receiptModel.update((model) {
                           model!.receiptKey = value;
                         });
-                        // fn1.requestFocus();
+                        n.requestFocus();
                       }),
                 ),
                 Obx(() => EHDropdown(
@@ -137,13 +123,13 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                       // Move the focus to the next node explicitly.
                       //FocusScope.of(c).(fnText);
 
-                      controller.fnText1.requestFocus();
+                      n.requestFocus();
                       //  FocusTraversalGroup.of(context!).next(fnText);
                     },
                   ),
                 ),
                 ElevatedButton(
-                  focusNode: controller.fnButton,
+                  focusNode: fnButton,
                   onPressed: () {
                     EHToastMessageHelper.showInfoMessage(
                         MediaQuery.of(context).viewInsets.bottom.toString());

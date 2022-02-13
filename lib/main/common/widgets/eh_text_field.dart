@@ -8,6 +8,7 @@ import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+//注意：如果EHTextField设置了EHTextFieldController，除KEY外的其他属性将不生效。EHTextFieldController与其他属性只允许二选一。
 class EHTextField extends EHStatelessWidget<EHTextFieldController> {
   EHTextField({
     Key? key,
@@ -182,6 +183,7 @@ class EHTextFieldController extends EHController {
 class EHEditingController extends TextEditingController {
   @override
   set text(String newText) {
+    //resolve  cursor always at first position issue cause by obx.
     value = value.copyWith(
       text: newText,
       selection: TextSelection.collapsed(offset: newText.length),
