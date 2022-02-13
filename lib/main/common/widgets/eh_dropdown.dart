@@ -104,52 +104,67 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(
-                    color: Theme.of(context)
-                        .inputDecorationTheme
-                        .enabledBorder!
-                        .borderSide
-                        .color,
-                    style: BorderStyle.solid,
-                    width: 0.80),
+                border: controller.focused.value
+                    ? Border.all(
+                        color: Theme.of(context)
+                            .inputDecorationTheme
+                            .focusedBorder!
+                            .borderSide
+                            .color,
+                        style: BorderStyle.solid,
+                        width: 1)
+                    : Border.all(
+                        color: Theme.of(context)
+                            .inputDecorationTheme
+                            .enabledBorder!
+                            .borderSide
+                            .color,
+                        style: BorderStyle.solid,
+                        width: 1),
               ),
               child: DropdownButtonHideUnderline(
-                child: DropdownButton2(
-                  focusNode: controller.focusNode,
-                  isExpanded: true,
-                  hint: Text(
-                    'Select Item',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).hintColor,
-                    ),
-                  ),
-                  items: _addDividersAfterItems(controller.items.keys.toList()),
-                  customItemsIndexes: _getDividersIndexes(),
-                  customItemsHeight: 4,
-                  value: controller.items
-                          .containsKey(controller._selectedValue.value)
-                      ? controller._selectedValue.value
-                      : '-1',
-                  onChanged: controller._enabled.value
-                      ? (v) {
-                          if (controller.mustInput) {
-                            if (v == "-1") {
-                              controller.errorBucket![key] =
-                                  'This field cannot be empty'.tr;
-                            } else {
-                              controller.errorBucket![key] = '';
+                child: Focus(
+                    canRequestFocus: false,
+                    onFocusChange: (focused) {
+                      controller.focused.value = focused;
+                    },
+                    child: DropdownButton2(
+                      focusNode: controller.focusNode,
+                      isExpanded: true,
+                      hint: Text(
+                        'Select Item',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Theme.of(context).hintColor,
+                        ),
+                      ),
+                      items: _addDividersAfterItems(
+                          controller.items.keys.toList()),
+                      customItemsIndexes: _getDividersIndexes(),
+                      customItemsHeight: 4,
+                      value: controller.items
+                              .containsKey(controller._selectedValue.value)
+                          ? controller._selectedValue.value
+                          : '-1',
+                      onChanged: controller._enabled.value
+                          ? (v) {
+                              if (controller.mustInput) {
+                                if (v == "-1") {
+                                  controller.errorBucket![key] =
+                                      'This field cannot be empty'.tr;
+                                } else {
+                                  controller.errorBucket![key] = '';
+                                }
+                              }
+                              controller.onChanged!(v.toString());
+                              controller.focusNode!.nextFocus();
                             }
-                          }
-                          controller.onChanged!(v.toString());
-                          FocusScope.of(context).nextFocus();
-                        }
-                      : null,
-                  buttonHeight: 23.4,
-                  buttonWidth: width,
-                  itemHeight: 23,
-                  itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
-                ),
+                          : null,
+                      buttonHeight: 23.4,
+                      buttonWidth: width,
+                      itemHeight: 23,
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+                    )),
               ),
             ),
             EHEditErrorInfo(
@@ -171,6 +186,8 @@ class EHDropDownController extends EHController {
   RxString _selectedValue = ''.obs;
 
   FocusNode? focusNode;
+
+  RxBool focused = false.obs;
 
   get selectedValue {
     return _selectedValue.value;
@@ -225,6 +242,6 @@ class EHDropDownController extends EHController {
     this.enabled = enabled;
     this.mustInput = mustInput;
     this.errorBucket = errorBucket;
-    this.focusNode = focusNode;
+    this.focusNode = focusNode ?? FocusNode();
   }
 }
