@@ -21,7 +21,9 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
   @override
   Widget build(BuildContext context) {
     print(this.controller);
-    return _buildLayoutBuilder();
+    return Container(
+        height: controller.fixedHeight ?? double.infinity,
+        child: _buildLayoutBuilder());
   }
 
   getGridColumns() {

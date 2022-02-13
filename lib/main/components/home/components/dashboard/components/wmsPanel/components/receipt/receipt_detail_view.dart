@@ -21,8 +21,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
     FocusNode fnButton = FocusNode();
 
     return Container(
-      child: SingleChildScrollView(
-          child: Container(
+      child: Container(
         // padding: EdgeInsets.all(10),
         width: double.infinity,
         child: Shortcuts(
@@ -140,7 +139,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                 )
               ]),
             )),
-      )),
+      ),
     );
   }
 }

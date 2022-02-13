@@ -57,8 +57,11 @@ class EHTabsHeaderMobile extends StatelessWidget {
                 () => SingleChildScrollView(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
-                      children:
-                          controller.tabsConfig.asMap().entries.map((entry) {
+                      children: controller.tabsConfig
+                          .asMap()
+                          .entries
+                          .where((e) => !e.value.isDeleted)
+                          .map((entry) {
                         if (!entry.value.showInBottomList)
                           return SizedBox();
                         else

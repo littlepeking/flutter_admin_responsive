@@ -52,19 +52,35 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
       // EHTab('Other', controller, (controller) => EditingDataGrid()),
     ]);
 
-    return Column(
-      children: [
-        KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
-          return !isKeyboardVisible && !Responsive.isExtraSmall(context)
-              ? Expanded(
-                  child: EHTabsView(
-                      controller: controller.receiptHeaderTabsViewController))
-              : SizedBox();
-        }),
-        Expanded(
+    if (Responsive.isMobile(context)) {
+      return Column(children: [
+        // KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
+        //   return !isKeyboardVisible && !Responsive.isExtraSmall(context)
+        //       ?
+        EHTabsView(
+            expandMode: ExpandMode.Growable,
+            controller: controller.receiptHeaderTabsViewController),
+        EHTabsView(
+            expandMode: ExpandMode.Growable,
+            controller: controller.receiptDetailTabsViewController),
+      ]);
+    } else {
+      return Column(
+        children: [
+          // KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
+          //   return !isKeyboardVisible && !Responsive.isExtraSmall(context)
+          //       ?
+          Expanded(
             child: EHTabsView(
-                controller: controller.receiptDetailTabsViewController)),
-      ],
-    );
+                expandMode: ExpandMode.Flexible,
+                controller: controller.receiptHeaderTabsViewController),
+          ),
+          Expanded(
+              child: EHTabsView(
+                  expandMode: ExpandMode.Flexible,
+                  controller: controller.receiptDetailTabsViewController)),
+        ],
+      );
+    }
   }
 }
