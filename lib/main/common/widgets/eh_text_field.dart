@@ -21,6 +21,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
     bool? autoFocus = false,
     this.width = 200,
     ValueChanged<String>? onChanged,
+    Function? onEditingComplete,
   }) : super(
             key: key,
             controller: controller ??
@@ -31,6 +32,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                     text: text,
                     errorBucket: errorBucket,
                     onChanged: onChanged,
+                    onEditingComplete: onEditingComplete,
                     enabled: enabled,
                     mustInput: mustInput));
 
@@ -70,7 +72,11 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                     ),
                     onEditingComplete: () {
                       // Move the focus to the next node explicitly.
-                      FocusScope.of(context).nextFocus();
+                      if (controller.onEditingComplete == null) {
+                        FocusScope.of(context).nextFocus();
+                      } else {
+                        controller.onEditingComplete!(context);
+                      }
                     },
                     controller: controller._textEditingController,
                     enabled: controller.enabled,
@@ -151,6 +157,7 @@ class EHTextFieldController extends EHController {
   }
 
   ValueChanged<String>? onChanged;
+  Function? onEditingComplete;
 
   EHTextFieldController(
       {bool? autoFocus = false,
@@ -160,6 +167,7 @@ class EHTextFieldController extends EHController {
       bool enabled = true,
       bool mustInput = false,
       this.onChanged,
+      this.onEditingComplete,
       Map? errorBucket}) {
     this.autoFocus = autoFocus;
     this.label = label;
@@ -167,6 +175,7 @@ class EHTextFieldController extends EHController {
     this.enabled = enabled;
     this.mustInput = mustInput;
     this.errorBucket = errorBucket;
+    this.focusNode = focusNode;
   }
 }
 

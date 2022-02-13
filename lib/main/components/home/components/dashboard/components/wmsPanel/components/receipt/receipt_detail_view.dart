@@ -17,9 +17,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
     GlobalKey textKey2 = GlobalKey();
     GlobalKey dropdownKey1 = GlobalKey();
     GlobalKey dropdownKey2 = GlobalKey();
-    FocusNode fn1 = FocusNode();
 
-    FocusNode fn2 = FocusNode();
     return Container(
       child: SingleChildScrollView(
           child: Container(
@@ -33,15 +31,30 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
             child: FocusTraversalGroup(
               child: Wrap(children: [
                 Obx(() => EHTextField(
-                      focusNode: fn1,
                       key: textKey1,
-                      autoFocus: true,
+                      // autoFocus: true,
                       text: controller.receiptModel.value.receiptKey,
                       controller: EHTextFieldController(
+                          focusNode: controller.fnText1,
                           label: '测试1',
                           text: controller.receiptModel.value.receiptKey,
                           mustInput: true,
-                          autoFocus: true,
+                          //  autoFocus: true,
+                          onChanged: (value) =>
+                              controller.receiptModel.update((model) {
+                                model!.receiptKey = value;
+                              })),
+                    )),
+                Obx(() => EHTextField(
+                      key: textKey1,
+                      // autoFocus: true,
+                      text: controller.receiptModel.value.receiptKey,
+                      controller: EHTextFieldController(
+                          focusNode: controller.fnText1,
+                          label: '测试1',
+                          text: controller.receiptModel.value.receiptKey,
+                          mustInput: true,
+                          //  autoFocus: true,
                           onChanged: (value) =>
                               controller.receiptModel.update((model) {
                                 model!.receiptKey = value;
@@ -84,43 +97,6 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                         '0': 'Item0',
                         '1': 'Item1',
                         '2': 'Item2',
-                        '3': 'Item222',
-                        '4': 'Item23',
-                        '5': 'Item0',
-                        '6': 'Item1',
-                        '7': 'Item2',
-                        '8': 'Item222',
-                        '9': 'Item23',
-                        '10': 'Item0',
-                        '11': 'Item1',
-                        '12': 'Item2',
-                        '13': 'Item222',
-                        '14': 'Item23',
-                        '20': 'Item0',
-                        '21': 'Item1',
-                        '22': 'Item2',
-                        '23': 'Item222',
-                        '24': 'Item23',
-                        '25': 'Item0',
-                        '26': 'Item1',
-                        '27': 'Item2',
-                        '28': 'Item222',
-                        '29': 'Item23',
-                        '110': 'Item0',
-                        '111': 'Item1',
-                        '112': 'Item2',
-                        '113': 'Item222',
-                        '114': 'Item23',
-                        '120': 'Item0',
-                        '121': 'Item1',
-                        '122': 'Item2',
-                        '123': 'Item222',
-                        '124': 'Item23',
-                        '125': 'Item0',
-                        '126': 'Item1',
-                        '127': 'Item2',
-                        '128': 'Item222',
-                        '129': 'Item23',
                       },
                       onChanged: (value) =>
                           controller.receiptModel.update((model) {
@@ -147,17 +123,27 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                     )),
                 Obx(
                   () => EHTextField(
-                      label: controller.receiptModel.value.receiptKey,
-                      text: controller.receiptModel.value.receiptKey,
-                      errorBucket: controller.errorBucket,
-                      mustInput: true,
-                      width: 300,
-                      onChanged: (value) =>
-                          controller.receiptModel.update((model) {
-                            model!.receiptKey = value;
-                          })),
+                    label: controller.receiptModel.value.receiptKey,
+                    text: controller.receiptModel.value.receiptKey,
+                    errorBucket: controller.errorBucket,
+                    mustInput: true,
+                    width: 300,
+                    onChanged: (value) {
+                      controller.receiptModel.update((model) {
+                        model!.receiptKey = value;
+                      });
+                    },
+                    onEditingComplete: (c) {
+                      // Move the focus to the next node explicitly.
+                      //FocusScope.of(c).(fnText);
+
+                      controller.fnText1.requestFocus();
+                      //  FocusTraversalGroup.of(context!).next(fnText);
+                    },
+                  ),
                 ),
                 ElevatedButton(
+                  focusNode: controller.fnButton,
                   onPressed: () {
                     EHToastMessageHelper.showInfoMessage(
                         MediaQuery.of(context).viewInsets.bottom.toString());
