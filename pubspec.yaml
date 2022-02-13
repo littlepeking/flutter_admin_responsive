@@ -58,6 +58,7 @@ dependencies:
   syncfusion_flutter_signaturepad: ^19.4.38-beta
   syncfusion_flutter_pdfviewer: ^19.4.38-beta
   syncfusion_flutter_treemap: ^19.4.38-beta
+  flutter_keyboard_visibility: ^5.1.1
 # SYNC FUSTION DEPENDENCY -END
 
 dev_dependencies:

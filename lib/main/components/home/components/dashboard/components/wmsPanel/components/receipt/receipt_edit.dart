@@ -1,9 +1,11 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 import 'receipt_detail_view.dart';
 import 'receipt_edit_controller.dart';
@@ -52,9 +54,13 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
 
     return Column(
       children: [
-        // Expanded(
-        //     child: EHTabsView(
-        //         controller: controller.receiptHeaderTabsViewController)),
+        KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
+          return !isKeyboardVisible && !Responsive.isExtraSmall(context)
+              ? Expanded(
+                  child: EHTabsView(
+                      controller: controller.receiptHeaderTabsViewController))
+              : SizedBox();
+        }),
         Expanded(
             child: EHTabsView(
                 controller: controller.receiptDetailTabsViewController)),

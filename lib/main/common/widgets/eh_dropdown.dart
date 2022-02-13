@@ -47,7 +47,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
           DropdownMenuItem<String>(
             value: item,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 5),
+              padding: const EdgeInsets.only(left: 5),
               child: Text(
                 controller.items.containsKey(item)
                     ? controller.items[item]!
