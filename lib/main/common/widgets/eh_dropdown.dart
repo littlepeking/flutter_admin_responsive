@@ -225,5 +225,6 @@ class EHDropDownController extends EHController {
     this.enabled = enabled;
     this.mustInput = mustInput;
     this.errorBucket = errorBucket;
+    this.focusNode = focusNode;
   }
 }

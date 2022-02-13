@@ -17,6 +17,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
     GlobalKey dropdownKey1 = GlobalKey();
     GlobalKey dropdownKey2 = GlobalKey();
     FocusNode n = FocusNode();
+    FocusNode n1 = FocusNode();
     FocusNode fnButton = FocusNode();
 
     return Container(
@@ -74,6 +75,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                       }),
                 ),
                 Obx(() => EHDropdown(
+                      focusNode: n1,
                       key: dropdownKey1,
                       label: '测试4',
                       mustInput: true,
@@ -123,7 +125,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                       // Move the focus to the next node explicitly.
                       //FocusScope.of(c).(fnText);
 
-                      n.requestFocus();
+                      n1.requestFocus();
                       //  FocusTraversalGroup.of(context!).next(fnText);
                     },
                   ),
