@@ -24,6 +24,7 @@ class WmsPanelWidget extends StatelessWidget {
           '%System Welcome Page',
           EHController(),
           (controller) => Container(
+                height: 500,
                 padding: EdgeInsets.all(50),
                 child: EHText(
                     weight: FontWeight.bold,

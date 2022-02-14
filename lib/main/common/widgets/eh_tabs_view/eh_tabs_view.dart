@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_header.dart';
@@ -5,6 +6,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_vi
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'eh_tab.dart';
 import 'eh_tabs_header_mobile.dart';
 
 enum ExpandMode {
@@ -27,60 +29,54 @@ class EHTabsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getTabWidget() {
-      return Obx(
-        () => Container(
-            padding: EdgeInsets.all(3),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: ThemeController.instance.isDarkMode.isTrue
-                        ? Colors.white30
-                        : Colors.black45)),
-            child: IndexedStack(
-              index: controller.selectedIndex.value,
-              children: controller.tabsConfig.map((tab) {
-                return Container(
-                  alignment: Alignment.topLeft,
-                  //color: Colors.grey,
-                  child: tab.tabWidget = tab.tabWidget ??
-                      (() {
-                        print(
-                            'called tab.getTabWidgetFunc ${tab.tabController}');
-                        return tab.getTabWidgetFunc(tab.tabController);
-                      })(),
-                );
-              }).toList(),
-              //[
-              // SingleChildScrollView(
-              //   child: SizedBox(
-              //     height: 1000,
-              //     // width: 500,
-              //     child: Container(
-              //       color: Colors.red,
-              //       child: Test2(),
-              //     ),
-              //   ),
-              // ),
-              //]
-            )),
+    getTabWidget(EHTab tab) {
+      return Container(
+        alignment: Alignment.topLeft,
+        //color: Colors.grey,
+        child: tab.tabWidget = tab.tabWidget ??
+            (() {
+              print('called tab.getTabWidgetFunc ${tab.tabController}');
+              return tab.getTabWidgetFunc(tab.tabController);
+            })(),
       );
     }
 
-    getExpandModeTabWidget() {
+    getExpandModeTabWidget(EHTab<EHController> tab) {
       switch (expandMode) {
         case ExpandMode.Scrollable:
-          return Flexible(
-            child: SingleChildScrollView(
-              child: getTabWidget(),
-            ),
+          return SingleChildScrollView(
+            primary:
+                false, //Related issue found here: https://github.com/flutter/flutter/issues/93862
+            child: getTabWidget(tab),
           );
+
         case ExpandMode.Growable:
-          return getTabWidget();
+          return getTabWidget(tab);
         case ExpandMode.Flexible:
-          return Flexible(
-            child: getTabWidget(),
+          return Column(
+            children: [
+              Flexible(
+                child: getTabWidget(tab),
+              ),
+            ],
           );
       }
+    }
+
+    renderTabBody() {
+      return Container(
+          padding: EdgeInsets.all(3),
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: ThemeController.instance.isDarkMode.isTrue
+                      ? Colors.white30
+                      : Colors.black45)),
+          child: IndexedStack(
+            index: controller.selectedIndex.value,
+            children: controller.tabsConfig.map((tab) {
+              return getExpandModeTabWidget(tab);
+            }).toList(),
+          ));
     }
 
     return Column(
@@ -93,7 +89,13 @@ class EHTabsView extends StatelessWidget {
                   child: EHTabHeader(
                       key: PageStorageKey(UniqueKey), controller: controller)),
         ]),
-        getExpandModeTabWidget()
+        Obx(
+          () => expandMode != ExpandMode.Growable
+              ? Expanded(
+                  child: renderTabBody(),
+                )
+              : renderTabBody(),
+        )
       ],
     );
   }
