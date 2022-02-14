@@ -35,7 +35,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                       key: textKey1,
                       // autoFocus: true,
                       controller: EHTextFieldController(
-                          //  autoFocus: true,
+                          autoFocus: true,
                           label: '测试1',
                           text: controller.receiptModel.value.receiptKey,
                           mustInput: true,

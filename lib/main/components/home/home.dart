@@ -13,30 +13,35 @@ class Home extends GetView {
         key: SideMenuController.instance.scaffoldKey,
         drawer: SideMenu(),
         body: SafeArea(
-          child: Column(children: [
-            Flexible(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // We want this side menu only for large screen
-                  if (Responsive.isDesktop(context))
-                    SizedBox(
-                      width: 250,
-                      child: SideMenu(),
+          child: GestureDetector(
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: Column(children: [
+              Flexible(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // We want this side menu only for large screen
+                    if (Responsive.isDesktop(context))
+                      SizedBox(
+                        width: 250,
+                        child: SideMenu(),
+                      ),
+                    Expanded(
+                      child: Dashboard(),
                     ),
-                  Expanded(
-                    child: Dashboard(),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-                height: Responsive.isDesktop(context) ? 20 : 13,
-                child: EHText(
-                  size: Responsive.isDesktop(context) ? 13 : 10,
-                  text: " Copyright © 2022 Enhantec",
-                ))
-          ]),
+              SizedBox(
+                  height: Responsive.isDesktop(context) ? 20 : 13,
+                  child: EHText(
+                    size: Responsive.isDesktop(context) ? 13 : 10,
+                    text: " Copyright © 2022 Enhantec",
+                  ))
+            ]),
+          ),
         ));
   }
 }

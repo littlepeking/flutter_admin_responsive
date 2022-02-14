@@ -10,7 +10,11 @@ class Test2 extends EHStatelessWidget<TestController> {
 
   @override
   Widget build(BuildContext context) {
+    print('focus===' + FocusScope.of(context).focusedChild.toString());
     return Column(children: [
+      TextField(
+        autofocus: true,
+      ),
       ElevatedButton(
           onPressed: () {
             controller.count++;
