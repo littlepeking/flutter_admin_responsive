@@ -76,7 +76,18 @@ class EHTabsView extends StatelessWidget {
           child: IndexedStack(
             index: controller.selectedIndex.value,
             children: controller.tabsConfig.map((tab) {
-              return getExpandModeTabWidget(tab);
+              return Obx(() => ExcludeFocus(
+                    child: getExpandModeTabWidget(tab),
+                    excluding: (() {
+                      print(tab.tabName +
+                          " " +
+                          (controller.tabsConfig.indexOf(tab) !=
+                                  controller.selectedIndex.value)
+                              .toString());
+                      return controller.tabsConfig.indexOf(tab) !=
+                          controller.selectedIndex.value;
+                    })(),
+                  ));
             }).toList(),
           ));
     }
