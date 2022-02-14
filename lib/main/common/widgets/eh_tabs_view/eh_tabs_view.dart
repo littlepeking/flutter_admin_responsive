@@ -53,6 +53,8 @@ class EHTabsView extends StatelessWidget {
         case ExpandMode.Growable:
           return getTabWidget(tab);
         case ExpandMode.Flexible:
+          //ADD COLUMN element because indexedStack cannot have flexible child directly.
+          //see https://stackoverflow.com/questions/54905388/incorrect-use-of-parent-data-widget-expanded-widgets-must-be-placed-inside-flex
           return Column(
             children: [
               Flexible(
