@@ -33,11 +33,14 @@ class EHTabsView extends StatelessWidget {
       return Container(
         alignment: Alignment.topLeft,
         //color: Colors.grey,
-        child: tab.tabWidget = tab.tabWidget ??
-            (() {
-              print('called tab.getTabWidgetFunc ${tab.tabController}');
-              return tab.getTabWidgetFunc(tab.tabController);
-            })(),
+        child:
+            controller.tabsConfig.indexOf(tab) != controller.selectedIndex.value
+                ? SizedBox()
+                : tab.tabWidget = tab.tabWidget ??
+                    (() {
+                      print('called tab.getTabWidgetFunc ${tab.tabController}');
+                      return tab.getTabWidgetFunc(tab.tabController);
+                    })(),
       );
     }
 
