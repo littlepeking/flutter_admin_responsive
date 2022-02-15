@@ -1,5 +1,11 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_double_column_type.dart';
+
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_int_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_string_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
@@ -41,12 +47,15 @@ class AsnHeaderDataGridSource extends EHDataGridSource {
   List<Map> allDataRows = [];
 
   List<EHDataGridColumnConfig> columnConfig = [
-    EHDataGridColumnConfig('id', EHDataGridColumnType.int),
-    EHDataGridColumnConfig('customerId', EHDataGridColumnType.int),
-    EHDataGridColumnConfig('name', EHDataGridColumnType.String),
-    EHDataGridColumnConfig('city', EHDataGridColumnType.String),
-    EHDataGridColumnConfig('qty', EHDataGridColumnType.double),
-    EHDataGridColumnConfig('date', EHDataGridColumnType.DateTime),
+    EHDataGridColumnConfig(columnName: 'id', columnType: EHIntColumnType()),
+    EHDataGridColumnConfig(
+        columnName: 'customerId', columnType: EHIntColumnType()),
+    EHDataGridColumnConfig(
+        columnName: 'name', columnType: EHStringColumnType()),
+    EHDataGridColumnConfig(
+        columnName: 'city', columnType: EHStringColumnType()),
+    EHDataGridColumnConfig(columnName: 'qty', columnType: EHDoubleColumnType()),
+    EHDataGridColumnConfig(columnName: 'date', columnType: EHDateColumnType()),
   ];
 
   @override

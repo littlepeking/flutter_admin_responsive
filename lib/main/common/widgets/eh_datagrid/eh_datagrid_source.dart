@@ -1,6 +1,11 @@
 // ignore_for_file: non_constant_identifier_names
 /// Dart import
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_double_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_int_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_string_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 
@@ -83,45 +88,34 @@ abstract class EHDataGridSource extends DataGridSource {
               columnName: columnConfig.columnName, value: '');
         // throw Exception("当前DataGrid的数据行未包含已配置的列${columnConfig.columnName}");
 
-        switch (columnConfig.columnType) {
-          case EHDataGridColumnType.int:
-            {
-              return DataGridCell<int>(
-                  columnName: columnConfig.columnName,
-                  value: row[columnConfig.columnName]);
-            }
-          case EHDataGridColumnType.double:
-            {
-              return DataGridCell<double>(
-                  columnName: columnConfig.columnName,
-                  value: row[columnConfig.columnName]);
-            }
-          case EHDataGridColumnType.Date:
-          case EHDataGridColumnType.DateTime:
-            {
-              return DataGridCell<DateTime>(
-                  columnName: columnConfig.columnName,
-                  value: row[columnConfig.columnName]);
-            }
-          case EHDataGridColumnType.String:
-            {
-              return DataGridCell<String>(
-                  columnName: columnConfig.columnName,
-                  value: row[columnConfig.columnName]);
-            }
-          case EHDataGridColumnType.Bool:
-            {
-              return DataGridCell<bool>(
-                  columnName: columnConfig.columnName,
-                  value: row[columnConfig.columnName]);
-            }
-          default:
-            {
-              return DataGridCell<String>(
-                  columnName: columnConfig.columnName,
-                  value: row[columnConfig.columnName]);
-            }
+        if (columnConfig.columnType is EHIntColumnType) {
+          return DataGridCell<int>(
+              columnName: columnConfig.columnName,
+              value: row[columnConfig.columnName]);
         }
+        if (columnConfig.columnType is EHDoubleColumnType) {
+          return DataGridCell<double>(
+              columnName: columnConfig.columnName,
+              value: row[columnConfig.columnName]);
+        }
+        if (columnConfig.columnType is EHDateColumnType) {
+          return DataGridCell<DateTime>(
+              columnName: columnConfig.columnName,
+              value: row[columnConfig.columnName]);
+        }
+        if (columnConfig.columnType is EHStringColumnType) {
+          return DataGridCell<String>(
+              columnName: columnConfig.columnName,
+              value: row[columnConfig.columnName]);
+        }
+        if (columnConfig.columnType is EHBoolColumnType) {
+          return DataGridCell<bool>(
+              columnName: columnConfig.columnName,
+              value: row[columnConfig.columnName]);
+        }
+
+        throw Exception(
+            "DataGrid中列${columnConfig.columnName}配置的ColumnType ${columnConfig.columnType} 不存在");
       }).toList();
 
       return DataGridRow(cells: cellList);
@@ -175,13 +169,15 @@ abstract class EHDataGridSource extends DataGridSource {
               .where((e) => e.columnName == dataCell.columnName)
               .single;
 
-          if (columnConfig.columnType == EHDataGridColumnType.int ||
-              columnConfig.columnType == EHDataGridColumnType.double) {
-            return buildWidget(
-                alignment: Alignment.centerRight, value: dataCell.value!);
-          } else {
-            return buildWidget(value: dataCell.value!);
-          }
+          return columnConfig.columnType.getWidget(dataCell.value);
+
+          // if (columnConfig.columnType == EHDataGridColumnType.int ||
+          //     columnConfig.columnType == EHDataGridColumnType.double) {
+          //   return buildWidget(
+          //       alignment: Alignment.centerRight, value: dataCell.value!);
+          // } else {
+          //   return buildWidget(value: dataCell.value!);
+          // }
         }).toList(growable: false));
   }
 

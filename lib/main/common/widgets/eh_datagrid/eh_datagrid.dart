@@ -38,7 +38,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
         .map(
           (columnConfig) => GridColumn(
               minimumWidth: 100,
-              width: columnConfig.width!.value,
+              width: columnConfig.width.value,
               columnName: columnConfig.columnName,
               label: Container(
                   padding: const EdgeInsets.all(8),
@@ -175,7 +175,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
               .getColumnsConfig()
               .where((element) => element.columnName == args.column.columnName)
               .single;
-          column.width!.value = args.width;
+          column.width.value = args.width;
           return true;
         }));
   }
