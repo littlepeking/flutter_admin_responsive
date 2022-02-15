@@ -7,7 +7,7 @@ class EHBoolColumnType extends EHColumnType<bool> {
       : super(widgetType: widgetType);
 
   @override
-  getWidget(bool? value) {
+  getWidget(bool? value, int rowIndex, columnName, List<Map> dataList) {
     return Container(
       padding: EdgeInsets.all(this.padding),
       alignment: alignment,

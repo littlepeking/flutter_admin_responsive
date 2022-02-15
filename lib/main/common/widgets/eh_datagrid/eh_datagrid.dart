@@ -1,5 +1,6 @@
 ///Package imports
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
@@ -40,113 +41,117 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
               minimumWidth: 100,
               width: columnConfig.width.value,
               columnName: columnConfig.columnName,
-              label: Container(
-                  padding: const EdgeInsets.all(8),
-                  alignment: Alignment.centerRight,
-                  child: Column(children: [
-                    GestureDetector(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              columnConfig.columnHeaderName != null
-                                  ? columnConfig.columnHeaderName!.tr
-                                  : columnConfig.columnName.tr,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Obx(
-                              () => Icon(
-                                this
-                                            .controller
-                                            .dataGridSource
-                                            .columnFilters[
-                                                columnConfig.columnName]!
-                                            .sort
-                                            .value ==
-                                        EHDataGridColumnSortType.Desc
-                                    ? Icons.arrow_downward
-                                    : this
+              label: columnConfig.columnType is EHImageButtonColumnType
+                  ? SizedBox()
+                  : Container(
+                      padding: const EdgeInsets.all(8),
+                      alignment: Alignment.centerRight,
+                      child: Column(children: [
+                        GestureDetector(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  columnConfig.columnHeaderName != null
+                                      ? columnConfig.columnHeaderName!.tr
+                                      : columnConfig.columnName.tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Obx(
+                                  () => Icon(
+                                    this
                                                 .controller
                                                 .dataGridSource
                                                 .columnFilters[
                                                     columnConfig.columnName]!
                                                 .sort
                                                 .value ==
-                                            EHDataGridColumnSortType.Asc
-                                        ? Icons.arrow_upward
-                                        : null,
-                                size: 15,
-                              ),
-                            )
-                          ],
+                                            EHDataGridColumnSortType.Desc
+                                        ? Icons.arrow_downward
+                                        : this
+                                                    .controller
+                                                    .dataGridSource
+                                                    .columnFilters[columnConfig
+                                                        .columnName]!
+                                                    .sort
+                                                    .value ==
+                                                EHDataGridColumnSortType.Asc
+                                            ? Icons.arrow_upward
+                                            : null,
+                                    size: 15,
+                                  ),
+                                )
+                              ],
+                            ),
+                            onTap: () {
+                              this
+                                  .controller
+                                  .dataGridSource
+                                  .columnFilters
+                                  .entries
+                                  .where(
+                                      (e) => e.key != columnConfig.columnName)
+                                  .forEach((e) {
+                                e.value.sort.value =
+                                    EHDataGridColumnSortType.None;
+                              });
+
+                              switch (this
+                                  .controller
+                                  .dataGridSource
+                                  .columnFilters[columnConfig.columnName]!
+                                  .sort
+                                  .value) {
+                                case EHDataGridColumnSortType.None:
+                                  this
+                                      .controller
+                                      .dataGridSource
+                                      .columnFilters[columnConfig.columnName]!
+                                      .sort
+                                      .value = EHDataGridColumnSortType.Asc;
+                                  break;
+
+                                case EHDataGridColumnSortType.Asc:
+                                  this
+                                      .controller
+                                      .dataGridSource
+                                      .columnFilters[columnConfig.columnName]!
+                                      .sort
+                                      .value = EHDataGridColumnSortType.Desc;
+
+                                  break;
+                                case EHDataGridColumnSortType.Desc:
+                                  this
+                                      .controller
+                                      .dataGridSource
+                                      .columnFilters[columnConfig.columnName]!
+                                      .sort
+                                      .value = EHDataGridColumnSortType.None;
+
+                                  break;
+                              }
+                              this.controller.dataGridSource.handleRefresh();
+                            }),
+                        //   Divider(),
+                        SizedBox(
+                          height: 5,
                         ),
-                        onTap: () {
-                          this
-                              .controller
-                              .dataGridSource
-                              .columnFilters
-                              .entries
-                              .where((e) => e.key != columnConfig.columnName)
-                              .forEach((e) {
-                            e.value.sort.value = EHDataGridColumnSortType.None;
-                          });
-
-                          switch (this
-                              .controller
-                              .dataGridSource
-                              .columnFilters[columnConfig.columnName]!
-                              .sort
-                              .value) {
-                            case EHDataGridColumnSortType.None:
-                              this
-                                  .controller
+                        Container(
+                            height: 30,
+                            child: TextField(
+                              controller: controller
                                   .dataGridSource
                                   .columnFilters[columnConfig.columnName]!
-                                  .sort
-                                  .value = EHDataGridColumnSortType.Asc;
-                              break;
-
-                            case EHDataGridColumnSortType.Asc:
-                              this
-                                  .controller
-                                  .dataGridSource
-                                  .columnFilters[columnConfig.columnName]!
-                                  .sort
-                                  .value = EHDataGridColumnSortType.Desc;
-
-                              break;
-                            case EHDataGridColumnSortType.Desc:
-                              this
-                                  .controller
-                                  .dataGridSource
-                                  .columnFilters[columnConfig.columnName]!
-                                  .sort
-                                  .value = EHDataGridColumnSortType.None;
-
-                              break;
-                          }
-                          this.controller.dataGridSource.handleRefresh();
-                        }),
-                    //   Divider(),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                        height: 30,
-                        child: TextField(
-                          controller: controller
-                              .dataGridSource
-                              .columnFilters[columnConfig.columnName]!
-                              .controller,
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(5),
-                            border: new OutlineInputBorder(),
-                            hintText: "Filter...".tr,
-                          ),
-                        )),
-                  ]))),
+                                  .controller,
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(5),
+                                border: new OutlineInputBorder(),
+                                hintText: "Filter...".tr,
+                              ),
+                            )),
+                      ]))),
         )
         .toList();
 

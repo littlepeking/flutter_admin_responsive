@@ -11,5 +11,5 @@ abstract class EHColumnType<T> {
       this.padding = defaultPadding,
       this.alignment = Alignment.topLeft});
 
-  getWidget(T value);
+  getWidget(T value, int rowIndex, String columnName, List<Map> dataList);
 }

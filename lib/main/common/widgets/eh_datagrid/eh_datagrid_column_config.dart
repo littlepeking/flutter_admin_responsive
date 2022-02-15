@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_column_type.dart';
 import 'package:get/get.dart';
 
@@ -17,9 +18,13 @@ class EHDataGridColumnConfig {
   EHDataGridColumnConfig(
       {required this.columnName,
       required this.columnType,
-      double columnWidth = 150,
+      double? columnWidth,
       this.columnHeaderName,
       this.sortColumnName,
       this.hideInMobile = false})
-      : width = columnWidth.obs;
+      : width = (columnType is EHImageButtonColumnType)
+            ? 36.0.obs
+            : columnWidth == null
+                ? 150.0.obs
+                : columnWidth.obs;
 }

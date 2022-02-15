@@ -10,7 +10,7 @@ class EHStringColumnType extends EHColumnType<String> {
       : super(alignment: alignment);
 
   @override
-  getWidget(String value) {
+  getWidget(String value, int rowIndex, columnName, List<Map> dataList) {
     return Container(
       padding: EdgeInsets.all(this.padding),
       alignment: alignment,

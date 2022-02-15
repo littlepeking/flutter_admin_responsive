@@ -2,15 +2,17 @@ import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 
-class EHImageButton extends StatelessWidget {
+class EHImageButton<T> extends StatelessWidget {
   final Icon icon;
   final String text;
-  final VoidCallback onPressed;
+  final ValueChanged<T?> onPressed;
+  final T? data;
 
   const EHImageButton(
       {Key? key,
       required this.icon,
       required this.text,
+      this.data,
       required this.onPressed})
       : super(key: key);
 
@@ -18,14 +20,14 @@ class EHImageButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return (Responsive.isMobile(context))
         ? IconButton(
-            onPressed: onPressed,
+            onPressed: () => onPressed(data),
             icon: icon,
             tooltip: this.text,
           )
         : MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
-                onTap: onPressed,
+                onTap: () => onPressed(data),
                 child: Container(
                   margin: EdgeInsets.only(left: defaultPadding),
                   padding: EdgeInsets.symmetric(

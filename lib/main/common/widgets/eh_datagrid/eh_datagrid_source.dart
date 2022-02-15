@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 /// Dart import
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_double_column_type.dart';
@@ -8,6 +9,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/e
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_string_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_image_button.dart';
 
 /// Package imports
 import 'package:flutter/material.dart';
@@ -137,48 +139,26 @@ abstract class EHDataGridSource extends DataGridSource {
       backgroundColor = Colors.grey.withOpacity(0.07);
     }
 
-    Widget buildWidget({
-      AlignmentGeometry alignment = Alignment.centerLeft,
-      EdgeInsetsGeometry padding = const EdgeInsets.all(8.0),
-      TextOverflow textOverflow = TextOverflow.ellipsis,
-      required Object value,
-    }) {
-      return Container(
-        padding: padding,
-        alignment: alignment,
-        child: EHText(
-          text: value is DateTime
-              ? DateFormat('yyyy/MM/dd').format(value)
-              : value.toString(),
-        ),
-      );
+    List<EHDataGridColumnConfig> columnsConfig = getColumnsConfig();
 
-      // Container(
-      //   padding: const EdgeInsets.all(8),
-      //   alignment: Alignment.centerRight,
-      //   child: Text(NumberFormat.currency(
-      //           locale: 'en_US', symbol: r'$', decimalDigits: 0)
-      //       .format(row.getCells()[5].value)),
-      // ),
-    }
+    List<Widget> cellWidgets = [];
+    columnsConfig.forEach((config) {
+      Iterable<DataGridCell> iterableDateGridCell =
+          row.getCells().where((cell) => cell.columnName == config.columnName);
+      Object currentCellValue;
+      if (config.columnType is EHImageButtonColumnType) {
+        currentCellValue = _dataList[rowIndex];
+      } else if (iterableDateGridCell.length == 1) {
+        currentCellValue = iterableDateGridCell.first.value;
+      } else {
+        currentCellValue = '';
+      }
 
-    return DataGridRowAdapter(
-        color: backgroundColor,
-        cells: row.getCells().map<Widget>((DataGridCell dataCell) {
-          EHDataGridColumnConfig columnConfig = getColumnsConfig()
-              .where((e) => e.columnName == dataCell.columnName)
-              .single;
+      cellWidgets.add(config.columnType
+          .getWidget(currentCellValue, rowIndex, config.columnName, _dataList));
+    });
 
-          return columnConfig.columnType.getWidget(dataCell.value);
-
-          // if (columnConfig.columnType == EHDataGridColumnType.int ||
-          //     columnConfig.columnType == EHDataGridColumnType.double) {
-          //   return buildWidget(
-          //       alignment: Alignment.centerRight, value: dataCell.value!);
-          // } else {
-          //   return buildWidget(value: dataCell.value!);
-          // }
-        }).toList(growable: false));
+    return DataGridRowAdapter(color: backgroundColor, cells: cellWidgets);
   }
 
   // @override

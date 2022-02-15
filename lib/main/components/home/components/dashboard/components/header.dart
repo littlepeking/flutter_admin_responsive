@@ -47,7 +47,7 @@ getFunctionButtons() {
     EHImageButton(
       text: 'WMS'.tr,
       icon: Icon(Icons.cabin),
-      onPressed: () {
+      onPressed: (data) {
         // if (System.wms != GlobalDataController.instance.system.value) {
         GlobalDataController.instance.system.value = System.wms;
         EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/wmsPanel");
@@ -57,7 +57,7 @@ getFunctionButtons() {
     EHImageButton(
       text: 'TMS'.tr,
       icon: Icon(Icons.local_shipping),
-      onPressed: () {
+      onPressed: (data) {
         if (System.tms != GlobalDataController.instance.system.value) {
           GlobalDataController.instance.system.value = System.tms;
           EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/tmsPanel");
@@ -67,7 +67,7 @@ getFunctionButtons() {
     EHImageButton(
       text: 'Notification'.tr,
       icon: Icon(Icons.notifications),
-      onPressed: () {
+      onPressed: (data) {
         if (System.notification != GlobalDataController.instance.system.value) {
           GlobalDataController.instance.system.value = System.notification;
           EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/myTasks");
@@ -78,7 +78,7 @@ getFunctionButtons() {
     EHImageButton(
         text: 'changeTheme'.tr,
         icon: Icon(Icons.ac_unit_sharp),
-        onPressed: () {
+        onPressed: (data) {
           Get.changeThemeMode(
               Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
           ThemeController.instance.isDarkMode.value = !Get.isDarkMode;
@@ -90,7 +90,7 @@ getFunctionButtons() {
     EHImageButton(
         text: 'changeLocale'.tr,
         icon: Icon(Icons.language),
-        onPressed: () {
+        onPressed: (data) {
           var enLocale = Locale('en', 'US');
           var cnLocale = Locale('zh', 'CN');
           if (Get.locale == enLocale) {

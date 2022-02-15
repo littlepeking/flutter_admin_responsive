@@ -8,7 +8,7 @@ class EHDateColumnType extends EHColumnType<DateTime> {
   EHDateColumnType({this.dateFormat = 'yyyy/MM/dd'});
 
   @override
-  getWidget(DateTime? value) {
+  getWidget(DateTime? value, int rowIndex, columnName, List<Map> dataList) {
     return Container(
       padding: EdgeInsets.all(this.padding),
       alignment: alignment,

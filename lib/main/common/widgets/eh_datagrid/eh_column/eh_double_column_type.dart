@@ -9,7 +9,7 @@ class EHDoubleColumnType extends EHColumnType<double> {
       : super(alignment: alignment);
 
   @override
-  getWidget(double? value) {
+  getWidget(double? value, int rowIndex, columnName, List<Map> dataList) {
     return Container(
       padding: EdgeInsets.all(this.padding),
       alignment: alignment,
