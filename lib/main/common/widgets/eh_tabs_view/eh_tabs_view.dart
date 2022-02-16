@@ -98,7 +98,11 @@ class EHTabsView extends StatelessWidget {
     return Column(
       children: [
         Row(children: [
-          preTabHeaderWidget ?? SizedBox(),
+          preTabHeaderWidget != null
+              ? Container(height: 30, child: preTabHeaderWidget!)
+              : SizedBox(
+                  width: 24,
+                ),
           Responsive.isMobile(context)
               ? Expanded(child: EHTabsHeaderMobile(controller: controller))
               : Expanded(

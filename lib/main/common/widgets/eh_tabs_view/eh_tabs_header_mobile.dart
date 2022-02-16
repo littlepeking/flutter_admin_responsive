@@ -12,24 +12,28 @@ class EHTabsHeaderMobile extends StatelessWidget {
   EHTabsHeaderMobile({Key? key, required this.controller}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Row(
-          children: [
-            Expanded(
-                child: Center(
-                    child: EHText(
-              weight: FontWeight.bold,
-              text: controller
-                  .tabsConfig[controller.selectedIndex.value].tabName
-                  .trParams(controller
-                          .tabsConfig[controller.selectedIndex.value]
-                          .tabTranslateParams ??
-                      {}),
-              size: 18,
-            ))),
-            IconButton(
-                onPressed: showBottomList,
-                icon: Icon(Icons.auto_awesome_motion)),
-          ],
+    return Obx(() => Container(
+          height: 30,
+          child: Row(
+            children: [
+              Expanded(
+                  child: Center(
+                      child: EHText(
+                weight: FontWeight.bold,
+                text: controller
+                    .tabsConfig[controller.selectedIndex.value].tabName
+                    .trParams(controller
+                            .tabsConfig[controller.selectedIndex.value]
+                            .tabTranslateParams ??
+                        {}),
+                size: 15,
+              ))),
+              IconButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: showBottomList,
+                  icon: Icon(Icons.auto_awesome_motion)),
+            ],
+          ),
         ));
   }
 

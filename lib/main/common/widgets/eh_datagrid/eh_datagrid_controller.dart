@@ -7,7 +7,7 @@ class EHDataGridController extends EHController {
   // Default pager height
   double rowHeight = 35;
   double dataPagerHeight = 55.0;
-  double headerRowHeight = 75.0;
+  double headerRowHeight = 57.0;
   double? fixedHeight;
 
   /// DataGridSource required for SfDataGrid to obtain the row data.
@@ -16,7 +16,7 @@ class EHDataGridController extends EHController {
   EHDataGridController({double? fixedHeight}) {
     this.fixedHeight = fixedHeight == null
         ? Responsive.isMobile(Get.context!)
-            ? 500
+            ? 300
             : double.infinity
         : fixedHeight;
   }

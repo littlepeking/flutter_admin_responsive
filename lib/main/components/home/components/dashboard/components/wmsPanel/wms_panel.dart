@@ -44,6 +44,7 @@ class WmsPanelWidget extends StatelessWidget {
                   key: PageStorageKey('wmsPanelTabView'),
                   preTabHeaderWidget: Responsive.isMobile(context)
                       ? IconButton(
+                          padding: EdgeInsets.zero,
                           icon: Icon(Icons.menu),
                           onPressed: SideMenuController.instance.toggleDrawer,
                         )

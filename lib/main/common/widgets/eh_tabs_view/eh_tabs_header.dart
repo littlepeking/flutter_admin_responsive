@@ -29,13 +29,13 @@ class EHTabHeader extends StatelessWidget {
               : SizedBox(width: 20),
           Flexible(
               child: SizedBox(
-                  height: 40,
+                  height: 32,
                   child: Obx(
                     () => ScrollablePositionedList.builder(
                       initialScrollIndex: 0,
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.tabsConfig.length,
-                      padding: EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.only(top: 2),
                       itemBuilder: (context, index) {
                         return Obx(() {
                           // if (index >= controller.tabsData.length)

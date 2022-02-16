@@ -45,7 +45,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
               label: columnConfig.columnType is EHImageButtonColumnType
                   ? SizedBox()
                   : Container(
-                      padding: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       alignment: Alignment.centerRight,
                       child: Column(children: [
                         GestureDetector(
@@ -139,7 +139,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                           height: 5,
                         ),
                         Container(
-                            height: 30,
+                            height: 25,
                             child: TextField(
                               controller: controller
                                   .dataGridSource
