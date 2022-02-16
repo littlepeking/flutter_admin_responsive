@@ -1,7 +1,6 @@
 import 'package:eh_flutter_framework/main/common/i18n/customSfLocalization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 import 'common/Utils/theme.dart';
 import 'common/i18n/messages.dart';
 import 'common/utils/ThemeController.dart';
