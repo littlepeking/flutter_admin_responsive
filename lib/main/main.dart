@@ -1,14 +1,28 @@
+import 'package:eh_flutter_framework/main/common/i18n/customSfLocalization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 import 'common/Utils/theme.dart';
 import 'common/i18n/messages.dart';
 import 'common/utils/ThemeController.dart';
 import 'components/home/components/error/PageNotFound.dart';
 import 'controllers/global_data_controller.dart';
 import 'routes/page_config.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(GetMaterialApp(
+    localizationsDelegates: [
+      GlobalMaterialLocalizations.delegate,
+      // ... app-specific localization delegate[s] here
+      //SfGlobalLocalizations.delegate,
+      CustomSfLocalizationDelegate()
+    ],
+    supportedLocales: [
+      const Locale('en'),
+      const Locale('zh'),
+      // ... other locales the app supports
+    ],
     debugShowCheckedModeBanner: false,
     theme: EhTheme.lightTheme,
     darkTheme: EhTheme.darkTheme,

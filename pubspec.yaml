@@ -23,8 +23,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations: 
+    sdk: flutter  
   get: ^4.6.1
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.3
@@ -58,9 +59,10 @@ dependencies:
   syncfusion_flutter_signaturepad: ^19.4.38-beta
   syncfusion_flutter_pdfviewer: ^19.4.38-beta
   syncfusion_flutter_treemap: ^19.4.38-beta
-  flutter_keyboard_visibility: ^5.1.1
+  syncfusion_localizations: ^19.4.38
 # SYNC FUSTION DEPENDENCY -END
 
+  flutter_keyboard_visibility: ^5.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -160,6 +160,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_simple_treeview:
     dependency: "direct main"
     description:
@@ -581,6 +586,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "19.4.48-beta"
+  syncfusion_localizations:
+    dependency: "direct main"
+    description:
+      name: syncfusion_localizations
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "19.4.48+1"
   syncfusion_officechart:
     dependency: "direct main"
     description:
