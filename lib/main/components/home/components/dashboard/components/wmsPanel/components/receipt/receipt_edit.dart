@@ -10,48 +10,10 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'receipt_detail_view.dart';
 import 'receipt_edit_controller.dart';
 
-PageStorageBucket b = PageStorageBucket();
-
 class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
   ReceiptEdit({Key? key, controller}) : super(key: key, controller: controller);
   @override
   Widget build(BuildContext context) {
-    controller.receiptHeaderTabsViewController.showScrollArrow = false;
-    controller.receiptDetailTabsViewController.showScrollArrow = false;
-
-    controller.receiptHeaderTabsViewController.initTabs([
-      EHTab('General Info', controller.asnHeaderDataGridController,
-          (EHController c) {
-        return PageStorage(
-            bucket: b,
-            child: EHDataGrid(
-              controller: c,
-            ));
-      }),
-      // EHTab('Summary Info', controller, (controller) => Center()),
-      // EHTab('Other', controller, (controller) => EditingDataGrid()),
-    ]);
-    controller.receiptDetailTabsViewController.initTabs([
-      EHTab('Detail Info', controller.receiptDetailInfoController,
-          (EHController c) {
-        return PageStorage(
-            bucket: b,
-            child: ReceiptDetailView(
-              controller: c,
-            ));
-      }),
-      EHTab('Sub Grid Info', controller.asnDetailDataGridController,
-          (EHController c) {
-        return PageStorage(
-            bucket: b,
-            child: EHDataGrid(
-              controller: c,
-            ));
-      }),
-      // EHTab('Summary Info', controller, (controller) => Center()),
-      // EHTab('Other', controller, (controller) => EditingDataGrid()),
-    ]);
-
     if (Responsive.isMobile(context)) {
       return Column(children: [
         // KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {

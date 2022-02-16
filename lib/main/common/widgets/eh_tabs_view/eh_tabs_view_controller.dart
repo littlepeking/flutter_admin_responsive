@@ -6,6 +6,12 @@ import 'package:get/get.dart';
 import 'scrollable_positioned_list/lib/scrollable_positioned_list.dart';
 
 class EHTabsViewController extends GetxController {
+  EHTabsViewController({
+    Key? key,
+    this.showScrollArrow = false,
+    List<EHTab>? tabs,
+  }) : this.tabsConfig = tabs == null ? <EHTab>[].obs : tabs.obs;
+
   //选中的TAB索引
   var selectedIndex = 0.obs;
 
@@ -23,7 +29,7 @@ class EHTabsViewController extends GetxController {
 
   var minFullViewPortItemIndex = 0.obs;
 
-  bool showScrollArrow = true;
+  bool showScrollArrow;
 
   next() {
     bool isNotFullyShownLastNotDeletedTab =

@@ -8,77 +8,111 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/e
 
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_int_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_string_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_source.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'dart:math' as math;
 
+import 'receipt_detail_view.dart';
 import 'receipt_detail_view_controller.dart';
 
 class ReceiptEditController extends EHController {
-  EHTabsViewController receiptHeaderTabsViewController = EHTabsViewController();
+  PageStorageBucket pageStorageBucket = PageStorageBucket();
 
-  late AsnHeaderDataGridSource headerSource;
-  late EHDataGridController asnHeaderDataGridController;
+  late EHTabsViewController receiptHeaderTabsViewController;
 
-  ReceiptEditController() {
-    AsnHeaderDataGridSource asnHeaderDataGridSource = AsnHeaderDataGridSource();
-    asnHeaderDataGridSource.columnFilters['id'] = EHDateGridFilterInfo();
-    asnHeaderDataGridSource.columnFilters['id']!.sort.value =
-        EHDataGridColumnSortType.Asc;
-    asnHeaderDataGridController = EHDataGridController(asnHeaderDataGridSource,
-        fixedHeight: Responsive.isMobile(Get.context!) ? 500 : double.infinity);
-  }
+  late EHTabsViewController receiptDetailTabsViewController;
 
-  EHDataGridController asnDetailDataGridController = EHDataGridController(
-      AsnHeaderDataGridSource(),
-      fixedHeight: Responsive.isMobile(Get.context!) ? 500 : double.infinity);
-
-  EHTabsViewController receiptDetailTabsViewController = EHTabsViewController();
+  EHDataGridController asnHeaderDataGridController = EHDataGridController();
 
   ReceiptDetailViewController receiptDetailInfoController =
       ReceiptDetailViewController();
+
+  ReceiptEditController() {
+    initGrid(asnHeaderDataGridController);
+
+    receiptHeaderTabsViewController = EHTabsViewController(tabs: [
+      EHTab('General Info', asnHeaderDataGridController, (EHController c) {
+        return PageStorage(
+            bucket: pageStorageBucket,
+            child: EHDataGrid(
+              controller: c,
+            ));
+      }),
+      // EHTab('Summary Info', controller, (controller) => Center()),
+      // EHTab('Other', controller, (controller) => EditingDataGrid()),
+    ]);
+
+    receiptDetailTabsViewController = EHTabsViewController(tabs: [
+      EHTab('Detail Info', receiptDetailInfoController, (EHController c) {
+        return PageStorage(
+            bucket: pageStorageBucket,
+            child: ReceiptDetailView(
+              controller: c,
+            ));
+      }),
+      // EHTab('Summary Info', controller, (controller) => Center()),
+      // EHTab('Other', controller, (controller) => EditingDataGrid()),
+    ]);
+  }
+
+  // EHDataGridController asnDetailDataGridController = EHDataGridController(
+  //     AsnHeaderDataGridSource(),
+  //     fixedHeight: Responsive.isMobile(Get.context!) ? 500 : double.infinity);
+
+  initGrid(EHDataGridController gridController) {
+    gridController.dataGridSource.columnFilters['id'] = EHDateGridFilterInfo();
+    gridController.dataGridSource.columnFilters['id']!.sort.value =
+        EHDataGridColumnSortType.Asc;
+
+    gridController.dataGridSource.columnsConfig = [
+      EHDataGridColumnConfig(
+          columnName: 'imageBtn',
+          columnType: EHImageButtonColumnType(
+              //  onPressed: (data) => Get.defaultDialog(title: data.toString()))),
+              onPressed: (data) => Get.defaultDialog(
+                    content: Container(
+                        height: 500,
+                        width: 500,
+                        child: EHTabsView(
+                            expandMode: ExpandMode.Flexible,
+                            controller: receiptHeaderTabsViewController)),
+                  ))),
+      EHDataGridColumnConfig(columnName: 'id', columnType: EHIntColumnType()),
+      EHDataGridColumnConfig(
+          columnName: 'customerId', columnType: EHIntColumnType()),
+      EHDataGridColumnConfig(
+          columnName: 'name', columnType: EHStringColumnType()),
+      EHDataGridColumnConfig(
+          columnName: 'city', columnType: EHStringColumnType()),
+      EHDataGridColumnConfig(
+          columnName: 'qty', columnType: EHDoubleColumnType()),
+      EHDataGridColumnConfig(
+          columnName: 'date', columnType: EHDateColumnType()),
+    ];
+
+    gridController.dataGridSource.getData = (
+      Map<String, String> filters,
+      Map<String, String> _orderBy,
+      int pageIndex,
+      int pageSize,
+    ) =>
+        TestData.getOrders([]);
+  }
 }
 
-class AsnHeaderDataGridSource extends EHDataGridSource {
-  List<Map> allDataRows = [];
-
-  List<EHDataGridColumnConfig> columnConfig = [
-    EHDataGridColumnConfig(
-        columnName: 'imageBtn',
-        columnType: EHImageButtonColumnType(
-            onPressed: (data) =>
-                EHToastMessageHelper.showInfoMessage(data.toString()))),
-    EHDataGridColumnConfig(columnName: 'id', columnType: EHIntColumnType()),
-    EHDataGridColumnConfig(
-        columnName: 'customerId', columnType: EHIntColumnType()),
-    EHDataGridColumnConfig(
-        columnName: 'name', columnType: EHStringColumnType()),
-    EHDataGridColumnConfig(
-        columnName: 'city', columnType: EHStringColumnType()),
-    EHDataGridColumnConfig(columnName: 'qty', columnType: EHDoubleColumnType()),
-    EHDataGridColumnConfig(columnName: 'date', columnType: EHDateColumnType()),
-  ];
-
-  @override
-  List<EHDataGridColumnConfig> getColumnsConfig() {
-    return columnConfig;
-  }
-
-  @override
-  Future<List<Map>> getData() async {
-    //await Future<void>.delayed(const Duration(seconds: 5));
-    return getOrders(allDataRows);
-  }
-
+class TestData extends EHDataGridSource {
   /// Get orders collection
-  List<Map> getOrders(List<Map> orderData) {
+  static List<Map> getOrders(List<Map> orderData) {
     // final int startIndex = orderData.isNotEmpty ? orderData.length : 0,
     //     endIndex = startIndex + 25;
     final int startIndex = 0, endIndex = 100;
@@ -97,10 +131,10 @@ class AsnHeaderDataGridSource extends EHDataGridSource {
     return orderData;
   }
 
-  final math.Random _random = math.Random();
+  static math.Random _random = math.Random();
 
   //  Order Data's
-  final List<String> _names = <String>[
+  static List<String> _names = <String>[
     'Welli',
     'Blonp',
     'Folko',
@@ -118,7 +152,7 @@ class AsnHeaderDataGridSource extends EHDataGridSource {
     'Alfki',
   ];
 
-  final List<String> _cities = <String>[
+  static List<String> _cities = <String>[
     'Bruxelles',
     'Rosario',
     'Recife',

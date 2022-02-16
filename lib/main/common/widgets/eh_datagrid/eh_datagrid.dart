@@ -14,6 +14,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import 'eh_datagrid_constants.dart';
+import 'eh_datagrid_source.dart';
 
 /// Render data pager
 class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
@@ -28,14 +29,14 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
   }
 
   getGridColumns() {
-    this.controller.dataGridSource.getColumnsConfig().forEach((columnConfig) =>
+    this.controller.dataGridSource.columnsConfig.forEach((columnConfig) =>
         controller.dataGridSource.columnFilters.putIfAbsent(
             columnConfig.columnName, () => EHDateGridFilterInfo()));
 
     List<GridColumn> gridColumnList = this
         .controller
         .dataGridSource
-        .getColumnsConfig()
+        .columnsConfig
         .map(
           (columnConfig) => GridColumn(
               minimumWidth: 100,
@@ -177,7 +178,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
           EHDataGridColumnConfig column = this
               .controller
               .dataGridSource
-              .getColumnsConfig()
+              .columnsConfig
               .where((element) => element.columnName == args.column.columnName)
               .single;
           column.width.value = args.width;

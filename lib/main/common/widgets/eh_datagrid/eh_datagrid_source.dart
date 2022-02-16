@@ -9,25 +9,32 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/e
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_string_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_image_button.dart';
 
 /// Package imports
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-import '../eh_text.dart';
 import 'eh_datagrid_constants.dart';
 
-import 'package:intl/intl.dart';
-
 /// Set order's data collection to data grid source.
-abstract class EHDataGridSource extends DataGridSource {
+class EHDataGridSource extends DataGridSource {
   /// Creates the order data source class with required details.
   EHDataGridSource({this.isMobile = false, this.pageIndex = -1});
 
+  late List<Map> Function(
+    Map<String, String> filters,
+    Map<String, String> _orderBy,
+    int pageIndex,
+    int pageSize,
+  ) getData;
+
   /// Determine to decide whether the platform is mobile or web/tablet.
   bool isMobile = false;
+
+  late List<EHDataGridColumnConfig> columnsConfig;
+
+  List<Map> _dataList = <Map>[];
 
   RxInt? pageSize = 25.obs;
 
@@ -38,13 +45,8 @@ abstract class EHDataGridSource extends DataGridSource {
   //Key: column name, value: filter value controller
   Map<String, EHDateGridFilterInfo> columnFilters = Map();
 
-  /// Instance of an order.
-  List<Map> _dataList = <Map>[];
-
   /// Instance of DataGridRow.
   List<DataGridRow> _dataGridRows = <DataGridRow>[];
-
-  Future<List<Map>> getData();
 
   Map<String, String> get filters {
     Map<String, String> _filters = Map();
@@ -72,13 +74,9 @@ abstract class EHDataGridSource extends DataGridSource {
     return _orderBy;
   }
 
-  List<EHDataGridColumnConfig> getColumnsConfig();
-
   /// Building DataGridRows
   void buildDataGridRows() {
     List<DataGridRow> rows = _dataList.map<DataGridRow>((Map row) {
-      List<EHDataGridColumnConfig> columnsConfig = getColumnsConfig();
-
       if (isMobile) {
         columnsConfig =
             columnsConfig.where((element) => !element.hideInMobile).toList();
@@ -131,6 +129,10 @@ abstract class EHDataGridSource extends DataGridSource {
   @override
   List<DataGridRow> get rows => _dataGridRows;
 
+  List<Map> get dataList {
+    return _dataList;
+  }
+
   @override
   DataGridRowAdapter buildRow(DataGridRow row) {
     final int rowIndex = _dataGridRows.indexOf(row);
@@ -138,8 +140,6 @@ abstract class EHDataGridSource extends DataGridSource {
     if ((rowIndex % 2) == 0) {
       backgroundColor = Colors.grey.withOpacity(0.07);
     }
-
-    List<EHDataGridColumnConfig> columnsConfig = getColumnsConfig();
 
     List<Widget> cellWidgets = [];
     columnsConfig.forEach((config) {
@@ -174,7 +174,8 @@ abstract class EHDataGridSource extends DataGridSource {
   @override
   Future<void> handleRefresh() async {
     try {
-      _dataList = await getData();
+      _dataList = await getData(this.filters, this.orderBy, this.pageIndex ?? 0,
+          this.pageSize!.value);
       buildDataGridRows();
       notifyListeners();
     } catch (e) {
