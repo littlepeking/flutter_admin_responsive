@@ -20,9 +20,11 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
         //   return !isKeyboardVisible && !Responsive.isExtraSmall(context)
         //       ?
         EHTabsView(
+            useBottomList: false,
             expandMode: ExpandMode.Growable,
             controller: controller.receiptHeaderTabsViewController),
         EHTabsView(
+            useBottomList: false,
             expandMode: ExpandMode.Growable,
             controller: controller.receiptDetailTabsViewController),
       ]);

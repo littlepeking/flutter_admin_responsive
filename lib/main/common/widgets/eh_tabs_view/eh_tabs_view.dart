@@ -19,11 +19,13 @@ class EHTabsView extends StatelessWidget {
   final EHTabsViewController controller;
   final Widget? preTabHeaderWidget;
   final ExpandMode expandMode;
+  final bool? useBottomList;
 
   EHTabsView(
       {Key? key,
       this.preTabHeaderWidget,
       this.expandMode = ExpandMode.Flexible,
+      this.useBottomList,
       required this.controller})
       : super(key: key);
 
@@ -95,19 +97,21 @@ class EHTabsView extends StatelessWidget {
           ));
     }
 
+    getHeader(bool useBottomSheet) {
+      return useBottomSheet
+          ? Expanded(child: EHTabsHeaderMobile(controller: controller))
+          : Expanded(
+              child: EHTabHeader(
+                  key: PageStorageKey(UniqueKey), controller: controller));
+    }
+
     return Column(
       children: [
         Row(children: [
           preTabHeaderWidget != null
               ? Container(height: 30, child: preTabHeaderWidget!)
-              : SizedBox(
-                  width: 24,
-                ),
-          Responsive.isMobile(context)
-              ? Expanded(child: EHTabsHeaderMobile(controller: controller))
-              : Expanded(
-                  child: EHTabHeader(
-                      key: PageStorageKey(UniqueKey), controller: controller)),
+              : SizedBox(),
+          getHeader(useBottomList ?? false),
         ]),
         Obx(
           () => expandMode != ExpandMode.Growable

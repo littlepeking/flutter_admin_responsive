@@ -38,6 +38,7 @@ class WmsPanelWidget extends StatelessWidget {
         child: Column(children: [
           Expanded(
               child: EHTabsView(
+                  useBottomList: Responsive.isMobile(context),
                   expandMode: Responsive.isMobile(context)
                       ? ExpandMode.Scrollable
                       : ExpandMode.Flexible,
