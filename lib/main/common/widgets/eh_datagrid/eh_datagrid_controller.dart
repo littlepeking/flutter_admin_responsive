@@ -5,7 +5,9 @@ import 'eh_datagrid_source.dart';
 
 class EHDataGridController extends EHController {
   // Default pager height
-  double dataPagerHeight = 75.0;
+  double rowHeight = 35;
+  double dataPagerHeight = 55.0;
+  double headerRowHeight = 75.0;
   double? fixedHeight;
 
   /// DataGridSource required for SfDataGrid to obtain the row data.

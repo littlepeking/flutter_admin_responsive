@@ -165,8 +165,8 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
     // print(this.controller.dataGridSource.pageSize!);
 
     return Obx(() => SfDataGrid(
-        rowHeight: 35,
-        headerRowHeight: this.controller.dataPagerHeight,
+        rowHeight: this.controller.rowHeight,
+        headerRowHeight: this.controller.headerRowHeight,
         source: this.controller.dataGridSource,
         rowsPerPage: this.controller.dataGridSource.pageSize!.value,
         allowSorting: false,
@@ -215,6 +215,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
   Widget _buildLayoutBuilder() {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraint) {
+      print('object');
       return Column(
         children: <Widget>[
           SizedBox(
@@ -222,6 +223,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
               width: constraint.maxWidth,
               child: _buildDataGrid()),
           Container(
+            height: controller.dataPagerHeight,
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface.withOpacity(0.12),
                 border: Border(
