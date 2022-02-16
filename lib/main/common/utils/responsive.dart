@@ -24,4 +24,18 @@ class Responsive {
   static bool isKeyboardShown(BuildContext context) {
     return _isKeyboardShown.value;
   }
+
+  static double width(BuildContext context) {
+    return MediaQuery.of(context).size.width;
+  }
+
+  static double height(BuildContext context) {
+    return MediaQuery.of(context).size.height;
+  }
+
+  static double dialogWidth(BuildContext context) {
+    return MediaQuery.of(context).size.width > 1000
+        ? 1000
+        : MediaQuery.of(context).size.width * 2 / 3;
+  }
 }

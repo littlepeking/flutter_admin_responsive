@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
+import 'package:eh_flutter_framework/main/common/utils/EHDialog.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
@@ -79,14 +80,11 @@ class ReceiptEditController extends EHController {
           columnName: 'imageBtn',
           columnType: EHImageButtonColumnType(
               //  onPressed: (data) => Get.defaultDialog(title: data.toString()))),
-              onPressed: (data) => Get.defaultDialog(
-                    content: Container(
-                        height: 500,
-                        width: 500,
-                        child: EHTabsView(
-                            expandMode: ExpandMode.Flexible,
-                            controller: receiptHeaderTabsViewController)),
-                  ))),
+              onPressed: (data) => EHDialog.getPopupDialog(
+                  EHTabsView(
+                      expandMode: ExpandMode.Flexible,
+                      controller: receiptHeaderTabsViewController),
+                  title: 'Please Select Supplier'))),
       EHDataGridColumnConfig(columnName: 'id', columnType: EHIntColumnType()),
       EHDataGridColumnConfig(
           columnName: 'customerId', columnType: EHIntColumnType()),
