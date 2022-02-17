@@ -4,6 +4,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/e
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +15,6 @@ import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import 'eh_datagrid_constants.dart';
-import 'eh_datagrid_source.dart';
 
 /// Render data pager
 class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
@@ -22,16 +22,20 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
   EHDataGrid({Key? key, controller}) : super(key: key, controller: controller);
   @override
   Widget build(BuildContext context) {
-    print(this.controller);
     return Container(
         height: controller.fixedHeight ?? double.infinity,
         child: _buildLayoutBuilder());
   }
 
-  getGridColumns() {
-    this.controller.dataGridSource.columnsConfig.forEach((columnConfig) =>
-        controller.dataGridSource.columnFilters.putIfAbsent(
-            columnConfig.columnName, () => EHDateGridFilterInfo()));
+  List<GridColumn> getGridColumns() {
+    this.controller.dataGridSource.columnsConfig.forEach((columnConfig) {
+      if (controller.dataGridSource.columnFilters
+          .where((element) => element.columnName == columnConfig.columnName)
+          .isEmpty) {
+        controller.dataGridSource.columnFilters
+            .add(EHDataGridFilterInfo(columnName: columnConfig.columnName));
+      }
+    });
 
     List<GridColumn> gridColumnList = this
         .controller
@@ -61,22 +65,13 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                                 ),
                                 Obx(
                                   () => Icon(
-                                    this
-                                                .controller
-                                                .dataGridSource
-                                                .columnFilters[
-                                                    columnConfig.columnName]!
-                                                .sort
-                                                .value ==
+                                    getColumnFilter(columnConfig.columnName)
+                                                .sort ==
                                             EHDataGridColumnSortType.Desc
                                         ? Icons.arrow_downward
-                                        : this
-                                                    .controller
-                                                    .dataGridSource
-                                                    .columnFilters[columnConfig
-                                                        .columnName]!
-                                                    .sort
-                                                    .value ==
+                                        : getColumnFilter(
+                                                        columnConfig.columnName)
+                                                    .sort ==
                                                 EHDataGridColumnSortType.Asc
                                             ? Icons.arrow_upward
                                             : null,
@@ -90,48 +85,42 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                                   .controller
                                   .dataGridSource
                                   .columnFilters
-                                  .entries
-                                  .where(
-                                      (e) => e.key != columnConfig.columnName)
+                                  .where((e) =>
+                                      e.columnName != columnConfig.columnName)
                                   .forEach((e) {
-                                e.value.sort.value =
-                                    EHDataGridColumnSortType.None;
+                                e.sort = EHDataGridColumnSortType.None;
                               });
 
-                              switch (this
-                                  .controller
-                                  .dataGridSource
-                                  .columnFilters[columnConfig.columnName]!
-                                  .sort
-                                  .value) {
+                              switch (getColumnFilter(columnConfig.columnName)
+                                  .sort) {
                                 case EHDataGridColumnSortType.None:
-                                  this
-                                      .controller
-                                      .dataGridSource
-                                      .columnFilters[columnConfig.columnName]!
-                                      .sort
-                                      .value = EHDataGridColumnSortType.Asc;
+                                  getColumnFilter(columnConfig.columnName)
+                                      .sort = EHDataGridColumnSortType.Asc;
                                   break;
 
                                 case EHDataGridColumnSortType.Asc:
                                   this
                                       .controller
                                       .dataGridSource
-                                      .columnFilters[columnConfig.columnName]!
-                                      .sort
-                                      .value = EHDataGridColumnSortType.Desc;
+                                      .columnFilters
+                                      .where((e) =>
+                                          e.columnName ==
+                                          columnConfig.columnName)
+                                      .first
+                                      .sort = EHDataGridColumnSortType.Desc;
 
                                   break;
                                 case EHDataGridColumnSortType.Desc:
-                                  this
-                                      .controller
-                                      .dataGridSource
-                                      .columnFilters[columnConfig.columnName]!
-                                      .sort
-                                      .value = EHDataGridColumnSortType.None;
+                                  getColumnFilter(columnConfig.columnName)
+                                      .sort = EHDataGridColumnSortType.None;
 
                                   break;
                               }
+                              this
+                                  .controller
+                                  .dataGridSource
+                                  .columnFilters
+                                  .refresh();
                               this.controller.dataGridSource.handleRefresh();
                             }),
                         //   Divider(),
@@ -141,22 +130,31 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                         Container(
                             height: 25,
                             child: TextField(
-                              controller: controller
-                                  .dataGridSource
-                                  .columnFilters[columnConfig.columnName]!
-                                  .controller,
+                              controller: EHEditingController(
+                                  text: getColumnFilter(columnConfig.columnName)
+                                      .text),
                               textAlignVertical: TextAlignVertical.center,
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.all(5),
                                 border: new OutlineInputBorder(),
                                 hintText: "Filter...".tr,
                               ),
+                              onChanged: (value) {
+                                getColumnFilter(columnConfig.columnName).text =
+                                    value;
+                              },
                             )),
                       ]))),
         )
         .toList();
 
     return gridColumnList;
+  }
+
+  EHDataGridFilterInfo getColumnFilter(String columnName) {
+    return controller.dataGridSource.columnFilters
+        .where((e) => e.columnName == columnName)
+        .first;
   }
 
   Widget _buildDataGrid() {

@@ -1,6 +1,7 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:get/get.dart';
+import 'eh_datagrid_column_config.dart';
 import 'eh_datagrid_source.dart';
 
 class EHDataGridController extends EHController {
@@ -11,13 +12,16 @@ class EHDataGridController extends EHController {
   double? fixedHeight;
 
   /// DataGridSource required for SfDataGrid to obtain the row data.
-  EHDataGridSource dataGridSource = EHDataGridSource();
+  late EHDataGridSource dataGridSource;
 
-  EHDataGridController({double? fixedHeight}) {
+  EHDataGridController(
+      {double? fixedHeight, required EHDataGridSource dataGridSource}) {
     this.fixedHeight = fixedHeight == null
         ? Responsive.isMobile(Get.context!)
             ? 300
             : double.infinity
         : fixedHeight;
+
+    this.dataGridSource = dataGridSource;
   }
 }

@@ -20,7 +20,17 @@ import 'eh_datagrid_constants.dart';
 /// Set order's data collection to data grid source.
 class EHDataGridSource extends DataGridSource {
   /// Creates the order data source class with required details.
-  EHDataGridSource({this.isMobile = false, this.pageIndex = -1});
+  EHDataGridSource({
+    this.isMobile = false,
+    this.pageIndex = -1,
+    List<EHDataGridFilterInfo>? columnFilters,
+    required this.columnsConfig,
+    required this.getData,
+  }) {
+    this.columnFilters = columnFilters != null
+        ? columnFilters.obs
+        : <EHDataGridFilterInfo>[].obs;
+  }
 
   late List<Map> Function(
     Map<String, String> filters,
@@ -32,7 +42,7 @@ class EHDataGridSource extends DataGridSource {
   /// Determine to decide whether the platform is mobile or web/tablet.
   bool isMobile = false;
 
-  late List<EHDataGridColumnConfig> columnsConfig;
+  List<EHDataGridColumnConfig> columnsConfig;
 
   List<Map> _dataList = <Map>[];
 
@@ -43,7 +53,8 @@ class EHDataGridSource extends DataGridSource {
   double? totalPageNumber = 1;
 
   //Key: column name, value: filter value controller
-  Map<String, EHDateGridFilterInfo> columnFilters = Map();
+  late RxList<EHDataGridFilterInfo> columnFilters =
+      <EHDataGridFilterInfo>[].obs;
 
   /// Instance of DataGridRow.
   List<DataGridRow> _dataGridRows = <DataGridRow>[];
@@ -51,8 +62,8 @@ class EHDataGridSource extends DataGridSource {
   Map<String, String> get filters {
     Map<String, String> _filters = Map();
 
-    columnFilters.entries.forEach((element) {
-      _filters.putIfAbsent(element.key, () => element.value.controller.text);
+    columnFilters.forEach((element) {
+      _filters.putIfAbsent(element.columnName, () => element.text);
     });
 
     return _filters;
@@ -61,11 +72,11 @@ class EHDataGridSource extends DataGridSource {
   Map<String, String> get orderBy {
     Map<String, String> _orderBy = Map();
 
-    columnFilters.entries.forEach((element) {
-      EHDataGridColumnSortType orderByVal = element.value.sort.value;
+    columnFilters.forEach((element) {
+      EHDataGridColumnSortType orderByVal = element.sort;
       if (orderByVal != EHDataGridColumnSortType.None)
         _orderBy.putIfAbsent(
-            element.key,
+            element.columnName,
             () => orderByVal
                 .toString()
                 .substring(orderByVal.toString().indexOf('.') + 1));

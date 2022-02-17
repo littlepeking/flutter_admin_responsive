@@ -1,7 +1,10 @@
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
+import 'package:eh_flutter_framework/test/TestData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +17,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
   Widget build(BuildContext context) {
     GlobalKey textKey1 = GlobalKey();
     GlobalKey textKey2 = GlobalKey();
+    GlobalKey popupKey1 = GlobalKey();
     GlobalKey dropdownKey1 = GlobalKey();
     GlobalKey dropdownKey2 = GlobalKey();
     FocusNode n = FocusNode();
@@ -129,6 +133,22 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                     },
                   ),
                 ),
+                Obx(() => EHPopup(
+                      key: popupKey1,
+                      // autoFocus: true,
+                      controller: EHPopupController(
+                          dataGridController: EHDataGridController(
+                              dataGridSource: DataGridTest.getDataGridSource()),
+                          autoFocus: true,
+                          label: '测试1',
+                          text: controller.receiptModel.value.receiptKey,
+                          mustInput: true,
+                          //  autoFocus: true,
+                          onChanged: (value) =>
+                              controller.receiptModel.update((model) {
+                                model!.receiptKey = value;
+                              })),
+                    )),
                 ElevatedButton(
                   focusNode: fnButton,
                   onPressed: () {

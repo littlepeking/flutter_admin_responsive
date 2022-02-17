@@ -6,6 +6,7 @@ import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 //注意：如果EHTextField设置了EHTextFieldController，除KEY外的其他属性将不生效。EHTextFieldController与其他属性只允许二选一。
@@ -62,6 +63,10 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
               Container(
                 height: 25,
                 child: TextField(
+                    // keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                    ],
                     autofocus: controller.autoFocus,
                     focusNode: controller.focusNode,
                     textInputAction: TextInputAction.next,
@@ -190,4 +195,6 @@ class EHEditingController extends TextEditingController {
       composing: TextRange.empty,
     );
   }
+
+  EHEditingController({String text = ''}) : super(text: text);
 }
