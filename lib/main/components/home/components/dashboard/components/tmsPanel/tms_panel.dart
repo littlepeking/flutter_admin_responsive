@@ -43,8 +43,8 @@ class _TmsPanelWidgetState extends State<TmsPanelWidget> {
           Expanded(
               child: EHTabsView(
                   expandMode: Responsive.isMobile(context)
-                      ? ExpandMode.Scrollable
-                      : ExpandMode.Flexible,
+                      ? EHTabsViewExpandMode.Scrollable
+                      : EHTabsViewExpandMode.Flexible,
                   key: PageStorageKey('tmsPanelTabView'),
                   preTabHeaderWidget: Responsive.isMobile(context)
                       ? IconButton(

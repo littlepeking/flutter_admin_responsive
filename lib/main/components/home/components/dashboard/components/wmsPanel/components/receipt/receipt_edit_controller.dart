@@ -15,6 +15,8 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dar
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:split_view/split_view.dart';
 
 import 'dart:math' as math;
 
@@ -32,6 +34,8 @@ class ReceiptEditController extends EHController {
 
   ReceiptDetailViewController receiptDetailInfoController =
       ReceiptDetailViewController();
+
+  RxDouble splitterWeights = 0.5.obs;
 
   ReceiptEditController() {
     initGrid(asnHeaderDataGridController);
@@ -77,7 +81,7 @@ class ReceiptEditController extends EHController {
               //  onPressed: (data) => Get.defaultDialog(title: data.toString()))),
               onPressed: (data) => EHDialog.getPopupDialog(
                   EHTabsView(
-                      expandMode: ExpandMode.Flexible,
+                      expandMode: EHTabsViewExpandMode.Flexible,
                       controller: receiptHeaderTabsViewController),
                   title: 'Please Select Supplier'))),
       EHDataGridColumnConfig(columnName: 'id', columnType: EHIntColumnType()),

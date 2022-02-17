@@ -10,6 +10,8 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'receipt_detail_view.dart';
 import 'receipt_edit_controller.dart';
 
+import 'package:split_view/split_view.dart';
+
 class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
   ReceiptEdit({Key? key, controller}) : super(key: key, controller: controller);
   @override
@@ -21,29 +23,33 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
         //       ?
         EHTabsView(
             useBottomList: false,
-            expandMode: ExpandMode.Growable,
+            expandMode: EHTabsViewExpandMode.Growable,
             controller: controller.receiptHeaderTabsViewController),
         EHTabsView(
             useBottomList: false,
-            expandMode: ExpandMode.Growable,
+            expandMode: EHTabsViewExpandMode.Growable,
             controller: controller.receiptDetailTabsViewController),
       ]);
     } else {
-      return Column(
+      return SplitView(
         children: [
-          // KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
-          //   return !isKeyboardVisible && !Responsive.isExtraSmall(context)
-          //       ?
-          Expanded(
-            child: EHTabsView(
-                expandMode: ExpandMode.Flexible,
-                controller: controller.receiptHeaderTabsViewController),
-          ),
-          Expanded(
-              child: EHTabsView(
-                  expandMode: ExpandMode.Flexible,
-                  controller: controller.receiptDetailTabsViewController)),
+          EHTabsView(controller: controller.receiptDetailTabsViewController),
+          EHTabsView(
+              expandMode: EHTabsViewExpandMode.Flexible,
+              controller: controller.receiptHeaderTabsViewController),
         ],
+        gripSize: 2,
+        viewMode: SplitViewMode.Vertical,
+        indicator: SplitIndicator(viewMode: SplitViewMode.Vertical),
+        activeIndicator: SplitIndicator(
+          viewMode: SplitViewMode.Vertical,
+          isActive: true,
+        ),
+        controller: SplitViewController(
+            limits: [WeightLimit(max: 0.8), WeightLimit(max: 0.8)],
+            weights: [controller.splitterWeights.value]),
+        onWeightChanged: (w) =>
+            controller.splitterWeights.value = w.first ?? 0.5,
       );
     }
   }
