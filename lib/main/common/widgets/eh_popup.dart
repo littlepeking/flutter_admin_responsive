@@ -87,18 +87,34 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                           //   alignment: Alignment.centerLeft,
                           padding: EdgeInsets.zero,
                           onPressed: () async {
-                            EHDialog.getPopupDialog(EHDataGrid(
-                                controller: EHDataGridController(
-                              dataGridSource: controller._dataGridSource,
-                              onRowSelected: (row) {
-                                controller.focusNode!.requestFocus();
-                                controller.focusNode!.nextFocus();
-                                controller.onChanged!(
-                                    row[controller.codeColumnName].toString(),
-                                    row);
-                                Get.back();
-                              },
-                            )));
+                            await EHDialog.getPopupDialog(
+                                Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 2,
+                                          color:
+                                              Get.textTheme.caption!.color!)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: EHDataGrid(
+                                        controller: EHDataGridController(
+                                      dataGridSource:
+                                          controller._dataGridSource,
+                                      onRowSelected: (row) {
+                                        controller.focusNode!.requestFocus();
+                                        controller.focusNode!.nextFocus();
+                                        controller.onChanged!(
+                                            row[controller.codeColumnName]
+                                                .toString(),
+                                            row);
+                                        Get.back();
+                                      },
+                                    )),
+                                  ),
+                                ),
+                                focusNode: controller.focusNode,
+                                title: controller.popupTitle);
                           },
                           icon: Icon(Icons.filter_center_focus)),
                     )
@@ -131,6 +147,8 @@ class EHPopupController extends EHController {
   FocusNode? focusNode;
 
   RxBool _autoFocus = false.obs;
+
+  var popupTitle;
 
   get autoFocus {
     return _autoFocus.value;
@@ -187,6 +205,7 @@ class EHPopupController extends EHController {
       //focusNode必须手工在controller中实例化并赋值给控件的focusNode属性,否则光标焦点跳转会有问题。
       //因为flutter要求focusNode必须在statefulWidget中进行设置，但目前框架暂时只使用statelessWidget，因此只能手工设置。
       this.focusNode,
+      this.popupTitle,
       String label = '',
       String text = '',
       bool enabled = true,

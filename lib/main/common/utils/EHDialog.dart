@@ -4,25 +4,65 @@ import 'package:get/get.dart';
 import 'responsive.dart';
 
 class EHDialog {
-  static getPopupDialog(Widget widget, {String title = 'Please Select Item'}) {
-    return Get.defaultDialog(
-      titlePadding: EdgeInsets.only(top: 20),
-      titleStyle: TextStyle(fontWeight: FontWeight.bold),
-      radius: 5,
-      actions: <Widget>[
-        ElevatedButton(
-          child: Text("Close".tr),
-          onPressed: () {
-            Get.back();
-          },
-        )
-      ],
-      barrierDismissible: false,
-      title: title.tr,
-      content: Container(
-          height: 500,
-          width: Responsive.dialogWidth(Get.context!),
-          child: widget),
+  static getPopupDialog(Widget widget,
+      {String title = 'Please Select Item', FocusNode? focusNode}) async {
+    // return Get.dialog(
+    //   titlePadding: EdgeInsets.only(top: 20),
+    //   titleStyle: TextStyle(fontWeight: FontWeight.bold),
+    //   radius: 5,
+    //   actions: <Widget>[
+    //     ElevatedButton(
+    //       child: Text("Close".tr),
+    //       onPressed: () {
+    //         Get.back();
+    //       },
+    //     )
+    //   ],
+    //   barrierDismissible: false,
+    //   title: title.tr,
+    //   content: Container(
+    //       height: 500,
+    //       width: Responsive.dialogWidth(Get.context!),
+    //       child: widget),
+    // );
+
+    await showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return Expanded(
+          child: SimpleDialog(
+            titlePadding: EdgeInsets.only(top: 10),
+            title: Row(
+              children: [
+                SizedBox(
+                  width: 25,
+                ),
+                Expanded(
+                    child: Text(
+                  title.tr,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                )),
+                IconButton(
+                    padding: EdgeInsets.only(right: 20),
+                    onPressed: () {
+                      Get.back();
+                      focusNode?.requestFocus();
+                    },
+                    icon: Icon(Icons.close))
+              ],
+            ),
+            children: [
+              Container(
+                  height: 500,
+                  width: Responsive.dialogWidth(Get.context!),
+                  child: widget)
+            ],
+            elevation: 10,
+            //backgroundColor: Colors.green,
+          ),
+        );
+      },
     );
   }
 }
@@ -51,51 +91,3 @@ class EHDialog {
                             //     return alert;
                             //   },
                             // );
-
-                            // _displayDialog(BuildContext context) async {
-                            //   await showDialog(
-                            //     context: context,
-                            //     builder: (BuildContext context) {
-                            //       return Expanded(
-                            //         child: SimpleDialog(
-                            //           title: Text('Choose food'),
-                            //           children: [
-                            //             SimpleDialogOption(
-                            //                 onPressed: () {
-                            //                   Navigator.pop(context, "Pizza");
-                            //                   controller.focusNode!
-                            //                       .requestFocus();
-                            //                 },
-                            //                 child: Container(
-                            //                   width: 500,
-                            //                   height: 500,
-                            //                   child: EHDataGrid(
-                            //                       controller:
-                            //                           EHDataGridController(
-                            //                     dataGridSource:
-                            //                         controller._dataGridSource,
-                            //                     onRowSelected: (row) {
-                            //                       controller.onChanged!(
-                            //                           row[controller
-                            //                                   .codeColumnName]
-                            //                               .toString(),
-                            //                           row);
-
-                            //                       Navigator.pop(
-                            //                           context, "Pizza");
-
-                            //                       controller.focusNode!
-                            //                           .requestFocus();
-                            //                     },
-                            //                   )),
-                            //                 )),
-                            //           ],
-                            //           elevation: 10,
-                            //           //backgroundColor: Colors.green,
-                            //         ),
-                            //       );
-                            //     },
-                            //   );
-                            // }
-
-                            // _displayDialog(context);

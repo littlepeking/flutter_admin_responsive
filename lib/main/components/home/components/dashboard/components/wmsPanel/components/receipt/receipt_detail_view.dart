@@ -137,6 +137,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                       key: popupKey1,
                       // autoFocus: true,
                       controller: EHPopupController(
+                          popupTitle: 'Please Select Supplier',
                           focusNode: controller.popUpFn,
                           codeColumnName: 'customerId',
                           dataGridSource: DataGridTest.getDataGridSource(),
@@ -148,7 +149,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                             //  controller.popUpFn!.requestFocus();
                             controller.receiptModel.update((model) {
                               model!.customerId = code;
-                              model!.customerName = row['name'] ?? '';
+                              model.customerName = row['name'] ?? '';
                             });
                           }),
                     )),
@@ -162,31 +163,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                     width: 300,
                     onChanged: (value) {
                       controller.receiptModel.update((model) {
-                        model!.customerId = '1';
-                        model!.customerName = 'dfe';
-                      });
-                    },
-                    // onEditingComplete: (c) {
-                    //   // Move the focus to the next node explicitly.
-                    //   //FocusScope.of(c).(fnText);
-
-                    //   //  n1.requestFocus();
-                    //   //  FocusTraversalGroup.of(context!).next(fnText);
-                    // },
-                  ),
-                ),
-                Obx(
-                  () => EHTextField(
-                    //enabled: false,
-                    label: controller.receiptModel.value.customerName,
-                    text: controller.receiptModel.value.customerName,
-                    errorBucket: controller.errorBucket,
-                    mustInput: true,
-                    width: 300,
-                    onChanged: (value) {
-                      controller.receiptModel.update((model) {
-                        model!.customerId = '1';
-                        model!.customerName = 'dfe';
+                        model!.customerId = value;
                       });
                     },
                     // onEditingComplete: (c) {
