@@ -137,18 +137,67 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                       key: popupKey1,
                       // autoFocus: true,
                       controller: EHPopupController(
+                          focusNode: controller.popUpFn,
                           codeColumnName: 'customerId',
                           dataGridSource: DataGridTest.getDataGridSource(),
                           label: '测试1',
                           text: controller.receiptModel.value.customerId,
                           mustInput: true,
                           //  autoFocus: true,
-                          onChanged: (code, row) =>
-                              controller.receiptModel.update((model) {
-                                model!.customerId = code;
-                                model!.customerName = row['name'];
-                              })),
+                          onChanged: (code, row) {
+                            //  controller.popUpFn!.requestFocus();
+                            controller.receiptModel.update((model) {
+                              model!.customerId = code;
+                              model!.customerName = row['name'] ?? '';
+                            });
+                          }),
                     )),
+                Obx(
+                  () => EHTextField(
+                    //enabled: false,
+                    label: controller.receiptModel.value.customerName,
+                    text: controller.receiptModel.value.customerName,
+                    errorBucket: controller.errorBucket,
+                    mustInput: true,
+                    width: 300,
+                    onChanged: (value) {
+                      controller.receiptModel.update((model) {
+                        model!.customerId = '1';
+                        model!.customerName = 'dfe';
+                      });
+                    },
+                    // onEditingComplete: (c) {
+                    //   // Move the focus to the next node explicitly.
+                    //   //FocusScope.of(c).(fnText);
+
+                    //   //  n1.requestFocus();
+                    //   //  FocusTraversalGroup.of(context!).next(fnText);
+                    // },
+                  ),
+                ),
+                Obx(
+                  () => EHTextField(
+                    //enabled: false,
+                    label: controller.receiptModel.value.customerName,
+                    text: controller.receiptModel.value.customerName,
+                    errorBucket: controller.errorBucket,
+                    mustInput: true,
+                    width: 300,
+                    onChanged: (value) {
+                      controller.receiptModel.update((model) {
+                        model!.customerId = '1';
+                        model!.customerName = 'dfe';
+                      });
+                    },
+                    // onEditingComplete: (c) {
+                    //   // Move the focus to the next node explicitly.
+                    //   //FocusScope.of(c).(fnText);
+
+                    //   //  n1.requestFocus();
+                    //   //  FocusTraversalGroup.of(context!).next(fnText);
+                    // },
+                  ),
+                ),
                 Obx(
                   () => EHTextField(
                     //enabled: false,

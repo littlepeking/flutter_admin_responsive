@@ -76,14 +76,14 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                       contentPadding: EdgeInsets.all(5),
                       border: new OutlineInputBorder(),
                     ),
-                    onEditingComplete: () {
-                      // Move the focus to the next node explicitly.
-                      if (controller.onEditingComplete == null) {
-                        FocusScope.of(context).nextFocus();
-                      } else {
-                        controller.onEditingComplete!(context);
-                      }
-                    },
+                    // onEditingComplete: () {
+                    //   // Move the focus to the next node explicitly.
+                    //   if (controller.onEditingComplete == null) {
+                    //     FocusScope.of(context).nextFocus();
+                    //   } else {
+                    //     controller.onEditingComplete!(context);
+                    //   }
+                    // },
                     controller: controller._textEditingController,
                     enabled: controller.enabled,
                     onChanged: (v) {

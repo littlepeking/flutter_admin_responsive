@@ -16,8 +16,6 @@ import 'eh_datagrid/eh_datagrid_column_config.dart';
 
 //注意：如果EHTextField设置了EHTextFieldController，除KEY外的其他属性将不生效。EHTextFieldController与其他属性只允许二选一。
 class EHPopup extends EHStatelessWidget<EHPopupController> {
-  FocusNode iconButtonFocusNode = FocusNode();
-
   EHPopup({
     Key? key,
     EHPopupController? controller,
@@ -25,8 +23,8 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
 
   @override
   Widget build(BuildContext context) {
-    iconButtonFocusNode.canRequestFocus = false;
-    iconButtonFocusNode.skipTraversal = true;
+    controller.iconButtonFocusNode.canRequestFocus = false;
+    controller.iconButtonFocusNode.skipTraversal = true;
     if (controller.errorBucket == null)
       controller.errorBucket = EHController.globalErrorBucket;
 
@@ -57,14 +55,15 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                             contentPadding: EdgeInsets.all(5),
                             border: new OutlineInputBorder(),
                           ),
-                          onEditingComplete: () {
-                            // Move the focus to the next node explicitly.
-                            if (controller.onEditingComplete == null) {
-                              controller.focusNode!.nextFocus();
-                            } else {
-                              controller.onEditingComplete!(context);
-                            }
-                          },
+                          // onEditingComplete: () {
+                          //   // // Move the focus to the next node explicitly.
+                          //   // if (controller.onEditingComplete == null) {
+                          //   //   Get.focusScope!.nextFocus();
+                          //   //   // controller.focusNode!.nextFocus();
+                          //   // } else {
+                          //   //   controller.onEditingComplete!(context);
+                          //   // }
+                          // },
                           controller: controller._textEditingController,
                           enabled: controller.enabled,
                           onChanged: (v) {
@@ -84,20 +83,19 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                     Container(
                       width: 30,
                       child: IconButton(
-                          focusNode: iconButtonFocusNode,
+                          focusNode: controller.iconButtonFocusNode,
                           //   alignment: Alignment.centerLeft,
                           padding: EdgeInsets.zero,
-                          onPressed: () {
+                          onPressed: () async {
                             EHDialog.getPopupDialog(EHDataGrid(
                                 controller: EHDataGridController(
                               dataGridSource: controller._dataGridSource,
                               onRowSelected: (row) {
+                                controller.focusNode!.requestFocus();
                                 controller.onChanged!(
                                     row[controller.codeColumnName].toString(),
                                     row);
-
-                                controller.focusNode!.requestFocus();
-                                Navigator.of(Get.overlayContext!).pop();
+                                Get.back();
                               },
                             )));
                           },
@@ -124,6 +122,8 @@ class EHPopupController extends EHController {
   double width;
 
   late String codeColumnName;
+
+  FocusNode iconButtonFocusNode = FocusNode();
 
   Map? errorBucket;
 
@@ -183,7 +183,9 @@ class EHPopupController extends EHController {
   EHPopupController(
       {this.width = 200,
       bool? autoFocus = false,
-      FocusNode? focusNode,
+      //focusNode必须手工在controller中实例化并赋值给控件的focusNode属性,否则光标焦点跳转会有问题。
+      //因为flutter要求focusNode必须在statefulWidget中进行设置，但目前框架暂时只使用statelessWidget，因此只能手工设置。
+      this.focusNode,
       String label = '',
       String text = '',
       bool enabled = true,
@@ -199,7 +201,7 @@ class EHPopupController extends EHController {
     this.enabled = enabled;
     this.mustInput = mustInput;
     this.errorBucket = errorBucket;
-    this.focusNode = focusNode ?? FocusNode();
+    this.focusNode = focusNode;
     this.codeColumnName = codeColumnName!; //未集成后台的code配置前，该字段需要手工传入
     this._dataGridSource = dataGridSource ??
         EHDataGridSource(
