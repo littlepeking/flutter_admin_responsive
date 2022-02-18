@@ -16,6 +16,8 @@ import 'eh_datagrid/eh_datagrid_column_config.dart';
 
 //注意：如果EHTextField设置了EHTextFieldController，除KEY外的其他属性将不生效。EHTextFieldController与其他属性只允许二选一。
 class EHPopup extends EHStatelessWidget<EHPopupController> {
+  FocusNode iconButtonFocusNode = FocusNode();
+
   EHPopup({
     Key? key,
     EHPopupController? controller,
@@ -23,6 +25,8 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
 
   @override
   Widget build(BuildContext context) {
+    iconButtonFocusNode.canRequestFocus = false;
+    iconButtonFocusNode.skipTraversal = true;
     if (controller.errorBucket == null)
       controller.errorBucket = EHController.globalErrorBucket;
 
@@ -56,7 +60,7 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                           onEditingComplete: () {
                             // Move the focus to the next node explicitly.
                             if (controller.onEditingComplete == null) {
-                              FocusScope.of(context).nextFocus();
+                              controller.focusNode!.nextFocus();
                             } else {
                               controller.onEditingComplete!(context);
                             }
@@ -72,18 +76,30 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                                 controller.errorBucket![key] = '';
                               }
                             }
-                            controller.onChanged!(v);
+                            controller.onChanged!(v, Map());
+                            controller.focusNode!.nextFocus();
+                            //TO DO: add check from backend do validate, if error then set column to empty
                           }),
                     ),
                     Container(
                       width: 30,
                       child: IconButton(
+                          focusNode: iconButtonFocusNode,
                           //   alignment: Alignment.centerLeft,
                           padding: EdgeInsets.zero,
                           onPressed: () {
                             EHDialog.getPopupDialog(EHDataGrid(
-                              controller: controller._dataGridController,
-                            ));
+                                controller: EHDataGridController(
+                              dataGridSource: controller._dataGridSource,
+                              onRowSelected: (row) {
+                                controller.onChanged!(
+                                    row[controller.codeColumnName].toString(),
+                                    row);
+
+                                controller.focusNode!.requestFocus();
+                                Navigator.of(Get.overlayContext!).pop();
+                              },
+                            )));
                           },
                           icon: Icon(Icons.filter_center_focus)),
                     )
@@ -101,11 +117,13 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
 class EHPopupController extends EHController {
   EHEditingController _textEditingController = EHEditingController();
 
-  late EHDataGridController _dataGridController;
+  late EHDataGridSource _dataGridSource;
 
   GlobalKey<State<Tooltip>> tooltipKey = GlobalKey();
 
   double width;
+
+  late String codeColumnName;
 
   Map? errorBucket;
 
@@ -159,7 +177,7 @@ class EHPopupController extends EHController {
     return _textEditingController.text;
   }
 
-  ValueChanged<String>? onChanged;
+  void Function(String code, Map row)? onChanged;
   Function? onEditingComplete;
 
   EHPopupController(
@@ -172,7 +190,8 @@ class EHPopupController extends EHController {
       bool mustInput = false,
       this.onChanged,
       this.onEditingComplete,
-      EHDataGridController? dataGridController,
+      String? codeColumnName,
+      EHDataGridSource? dataGridSource,
       Map? errorBucket}) {
     this.autoFocus = autoFocus;
     this.label = label;
@@ -180,17 +199,17 @@ class EHPopupController extends EHController {
     this.enabled = enabled;
     this.mustInput = mustInput;
     this.errorBucket = errorBucket;
-    this.focusNode = focusNode;
-    this._dataGridController = dataGridController ??
-        EHDataGridController(
-            dataGridSource: EHDataGridSource(
-                columnsConfig: <EHDataGridColumnConfig>[],
-                getData: (
-                  Map<String, String> filters,
-                  Map<String, String> _orderBy,
-                  int pageIndex,
-                  int pageSize,
-                ) =>
-                    <Map>[]));
+    this.focusNode = focusNode ?? FocusNode();
+    this.codeColumnName = codeColumnName!; //未集成后台的code配置前，该字段需要手工传入
+    this._dataGridSource = dataGridSource ??
+        EHDataGridSource(
+            columnsConfig: <EHDataGridColumnConfig>[],
+            getData: (
+              Map<String, String> filters,
+              Map<String, String> _orderBy,
+              int pageIndex,
+              int pageSize,
+            ) =>
+                <Map>[]);
   }
 }

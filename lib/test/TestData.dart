@@ -20,12 +20,6 @@ class DataGridTest {
         ],
         columnsConfig: [
           EHDataGridColumnConfig(
-              columnName: 'imageBtn',
-              columnType: EHImageButtonColumnType(
-                  //  onPressed: (data) => Get.defaultDialog(title: data.toString()))),
-                  onPressed: (data) =>
-                      EHToastMessageHelper.showInfoMessage(data.toString()))),
-          EHDataGridColumnConfig(
               columnName: 'id', columnType: EHIntColumnType()),
           EHDataGridColumnConfig(
               columnName: 'customerId', columnType: EHIntColumnType()),

@@ -25,8 +25,9 @@ class ReceiptEditController extends EHController {
   RxDouble splitterWeights = 0.5.obs;
 
   ReceiptEditController() {
-    asnHeaderDataGridController =
-        EHDataGridController(dataGridSource: DataGridTest.getDataGridSource());
+    asnHeaderDataGridController = EHDataGridController(
+        onRowSelected: (data) => {},
+        dataGridSource: DataGridTest.getDataGridSource());
 
     receiptHeaderTabsViewController = EHTabsViewController(tabs: [
       EHTab('General Info', asnHeaderDataGridController, (EHController c) {

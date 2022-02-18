@@ -4,6 +4,9 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class ReceiptDetailViewController extends EHEditPanelController {
   Rx<ReceiptModel> receiptModel = ReceiptModel(
-          receiptKey: 'key001', customerName: 'cus001', dropdownValue: '')
+          receiptKey: 'key001',
+          customerId: 'cus001',
+          customerName: 'cus001Name',
+          dropdownValue: '')
       .obs;
 }

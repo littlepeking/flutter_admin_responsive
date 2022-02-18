@@ -20,17 +20,18 @@ import 'eh_datagrid_constants.dart';
 /// Set order's data collection to data grid source.
 class EHDataGridSource extends DataGridSource {
   /// Creates the order data source class with required details.
-  EHDataGridSource({
-    this.isMobile = false,
-    this.pageIndex = -1,
-    List<EHDataGridFilterInfo>? columnFilters,
-    required this.columnsConfig,
-    required this.getData,
-  }) {
+  EHDataGridSource(
+      {this.isMobile = false,
+      this.pageIndex = -1,
+      List<EHDataGridFilterInfo>? columnFilters,
+      required this.columnsConfig,
+      required this.getData}) {
     this.columnFilters = columnFilters != null
         ? columnFilters.obs
         : <EHDataGridFilterInfo>[].obs;
   }
+
+  var selectable;
 
   late List<Map> Function(
     Map<String, String> filters,

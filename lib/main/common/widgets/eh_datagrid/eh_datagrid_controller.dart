@@ -1,6 +1,8 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'eh_column/eh_Image_button_column_type.dart';
 import 'eh_datagrid_column_config.dart';
 import 'eh_datagrid_source.dart';
 
@@ -11,16 +13,30 @@ class EHDataGridController extends EHController {
   double headerRowHeight = 57.0;
   double? fixedHeight;
 
+  ValueChanged<Map>? onRowSelected;
+
   /// DataGridSource required for SfDataGrid to obtain the row data.
   late EHDataGridSource dataGridSource;
 
   EHDataGridController(
-      {double? fixedHeight, required EHDataGridSource dataGridSource}) {
+      {double? fixedHeight,
+      required EHDataGridSource dataGridSource,
+      ValueChanged<Map>? onRowSelected}) {
     this.fixedHeight = fixedHeight == null
         ? Responsive.isMobile(Get.context!)
             ? 300
             : double.infinity
         : fixedHeight;
+
+    if (onRowSelected != null &&
+        dataGridSource.columnsConfig
+            .where((element) => element.columnName == '__select')
+            .isEmpty)
+      dataGridSource.columnsConfig.insert(
+          0,
+          EHDataGridColumnConfig(
+              columnName: '__select',
+              columnType: EHImageButtonColumnType(onPressed: onRowSelected)));
 
     this.dataGridSource = dataGridSource;
   }
