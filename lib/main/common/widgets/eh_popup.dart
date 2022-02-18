@@ -92,6 +92,7 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                               dataGridSource: controller._dataGridSource,
                               onRowSelected: (row) {
                                 controller.focusNode!.requestFocus();
+                                controller.focusNode!.nextFocus();
                                 controller.onChanged!(
                                     row[controller.codeColumnName].toString(),
                                     row);
