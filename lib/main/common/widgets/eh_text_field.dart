@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 //注意：如果EHTextField设置了EHTextFieldController，除KEY外的其他属性将不生效。EHTextFieldController与其他属性只允许二选一。
 class EHTextField extends EHStatelessWidget<EHTextFieldController> {
   EHTextField({
-    Key? key,
+    required Key key,
     FocusNode? focusNode,
     EHTextFieldController? controller,
     String label = '',
@@ -43,7 +43,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
   @override
   Widget build(BuildContext context) {
     if (controller.errorBucket == null)
-      controller.errorBucket = EHEditPanelController.globalErrorBucket;
+      controller.errorBucket = EHController.globalErrorBucket;
 
     print('errorBucket ${controller.errorBucket}');
     print('key $key');

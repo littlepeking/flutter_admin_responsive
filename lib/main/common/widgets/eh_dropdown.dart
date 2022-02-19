@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 
 class EHDropdown extends EHStatelessWidget<EHDropDownController> {
   EHDropdown(
-      {Key? key,
+      {required Key key,
       ValueChanged<String>? onChanged,
       required EHDropDownController controller})
       : super(key: key, controller: controller);
@@ -126,15 +126,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                           : '-1',
                       onChanged: controller.enabled
                           ? (v) async {
-                              if (controller.mustInput) {
-                                if (v == "-1") {
-                                  controller.errorBucket![key] =
-                                      'This field cannot be empty'.tr;
-                                } else {
-                                  controller.errorBucket![key] = '';
-                                }
-                              }
-                              // await _validate(v.toString());
+                              await _validate(v.toString());
                               Map<Key, String> c =
                                   EHController.globalErrorBucket;
                               controller.onChanged!(v.toString());

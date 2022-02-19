@@ -3,6 +3,4 @@ import 'package:get/get.dart';
 
 class EHEditPanelController extends EHController {
   Map errorBucket = {};
-
-  static Map globalErrorBucket = {};
 }

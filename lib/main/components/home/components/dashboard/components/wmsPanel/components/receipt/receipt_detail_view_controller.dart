@@ -6,6 +6,16 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 class ReceiptDetailViewController extends EHEditPanelController {
   FocusNode popUpFn = FocusNode();
 
+  GlobalKey textKey1 = GlobalKey();
+  GlobalKey textKey2 = GlobalKey();
+  GlobalKey textKey3 = GlobalKey();
+  GlobalKey popupKey1 = GlobalKey();
+  GlobalKey dropdownKey1 = GlobalKey();
+  GlobalKey dropdownKey2 = GlobalKey();
+  FocusNode n = FocusNode();
+  FocusNode n1 = FocusNode();
+  FocusNode fnButton = FocusNode();
+
   Rx<ReceiptModel> receiptModel = ReceiptModel(
           receiptKey: 'key001',
           customerId: 'cus001',

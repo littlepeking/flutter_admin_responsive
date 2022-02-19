@@ -16,7 +16,7 @@ import 'package:get/get.dart';
 
 class EHPopup extends EHStatelessWidget<EHPopupController> {
   EHPopup({
-    Key? key,
+    required Key key,
     required EHPopupController controller,
   }) : super(key: key, controller: controller);
 
