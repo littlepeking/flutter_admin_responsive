@@ -1,5 +1,7 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
+import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHDialog.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
@@ -12,21 +14,41 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'eh_datagrid/eh_datagrid_column_config.dart';
-
-//注意：如果EHTextField设置了EHTextFieldController，除KEY外的其他属性将不生效。EHTextFieldController与其他属性只允许二选一。
 class EHPopup extends EHStatelessWidget<EHPopupController> {
   EHPopup({
     Key? key,
-    EHPopupController? controller,
-  }) : super(key: key, controller: controller ?? EHPopupController());
+    required EHPopupController controller,
+  }) : super(key: key, controller: controller);
+
+  Future<bool> _validate() async {
+    bool isValid = controller.checkMustInput(key!, controller.text);
+
+    if (!isValid) return false;
+
+    List<Map> res = await controller._dataGridSource.getData(
+      {controller.codeColumnName: controller.text},
+      {},
+      0,
+      1,
+    );
+    if (res.length == 0) {
+      controller.errorBucket![key] = 'The code cannot be found'.tr;
+      return false;
+    }
+
+    isValid = await controller.validate();
+
+    if (!isValid && EHUtilHelper.isEmpty(controller.errorBucket![key]))
+      throw Exception(
+          'Error: Must provide error message in errorBucket while validate failed');
+
+    return isValid;
+  }
 
   @override
   Widget build(BuildContext context) {
     controller.iconButtonFocusNode.canRequestFocus = false;
     controller.iconButtonFocusNode.skipTraversal = true;
-    if (controller.errorBucket == null)
-      controller.errorBucket = EHController.globalErrorBucket;
 
     return Obx(() => Container(
           padding: Responsive.isDesktop(context)
@@ -55,28 +77,21 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                             contentPadding: EdgeInsets.all(5),
                             border: new OutlineInputBorder(),
                           ),
-                          // onEditingComplete: () {
-                          //   // // Move the focus to the next node explicitly.
-                          //   // if (controller.onEditingComplete == null) {
-                          //   //   Get.focusScope!.nextFocus();
-                          //   //   // controller.focusNode!.nextFocus();
-                          //   // } else {
-                          //   //   controller.onEditingComplete!(context);
-                          //   // }
-                          // },
+                          onEditingComplete: () async {
+                            if (!await _validate()) return;
+                            List<Map> res =
+                                await controller._dataGridSource.getData(
+                              {controller.codeColumnName: controller.text},
+                              {},
+                              0,
+                              1,
+                            );
+                            controller.onChanged!(controller.text, res.first);
+                            controller.focusNode!.nextFocus();
+                          },
                           controller: controller._textEditingController,
                           enabled: controller.enabled,
                           onChanged: (v) {
-                            if (controller.mustInput) {
-                              if (EHUtilHelper.isEmpty(v)) {
-                                controller.errorBucket![key] =
-                                    'This field cannot be empty'.tr;
-                              } else {
-                                controller.errorBucket![key] = '';
-                              }
-                            }
-                            controller.onChanged!(v, Map());
-                            controller.focusNode!.nextFocus();
                             //TO DO: add check from backend do validate, if error then set column to empty
                           }),
                     ),
@@ -92,7 +107,7 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                                   margin: EdgeInsets.symmetric(horizontal: 10),
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                          width: 2,
+                                          width: 1,
                                           color:
                                               Get.textTheme.caption!.color!)),
                                   child: Padding(
@@ -108,6 +123,7 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                                             row[controller.codeColumnName]
                                                 .toString(),
                                             row);
+                                        controller.errorBucket![key] = '';
                                         Get.back();
                                       },
                                     )),
@@ -121,72 +137,27 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                   ],
                 ),
               ),
-              EHEditErrorInfo(
-                  errorBucket: controller.errorBucket!, errorFieldKey: key)
+              Obx(() => EHEditErrorInfo(
+                  errorBucket: controller.errorBucket!.value,
+                  errorFieldKey: key))
             ],
           ),
         ));
   }
 }
 
-class EHPopupController extends EHController {
+class EHPopupController extends EHEditWidgetController {
   EHEditingController _textEditingController = EHEditingController();
 
   late EHDataGridSource _dataGridSource;
-
-  GlobalKey<State<Tooltip>> tooltipKey = GlobalKey();
-
-  double width;
 
   late String codeColumnName;
 
   FocusNode iconButtonFocusNode = FocusNode();
 
-  Map? errorBucket;
+  String popupTitle;
 
-  FocusNode? focusNode;
-
-  RxBool _autoFocus = false.obs;
-
-  var popupTitle;
-
-  get autoFocus {
-    return _autoFocus.value;
-  }
-
-  set autoFocus(v) {
-    _autoFocus.value = v;
-  }
-
-  RxBool _mustInput = false.obs;
-
-  get mustInput {
-    return _mustInput.value;
-  }
-
-  set mustInput(v) {
-    _mustInput.value = v;
-  }
-
-  RxString _label = ''.obs;
-
-  get label {
-    return _label.value;
-  }
-
-  set label(v) {
-    _label.value = v;
-  }
-
-  RxBool _enabled = true.obs;
-
-  get enabled {
-    return _enabled.value;
-  }
-
-  set enabled(v) {
-    _enabled.value = v;
-  }
+  String? queryCode;
 
   set text(val) {
     this._textEditingController.text = val;
@@ -197,41 +168,56 @@ class EHPopupController extends EHController {
   }
 
   void Function(String code, Map row)? onChanged;
-  Function? onEditingComplete;
+
+  EHDataGridSource getDateSource(
+      EHDataGridSource? dataGridSource, String? queryCode) {
+    if (dataGridSource == null && queryCode == null)
+      throw Exception(
+          'dataGridSource or queryCode must be provided one of them at least.');
+
+    if (queryCode != null) {
+      return EHDataGridSource(
+          columnsConfig: [],
+          getData: (
+            Map<String, String> filters,
+            Map<String, String> orderBy,
+            int pageIndex,
+            int pageSize,
+          ) async =>
+              <Map>[]);
+    } else {
+      return dataGridSource!;
+    }
+  }
 
   EHPopupController(
-      {this.width = 200,
-      bool? autoFocus = false,
+      {double? width,
+      bool? autoFocus,
       //focusNode必须手工在controller中实例化并赋值给控件的focusNode属性,否则光标焦点跳转会有问题。
       //因为flutter要求focusNode必须在statefulWidget中进行设置，但目前框架暂时只使用statelessWidget，因此只能手工设置。
-      this.focusNode,
-      this.popupTitle,
+      FocusNode? focusNode,
+      this.queryCode,
+      required this.popupTitle,
       String label = '',
       String text = '',
       bool enabled = true,
       bool mustInput = false,
       this.onChanged,
-      this.onEditingComplete,
+      Future<bool> Function()? validate,
       String? codeColumnName,
       EHDataGridSource? dataGridSource,
-      Map? errorBucket}) {
+      Map<Key?, String>? errorBucket})
+      : super(
+            validate: validate,
+            width: width ?? LayoutConstant.editWidgetSize,
+            focusNode: focusNode,
+            errorBucket: errorBucket) {
     this.autoFocus = autoFocus;
     this.label = label;
     this.text = text;
     this.enabled = enabled;
     this.mustInput = mustInput;
-    this.errorBucket = errorBucket;
-    this.focusNode = focusNode;
     this.codeColumnName = codeColumnName!; //未集成后台的code配置前，该字段需要手工传入
-    this._dataGridSource = dataGridSource ??
-        EHDataGridSource(
-            columnsConfig: <EHDataGridColumnConfig>[],
-            getData: (
-              Map<String, String> filters,
-              Map<String, String> _orderBy,
-              int pageIndex,
-              int pageSize,
-            ) =>
-                <Map>[]);
+    this._dataGridSource = getDateSource(dataGridSource, queryCode);
   }
 }

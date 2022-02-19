@@ -1,6 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
@@ -78,39 +77,42 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                       }),
                 ),
                 Obx(() => EHDropdown(
-                      focusNode: n1,
                       key: dropdownKey1,
-                      label: '测试4',
-                      mustInput: true,
-                      selectedValue:
-                          controller.receiptModel.value.dropdownValue,
-                      items: {
-                        '0': 'Item0',
-                        '1': 'Item1',
-                        '2': 'Item2',
-                      },
-                      onChanged: (value) =>
-                          controller.receiptModel.update((model) {
-                        model!.dropdownValue = value;
-                      }),
+                      controller: EHDropDownController(
+                          validate: () async => true,
+                          focusNode: n1,
+                          label: '测试4',
+                          mustInput: true,
+                          selectedValue:
+                              controller.receiptModel.value.dropdownValue,
+                          items: {
+                            '0': 'Item0',
+                            '1': 'Item1',
+                            '2': 'Item2',
+                          },
+                          onChanged: (value) =>
+                              controller.receiptModel.update((model) {
+                                model!.dropdownValue = value;
+                              })),
                     )),
                 Obx(() => EHDropdown(
                       key: dropdownKey2,
-                      label: '测试5',
-                      enabled: false,
-                      mustInput: true,
-                      selectedValue:
-                          controller.receiptModel.value.dropdownValue,
-                      width: 250,
-                      items: {
-                        '0': 'Item0',
-                        '1': 'Item1',
-                        '2': 'Item2',
-                      },
-                      onChanged: (value) =>
-                          controller.receiptModel.update((model) {
-                        model!.dropdownValue = value;
-                      }),
+                      controller: EHDropDownController(
+                          label: '测试5',
+                          enabled: false,
+                          mustInput: true,
+                          selectedValue:
+                              controller.receiptModel.value.dropdownValue,
+                          width: 250,
+                          items: {
+                            '0': 'Item0',
+                            '1': 'Item1',
+                            '2': 'Item2',
+                          },
+                          onChanged: (value) =>
+                              controller.receiptModel.update((model) {
+                                model!.dropdownValue = value;
+                              })),
                     )),
                 Obx(
                   () => EHTextField(

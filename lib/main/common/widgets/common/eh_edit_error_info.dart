@@ -17,18 +17,23 @@ class EHEditErrorInfo extends StatelessWidget {
         ? SizedBox(height: Responsive.isMobile(context) ? 0 : 5)
         : Center(
             child: Row(
-            children: [
-              Icon(Icons.error_outline,
-                  size: 18,
-                  color: ThemeController.getThemeColor(
-                      Colors.yellow.shade200, Colors.red)),
-              Text(
-                errorBucket[errorFieldKey],
-                style: TextStyle(
+              children: [
+                Icon(Icons.error_outline,
+                    size: 18,
                     color: ThemeController.getThemeColor(
                         Colors.yellow.shade200, Colors.red)),
-              ),
-            ],
-          ));
+                Flexible(
+                  child: Text(
+                    errorBucket[errorFieldKey],
+                    overflow: TextOverflow.clip,
+                    softWrap: true,
+                    style: TextStyle(
+                        color: ThemeController.getThemeColor(
+                            Colors.yellow.shade200, Colors.red)),
+                  ),
+                )
+              ],
+            ),
+          );
   }
 }

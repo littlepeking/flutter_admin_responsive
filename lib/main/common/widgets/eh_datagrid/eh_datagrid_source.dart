@@ -33,9 +33,9 @@ class EHDataGridSource extends DataGridSource {
 
   var selectable;
 
-  late List<Map> Function(
+  late Future<List<Map>> Function(
     Map<String, String> filters,
-    Map<String, String> _orderBy,
+    Map<String, String> orderBy,
     int pageIndex,
     int pageSize,
   ) getData;
@@ -186,13 +186,24 @@ class EHDataGridSource extends DataGridSource {
   @override
   Future<void> handleRefresh() async {
     try {
-      _dataList = await getData(this.filters, this.orderBy, this.pageIndex ?? 0,
-          this.pageSize!.value);
+      await requestData();
       buildDataGridRows();
       notifyListeners();
     } catch (e) {
       EHToastMessageHelper.showInfoMessage("Data update failed");
     }
+  }
+
+  Future<List<Map>> requestData() async {
+    try {
+      _dataList = await getData(this.filters, this.orderBy, this.pageIndex ?? 0,
+          this.pageSize!.value);
+      return _dataList;
+    } catch (e) {
+      EHToastMessageHelper.showInfoMessage(
+          "Data request failed from server" + e.toString());
+    }
+    return <Map>[];
   }
 
   // @override

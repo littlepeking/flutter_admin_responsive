@@ -1,7 +1,9 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
-import 'package:eh_flutter_framework/main/common/base/EHEditPanelController.dart';
+import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
+import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
@@ -11,30 +13,9 @@ import 'package:get/get.dart';
 class EHDropdown extends EHStatelessWidget<EHDropDownController> {
   EHDropdown(
       {Key? key,
-      FocusNode? focusNode,
-      String label = '',
-      String selectedValue = ' ',
-      Map<String, String>? items,
-      Map? errorBucket,
-      bool enabled = true,
-      bool mustInput = false,
-      this.width = 200,
       ValueChanged<String>? onChanged,
-      EHDropDownController? controller})
-      : super(
-            key: key,
-            controller: controller ??
-                EHDropDownController(
-                    focusNode: focusNode,
-                    label: label,
-                    selectedValue: selectedValue,
-                    items: items ?? {},
-                    errorBucket: errorBucket,
-                    onChanged: onChanged,
-                    enabled: enabled,
-                    mustInput: mustInput));
-
-  final double width;
+      required EHDropDownController controller})
+      : super(key: key, controller: controller);
 
   List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> items) {
     List<DropdownMenuItem<String>> _menuItems = [];
@@ -86,15 +67,12 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
 
   @override
   Widget build(BuildContext context) {
-    if (controller.errorBucket == null)
-      controller.errorBucket = EHEditPanelController.globalErrorBucket;
-
     return Obx(() => Container(
         padding: Responsive.isDesktop(context)
             ? EdgeInsets.symmetric(horizontal: 5)
             : EdgeInsets.symmetric(horizontal: 2),
         // height: 70,
-        width: this.width,
+        width: controller.width,
         child: Column(
           children: [
             EHEditLabel(
@@ -146,8 +124,8 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                               .containsKey(controller._selectedValue.value)
                           ? controller._selectedValue.value
                           : '-1',
-                      onChanged: controller._enabled.value
-                          ? (v) {
+                      onChanged: controller.enabled
+                          ? (v) async {
                               if (controller.mustInput) {
                                 if (v == "-1") {
                                   controller.errorBucket![key] =
@@ -156,36 +134,45 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                                   controller.errorBucket![key] = '';
                                 }
                               }
+                              // await _validate(v.toString());
+                              Map<Key, String> c =
+                                  EHController.globalErrorBucket;
                               controller.onChanged!(v.toString());
                               controller.focusNode!.nextFocus();
                             }
                           : null,
                       buttonHeight: 23.4,
-                      buttonWidth: width,
+                      buttonWidth: controller.width,
                       itemHeight: 23,
                       itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
                     )),
               ),
             ),
-            EHEditErrorInfo(
-                errorBucket: this.controller.errorBucket!, errorFieldKey: key)
+            Obx(() => EHEditErrorInfo(
+                errorBucket: controller.errorBucket!.value, errorFieldKey: key))
           ],
         )));
   }
+
+  Future<bool> _validate(String value) async {
+    bool isValid = controller.checkMustInput(key!, value, emptyValue: '-1');
+
+    if (!isValid) return false;
+
+    isValid = await controller.validate();
+
+    if (!isValid && EHUtilHelper.isEmpty(controller.errorBucket![key]))
+      throw Exception(
+          'Error: Must provide error message in errorBucket while validate failed');
+
+    return isValid;
+  }
 }
 
-class EHDropDownController extends EHController {
-  GlobalKey<State<Tooltip>> tooltipKey = GlobalKey();
-
+class EHDropDownController extends EHEditWidgetController {
   late Map<String, String> items;
 
-  RxBool _mustInput = false.obs;
-
-  Map? errorBucket;
-
   RxString _selectedValue = ''.obs;
-
-  FocusNode? focusNode;
 
   RxBool focused = false.obs;
 
@@ -197,51 +184,29 @@ class EHDropDownController extends EHController {
     _selectedValue.value = v;
   }
 
-  get mustInput {
-    return _mustInput.value;
-  }
-
-  set mustInput(v) {
-    _mustInput.value = v;
-  }
-
-  RxString _label = ''.obs;
-
-  get label {
-    return _label.value;
-  }
-
-  set label(v) {
-    _label.value = v;
-  }
-
-  RxBool _enabled = true.obs;
-
-  get enabled {
-    return _enabled.value;
-  }
-
-  set enabled(v) {
-    _enabled.value = v;
-  }
-
   ValueChanged<String>? onChanged;
 
   EHDropDownController({
+    double? width,
     FocusNode? focusNode,
     String label = '',
     String selectedValue = '',
     bool enabled = true,
     bool mustInput = false,
     this.onChanged,
-    Map? errorBucket,
+    Future<bool> Function()? validate,
+    Map<Key?, String>? errorBucket,
     required Map<String, String> items,
-  }) {
-    this.items = items;
-    this.selectedValue = selectedValue;
+  }) : super(
+            validate: validate,
+            width: width ?? LayoutConstant.editWidgetSize,
+            focusNode: focusNode,
+            errorBucket: errorBucket) {
+    this.autoFocus = autoFocus;
+    this.label = label;
     this.enabled = enabled;
     this.mustInput = mustInput;
-    this.errorBucket = errorBucket;
-    this.focusNode = focusNode ?? FocusNode();
+    this.items = items;
+    this.selectedValue = selectedValue;
   }
 }

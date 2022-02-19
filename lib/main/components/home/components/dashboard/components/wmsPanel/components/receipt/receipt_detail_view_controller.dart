@@ -10,6 +10,6 @@ class ReceiptDetailViewController extends EHEditPanelController {
           receiptKey: 'key001',
           customerId: 'cus001',
           customerName: 'cus001Name',
-          dropdownValue: '')
+          dropdownValue: '1')
       .obs;
 }

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
@@ -34,31 +36,68 @@ class DataGridTest {
         ],
         getData: (
           Map<String, String> filters,
-          Map<String, String> _orderBy,
+          Map<String, String> orderBy,
           int pageIndex,
           int pageSize,
-        ) =>
-            DataGridTest.getOrders([]));
+        ) async =>
+            await DataGridTest.getOrders(
+              filters,
+              orderBy,
+              pageIndex,
+              pageSize,
+            ));
   }
 
   /// Get orders collection
-  static List<Map> getOrders(List<Map> orderData) {
+  static Future<List<Map>> getOrders(
+    Map<String, String> filters,
+    Map<String, String> _orderBy,
+    int pageIndex,
+    int pageSize,
+  ) async {
     // final int startIndex = orderData.isNotEmpty ? orderData.length : 0,
     //     endIndex = startIndex + 25;
     final int startIndex = 0, endIndex = 100;
+
+    List<Map> data = [];
     for (int i = startIndex; i < endIndex; i++) {
-      orderData.add({
+      // orderData.add({
+      //   'id': 1000 + i,
+      //   'customerId': 1700 + i,
+      //   'name':
+      //       _names[i < _names.length ? i : _random.nextInt(_names.length - 1)],
+      //   'price': _random.nextInt(1000) + _random.nextDouble(),
+      //   'city': _cities[_random.nextInt(_cities.length - 1)],
+      //   'qty': 1500.0 + _random.nextInt(100),
+      //   'date': DateTime.now(),
+      // });
+      data.add({
         'id': 1000 + i,
         'customerId': 1700 + i,
-        'name':
-            _names[i < _names.length ? i : _random.nextInt(_names.length - 1)],
-        'price': _random.nextInt(1000) + _random.nextDouble(),
-        'city': _cities[_random.nextInt(_cities.length - 1)],
-        'qty': 1500.0 + _random.nextInt(100),
+        'name': _names[i % 15],
+        'price': 1000 + i,
+        'city': _cities[i % 8],
+        'qty': 1500.0 + i,
         'date': DateTime.now(),
       });
     }
-    return orderData;
+
+    filters.entries.forEach((element) {
+      data = filterData(data, element);
+    });
+
+    return data;
+  }
+
+  static List<Map> filterData(
+      List<Map> data, MapEntry<String, String> filterEntry) {
+    return filterEntry.value.isEmpty
+        ? data
+        : data
+            .where((element) =>
+                element[filterEntry.key].toString() ==
+                filterEntry.value.toString())
+            .toList();
   }
 
   static math.Random _random = math.Random();

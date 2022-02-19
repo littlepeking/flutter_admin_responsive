@@ -42,5 +42,6 @@ Map<String, String> zhCNMessages = {
   'This field cannot be empty': '字段不能为空',
   'Please Select Item': '请选择条目',
   'Please Select Supplier': '请选择供应商',
-  'Close': '关闭'
+  'Close': '关闭',
+  'The code cannot be found': '未找到代码'
 };
