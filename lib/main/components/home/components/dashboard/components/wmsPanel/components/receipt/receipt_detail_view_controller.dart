@@ -14,7 +14,6 @@ class ReceiptDetailViewController extends EHEditFormController {
   GlobalKey dropdownKey2 = GlobalKey();
   FocusNode n = FocusNode();
   FocusNode n1 = FocusNode();
-  FocusNode fnButton = FocusNode();
 
   Rx<ReceiptModel> receiptModel = ReceiptModel(
           receiptKey: 'key001',

@@ -27,21 +27,6 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      focusNode: controller.fnButton,
-                      onPressed: () {
-                        controller.validateForm();
-                        EHToastMessageHelper.showInfoMessage(
-                            MediaQuery.of(context)
-                                .viewInsets
-                                .bottom
-                                .toString());
-                      },
-                      child: Text('Validate Form'),
-                    ),
-                  ),
                   Wrap(children: [
                     Obx(() => EHTextField(
                           key: controller.textKey1,

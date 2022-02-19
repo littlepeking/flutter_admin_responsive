@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
+import 'package:eh_flutter_framework/main/common/base/EHEditPanelController.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
@@ -10,7 +11,7 @@ import 'package:get/get.dart';
 import 'receipt_detail_view.dart';
 import 'receipt_detail_view_controller.dart';
 
-class ReceiptEditController extends EHController {
+class ReceiptEditController extends EHEditFormController {
   PageStorageBucket pageStorageBucket = PageStorageBucket();
 
   late EHTabsViewController receiptHeaderTabsViewController;
@@ -23,6 +24,8 @@ class ReceiptEditController extends EHController {
       ReceiptDetailViewController();
 
   RxDouble splitterWeights = 0.5.obs;
+
+  FocusNode fnButton = FocusNode();
 
   ReceiptEditController() {
     asnHeaderDataGridController = EHDataGridController(
