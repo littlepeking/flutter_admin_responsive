@@ -64,9 +64,9 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                 height: 25,
                 child: TextField(
                     // keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                    ],
+                    // inputFormatters: <TextInputFormatter>[
+                    //   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                    // ],
                     autofocus: controller.autoFocus,
                     focusNode: controller.focusNode,
                     textInputAction: TextInputAction.next,

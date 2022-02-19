@@ -34,8 +34,18 @@ class Responsive {
   }
 
   static double dialogWidth(BuildContext context) {
-    return MediaQuery.of(context).size.width > 1000
-        ? 1000
-        : MediaQuery.of(context).size.width * 2 / 3;
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    if (isMobile(context)) return screenWidth;
+
+    return screenWidth > 1500 ? 1500 * 2 / 3 : screenWidth * 2 / 3;
+  }
+
+  static double dialogHeight(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    if (isMobile(context)) return screenHeight;
+
+    return screenHeight > 800 ? 800 * 2 / 3 : screenHeight * 2 / 3;
   }
 }

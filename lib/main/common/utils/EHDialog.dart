@@ -29,38 +29,37 @@ class EHDialog {
     await showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
-        return Expanded(
-          child: SimpleDialog(
-            titlePadding: EdgeInsets.only(top: 10),
-            title: Row(
-              children: [
-                SizedBox(
-                  width: 25,
-                ),
-                Expanded(
-                    child: Text(
-                  title.tr,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                )),
-                IconButton(
-                    padding: EdgeInsets.only(right: 20),
-                    onPressed: () {
-                      Get.back();
-                      focusNode?.requestFocus();
-                    },
-                    icon: Icon(Icons.close))
-              ],
-            ),
+        return SimpleDialog(
+          insetPadding: EdgeInsets.zero,
+          titlePadding: EdgeInsets.only(top: 10),
+          title: Row(
             children: [
-              Container(
-                  height: 500,
-                  width: Responsive.dialogWidth(Get.context!),
-                  child: widget)
+              SizedBox(
+                width: 25,
+              ),
+              Expanded(
+                  child: Text(
+                title.tr,
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              )),
+              IconButton(
+                  padding: EdgeInsets.only(right: 20),
+                  onPressed: () {
+                    Get.back();
+                    focusNode?.requestFocus();
+                  },
+                  icon: Icon(Icons.close))
             ],
-            elevation: 10,
-            //backgroundColor: Colors.green,
           ),
+          children: [
+            Container(
+                height: Responsive.dialogHeight(Get.context!) - 70,
+                width: Responsive.dialogWidth(Get.context!),
+                child: widget)
+          ],
+          elevation: 10,
+          //backgroundColor: Colors.green,
         );
       },
     );

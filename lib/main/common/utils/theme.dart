@@ -8,9 +8,19 @@ class EhTheme {
       brightness: Brightness.dark,
       //    primaryColor: Colors.amber,
       buttonTheme: ButtonThemeData(
-          // buttonColor: Colors.amber,
-          // disabledColor: Colors.grey,
-          ),
+        buttonColor: Colors.black,
+
+        // disabledColor: Colors.grey,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+            primary: Colors.grey[900]!,
+            side: BorderSide(
+              width: 1.0,
+              color: Colors.white,
+            )),
+        // disabledColor: Colors.grey,
+      ),
       inputDecorationTheme: InputDecorationTheme(
         enabledBorder: _buildBorder(Colors.grey[600]!),
         focusedBorder: _buildBorder(Colors.white),
@@ -25,6 +35,16 @@ class EhTheme {
       buttonTheme: ButtonThemeData(
         buttonColor: Colors.grey[400]!,
         disabledColor: Colors.grey,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+            primary: Colors.white,
+            onPrimary: Colors.black,
+            side: BorderSide(
+              width: 1.0,
+              color: Colors.black,
+            )),
+        // disabledColor: Colors.grey,
       ),
       inputDecorationTheme: InputDecorationTheme(
         enabledBorder: _buildBorder(Colors.grey[600]!),
