@@ -127,8 +127,6 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                       onChanged: controller.enabled
                           ? (v) async {
                               await _validate(v.toString());
-                              Map<Key, String> c =
-                                  EHController.globalErrorBucket;
                               controller.onChanged!(v.toString());
                               controller.focusNode!.nextFocus();
                             }
