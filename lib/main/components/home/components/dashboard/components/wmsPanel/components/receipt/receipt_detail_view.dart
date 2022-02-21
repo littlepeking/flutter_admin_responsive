@@ -32,6 +32,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                           key: controller.textKey1,
                           // autoFocus: true,
                           controller: EHTextFieldController(
+                              focusNode: controller.textFn1,
                               autoFocus: true,
                               label: '测试1',
                               text: controller.receiptModel.value.receiptKey,
@@ -44,8 +45,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                         )),
                     Obx(() => EHTextField(
                           key: controller.textKey2,
-                          text: controller.receiptModel.value.receiptKey,
                           controller: EHTextFieldController(
+                              focusNode: controller.textFn2,
                               label: '测试2',
                               //errorBucket: controller.errorBucket,
                               text: controller.receiptModel.value.receiptKey,
@@ -57,7 +58,6 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                         )),
                     Obx(() => EHPopup(
                           key: controller.popupKey1,
-                          // autoFocus: true,
                           controller: EHPopupController(
                               popupTitle: 'Please Select Supplier',
                               focusNode: controller.popUpFn,
@@ -75,27 +75,11 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                 });
                               }),
                         )),
-                    Obx(
-                      () => EHTextField(
-                          key: controller.textKey3,
-                          focusNode: controller.n,
-                          label: controller.receiptModel.value.receiptKey,
-                          text: controller.receiptModel.value.receiptKey,
-                          errorBucket: controller.errorBucket,
-                          mustInput: true,
-                          width: 300,
-                          onChanged: (value) {
-                            controller.receiptModel.update((model) {
-                              model!.receiptKey = value;
-                            });
-                            controller.n.requestFocus();
-                          }),
-                    ),
                     Obx(() => EHDropdown(
                           key: controller.dropdownKey1,
                           controller: EHDropDownController(
                               validate: () async => true,
-                              focusNode: controller.n1,
+                              focusNode: controller.ddlFn1,
                               label: '测试4',
                               mustInput: true,
                               selectedValue:
@@ -113,6 +97,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                     Obx(() => EHDropdown(
                           key: controller.dropdownKey2,
                           controller: EHDropDownController(
+                              focusNode: controller.ddlFn2,
                               label: '测试5',
                               enabled: false,
                               mustInput: true,

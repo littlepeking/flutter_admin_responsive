@@ -147,7 +147,7 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
 }
 
 class EHPopupController extends EHEditWidgetController {
-  EHEditingController _textEditingController = EHEditingController();
+  EHTextEditingController _textEditingController = EHTextEditingController();
 
   late EHDataGridSource _dataGridSource;
 
@@ -192,10 +192,10 @@ class EHPopupController extends EHEditWidgetController {
 
   EHPopupController(
       {double? width,
-      bool? autoFocus,
+      bool autoFocus = false,
       //focusNode必须手工在controller中实例化并赋值给控件的focusNode属性,否则光标焦点跳转会有问题。
       //因为flutter要求focusNode必须在statefulWidget中进行设置，但目前框架暂时只使用statelessWidget，因此只能手工设置。
-      FocusNode? focusNode,
+      required FocusNode focusNode,
       this.queryCode,
       required this.popupTitle,
       String label = '',
@@ -208,15 +208,15 @@ class EHPopupController extends EHEditWidgetController {
       EHDataGridSource? dataGridSource,
       Map<Key?, String>? errorBucket})
       : super(
+            autoFocus: autoFocus,
+            enabled: enabled,
+            mustInput: mustInput,
+            label: label,
             validate: validate,
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
             errorBucket: errorBucket) {
-    this.autoFocus = autoFocus;
-    this.label = label;
     this.text = text;
-    this.enabled = enabled;
-    this.mustInput = mustInput;
     this.codeColumnName = codeColumnName!; //未集成后台的code配置前，该字段需要手工传入
     this._dataGridSource = getDateSource(dataGridSource, queryCode);
   }

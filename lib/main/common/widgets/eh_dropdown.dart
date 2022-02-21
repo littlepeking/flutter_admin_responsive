@@ -180,7 +180,8 @@ class EHDropDownController extends EHEditWidgetController {
 
   EHDropDownController({
     double? width,
-    FocusNode? focusNode,
+    bool autoFocus = false,
+    required FocusNode focusNode,
     String label = '',
     String selectedValue = '',
     bool enabled = true,
@@ -190,14 +191,14 @@ class EHDropDownController extends EHEditWidgetController {
     Map<Key?, String>? errorBucket,
     required Map<String, String> items,
   }) : super(
+            autoFocus: autoFocus,
+            enabled: enabled,
+            mustInput: mustInput,
+            label: label,
             validate: validate,
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
             errorBucket: errorBucket) {
-    this.autoFocus = autoFocus;
-    this.label = label;
-    this.enabled = enabled;
-    this.mustInput = mustInput;
     this.items = items;
     this.selectedValue = selectedValue;
   }

@@ -130,7 +130,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                         Container(
                             height: 25,
                             child: TextField(
-                              controller: EHEditingController(
+                              controller: EHTextEditingController(
                                   text: getColumnFilter(columnConfig.columnName)
                                       .text),
                               textAlignVertical: TextAlignVertical.center,
