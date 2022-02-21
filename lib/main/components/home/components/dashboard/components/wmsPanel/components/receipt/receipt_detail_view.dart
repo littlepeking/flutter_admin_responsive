@@ -1,10 +1,10 @@
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
-import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:eh_flutter_framework/test/TestData.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'receipt_detail_view_controller.dart';
@@ -19,9 +19,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
         // padding: EdgeInsets.all(10),
         width: double.infinity,
         child: Shortcuts(
-            shortcuts: const <ShortcutActivator, Intent>{
-              // Pressing space in the field will now move to the next field.
-              //   SingleActivator(LogicalKeyboardKey.enter): NextFocusIntent(),
+            shortcuts: <ShortcutActivator, Intent>{
+              // SingleActivator(LogicalKeyboardKey.tab): DoNothingIntent(),
             },
             child: FocusTraversalGroup(
               child: Column(

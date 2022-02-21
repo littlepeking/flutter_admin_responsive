@@ -83,6 +83,9 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                   //   }
                   //   controller.onChanged!(v);
                   // },
+                  // onSubmitted: (v) {
+                  //   print(v);
+                  // },
                   onEditingComplete: () async {
                     if (!await _validate()) return;
 
