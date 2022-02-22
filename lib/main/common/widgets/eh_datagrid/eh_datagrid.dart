@@ -80,49 +80,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                                 )
                               ],
                             ),
-                            onTap: () {
-                              this
-                                  .controller
-                                  .dataGridSource
-                                  .columnFilters
-                                  .where((e) =>
-                                      e.columnName != columnConfig.columnName)
-                                  .forEach((e) {
-                                e.sort = EHDataGridColumnSortType.None;
-                              });
-
-                              switch (getColumnFilter(columnConfig.columnName)
-                                  .sort) {
-                                case EHDataGridColumnSortType.None:
-                                  getColumnFilter(columnConfig.columnName)
-                                      .sort = EHDataGridColumnSortType.Asc;
-                                  break;
-
-                                case EHDataGridColumnSortType.Asc:
-                                  this
-                                      .controller
-                                      .dataGridSource
-                                      .columnFilters
-                                      .where((e) =>
-                                          e.columnName ==
-                                          columnConfig.columnName)
-                                      .first
-                                      .sort = EHDataGridColumnSortType.Desc;
-
-                                  break;
-                                case EHDataGridColumnSortType.Desc:
-                                  getColumnFilter(columnConfig.columnName)
-                                      .sort = EHDataGridColumnSortType.None;
-
-                                  break;
-                              }
-                              this
-                                  .controller
-                                  .dataGridSource
-                                  .columnFilters
-                                  .refresh();
-                              this.controller.dataGridSource.handleRefresh();
-                            }),
+                            onTap: sortColumn(columnConfig)),
                         //   Divider(),
                         SizedBox(
                           height: 5,
@@ -237,5 +195,41 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
         ],
       );
     });
+  }
+
+  sortColumn(EHDataGridColumnConfig columnConfig) {
+    this
+        .controller
+        .dataGridSource
+        .columnFilters
+        .where((e) => e.columnName != columnConfig.columnName)
+        .forEach((e) {
+      e.sort = EHDataGridColumnSortType.None;
+    });
+
+    switch (getColumnFilter(columnConfig.columnName).sort) {
+      case EHDataGridColumnSortType.None:
+        getColumnFilter(columnConfig.columnName).sort =
+            EHDataGridColumnSortType.Asc;
+        break;
+
+      case EHDataGridColumnSortType.Asc:
+        this
+            .controller
+            .dataGridSource
+            .columnFilters
+            .where((e) => e.columnName == columnConfig.columnName)
+            .first
+            .sort = EHDataGridColumnSortType.Desc;
+
+        break;
+      case EHDataGridColumnSortType.Desc:
+        getColumnFilter(columnConfig.columnName).sort =
+            EHDataGridColumnSortType.None;
+
+        break;
+    }
+    this.controller.dataGridSource.columnFilters.refresh();
+    this.controller.dataGridSource.handleRefresh();
   }
 }
