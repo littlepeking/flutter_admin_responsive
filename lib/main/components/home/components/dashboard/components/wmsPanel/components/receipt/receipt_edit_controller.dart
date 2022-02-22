@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditPanelController.dart';
+import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
@@ -59,6 +60,12 @@ class ReceiptEditController extends EHEditFormController {
     ]);
   }
 
+  showSelectedRows() {
+    EHToastMessageHelper.showInfoMessage(asnHeaderDataGridController
+        .dataGridSource
+        .getSelectedRows()
+        .toString());
+  }
   // EHDataGridController asnDetailDataGridController = EHDataGridController(
   //     AsnHeaderDataGridSource(),
   //     fixedHeight: Responsive.isMobile(Get.context!) ? 500 : double.infinity);

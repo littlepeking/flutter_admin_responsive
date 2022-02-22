@@ -7,6 +7,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dar
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import 'receipt_detail_view.dart';
 import 'receipt_edit_controller.dart';
@@ -46,7 +47,19 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
                     EHToastMessageHelper.showInfoMessage(
                         MediaQuery.of(context).viewInsets.bottom.toString());
                   },
-                  child: Text('Validate Form'),
+                  child: Text('Validate Form'.tr),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    EHToastMessageHelper.showInfoMessage(controller
+                        .asnHeaderDataGridController.dataGridSource
+                        .getSelectedRows()
+                        .toString());
+                  },
+                  child: Text('Show Selected Rows'.tr),
                 ),
               ],
             ),
@@ -55,10 +68,10 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
             child: SplitView(
               children: [
                 EHTabsView(
-                    controller: controller.receiptDetailTabsViewController),
-                EHTabsView(
                     expandMode: EHTabsViewExpandMode.Flexible,
                     controller: controller.receiptHeaderTabsViewController),
+                EHTabsView(
+                    controller: controller.receiptDetailTabsViewController),
               ],
               gripSize: 2,
               viewMode: SplitViewMode.Vertical,

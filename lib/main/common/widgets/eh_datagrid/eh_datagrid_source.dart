@@ -31,6 +31,9 @@ class EHDataGridSource extends DataGridSource {
         : <EHDataGridFilterInfo>[].obs;
   }
 
+  DataGridController dataGridController =
+      DataGridController(selectedRows: <DataGridRow>[]);
+
   var selectable;
 
   late Future<List<Map>> Function(
@@ -68,6 +71,15 @@ class EHDataGridSource extends DataGridSource {
     });
 
     return _filters;
+  }
+
+  List<Map> getSelectedRows() {
+    List<Map> selectedDataList = dataGridController.selectedRows
+        .map((DataGridRow e) => this._dataGridRows.indexOf(e))
+        .map((e) => dataList[e])
+        .toList();
+
+    return selectedDataList;
   }
 
   Map<String, String> get orderBy {

@@ -80,7 +80,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                                 )
                               ],
                             ),
-                            onTap: sortColumn(columnConfig)),
+                            onTap: () => sortColumn(columnConfig)),
                         //   Divider(),
                         SizedBox(
                           height: 5,
@@ -121,6 +121,10 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
     // print(this.controller.dataGridSource.pageSize!);
 
     return Obx(() => SfDataGrid(
+        showCheckboxColumn: true,
+        selectionMode: SelectionMode.multiple,
+        //navigationMode: GridNavigationMode.row,
+        controller: controller.dataGridSource.dataGridController,
         rowHeight: this.controller.rowHeight,
         headerRowHeight: this.controller.headerRowHeight,
         source: this.controller.dataGridSource,

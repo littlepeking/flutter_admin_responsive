@@ -43,5 +43,7 @@ Map<String, String> zhCNMessages = {
   'Please Select Item': '请选择条目',
   'Please Select Supplier': '请选择供应商',
   'Close': '关闭',
-  'The code cannot be found': '未找到代码'
+  'The code cannot be found': '未找到代码',
+  'Validate Form': '校验表单',
+  'Show Selected Rows': '显示选中数据'
 };

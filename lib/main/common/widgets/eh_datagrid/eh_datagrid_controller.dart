@@ -6,6 +6,8 @@ import 'eh_column/eh_Image_button_column_type.dart';
 import 'eh_datagrid_column_config.dart';
 import 'eh_datagrid_source.dart';
 
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+
 class EHDataGridController extends EHController {
   // Default pager height
   double rowHeight = 35;
