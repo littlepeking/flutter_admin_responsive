@@ -102,7 +102,7 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                           //   alignment: Alignment.centerLeft,
                           padding: EdgeInsets.zero,
                           onPressed: () async {
-                            await EHDialog.getPopupDialog(
+                            bool result = await EHDialog.showPopupDialog(
                                 Container(
                                   margin: EdgeInsets.symmetric(horizontal: 10),
                                   decoration: BoxDecoration(
@@ -124,13 +124,15 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                                                 .toString(),
                                             row);
                                         controller.errorBucket![key] = '';
-                                        Get.back();
+                                        Get.back(result: true);
                                       },
                                     )),
                                   ),
                                 ),
                                 focusNode: controller.focusNode,
                                 title: controller.popupTitle);
+
+                            print('result: $result');
                           },
                           icon: Icon(Icons.filter_center_focus)),
                     )

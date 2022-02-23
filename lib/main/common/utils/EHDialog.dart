@@ -1,10 +1,11 @@
+import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'responsive.dart';
 
 class EHDialog {
-  static getPopupDialog(Widget widget,
+  static showPopupDialog(Widget widget,
       {String title = 'Please Select Item', FocusNode? focusNode}) async {
     // return Get.dialog(
     //   titlePadding: EdgeInsets.only(top: 20),
@@ -26,7 +27,7 @@ class EHDialog {
     //       child: widget),
     // );
 
-    await showDialog(
+    return await showDialog<bool>(
       context: Get.context!,
       builder: (BuildContext context) {
         return SimpleDialog(
@@ -46,7 +47,7 @@ class EHDialog {
               IconButton(
                   padding: EdgeInsets.only(right: 20),
                   onPressed: () {
-                    Get.back();
+                    Get.back(result: false);
                     focusNode?.requestFocus();
                   },
                   icon: Icon(Icons.close))
