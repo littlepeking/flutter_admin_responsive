@@ -31,6 +31,15 @@ class EHDataGridSource extends DataGridSource {
         : <EHDataGridFilterInfo>[].obs;
   }
 
+  late Map<EHDataGridColumnConfig, FocusNode> _fnFilterMap = {};
+
+  getFilterFocusNode(EHDataGridColumnConfig columnConfig) {
+    if (!_fnFilterMap.containsKey(columnConfig))
+      _fnFilterMap.putIfAbsent(columnConfig, () => FocusNode());
+
+    return _fnFilterMap[columnConfig];
+  }
+
   DataGridController dataGridController =
       DataGridController(selectedRows: <DataGridRow>[]);
 

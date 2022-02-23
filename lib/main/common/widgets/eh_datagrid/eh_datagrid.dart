@@ -37,57 +37,56 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
       }
     });
 
-    List<GridColumn> gridColumnList = this
-        .controller
-        .dataGridSource
-        .columnsConfig
-        .map(
-          (columnConfig) => GridColumn(
-              minimumWidth: 100,
-              width: columnConfig.width.value,
-              columnName: columnConfig.columnName,
-              label: columnConfig.columnType is EHImageButtonColumnType
-                  ? SizedBox()
-                  : Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      alignment: Alignment.centerRight,
-                      child: Column(children: [
-                        GestureDetector(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  columnConfig.columnHeaderName != null
-                                      ? columnConfig.columnHeaderName!.tr
-                                      : columnConfig.columnName.tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+    List<GridColumn> gridColumnList =
+        this.controller.dataGridSource.columnsConfig.map(
+      (columnConfig) {
+        return GridColumn(
+            minimumWidth: 100,
+            width: columnConfig.width.value,
+            columnName: columnConfig.columnName,
+            label: columnConfig.columnType is EHImageButtonColumnType
+                ? SizedBox()
+                : Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    alignment: Alignment.centerRight,
+                    child: Column(children: [
+                      GestureDetector(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                columnConfig.columnHeaderName != null
+                                    ? columnConfig.columnHeaderName!.tr
+                                    : columnConfig.columnName.tr,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Obx(
+                                () => Icon(
+                                  getColumnFilter(columnConfig.columnName)
+                                              .sort ==
+                                          EHDataGridColumnSortType.Desc
+                                      ? Icons.arrow_downward
+                                      : getColumnFilter(columnConfig.columnName)
+                                                  .sort ==
+                                              EHDataGridColumnSortType.Asc
+                                          ? Icons.arrow_upward
+                                          : null,
+                                  size: 15,
                                 ),
-                                Obx(
-                                  () => Icon(
-                                    getColumnFilter(columnConfig.columnName)
-                                                .sort ==
-                                            EHDataGridColumnSortType.Desc
-                                        ? Icons.arrow_downward
-                                        : getColumnFilter(
-                                                        columnConfig.columnName)
-                                                    .sort ==
-                                                EHDataGridColumnSortType.Asc
-                                            ? Icons.arrow_upward
-                                            : null,
-                                    size: 15,
-                                  ),
-                                )
-                              ],
-                            ),
-                            onTap: () => sortColumn(columnConfig)),
-                        //   Divider(),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                            height: 25,
-                            child: TextField(
+                              )
+                            ],
+                          ),
+                          onTap: () => sortColumn(columnConfig)),
+                      //   Divider(),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                          height: 25,
+                          child: TextField(
+                              focusNode: controller.dataGridSource
+                                  .getFilterFocusNode(columnConfig),
                               controller: EHTextEditingController(
                                   text: getColumnFilter(columnConfig.columnName)
                                       .text),
@@ -101,12 +100,28 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                                 getColumnFilter(columnConfig.columnName).text =
                                     value;
                               },
-                            )),
-                      ]))),
-        )
-        .toList();
+                              onSubmitted: (value) async {
+                                await this
+                                    .controller
+                                    .dataGridSource
+                                    .handleRefresh();
+
+                                controller.dataGridSource
+                                    .getFilterFocusNode(columnConfig)
+                                    .requestFocus();
+                              })),
+                    ])));
+      },
+    ).toList();
 
     return gridColumnList;
+  }
+
+  int getColumnIndex(EHDataGridColumnConfig columnConfig) {
+    return controller.dataGridSource.columnsConfig
+        .where((c) => !c.columnName.contains('__'))
+        .toList()
+        .indexOf(columnConfig);
   }
 
   EHDataGridFilterInfo getColumnFilter(String columnName) {

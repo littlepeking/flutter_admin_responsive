@@ -92,9 +92,9 @@ class DataGridTest {
     return filterEntry.value.isEmpty
         ? data
         : data
-            .where((element) =>
-                element[filterEntry.key].toString() ==
-                filterEntry.value.toString())
+            .where((element) => element[filterEntry.key]
+                .toString()
+                .contains(filterEntry.value.toString()))
             .toList();
   }
 
