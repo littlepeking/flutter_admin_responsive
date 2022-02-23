@@ -12,6 +12,9 @@ class EhTheme {
 
         // disabledColor: Colors.grey,
       ),
+      checkboxTheme: CheckboxThemeData(
+          fillColor: MaterialStateProperty.all(Colors.grey),
+          checkColor: MaterialStateProperty.all(Colors.white)),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
             primary: Colors.grey[900]!,
