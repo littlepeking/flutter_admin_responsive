@@ -20,7 +20,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
   List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> items) {
     List<DropdownMenuItem<String>> _menuItems = [];
 
-    if (!items.contains('-1')) items.insert(0, '-1');
+    if (!items.contains('')) items.insert(0, '');
 
     for (var item in items) {
       _menuItems.addAll(
@@ -123,7 +123,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                       value: controller.items
                               .containsKey(controller._selectedValue.value)
                           ? controller._selectedValue.value
-                          : '-1',
+                          : '',
                       onChanged: controller.enabled
                           ? (v) async {
                               await _validate(v.toString());
@@ -145,7 +145,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
   }
 
   Future<bool> _validate(String value) async {
-    bool isValid = controller.checkMustInput(key!, value, emptyValue: '-1');
+    bool isValid = controller.checkMustInput(key!, value, emptyValue: '');
 
     if (!isValid) return false;
 

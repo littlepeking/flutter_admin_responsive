@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_multi_select.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:eh_flutter_framework/test/TestData.dart';
@@ -111,6 +112,26 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                               onChanged: (value) =>
                                   controller.receiptModel.update((model) {
                                     model!.dropdownValue = value;
+                                  })),
+                        )),
+                    Obx(() => EHMultiSelect(
+                          key: controller.multiSelectKey1,
+                          controller: EHMultiSelectController(
+                              focusNode: controller.ddlFn2,
+                              label: '测试5',
+                              enabled: true,
+                              mustInput: true,
+                              selectedValues: controller
+                                  .receiptModel.value.multiSelectValues,
+                              width: 250,
+                              items: {
+                                '0': 'Item0',
+                                '1': 'Item1',
+                                '2': 'Item2',
+                              },
+                              onChanged: (value) =>
+                                  controller.receiptModel.update((model) {
+                                    model!.multiSelectValues = value;
                                   })),
                         )),
                   ]),

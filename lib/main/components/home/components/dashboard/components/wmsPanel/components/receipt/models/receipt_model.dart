@@ -8,9 +8,11 @@ class ReceiptModel extends EHModel {
   String customerName;
 
   String dropdownValue;
+  List<String> multiSelectValues;
   ReceiptModel(
       {required this.receiptKey,
       required this.customerId,
       required this.customerName,
-      required this.dropdownValue});
+      required this.dropdownValue,
+      required this.multiSelectValues});
 }

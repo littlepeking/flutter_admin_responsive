@@ -30,10 +30,12 @@ class ReceiptDetailViewController extends EHEditFormController {
   GlobalKey dropdownKey1 = GlobalKey();
   GlobalKey dropdownKey2 = GlobalKey();
 
+  GlobalKey multiSelectKey1 = GlobalKey();
+
   Rx<ReceiptModel> receiptModel = ReceiptModel(
-          receiptKey: 'key001',
-          customerId: 'cus001',
-          customerName: 'cus001Name',
-          dropdownValue: '1')
-      .obs;
+      receiptKey: 'key001',
+      customerId: 'cus001',
+      customerName: 'cus001Name',
+      dropdownValue: '1',
+      multiSelectValues: []).obs;
 }
