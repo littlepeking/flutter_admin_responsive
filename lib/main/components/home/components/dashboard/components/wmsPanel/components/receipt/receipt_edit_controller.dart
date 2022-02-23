@@ -30,6 +30,7 @@ class ReceiptEditController extends EHEditFormController {
 
   ReceiptEditController() {
     asnHeaderDataGridController = EHDataGridController(
+        showCheckbox: true,
         onRowSelected: (data) => {},
         dataGridSource: DataGridTest.getDataGridSource());
 

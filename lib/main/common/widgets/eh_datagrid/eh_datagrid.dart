@@ -121,7 +121,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
     // print(this.controller.dataGridSource.pageSize!);
 
     return Obx(() => SfDataGrid(
-        showCheckboxColumn: true,
+        showCheckboxColumn: controller.showCheckbox,
         selectionMode: SelectionMode.multiple,
         //navigationMode: GridNavigationMode.row,
         controller: controller.dataGridSource.dataGridController,
