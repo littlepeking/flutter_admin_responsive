@@ -32,6 +32,7 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
         [
           DropdownMenuItem<String>(
             value: itemKey,
+            enabled: false, //multi select can only be check and not be tapped
             child: Padding(
               padding: const EdgeInsets.only(left: 5),
               child: Row(
@@ -55,12 +56,15 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
                           }
                         });
                   }),
-                  Text(
-                    controller.items.containsKey(itemKey)
-                        ? controller.items[itemKey]!
-                        : ' ',
-                    style: const TextStyle(
-                      fontSize: 14,
+                  Expanded(
+                    child: Text(
+                      controller.items.containsKey(itemKey)
+                          ? controller.items[itemKey]!
+                          : ' ',
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
