@@ -74,7 +74,9 @@ class EHEditWidgetController extends EHController {
 
   bool checkMustInput(Key key, text, {String emptyValue = ''}) {
     if (mustInput) {
-      if (EHUtilHelper.isEmpty(text) || text == emptyValue) {
+      if (text is List && text.length == 0 ||
+          text is String &&
+              (EHUtilHelper.isEmpty(text) || text == emptyValue)) {
         errorBucket![key] = 'This field cannot be empty'.tr;
         return false;
       } else {

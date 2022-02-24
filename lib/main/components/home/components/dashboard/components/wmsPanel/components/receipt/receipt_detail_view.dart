@@ -123,11 +123,14 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                               mustInput: true,
                               selectedValues: controller
                                   .receiptModel.value.multiSelectValues,
-                              width: 250,
+                              width: 200,
                               items: {
                                 '0': 'Item0',
                                 '1': 'Item1',
                                 '2': 'Item2',
+                                '3': 'Item3',
+                                '4': 'Item4',
+                                '5': 'Item5',
                               },
                               onChanged: (value) =>
                                   controller.receiptModel.update((model) {

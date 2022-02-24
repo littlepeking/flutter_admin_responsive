@@ -148,9 +148,12 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
                     },
                     child: Stack(children: [
                       Container(
-                        padding: EdgeInsets.only(left: 5, top: 2),
+                        padding: EdgeInsets.only(left: 5, top: 3, right: 15),
                         height: 23.4,
-                        child: Text(getDisplayValues()),
+                        child: Text(
+                          getDisplayValues(),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       DropdownButton2(
                           focusNode: controller.focusNode,
