@@ -27,7 +27,14 @@ class DataGridTest {
           EHDataGridColumnConfig(
               columnName: 'name', columnType: EHStringColumnType()),
           EHDataGridColumnConfig(
-              columnName: 'city', columnType: EHStringColumnType()),
+              columnName: 'city',
+              columnType: EHStringColumnType(
+                  widgetType: EHWidgetType.DropDown,
+                  selectItems: {
+                    'PEK': 'Beijing',
+                    'SH': 'Shanghai',
+                    'SZ': 'Shenzhen'
+                  })),
           EHDataGridColumnConfig(
               columnName: 'qty', columnType: EHDoubleColumnType()),
           EHDataGridColumnConfig(
@@ -79,7 +86,7 @@ class DataGridTest {
         'customerId': 1700 + i,
         'name': _names[i % 15],
         'price': 1000 + i,
-        'city': _cities[i % 8],
+        'city': _cities[i % 3],
         'qty': 1500.0 + i,
         'date': DateTime.now(),
         'isConfirmed': i % 2 == 0 ? true : false,
@@ -126,13 +133,8 @@ class DataGridTest {
   ];
 
   static List<String> _cities = <String>[
-    'Bruxelles',
-    'Rosario',
-    'Recife',
-    'Graz',
-    'Montreal',
-    'Tsawassen',
-    'Campinas',
-    'Resende',
+    'PEK',
+    'SH',
+    'SZ',
   ];
 }

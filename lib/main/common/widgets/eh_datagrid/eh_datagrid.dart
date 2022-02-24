@@ -1,5 +1,6 @@
 ///Package imports
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
@@ -15,6 +16,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 /// DataGrid Package
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
+import '../EH_multi_select.dart';
 import 'eh_datagrid_constants.dart';
 
 /// Render data pager
@@ -114,6 +116,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
       return EHDropdown(
           key: GlobalKey(),
           controller: EHDropDownController(
+              padding: EdgeInsets.zero,
               showErrorInfo: false,
               showLabel: false,
               selectedValue: getColumnFilter(columnConfig.columnName).text,
@@ -128,6 +131,25 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                 getColumnFilter(columnConfig.columnName).text = value;
                 filterGridData(controller, columnConfig);
               }));
+    } else if (columnConfig.columnType.widgetType == EHWidgetType.DropDown) {
+      return EHMultiSelect(
+        key: GlobalKey(),
+        controller: EHMultiSelectController(
+          padding: EdgeInsets.zero,
+          showErrorInfo: false,
+          showLabel: false,
+          focusNode: FocusNode(),
+          selectedValues: EHUtilHelper.isEmpty(
+                  getColumnFilter(columnConfig.columnName).text)
+              ? []
+              : getColumnFilter(columnConfig.columnName).text.split(','),
+          items: columnConfig.columnType.selectItems!,
+          onChanged: (value) {
+            getColumnFilter(columnConfig.columnName).text = value.join(',');
+            filterGridData(controller, columnConfig);
+          },
+        ),
+      );
     }
   }
 

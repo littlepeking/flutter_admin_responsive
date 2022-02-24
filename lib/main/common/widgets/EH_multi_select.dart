@@ -14,10 +14,7 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 class _TheState {}
 
 class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
-  EHMultiSelect(
-      {required Key key,
-      ValueChanged<List<String>>? onChanged,
-      required EHMultiSelectController controller})
+  EHMultiSelect({required Key key, required EHMultiSelectController controller})
       : super(key: key, controller: controller);
 
   final _theState = RM.inject(() =>
@@ -47,12 +44,14 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
                             controller.selectedValues.add(itemKey);
                             _theState.notify();
                             _validate(controller.selectedValues);
-                            controller.onChanged!(controller.selectedValues);
+                            if (controller.onChanged != null)
+                              controller.onChanged!(controller.selectedValues);
                           } else {
                             controller.selectedValues.remove(itemKey);
                             _theState.notify();
                             _validate(controller.selectedValues);
-                            controller.onChanged!(controller.selectedValues);
+                            if (controller.onChanged != null)
+                              controller.onChanged!(controller.selectedValues);
                           }
                         });
                   }),
@@ -107,17 +106,17 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: Responsive.isDesktop(context)
-            ? EdgeInsets.symmetric(horizontal: 5)
-            : EdgeInsets.symmetric(horizontal: 2),
+        padding: controller.padding,
         // height: 70,
         width: controller.width,
         child: Column(
           children: [
-            EHEditLabel(
-              mustInput: controller.mustInput,
-              label: controller.label,
-            ),
+            controller.showLabel
+                ? EHEditLabel(
+                    mustInput: controller.mustInput,
+                    label: controller.label,
+                  )
+                : SizedBox(),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
@@ -149,7 +148,7 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
                     child: Stack(children: [
                       Container(
                         padding: EdgeInsets.only(left: 5, top: 3, right: 15),
-                        height: 23.4,
+                        height: 23,
                         child: Text(
                           getDisplayValues(),
                           overflow: TextOverflow.ellipsis,
@@ -164,7 +163,7 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
                           customItemsHeight: 4,
                           value: '',
                           onChanged: controller.enabled ? (x) {} : null,
-                          buttonHeight: 23.4,
+                          buttonHeight: 23,
                           buttonWidth: controller.width,
                           itemHeight: 23,
                           itemPadding:
@@ -172,8 +171,11 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
                     ])),
               ),
             ),
-            Obx(() => EHEditErrorInfo(
-                errorBucket: controller.errorBucket!.value, errorFieldKey: key))
+            controller.showErrorInfo
+                ? Obx(() => EHEditErrorInfo(
+                    errorBucket: controller.errorBucket!.value,
+                    errorFieldKey: key))
+                : SizedBox()
           ],
         ));
   }
@@ -212,6 +214,12 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
 class EHMultiSelectController extends EHEditWidgetController {
   late Map<String, String> items;
 
+  EdgeInsets padding;
+
+  bool showLabel;
+
+  bool showErrorInfo;
+
   RxList<String> _selectedValues = <String>[].obs;
 
   RxBool focused = false.obs;
@@ -226,19 +234,22 @@ class EHMultiSelectController extends EHEditWidgetController {
 
   ValueChanged<List<String>>? onChanged;
 
-  EHMultiSelectController({
-    double? width,
-    bool autoFocus = false,
-    required FocusNode focusNode,
-    String label = '',
-    List<String> selectedValues = const [],
-    bool enabled = true,
-    bool mustInput = false,
-    this.onChanged,
-    Future<bool> Function()? validate,
-    Map<Key?, String>? errorBucket,
-    required Map<String, String> items,
-  }) : super(
+  EHMultiSelectController(
+      {double? width,
+      this.padding = const EdgeInsets.symmetric(horizontal: 5),
+      bool autoFocus = false,
+      required FocusNode focusNode,
+      String label = '',
+      List<String> selectedValues = const [],
+      bool enabled = true,
+      bool mustInput = false,
+      this.onChanged,
+      Future<bool> Function()? validate,
+      Map<Key?, String>? errorBucket,
+      required Map<String, String> items,
+      this.showErrorInfo = true,
+      this.showLabel = true})
+      : super(
             autoFocus: autoFocus,
             enabled: enabled,
             mustInput: mustInput,

@@ -11,10 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EHDropdown extends EHStatelessWidget<EHDropDownController> {
-  EHDropdown(
-      {required Key key,
-      ValueChanged<String>? onChanged,
-      required EHDropDownController controller})
+  EHDropdown({required Key key, required EHDropDownController controller})
       : super(key: key, controller: controller);
 
   List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> items) {
@@ -68,9 +65,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Container(
-        padding: Responsive.isDesktop(context)
-            ? EdgeInsets.symmetric(horizontal: 5)
-            : EdgeInsets.symmetric(horizontal: 2),
+        padding: controller.padding,
         // height: 70,
         width: controller.width,
         child: Column(
@@ -129,7 +124,8 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                       onChanged: controller.enabled
                           ? (v) async {
                               await _validate(v.toString());
-                              controller.onChanged!(v.toString());
+                              if (controller.onChanged != null)
+                                controller.onChanged!(v.toString());
                               controller.focusNode!.nextFocus();
                             }
                           : null,
@@ -175,6 +171,8 @@ class EHDropDownController extends EHEditWidgetController {
 
   RxBool focused = false.obs;
 
+  EdgeInsets padding;
+
   get selectedValue {
     return _selectedValue.value;
   }
@@ -187,6 +185,7 @@ class EHDropDownController extends EHEditWidgetController {
 
   EHDropDownController(
       {double? width,
+      this.padding = const EdgeInsets.symmetric(horizontal: 5),
       bool autoFocus = false,
       required FocusNode focusNode,
       String label = '',

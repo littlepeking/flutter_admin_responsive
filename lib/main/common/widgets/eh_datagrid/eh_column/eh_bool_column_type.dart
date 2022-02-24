@@ -31,7 +31,6 @@ class EHBoolColumnType extends EHColumnType<bool> {
                   focusNode: FocusNode(),
                   selectedValue: value.toString(),
                   items: {'true': 'Yes', 'false': 'No'}),
-              onChanged: (v) => {},
             ),
           );
   }
