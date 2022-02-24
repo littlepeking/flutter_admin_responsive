@@ -113,7 +113,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
             filterGridData(controller, columnConfig);
           });
     } else if (columnConfig.columnType.widgetType == EHWidgetType.CheckBox) {
-      return EHDropdown(
+      return Obx(() => EHDropdown(
           key: GlobalKey(),
           controller: EHDropDownController(
               padding: EdgeInsets.zero,
@@ -129,27 +129,29 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
               },
               onChanged: (value) {
                 getColumnFilter(columnConfig.columnName).text = value;
+                controller.dataGridSource.columnFilters.refresh();
                 filterGridData(controller, columnConfig);
-              }));
+              })));
     } else if (columnConfig.columnType.widgetType == EHWidgetType.DropDown) {
-      return EHMultiSelect(
-        key: GlobalKey(),
-        controller: EHMultiSelectController(
-          padding: EdgeInsets.zero,
-          showErrorInfo: false,
-          showLabel: false,
-          focusNode: FocusNode(),
-          selectedValues: EHUtilHelper.isEmpty(
-                  getColumnFilter(columnConfig.columnName).text)
-              ? []
-              : getColumnFilter(columnConfig.columnName).text.split(','),
-          items: columnConfig.columnType.selectItems!,
-          onChanged: (value) {
-            getColumnFilter(columnConfig.columnName).text = value.join(',');
-            filterGridData(controller, columnConfig);
-          },
-        ),
-      );
+      return Obx(() => EHMultiSelect(
+            key: GlobalKey(),
+            controller: EHMultiSelectController(
+              padding: EdgeInsets.zero,
+              showErrorInfo: false,
+              showLabel: false,
+              focusNode: FocusNode(),
+              selectedValues: EHUtilHelper.isEmpty(
+                      getColumnFilter(columnConfig.columnName).text)
+                  ? []
+                  : getColumnFilter(columnConfig.columnName).text.split(','),
+              items: columnConfig.columnType.selectItems!,
+              onChanged: (value) {
+                getColumnFilter(columnConfig.columnName).text = value.join(',');
+                controller.dataGridSource.columnFilters.refresh();
+                filterGridData(controller, columnConfig);
+              },
+            ),
+          ));
     }
   }
 
