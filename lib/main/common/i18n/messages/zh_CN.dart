@@ -1,4 +1,6 @@
 Map<String, String> zhCNMessages = {
+  'Yes': '是',
+  'No': '否',
   'Personalization': '个性化',
   'Quit': '退出',
   'changeLocale': '切换语言',
@@ -38,6 +40,7 @@ Map<String, String> zhCNMessages = {
   'city': '城市',
   'qty': '数量',
   'date': '时间',
+  'isConfirmed': '是否确认',
   'Data update failed': '数据获取失败，请检查网络',
   'This field cannot be empty': '字段不能为空',
   'Please Select Item': '请选择条目',

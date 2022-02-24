@@ -75,10 +75,12 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
         width: controller.width,
         child: Column(
           children: [
-            EHEditLabel(
-              mustInput: controller.mustInput,
-              label: controller.label,
-            ),
+            controller.showLabel
+                ? EHEditLabel(
+                    mustInput: controller.mustInput,
+                    label: controller.label,
+                  )
+                : SizedBox(),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
@@ -131,15 +133,18 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                               controller.focusNode!.nextFocus();
                             }
                           : null,
-                      buttonHeight: 23.4,
+                      buttonHeight: 23,
                       buttonWidth: controller.width,
                       itemHeight: 23,
                       itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
                     )),
               ),
             ),
-            Obx(() => EHEditErrorInfo(
-                errorBucket: controller.errorBucket!.value, errorFieldKey: key))
+            controller.showErrorInfo
+                ? Obx(() => EHEditErrorInfo(
+                    errorBucket: controller.errorBucket!.value,
+                    errorFieldKey: key))
+                : SizedBox()
           ],
         )));
   }
@@ -164,6 +169,10 @@ class EHDropDownController extends EHEditWidgetController {
 
   RxString _selectedValue = ''.obs;
 
+  bool showLabel;
+
+  bool showErrorInfo;
+
   RxBool focused = false.obs;
 
   get selectedValue {
@@ -176,19 +185,21 @@ class EHDropDownController extends EHEditWidgetController {
 
   ValueChanged<String>? onChanged;
 
-  EHDropDownController({
-    double? width,
-    bool autoFocus = false,
-    required FocusNode focusNode,
-    String label = '',
-    String selectedValue = '',
-    bool enabled = true,
-    bool mustInput = false,
-    this.onChanged,
-    Future<bool> Function()? validate,
-    Map<Key?, String>? errorBucket,
-    required Map<String, String> items,
-  }) : super(
+  EHDropDownController(
+      {double? width,
+      bool autoFocus = false,
+      required FocusNode focusNode,
+      String label = '',
+      String selectedValue = '',
+      bool enabled = true,
+      bool mustInput = false,
+      this.onChanged,
+      Future<bool> Function()? validate,
+      Map<Key?, String>? errorBucket,
+      required Map<String, String> items,
+      this.showErrorInfo = true,
+      this.showLabel = true})
+      : super(
             autoFocus: autoFocus,
             enabled: enabled,
             mustInput: mustInput,

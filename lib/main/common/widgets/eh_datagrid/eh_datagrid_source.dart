@@ -178,7 +178,7 @@ class EHDataGridSource extends DataGridSource {
     columnsConfig.forEach((config) {
       Iterable<DataGridCell> iterableDateGridCell =
           row.getCells().where((cell) => cell.columnName == config.columnName);
-      Object currentCellValue;
+      Object? currentCellValue;
       if (config.columnType is EHImageButtonColumnType) {
         currentCellValue = _dataList[rowIndex];
       } else if (iterableDateGridCell.length == 1) {

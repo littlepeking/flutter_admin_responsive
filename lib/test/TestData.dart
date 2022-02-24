@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_double_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_int_column_type.dart';
@@ -31,6 +32,10 @@ class DataGridTest {
               columnName: 'qty', columnType: EHDoubleColumnType()),
           EHDataGridColumnConfig(
               columnName: 'date', columnType: EHDateColumnType()),
+          EHDataGridColumnConfig(
+              columnName: 'isConfirmed',
+              columnType: EHBoolColumnType(widgetType: EHWidgetType.CheckBox),
+              columnWidth: 100),
         ],
         getData: (
           Map<String, String> filters,
@@ -77,6 +82,7 @@ class DataGridTest {
         'city': _cities[i % 8],
         'qty': 1500.0 + i,
         'date': DateTime.now(),
+        'isConfirmed': i % 2 == 0 ? true : false,
       });
     }
 

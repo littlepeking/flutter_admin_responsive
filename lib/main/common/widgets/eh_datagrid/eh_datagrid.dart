@@ -4,6 +4,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/e
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -83,38 +84,58 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                         height: 5,
                       ),
                       Container(
-                          height: 25,
-                          child: TextField(
-                              focusNode: controller.dataGridSource
-                                  .getFilterFocusNode(columnConfig),
-                              controller: EHTextEditingController(
-                                  text: getColumnFilter(columnConfig.columnName)
-                                      .text),
-                              textAlignVertical: TextAlignVertical.center,
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(5),
-                                border: new OutlineInputBorder(),
-                                hintText: "Filter...".tr,
-                              ),
-                              onChanged: (value) {
-                                getColumnFilter(columnConfig.columnName).text =
-                                    value;
-                              },
-                              onSubmitted: (value) async {
-                                await this
-                                    .controller
-                                    .dataGridSource
-                                    .handleRefresh();
-
-                                controller.dataGridSource
-                                    .getFilterFocusNode(columnConfig)
-                                    .requestFocus();
-                              })),
+                          height: 25, child: buildFilterWidget(columnConfig)),
                     ])));
       },
     ).toList();
 
     return gridColumnList;
+  }
+
+  buildFilterWidget(EHDataGridColumnConfig columnConfig) {
+    if (columnConfig.columnType.widgetType == EHWidgetType.Text) {
+      return TextField(
+          focusNode: controller.dataGridSource.getFilterFocusNode(columnConfig),
+          controller: EHTextEditingController(
+              text: getColumnFilter(columnConfig.columnName).text),
+          textAlignVertical: TextAlignVertical.center,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(5),
+            border: new OutlineInputBorder(),
+            hintText: "Filter...".tr,
+          ),
+          onChanged: (value) {
+            getColumnFilter(columnConfig.columnName).text = value;
+          },
+          onSubmitted: (value) async {
+            filterGridData(controller, columnConfig);
+          });
+    } else if (columnConfig.columnType.widgetType == EHWidgetType.CheckBox) {
+      return EHDropdown(
+          key: GlobalKey(),
+          controller: EHDropDownController(
+              showErrorInfo: false,
+              showLabel: false,
+              selectedValue: getColumnFilter(columnConfig.columnName).text,
+              focusNode:
+                  controller.dataGridSource.getFilterFocusNode(columnConfig),
+              items: {
+                '': '------',
+                'true': 'Yes'.tr,
+                'false': 'No'.tr,
+              },
+              onChanged: (value) {
+                getColumnFilter(columnConfig.columnName).text = value;
+                filterGridData(controller, columnConfig);
+              }));
+    }
+  }
+
+  filterGridData(EHDataGridController controller,
+      EHDataGridColumnConfig columnConfig) async {
+    await controller.dataGridSource.handleRefresh();
+
+    controller.dataGridSource.getFilterFocusNode(columnConfig).requestFocus();
   }
 
   int getColumnIndex(EHDataGridColumnConfig columnConfig) {
