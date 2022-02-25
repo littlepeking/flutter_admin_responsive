@@ -42,7 +42,7 @@ class DataGridTest {
           EHDataGridColumnConfig(
               columnName: 'isConfirmed',
               columnType: EHBoolColumnType(widgetType: EHWidgetType.CheckBox),
-              columnWidth: 100),
+              columnWidth: 110),
         ],
         getData: (
           Map<String, String> filters,

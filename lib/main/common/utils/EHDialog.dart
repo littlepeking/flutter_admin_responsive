@@ -2,6 +2,7 @@ import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'EHUtilHelper.dart';
 import 'responsive.dart';
 
 class EHDialog {

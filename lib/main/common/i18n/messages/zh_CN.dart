@@ -49,5 +49,6 @@ Map<String, String> zhCNMessages = {
   'The code cannot be found': '未找到代码',
   'Validate Form': '校验表单',
   'Show Selected Rows': '显示选中数据',
-  'Date format should be: ': '日期格式应为:'
+  'Date format should be: ': '日期格式应为:',
+  'Please Select Date': '请选择日期'
 };
