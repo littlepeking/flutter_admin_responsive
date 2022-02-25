@@ -12,7 +12,8 @@ import 'components/receipt/receipt_edit.dart';
 import 'components/receipt/receipt_edit_controller.dart';
 
 class WmsPanelController extends GetxController {
-  EHTabsViewController tabViewController = EHTabsViewController();
+  EHTabsViewController tabViewController =
+      EHTabsViewController(showScrollArrow: true);
 
   TreeController sideMenuTreeController =
       new TreeController(allNodesExpanded: false);
