@@ -85,11 +85,6 @@ class EHTabsView extends StatelessWidget {
               return Obx(() => ExcludeFocus(
                     child: getExpandModeTabWidget(tab),
                     excluding: (() {
-                      print(tab.tabName +
-                          " " +
-                          (controller.tabsConfig.indexOf(tab) !=
-                                  controller.selectedIndex.value)
-                              .toString());
                       return controller.tabsConfig.indexOf(tab) !=
                           controller.selectedIndex.value;
                     })(),

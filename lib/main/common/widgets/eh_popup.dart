@@ -87,7 +87,7 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                               1,
                             );
                             controller.onChanged!(controller.text, res.first);
-                            controller.focusNode!.nextFocus();
+                            controller.focusNode.nextFocus();
                           },
                           controller: controller._textEditingController,
                           enabled: controller.enabled,
@@ -117,8 +117,8 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                                       dataGridSource:
                                           controller._dataGridSource,
                                       onRowSelected: (row) {
-                                        controller.focusNode!.requestFocus();
-                                        controller.focusNode!.nextFocus();
+                                        controller.focusNode.requestFocus();
+                                        controller.focusNode.nextFocus();
                                         controller.onChanged!(
                                             row[controller.codeColumnName]
                                                 .toString(),
@@ -214,10 +214,10 @@ class EHPopupController extends EHEditWidgetController {
             enabled: enabled,
             mustInput: mustInput,
             label: label,
-            validate: validate,
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
             errorBucket: errorBucket) {
+    this.validate = validate ?? () async => true;
     this.text = text;
     this.codeColumnName = codeColumnName!; //未集成后台的code配置前，该字段需要手工传入
     this._dataGridSource = getDateSource(dataGridSource, queryCode);

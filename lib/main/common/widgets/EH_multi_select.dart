@@ -258,11 +258,11 @@ class EHMultiSelectController extends EHEditWidgetController {
             enabled: enabled,
             mustInput: mustInput,
             label: label,
-            validate: validate,
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
             errorBucket: errorBucket) {
     this.items = items;
     this.selectedValues = selectedValues;
+    this.validate = validate ?? () async => true;
   }
 }

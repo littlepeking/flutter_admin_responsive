@@ -1,10 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
-import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
 import 'package:flutter/material.dart';
@@ -126,7 +124,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                               await _validate(v.toString());
                               if (controller.onChanged != null)
                                 controller.onChanged!(v.toString());
-                              controller.focusNode!.nextFocus();
+                              controller.focusNode.nextFocus();
                             }
                           : null,
                       buttonHeight: 23,
@@ -203,11 +201,11 @@ class EHDropDownController extends EHEditWidgetController {
             enabled: enabled,
             mustInput: mustInput,
             label: label,
-            validate: validate,
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
             errorBucket: errorBucket) {
     this.items = items;
     this.selectedValue = selectedValue;
+    this.validate = validate ?? () async => true;
   }
 }

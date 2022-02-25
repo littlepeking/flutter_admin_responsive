@@ -45,54 +45,61 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                 mustInput: controller.mustInput,
                 label: controller.label,
               ),
-              Container(
-                height: 25,
-                child: TextField(
-                  // keyboardType: TextInputType.number,
-                  // inputFormatters: <TextInputFormatter>[
-                  //   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                  // ],
-                  autofocus: controller.autoFocus,
-                  focusNode: controller.focusNode,
-                  textInputAction: TextInputAction.next,
-                  maxLines: 1,
-                  textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(5),
-                    border: new OutlineInputBorder(),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 25,
+                      child: TextField(
+                        // keyboardType: TextInputType.number,
+                        // inputFormatters: <TextInputFormatter>[
+                        //   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                        // ],
+                        autofocus: controller.autoFocus,
+                        focusNode: controller.focusNode,
+                        textInputAction: TextInputAction.next,
+                        maxLines: 1,
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(5),
+                          border: new OutlineInputBorder(),
+                        ),
+                        controller: controller._textEditingController,
+                        enabled: controller.enabled,
+                        // onEditingComplete: () {
+                        //   // Move the focus to the next node explicitly.
+                        //   if (controller.onEditingComplete == null) {
+                        //     FocusScope.of(context).nextFocus();
+                        //   } else {
+                        //     controller.onEditingComplete!(context);
+                        //   }
+                        // },
+
+                        // onChanged: (v) {
+                        //   if (controller.mustInput) {
+                        //     if (EHUtilHelper.isEmpty(v)) {
+                        //       controller.errorBucket![key] =
+                        //           'This field cannot be empty'.tr;
+                        //     } else {
+                        //       controller.errorBucket![key] = '';
+                        //     }
+                        //   }
+                        //   controller.onChanged!(v);
+                        // },
+                        // onSubmitted: (v) {
+                        //   print(v);
+                        // },
+                        onEditingComplete: () async {
+                          if (!await _validate()) return;
+                          if (controller.onChanged != null)
+                            controller.onChanged!(controller.text);
+                          controller.focusNode.nextFocus();
+                        },
+                      ),
+                    ),
                   ),
-                  controller: controller._textEditingController,
-                  enabled: controller.enabled,
-                  // onEditingComplete: () {
-                  //   // Move the focus to the next node explicitly.
-                  //   if (controller.onEditingComplete == null) {
-                  //     FocusScope.of(context).nextFocus();
-                  //   } else {
-                  //     controller.onEditingComplete!(context);
-                  //   }
-                  // },
-
-                  // onChanged: (v) {
-                  //   if (controller.mustInput) {
-                  //     if (EHUtilHelper.isEmpty(v)) {
-                  //       controller.errorBucket![key] =
-                  //           'This field cannot be empty'.tr;
-                  //     } else {
-                  //       controller.errorBucket![key] = '';
-                  //     }
-                  //   }
-                  //   controller.onChanged!(v);
-                  // },
-                  // onSubmitted: (v) {
-                  //   print(v);
-                  // },
-                  onEditingComplete: () async {
-                    if (!await _validate()) return;
-
-                    controller.onChanged!(controller.text);
-                    controller.focusNode!.nextFocus();
-                  },
-                ),
+                  controller.afterWidget ?? SizedBox()
+                ],
               ),
               Obx(() => EHEditErrorInfo(
                   errorBucket: controller.errorBucket!.value,
@@ -116,7 +123,8 @@ class EHTextFieldController extends EHEditWidgetController {
   }
 
   ValueChanged<String>? onChanged;
-  Function? onEditingComplete;
+
+  Widget? afterWidget;
 
   EHTextFieldController(
       {double? width,
@@ -127,18 +135,18 @@ class EHTextFieldController extends EHEditWidgetController {
       bool enabled = true,
       bool mustInput = false,
       this.onChanged,
-      this.onEditingComplete,
       Future<bool> Function()? validate,
-      Map<Key?, String>? errorBucket})
+      Map<Key?, String>? errorBucket,
+      this.afterWidget})
       : super(
             autoFocus: autoFocus,
             enabled: enabled,
             mustInput: mustInput,
             label: label,
-            validate: validate,
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
             errorBucket: errorBucket) {
+    this.validate = validate ?? () async => true;
     this.text = text;
   }
 }

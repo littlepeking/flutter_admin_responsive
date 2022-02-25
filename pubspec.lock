@@ -165,6 +165,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_rounded_date_picker:
+    dependency: "direct main"
+    description:
+      name: flutter_rounded_date_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   flutter_simple_treeview:
     dependency: "direct main"
     description:
@@ -474,27 +481,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  syncfusion_flutter_barcodes:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_barcodes
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48"
-  syncfusion_flutter_calendar:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_calendar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48"
-  syncfusion_flutter_charts:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_charts
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48"
   syncfusion_flutter_core:
     dependency: transitive
     description:
@@ -523,73 +509,10 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "19.4.48"
-  syncfusion_flutter_gauges:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_gauges
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48"
-  syncfusion_flutter_maps:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_maps
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48-beta"
   syncfusion_flutter_pdf:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: syncfusion_flutter_pdf
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48-beta"
-  syncfusion_flutter_pdfviewer:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_pdfviewer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48-beta"
-  syncfusion_flutter_pdfviewer_macos:
-    dependency: transitive
-    description:
-      name: syncfusion_flutter_pdfviewer_macos
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48-beta"
-  syncfusion_flutter_pdfviewer_platform_interface:
-    dependency: transitive
-    description:
-      name: syncfusion_flutter_pdfviewer_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48-beta"
-  syncfusion_flutter_pdfviewer_web:
-    dependency: transitive
-    description:
-      name: syncfusion_flutter_pdfviewer_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48-beta"
-  syncfusion_flutter_signaturepad:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_signaturepad
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48"
-  syncfusion_flutter_sliders:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_sliders
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48"
-  syncfusion_flutter_treemap:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_treemap
       url: "https://pub.dartlang.org"
     source: hosted
     version: "19.4.48-beta"
@@ -607,13 +530,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "19.4.48+1"
-  syncfusion_officechart:
-    dependency: "direct main"
-    description:
-      name: syncfusion_officechart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "19.4.48-beta"
   syncfusion_officecore:
     dependency: transitive
     description:
@@ -635,13 +551,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.3"
-  timezone:
-    dependency: transitive
-    description:
-      name: timezone
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.8.0"
   typed_data:
     dependency: transitive
     description:
@@ -705,13 +614,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
-  uuid:
-    dependency: transitive
-    description:
-      name: uuid
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.5"
   vector_math:
     dependency: transitive
     description:

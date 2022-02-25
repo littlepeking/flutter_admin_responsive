@@ -41,6 +41,7 @@ dependencies:
   dropdown_button2: ^1.1.1
   split_view: ^3.1.0
   states_rebuilder: ^4.4.0
+  flutter_rounded_date_picker: 2.0.2
 
 # SYNC FUSTION DEPENDENCY -BEGIN
   url_launcher: ^6.0.2
@@ -48,18 +49,7 @@ dependencies:
   path_provider_macos: ^2.0.0
   desktop_window: 0.4.0
   syncfusion_flutter_datagrid_export: ^19.4.38-beta
-  syncfusion_flutter_calendar: ^19.4.38
   syncfusion_flutter_datepicker: ^19.4.38
-  syncfusion_flutter_charts:  ^19.4.38
-  syncfusion_flutter_gauges: ^19.4.38
-  syncfusion_flutter_sliders: ^19.4.38
-  syncfusion_flutter_pdf: ^19.4.38-beta
-  syncfusion_flutter_barcodes: ^19.4.38
-  syncfusion_officechart: ^19.4.38-beta
-  syncfusion_flutter_maps: ^19.4.38-beta
-  syncfusion_flutter_signaturepad: ^19.4.38-beta
-  syncfusion_flutter_pdfviewer: ^19.4.38-beta
-  syncfusion_flutter_treemap: ^19.4.38-beta
   syncfusion_localizations: ^19.4.38
 # SYNC FUSTION DEPENDENCY -END
 

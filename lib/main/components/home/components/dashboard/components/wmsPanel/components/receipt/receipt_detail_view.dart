@@ -1,14 +1,22 @@
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/utils/EHDialog.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_image_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_multi_select.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:eh_flutter_framework/test/TestData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import 'receipt_detail_view_controller.dart';
+
+import 'package:intl/intl.dart';
 
 class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
   ReceiptDetailView({Key? key, controller})
@@ -75,6 +83,13 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                 });
                               }),
                         )),
+                    EHDatePicker(
+                        key: controller.datePicker1,
+                        controller: EHDatePickerController(
+                            mustInput: true,
+                            //enabled: false,
+                            focusNode: controller.datePickerFn1,
+                            label: '时间')),
                     Obx(() => EHDropdown(
                           key: controller.dropdownKey1,
                           controller: EHDropDownController(

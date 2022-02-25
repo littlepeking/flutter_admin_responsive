@@ -6,7 +6,10 @@ import 'responsive.dart';
 
 class EHDialog {
   static showPopupDialog(Widget widget,
-      {String title = 'Please Select Item', FocusNode? focusNode}) async {
+      {String title = 'Please Select Item',
+      FocusNode? focusNode,
+      double? width,
+      double? height}) async {
     // return Get.dialog(
     //   titlePadding: EdgeInsets.only(top: 20),
     //   titleStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -55,8 +58,8 @@ class EHDialog {
           ),
           children: [
             Container(
-                height: Responsive.dialogHeight(Get.context!) - 70,
-                width: Responsive.dialogWidth(Get.context!),
+                height: height ?? Responsive.dialogHeight(Get.context!) - 70,
+                width: width ?? Responsive.dialogWidth(Get.context!),
                 child: widget)
           ],
           elevation: 10,

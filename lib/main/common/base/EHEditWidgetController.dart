@@ -11,7 +11,7 @@ class EHEditWidgetController extends EHController {
       String label = '',
       bool enabled = true,
       bool autoFocus = false,
-      this.focusNode,
+      required this.focusNode,
       Future<bool> Function()? validate,
       Map<Key?, String>? errorBucket}) {
     this.validate = validate ?? () async => true;
@@ -70,7 +70,7 @@ class EHEditWidgetController extends EHController {
 
   RxMap<Key?, String>? errorBucket;
 
-  FocusNode? focusNode;
+  FocusNode focusNode;
 
   bool checkMustInput(Key key, text, {String emptyValue = ''}) {
     if (mustInput) {
