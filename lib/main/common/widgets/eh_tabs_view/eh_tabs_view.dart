@@ -31,17 +31,19 @@ class EHTabsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getTabWidget(EHTab tab) {
-      return Container(
-        alignment: Alignment.topLeft,
-        //color: Colors.grey,
-        child:
-            controller.tabsConfig.indexOf(tab) != controller.selectedIndex.value
-                ? SizedBox()
-                : tab.tabWidget = tab.tabWidget ??
-                    (() {
-                      print('called tab.getTabWidgetFunc ${tab.tabController}');
-                      return tab.getTabWidgetFunc(tab.tabController);
-                    })(),
+      bool exclude =
+          controller.tabsConfig.indexOf(tab) != controller.selectedIndex.value;
+      return ExcludeFocus(
+        child: Container(
+          alignment: Alignment.topLeft,
+          //color: Colors.grey,
+          child: tab.tabWidget = tab.tabWidget ??
+              (() {
+                print('called tab.getTabWidgetFunc ${tab.tabController}');
+                return tab.getTabWidgetFunc(tab.tabController);
+              })(),
+        ),
+        excluding: exclude,
       );
     }
 
@@ -82,13 +84,7 @@ class EHTabsView extends StatelessWidget {
           child: IndexedStack(
             index: controller.selectedIndex.value,
             children: controller.tabsConfig.map((tab) {
-              return Obx(() => ExcludeFocus(
-                    child: getExpandModeTabWidget(tab),
-                    excluding: (() {
-                      return controller.tabsConfig.indexOf(tab) !=
-                          controller.selectedIndex.value;
-                    })(),
-                  ));
+              return getExpandModeTabWidget(tab);
             }).toList(),
           ));
     }
