@@ -110,7 +110,7 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: controller.padding,
+        padding: LayoutConstant.defaultEditWidgetPadding,
         // height: 70,
         width: controller.width,
         child: Column(

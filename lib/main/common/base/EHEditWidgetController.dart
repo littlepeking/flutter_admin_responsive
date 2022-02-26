@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class EHEditWidgetController extends EHController {
   EHEditWidgetController(
-      {this.width = LayoutConstant.editWidgetSize,
+      {this.width,
       bool mustInput = false,
       String label = '',
       bool enabled = true,
@@ -14,6 +14,7 @@ class EHEditWidgetController extends EHController {
       required this.focusNode,
       Future<bool> Function()? validate,
       Map<Key?, String>? errorBucket}) {
+    this.width = LayoutConstant.editWidgetSize;
     this.validate = validate ?? () async => true;
     this.label = label;
     this.enabled = enabled;

@@ -51,9 +51,7 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
     controller.iconButtonFocusNode.skipTraversal = true;
 
     return Obx(() => Container(
-          padding: Responsive.isDesktop(context)
-              ? EdgeInsets.symmetric(horizontal: 5)
-              : EdgeInsets.symmetric(horizontal: 2),
+          padding: LayoutConstant.defaultEditWidgetPadding,
           // height: 70,
           width: this.controller.width,
           child: Column(
@@ -103,40 +101,36 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                           padding: EdgeInsets.zero,
                           onPressed: () async {
                             bool result = await EHDialog.showPopupDialog(
-                                Container(
+                                Card(
+                                  elevation: 10,
                                   margin: Responsive.isMobile(Get.context!)
                                       ? EdgeInsets.symmetric(horizontal: 3)
                                       : EdgeInsets.symmetric(horizontal: 10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(5),
-                                      ),
-                                      border: Border.all(
-                                          width: 1,
-                                          color:
-                                              Get.textTheme.caption!.color!)),
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: EHDataGrid(
-                                      controller: EHDataGridController(
-                                    dataGridSource: controller._dataGridSource,
-                                    onRowSelected: (row) {
-                                      controller.focusNode.requestFocus();
-                                      controller.focusNode.nextFocus();
-                                      controller.onChanged!(
-                                          row[controller.codeColumnName]
-                                              .toString(),
-                                          row);
-                                      controller.errorBucket![key] = '';
-                                      Get.back(result: true);
-                                    },
-                                  )),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: EHDataGrid(
+                                        controller: EHDataGridController(
+                                      dataGridSource:
+                                          controller._dataGridSource,
+                                      onRowSelected: (row) {
+                                        controller.focusNode.requestFocus();
+                                        controller.focusNode.nextFocus();
+                                        controller.onChanged!(
+                                            row[controller.codeColumnName]
+                                                .toString(),
+                                            row);
+                                        controller.errorBucket![key] = '';
+                                        Get.back(result: true);
+                                      },
+                                    )),
+                                  ),
                                 ),
                                 focusNode: controller.focusNode,
                                 title: controller.popupTitle);
 
                             print('result: $result');
                           },
-                          icon: Icon(Icons.filter_center_focus)),
+                          icon: Icon(Icons.search)),
                     )
                   ],
                 ),

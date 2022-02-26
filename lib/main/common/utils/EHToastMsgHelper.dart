@@ -5,7 +5,7 @@ class EHToastMessageHelper {
   static showInfoMessage(String message,
       {String title = 'Message Infomation'}) {
     Get.snackbar(title.tr, message.tr,
-        maxWidth: 600,
+        maxWidth: 500,
         barBlur: 13.0,
         margin: EdgeInsets.all(10),
         icon: Icon(Icons.info, color: Colors.yellow),

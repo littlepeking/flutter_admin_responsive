@@ -63,7 +63,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Container(
-        padding: controller.padding,
+        padding: controller.padding ?? LayoutConstant.defaultEditWidgetPadding,
         // height: 70,
         width: controller.width,
         child: Column(
@@ -169,7 +169,7 @@ class EHDropDownController extends EHEditWidgetController {
 
   RxBool focused = false.obs;
 
-  EdgeInsets padding;
+  EdgeInsets? padding;
 
   get selectedValue {
     return _selectedValue.value;
@@ -183,7 +183,7 @@ class EHDropDownController extends EHEditWidgetController {
 
   EHDropDownController(
       {double? width,
-      this.padding = const EdgeInsets.symmetric(horizontal: 5),
+      EdgeInsets? padding,
       bool autoFocus = false,
       required FocusNode focusNode,
       String label = '',
@@ -204,6 +204,7 @@ class EHDropDownController extends EHEditWidgetController {
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
             errorBucket: errorBucket) {
+    ;
     this.items = items;
     this.selectedValue = selectedValue;
     this.validate = validate ?? () async => true;

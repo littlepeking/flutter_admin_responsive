@@ -87,26 +87,30 @@ class EHDatePickerController extends EHEditWidgetController {
               onPressed: enabled
                   ? () async {
                       EHDialog.showPopupDialog(
-                          SfDateRangePicker(
-                            headerStyle: DateRangePickerHeaderStyle(
-                                textAlign: TextAlign.center,
-                                textStyle: TextStyle(
-                                  // fontSize: 18,
-                                  color: Get.textTheme.bodyText1!.color,
-                                )),
-                            showNavigationArrow: true,
-                            showActionButtons: false,
-                            //   showTodayButton: true,
-                            initialSelectedDate: getDisplayDate(),
-                            initialDisplayDate: getDisplayDate(),
-                            onSelectionChanged:
-                                (DateRangePickerSelectionChangedArgs args) {
-                              _textEditingController.text =
-                                  DateFormat(dateFormat).format(args.value);
-                              if (onChanged != null) onChanged(args.value);
-                              Get.back();
-                            },
-                            selectionMode: DateRangePickerSelectionMode.single,
+                          Card(
+                            child: SfDateRangePicker(
+                              headerStyle: DateRangePickerHeaderStyle(
+                                  textAlign: TextAlign.center,
+                                  textStyle: TextStyle(
+                                    // fontSize: 18,
+                                    color: Get.textTheme.bodyText1!.color,
+                                  )),
+                              showNavigationArrow: true,
+                              showActionButtons: false,
+                              //   showTodayButton: true,
+                              initialSelectedDate: getDisplayDate(),
+                              initialDisplayDate: getDisplayDate(),
+                              onSelectionChanged:
+                                  (DateRangePickerSelectionChangedArgs args) {
+                                _textEditingController.text =
+                                    DateFormat(dateFormat).format(args.value);
+                                if (onChanged != null) onChanged(args.value);
+                                Get.back();
+                              },
+                              selectionMode:
+                                  DateRangePickerSelectionMode.single,
+                            ),
+                            elevation: 10,
                           ),
                           height: 400,
                           width: 400,

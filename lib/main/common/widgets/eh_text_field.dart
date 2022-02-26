@@ -34,9 +34,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
     if (controller.errorBucket == null)
       controller.errorBucket = EHController.globalErrorBucket;
     return Obx(() => Container(
-          padding: Responsive.isDesktop(context)
-              ? EdgeInsets.symmetric(horizontal: 5)
-              : EdgeInsets.symmetric(horizontal: 2),
+          padding: LayoutConstant.defaultEditWidgetPadding,
           // height: 70,
           width: controller.width,
           child: Column(
