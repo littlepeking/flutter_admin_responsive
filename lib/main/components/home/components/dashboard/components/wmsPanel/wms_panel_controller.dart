@@ -31,6 +31,7 @@ class WmsPanelController extends GetxController {
                       (EHController controller) {
                     return ReceiptEdit(controller: controller);
                   }, closable: true));
+                  // FocusManager.instance.primaryFocus?.unfocus();
                 }),
             EHTreeNode(
                 menuName: "Asn Details",

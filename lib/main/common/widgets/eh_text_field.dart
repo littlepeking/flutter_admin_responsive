@@ -61,6 +61,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                         maxLines: 1,
                         textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
+                          hintText: controller.textHint,
                           contentPadding: EdgeInsets.all(5),
                           border: new OutlineInputBorder(),
                         ),
@@ -126,6 +127,8 @@ class EHTextFieldController extends EHEditWidgetController {
 
   Widget? afterWidget;
 
+  String textHint;
+
   EHTextFieldController(
       {double? width,
       bool autoFocus = false,
@@ -137,7 +140,8 @@ class EHTextFieldController extends EHEditWidgetController {
       this.onChanged,
       Future<bool> Function()? validate,
       Map<Key?, String>? errorBucket,
-      this.afterWidget})
+      this.afterWidget,
+      this.textHint = ''})
       : super(
             autoFocus: autoFocus,
             enabled: enabled,

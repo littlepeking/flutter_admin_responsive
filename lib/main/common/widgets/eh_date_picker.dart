@@ -67,6 +67,7 @@ class EHDatePickerController extends EHEditWidgetController {
         text: initDateTime == null
             ? ''
             : DateFormat(dateFormat).format(initDateTime),
+        textHint: dateFormat,
         enabled: enabled,
         mustInput: mustInput,
         validate: () async {
