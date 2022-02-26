@@ -29,8 +29,8 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                     ? controller.items[item]!
                     : ' ',
                 style: const TextStyle(
-                  fontSize: 14,
-                ),
+                    //  fontSize: 14,
+                    ),
               ),
             ),
           ),
@@ -107,7 +107,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                       hint: Text(
                         'Select Item',
                         style: TextStyle(
-                          fontSize: 14,
+                          //fontSize: 14,
                           color: Theme.of(context).hintColor,
                         ),
                       ),

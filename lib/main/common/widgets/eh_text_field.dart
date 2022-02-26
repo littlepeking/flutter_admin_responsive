@@ -61,6 +61,11 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                         maxLines: 1,
                         textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
+                          hintStyle: TextStyle().copyWith(
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .fontSize),
                           hintText: controller.textHint,
                           contentPadding: EdgeInsets.all(5),
                           border: new OutlineInputBorder(),

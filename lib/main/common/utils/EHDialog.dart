@@ -35,33 +35,43 @@ class EHDialog {
       context: Get.context!,
       builder: (BuildContext context) {
         return SimpleDialog(
+          titlePadding: EdgeInsets.zero,
+          contentPadding: Responsive.isMobile(Get.context!)
+              ? EdgeInsets.zero
+              : EdgeInsets.only(left: 0, right: 0, bottom: 15, top: 5),
           insetPadding: EdgeInsets.zero,
-          titlePadding: EdgeInsets.only(top: 10),
-          title: Row(
-            children: [
-              SizedBox(
-                width: 25,
-              ),
-              Expanded(
-                  child: Text(
-                title.tr,
-                style: TextStyle(fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              )),
-              IconButton(
-                  padding: EdgeInsets.only(right: 20),
-                  onPressed: () {
-                    Get.back(result: false);
-                    focusNode?.requestFocus();
-                  },
-                  icon: Icon(Icons.close))
-            ],
-          ),
           children: [
             Container(
-                height: height ?? Responsive.dialogHeight(Get.context!) - 70,
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 25,
+                  ),
+                  Expanded(
+                      child: Text(
+                    title.tr,
+                    style: TextStyle().copyWith(
+                        fontSize: Theme.of(Get.context!)
+                            .textTheme
+                            .headline3!
+                            .fontSize,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )),
+                  IconButton(
+                      padding: EdgeInsets.only(right: 20),
+                      onPressed: () {
+                        Get.back(result: false);
+                        focusNode?.requestFocus();
+                      },
+                      icon: Icon(Icons.close))
+                ],
+              ),
+            ),
+            Container(
+                height: height ?? Responsive.dialogHeight(Get.context!) - 73,
                 width: width ?? Responsive.dialogWidth(Get.context!),
-                child: widget)
+                child: widget),
           ],
           elevation: 10,
           //backgroundColor: Colors.green,

@@ -57,7 +57,10 @@ class EHTabHeader extends StatelessWidget {
                                                       index
                                                   ? 3
                                                   : 1),
-                                          color: Colors.grey.shade600),
+                                          color: ThemeController
+                                                  .instance.isDarkMode.value
+                                              ? Colors.grey.shade600
+                                              : Colors.black),
                                       left: BorderSide(
                                           width: 1.0,
                                           color: Colors.grey.shade600),

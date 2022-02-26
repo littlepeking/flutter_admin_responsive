@@ -62,7 +62,8 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                                     ? columnConfig.columnHeaderName!.tr
                                     : columnConfig.columnName.tr,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style:
+                                    Theme.of(Get.context!).textTheme.bodyText1,
                               ),
                               Obx(
                                 () => Icon(

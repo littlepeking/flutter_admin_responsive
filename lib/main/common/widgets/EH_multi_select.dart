@@ -62,8 +62,8 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
                           ? controller.items[itemKey]!
                           : ' ',
                       style: const TextStyle(
-                        fontSize: 14,
-                      ),
+                          //fontSize: 14,
+                          ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),

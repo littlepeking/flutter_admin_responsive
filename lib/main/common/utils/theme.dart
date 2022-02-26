@@ -7,6 +7,13 @@ class EhTheme {
   static ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
       //    primaryColor: Colors.amber,
+      textTheme: TextTheme(
+        bodyText1: TextStyle(fontSize: 13),
+        bodyText2: TextStyle(fontSize: 13),
+        button: TextStyle(fontSize: 13),
+        subtitle1: TextStyle(fontSize: 13),
+        headline3: TextStyle(fontSize: 18),
+      ),
       buttonTheme: ButtonThemeData(
         buttonColor: Colors.black,
 
@@ -35,6 +42,13 @@ class EhTheme {
   static ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.grey,
+      textTheme: TextTheme(
+        bodyText1: TextStyle(fontSize: 13),
+        bodyText2: TextStyle(fontSize: 13),
+        button: TextStyle(fontSize: 13),
+        subtitle1: TextStyle(fontSize: 13),
+        headline3: TextStyle(fontSize: 18),
+      ),
       buttonTheme: ButtonThemeData(
         buttonColor: Colors.grey[400]!,
         disabledColor: Colors.grey,

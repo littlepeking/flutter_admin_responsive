@@ -91,7 +91,7 @@ class EHDatePickerController extends EHEditWidgetController {
                             headerStyle: DateRangePickerHeaderStyle(
                                 textAlign: TextAlign.center,
                                 textStyle: TextStyle(
-                                  fontSize: 18,
+                                  // fontSize: 18,
                                   color: Get.textTheme.bodyText1!.color,
                                 )),
                             showNavigationArrow: true,

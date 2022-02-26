@@ -23,7 +23,7 @@ class Notifications extends StatelessWidget {
           Text(
             "Storage Details",
             style: TextStyle(
-              fontSize: 18,
+              //  fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
           ),
