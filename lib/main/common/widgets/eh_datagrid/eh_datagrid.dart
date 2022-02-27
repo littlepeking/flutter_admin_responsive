@@ -210,9 +210,15 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
   Widget _buildDataPager() {
     return SfDataPagerTheme(
       data: SfDataPagerThemeData(
-          brightness: Get.theme.colorScheme.brightness,
-          selectedItemColor: Get.theme.backgroundColor),
+        brightness: Get.theme.colorScheme.brightness,
+        selectedItemColor: Colors.grey,
+        itemBorderWidth: 0,
+        itemBorderRadius: BorderRadius.all(Radius.circular(30.0)),
+      ),
       child: SfDataPager(
+        itemWidth: 35,
+        itemHeight: 35,
+        navigationItemHeight: 35,
         onPageNavigationStart: (pagenumber) async {
           if (this.controller.dataGridSource.pageIndex != pagenumber) {
             this.controller.dataGridSource.pageIndex = pagenumber;
