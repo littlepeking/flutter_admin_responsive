@@ -11,7 +11,7 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 class EHDataGridController extends EHController {
   // Default pager height
   double rowHeight = 35;
-  double dataPagerHeight = 40.0;
+  double dataPagerHeight = 44.0;
   double headerRowHeight = 57.0;
   double? fixedHeight;
   bool showCheckbox;

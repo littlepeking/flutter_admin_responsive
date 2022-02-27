@@ -216,9 +216,10 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
         itemBorderRadius: BorderRadius.all(Radius.circular(30.0)),
       ),
       child: SfDataPager(
-        itemWidth: 35,
-        itemHeight: 35,
-        navigationItemHeight: 35,
+        itemWidth: 40,
+        itemHeight: 40,
+        itemPadding: EdgeInsets.all(5),
+        navigationItemHeight: 40,
         onPageNavigationStart: (pagenumber) async {
           if (this.controller.dataGridSource.pageIndex != pagenumber) {
             this.controller.dataGridSource.pageIndex = pagenumber;
