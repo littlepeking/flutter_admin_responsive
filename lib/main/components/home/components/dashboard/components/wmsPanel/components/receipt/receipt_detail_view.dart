@@ -93,7 +93,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                 controller.receiptModel.update((model) {
                                   model!.dateTime = value;
                                 }),
-                            label: '时间'))),
+                            label: 'date'.tr))),
                     Obx(() => EHDatePicker(
                         key: controller.datePicker2,
                         controller: EHDatePickerController(
@@ -105,7 +105,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                 controller.receiptModel.update((model) {
                                   model!.dateTime2 = value;
                                 }),
-                            label: '时间'))),
+                            label: 'date'.tr))),
                     Obx(() => EHDropdown(
                           key: controller.dropdownKey1,
                           controller: EHDropDownController(

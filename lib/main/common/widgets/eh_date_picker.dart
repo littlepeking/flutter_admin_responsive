@@ -117,15 +117,15 @@ class EHDatePickerController extends EHEditWidgetController {
                                       args) async {
                                 //selection change ==null means deselect date, return directly and waiting for select date again
                                 if (args.value == null) return;
-                                DateTime? selectedDateTime =
-                                    await addTime2Date(args.value as DateTime?);
+                                DateTime? selectedDateTime = await addTime2Date(
+                                    args.value as DateTime?, dateTime);
                                 if (selectedDateTime != null &&
                                     onChanged != null)
                                   onChanged(selectedDateTime);
                               },
                               onSubmit: (value) async {
-                                DateTime? selectedDateTime =
-                                    await addTime2Date(value as DateTime?);
+                                DateTime? selectedDateTime = await addTime2Date(
+                                    value as DateTime?, dateTime);
                                 if (selectedDateTime != null &&
                                     onChanged != null)
                                   onChanged(selectedDateTime);
@@ -146,31 +146,33 @@ class EHDatePickerController extends EHEditWidgetController {
         )));
   }
 
-  Future<DateTime?> addTime2Date(DateTime? date) async {
+  Future<DateTime?> addTime2Date(
+      DateTime? selectedDate, DateTime? originalDateTime) async {
     TimeOfDay? time;
 
-    if (date == null) {
+    if (selectedDate == null) {
       EHToastMessageHelper.showInfoMessage('Please select a date firstly'.tr);
       return null;
     }
 
     if (showTimePicker) {
-      time = await showCustomTimePicker();
+      time = await showCustomTimePicker(
+          TimeOfDay.fromDateTime(originalDateTime ?? DateTime.now()));
       if (time == null) {
         Get.back();
         return null;
       } else {
         Get.back();
-        return new DateTime(
-            date.year, date.month, date.day, time.hour, time.minute);
+        return new DateTime(selectedDate.year, selectedDate.month,
+            selectedDate.day, time.hour, time.minute);
       }
     } else {
       Get.back();
-      return date;
+      return selectedDate;
     }
   }
 
-  Future<TimeOfDay?> showCustomTimePicker() async {
+  Future<TimeOfDay?> showCustomTimePicker(TimeOfDay? initTime) async {
     Widget dialog = Obx(() => SimpleDialog(children: [
           MediaQuery(
               data: MediaQuery.of(Get.context!).copyWith(
@@ -206,7 +208,7 @@ class EHDatePickerController extends EHEditWidgetController {
                     height: 5,
                   ),
                   TimePickerDialog(
-                    initialTime: TimeOfDay.now(),
+                    initialTime: initTime ?? TimeOfDay.now(),
                     // initialEntryMode: initialEntryMode,
                   ),
                 ],
