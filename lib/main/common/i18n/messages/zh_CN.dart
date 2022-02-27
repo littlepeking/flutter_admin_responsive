@@ -50,5 +50,9 @@ Map<String, String> zhCNMessages = {
   'Validate Form': '校验表单',
   'Show Selected Rows': '显示选中数据',
   'Date format should be: ': '日期格式为:',
-  'Please Select Date': '请选择日期'
+  'Please Select Date': '请选择日期',
+  'Please select a date firstly': '请先选择日期',
+  'Use 24 hours': '24小时制',
+  'Confirm': '确认',
+  'Cancel': '取消'
 };

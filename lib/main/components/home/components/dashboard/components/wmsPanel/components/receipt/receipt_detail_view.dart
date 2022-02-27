@@ -7,7 +7,6 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_multi_select.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:eh_flutter_framework/test/TestData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -83,13 +82,30 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                 });
                               }),
                         )),
-                    EHDatePicker(
+                    Obx(() => EHDatePicker(
                         key: controller.datePicker1,
                         controller: EHDatePickerController(
                             mustInput: true,
                             //enabled: false,
                             focusNode: controller.datePickerFn1,
-                            label: '时间')),
+                            dateTime: controller.receiptModel.value.dateTime,
+                            onChanged: (value) =>
+                                controller.receiptModel.update((model) {
+                                  model!.dateTime = value;
+                                }),
+                            label: '时间'))),
+                    Obx(() => EHDatePicker(
+                        key: controller.datePicker2,
+                        controller: EHDatePickerController(
+                            mustInput: true,
+                            showTimePicker: true,
+                            focusNode: controller.datePickerFn2,
+                            dateTime: controller.receiptModel.value.dateTime2,
+                            onChanged: (value) =>
+                                controller.receiptModel.update((model) {
+                                  model!.dateTime2 = value;
+                                }),
+                            label: '时间'))),
                     Obx(() => EHDropdown(
                           key: controller.dropdownKey1,
                           controller: EHDropDownController(

@@ -10,11 +10,14 @@ class ReceiptModel extends EHModel {
   String dropdownValue;
   List<String> multiSelectValues;
   DateTime dateTime;
-  ReceiptModel(
-      {required this.receiptKey,
-      required this.customerId,
-      required this.customerName,
-      required this.dropdownValue,
-      required this.multiSelectValues,
-      required this.dateTime});
+  DateTime? dateTime2;
+  ReceiptModel({
+    required this.receiptKey,
+    required this.customerId,
+    required this.customerName,
+    required this.dropdownValue,
+    required this.multiSelectValues,
+    required this.dateTime,
+    required this.dateTime2,
+  });
 }

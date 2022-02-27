@@ -26,6 +26,8 @@ class ReceiptDetailViewController extends EHEditFormController {
 
   FocusNode datePickerFn1 = FocusNode();
 
+  FocusNode datePickerFn2 = FocusNode();
+
   GlobalKey popupKey1 = GlobalKey();
   GlobalKey textKey1 = GlobalKey();
   GlobalKey textKey2 = GlobalKey();
@@ -36,12 +38,15 @@ class ReceiptDetailViewController extends EHEditFormController {
 
   GlobalKey datePicker1 = GlobalKey();
 
+  GlobalKey datePicker2 = GlobalKey();
+
   Rx<ReceiptModel> receiptModel = ReceiptModel(
           receiptKey: 'key001',
           customerId: 'cus001',
           customerName: 'cus001Name',
           dropdownValue: '1',
           multiSelectValues: [],
-          dateTime: DateTime.now())
+          dateTime: DateTime.now(),
+          dateTime2: null)
       .obs;
 }
