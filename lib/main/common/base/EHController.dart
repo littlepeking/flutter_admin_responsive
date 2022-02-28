@@ -3,5 +3,5 @@ import 'package:get/get.dart';
 
 class EHController extends GetxController {
   static RxMap<Key, String> globalErrorBucket =
-      {GlobalKey(debugLabel: '_global_error_'): '__global_error__'}.obs;
+      {GlobalKey(debugLabel: '_eh_global_error_'): '__eh_global_error__'}.obs;
 }

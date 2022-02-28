@@ -1,6 +1,5 @@
-import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
-import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHDialog.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
@@ -14,37 +13,11 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EHPopup extends EHStatelessWidget<EHPopupController> {
+class EHPopup extends EHEditableWidget<EHPopupController> {
   EHPopup({
-    required Key key,
+    required Key? key,
     required EHPopupController controller,
   }) : super(key: key, controller: controller);
-
-  Future<bool> _validate() async {
-    bool isValid = controller.checkMustInput(key!, controller.text);
-
-    if (!isValid) return false;
-
-    List<Map> res = await controller._dataGridSource.getData(
-      {controller.codeColumnName: controller.text},
-      {},
-      0,
-      1,
-    );
-    if (res.length == 0) {
-      controller.errorBucket![key] =
-          'The code cannot be found'.tr + ':' + controller.text;
-      return false;
-    }
-
-    isValid = await controller.validate();
-
-    if (!isValid && EHUtilHelper.isEmpty(controller.errorBucket![key]))
-      throw Exception(
-          'Error: Must provide error message in errorBucket while validate failed');
-
-    return isValid;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +42,7 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                       child: Focus(
                         onFocusChange: (hasFocus) async {
                           if (!hasFocus) {
-                            await _validate();
+                            await controller._validate();
 
                             if (!EHUtilHelper.isEmpty(controller.text)) {
                               List<Map> res =
@@ -164,7 +137,7 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
   }
 }
 
-class EHPopupController extends EHEditWidgetController {
+class EHPopupController extends EHEditableWidgetController {
   EHTextEditingController _textEditingController = EHTextEditingController();
 
   late EHDataGridSource _dataGridSource;
@@ -237,5 +210,35 @@ class EHPopupController extends EHEditWidgetController {
     this.text = text;
     this.codeColumnName = codeColumnName!; //未集成后台的code配置前，该字段需要手工传入
     this._dataGridSource = getDateSource(dataGridSource, queryCode);
+  }
+
+  Future<bool> _validate() async {
+    bool isValid = checkMustInput(key, text);
+
+    if (!isValid) return false;
+
+    List<Map> res = await _dataGridSource.getData(
+      {codeColumnName: text},
+      {},
+      0,
+      1,
+    );
+    if (res.length == 0) {
+      errorBucket![key] = 'The code cannot be found'.tr + ':' + text;
+      return false;
+    }
+
+    isValid = await validate();
+
+    if (!isValid && EHUtilHelper.isEmpty(errorBucket![key]))
+      throw Exception(
+          'Error: Must provide error message in errorBucket while validate failed');
+
+    return isValid;
+  }
+
+  @override
+  Future<bool> validateWidget() async {
+    return _validate();
   }
 }

@@ -1,6 +1,6 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
-import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHDialog.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
@@ -14,9 +14,9 @@ import 'eh_text_field.dart';
 
 import 'package:intl/intl.dart';
 
-class EHDatePicker extends EHStatelessWidget<EHDatePickerController> {
+class EHDatePicker extends EHEditableWidget<EHDatePickerController> {
   EHDatePicker({
-    required Key key,
+    required Key? key,
     required EHDatePickerController controller,
   })  : this.textFieldKey = key,
         super(
@@ -36,7 +36,7 @@ class EHDatePicker extends EHStatelessWidget<EHDatePickerController> {
   }
 }
 
-class EHDatePickerController extends EHEditWidgetController {
+class EHDatePickerController extends EHEditableWidgetController {
   late EHTextFieldController _textEditingController;
 
   late Key textFieldKey;
@@ -280,5 +280,10 @@ class EHDatePickerController extends EHEditWidgetController {
           'Error: Must provide error message in errorBucket while validate failed');
 
     return isValid;
+  }
+
+  @override
+  Future<bool> validateWidget() async {
+    return _validate();
   }
 }

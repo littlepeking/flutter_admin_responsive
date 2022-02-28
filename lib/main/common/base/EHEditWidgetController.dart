@@ -4,14 +4,14 @@ import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EHEditWidgetController extends EHController {
-  EHEditWidgetController(
+abstract class EHEditableWidgetController extends EHController {
+  EHEditableWidgetController(
       {this.width,
       bool mustInput = false,
       String label = '',
       bool enabled = true,
       bool autoFocus = false,
-      required this.focusNode,
+      FocusNode? focusNode,
       Future<bool> Function()? validate,
       Map<Key?, String>? errorBucket}) {
     this.width = LayoutConstant.editWidgetSize;
@@ -20,10 +20,13 @@ class EHEditWidgetController extends EHController {
     this.enabled = enabled;
     this.mustInput = mustInput;
     this.autoFocus = autoFocus;
+    this.focusNode = focusNode ?? FocusNode();
     this.errorBucket = (errorBucket == null
         ? EHController.globalErrorBucket
         : errorBucket.obs);
   }
+
+  late Key key;
 
   late Future<bool> Function() validate;
 
@@ -71,7 +74,7 @@ class EHEditWidgetController extends EHController {
 
   RxMap<Key?, String>? errorBucket;
 
-  FocusNode focusNode;
+  late FocusNode focusNode;
 
   bool checkMustInput(Key key, text, {String emptyValue = ''}) {
     if (mustInput) {
@@ -88,4 +91,6 @@ class EHEditWidgetController extends EHController {
 
     return true;
   }
+
+  validateWidget();
 }

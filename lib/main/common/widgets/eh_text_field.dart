@@ -1,34 +1,18 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
-import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
-import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class EHTextField extends EHStatelessWidget<EHTextFieldController> {
+class EHTextField extends EHEditableWidget<EHTextFieldController> {
   EHTextField({
-    required Key key,
+    required Key? key,
     required EHTextFieldController controller,
   }) : super(key: key, controller: controller);
-
-  Future<bool> _validate() async {
-    bool isValid = controller.checkMustInput(key!, controller.text);
-
-    if (!isValid) return false;
-
-    isValid = await controller.validate();
-
-    if (!isValid && EHUtilHelper.isEmpty(controller.errorBucket![key]))
-      throw Exception(
-          'Error: Must provide error message in errorBucket while validate failed');
-
-    return isValid;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +38,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                         canRequestFocus: false,
                         onFocusChange: (hasFocus) async {
                           if (!hasFocus) {
-                            if (!await _validate()) {
+                            if (!await controller._validate()) {
                               // controller.focusNode.requestFocus();
                             }
 
@@ -127,7 +111,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
   }
 }
 
-class EHTextFieldController extends EHEditWidgetController {
+class EHTextFieldController extends EHEditableWidgetController {
   EHTextEditingController _textEditingController =
       new EHTextEditingController();
 
@@ -168,6 +152,25 @@ class EHTextFieldController extends EHEditWidgetController {
             errorBucket: errorBucket) {
     this.validate = validate ?? () async => true;
     this.text = text;
+  }
+
+  Future<bool> _validate() async {
+    bool isValid = checkMustInput(key, text);
+
+    if (!isValid) return false;
+
+    isValid = await validate();
+
+    if (!isValid && EHUtilHelper.isEmpty(errorBucket![key]))
+      throw Exception(
+          'Error: Must provide error message in errorBucket while validate failed');
+
+    return isValid;
+  }
+
+  @override
+  Future<bool> validateWidget() async {
+    return await _validate();
   }
 }
 
