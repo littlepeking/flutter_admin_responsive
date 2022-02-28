@@ -91,6 +91,7 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
               controller: EHDropDownController(
                 focusNode: FocusNode(),
                 isMenu: true,
+                dropDownWidth: 150,
                 label: 'Actions',
                 items: {
                   'receivingASN': 'Receiving ASN',

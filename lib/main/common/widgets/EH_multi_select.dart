@@ -174,7 +174,7 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
                         itemHeight: 23,
                         itemPadding:
                             const EdgeInsets.symmetric(horizontal: 2.0),
-                        dropdownWidth: 200,
+                        dropdownWidth: LayoutConstant.DefaultDropDownItemWidth,
                         //dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
                         dropdownDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),

@@ -9,5 +9,5 @@ class LayoutConstant {
           ? EdgeInsets.symmetric(horizontal: 5)
           : EdgeInsets.symmetric(horizontal: 2);
 
-  static double DefaulyDropDownItemWidth = 200;
+  static double DefaultDropDownItemWidth = 200;
 }

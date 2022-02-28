@@ -153,7 +153,8 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                       buttonWidth: controller.width,
                       itemHeight: 23,
                       itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
-                      dropdownWidth: LayoutConstant.DefaulyDropDownItemWidth,
+                      dropdownWidth: controller.dropDownWidth ??
+                          LayoutConstant.DefaultDropDownItemWidth,
                       //dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
                       dropdownDecoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
@@ -211,8 +212,11 @@ class EHDropDownController extends EHEditWidgetController {
   ValueChanged<String>? onChanged;
   bool isMenu;
 
+  double? dropDownWidth;
+
   EHDropDownController(
       {double? width,
+      this.dropDownWidth,
       this.isMenu = false,
       EdgeInsets? padding,
       bool autoFocus = false,
