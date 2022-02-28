@@ -7,6 +7,7 @@ import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class EHTextField extends EHStatelessWidget<EHTextFieldController> {
@@ -48,57 +49,69 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
                   Expanded(
                     child: Container(
                       height: 25,
-                      child: TextField(
-                        // keyboardType: TextInputType.number,
-                        // inputFormatters: <TextInputFormatter>[
-                        //   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                        // ],
-                        autofocus: controller.autoFocus,
-                        focusNode: controller.focusNode,
-                        textInputAction: TextInputAction.next,
-                        maxLines: 1,
-                        textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
-                          hintStyle: TextStyle().copyWith(
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .fontSize),
-                          hintText: controller.textHint,
-                          contentPadding: EdgeInsets.all(5),
-                          border: new OutlineInputBorder(),
-                        ),
-                        controller: controller._textEditingController,
-                        enabled: controller.enabled,
-                        // onEditingComplete: () {
-                        //   // Move the focus to the next node explicitly.
-                        //   if (controller.onEditingComplete == null) {
-                        //     FocusScope.of(context).nextFocus();
-                        //   } else {
-                        //     controller.onEditingComplete!(context);
-                        //   }
-                        // },
+                      child: Focus(
+                        descendantsAreFocusable: true,
+                        canRequestFocus: false,
+                        onFocusChange: (hasFocus) async {
+                          if (!hasFocus) {
+                            if (!await _validate()) {
+                              // controller.focusNode.requestFocus();
+                            }
 
-                        // onChanged: (v) {
-                        //   if (controller.mustInput) {
-                        //     if (EHUtilHelper.isEmpty(v)) {
-                        //       controller.errorBucket![key] =
-                        //           'This field cannot be empty'.tr;
-                        //     } else {
-                        //       controller.errorBucket![key] = '';
-                        //     }
-                        //   }
-                        //   controller.onChanged!(v);
-                        // },
-                        // onSubmitted: (v) {
-                        //   print(v);
-                        // },
-                        onEditingComplete: () async {
-                          if (!await _validate()) return;
-                          if (controller.onChanged != null)
-                            controller.onChanged!(controller.text);
-                          controller.focusNode.nextFocus();
+                            if (controller.onChanged != null)
+                              controller.onChanged!(controller.text);
+                          }
                         },
+                        child: TextField(
+                          // keyboardType: TextInputType.number,
+                          // inputFormatters: <TextInputFormatter>[
+                          //   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          // ],
+                          autofocus: controller.autoFocus,
+                          focusNode: controller.focusNode,
+                          textInputAction: TextInputAction.next,
+                          maxLines: 1,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                            hintStyle: TextStyle().copyWith(
+                                fontSize: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .fontSize),
+                            hintText: controller.textHint,
+                            contentPadding: EdgeInsets.all(5),
+                            border: new OutlineInputBorder(),
+                          ),
+                          controller: controller._textEditingController,
+                          enabled: controller.enabled,
+                          // onEditingComplete: () {
+                          //   // Move the focus to the next node explicitly.
+                          //   if (controller.onEditingComplete == null) {
+                          //     FocusScope.of(context).nextFocus();
+                          //   } else {
+                          //     controller.onEditingComplete!(context);
+                          //   }
+                          // },
+
+                          // onChanged: (v) {
+                          //   if (controller.mustInput) {
+                          //     if (EHUtilHelper.isEmpty(v)) {
+                          //       controller.errorBucket![key] =
+                          //           'This field cannot be empty'.tr;
+                          //     } else {
+                          //       controller.errorBucket![key] = '';
+                          //     }
+                          //   }
+                          //   controller.onChanged!(v);
+                          // },
+                          // onSubmitted: (v) {
+                          //   print(v);
+                          // },
+                          onEditingComplete: () {
+                            controller.focusNode.nextFocus();
+                            //controller.focusNode.unfocus();
+                          },
+                        ),
                       ),
                     ),
                   ),

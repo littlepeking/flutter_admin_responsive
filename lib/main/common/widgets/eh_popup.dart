@@ -32,7 +32,8 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
       1,
     );
     if (res.length == 0) {
-      controller.errorBucket![key] = 'The code cannot be found'.tr;
+      controller.errorBucket![key] =
+          'The code cannot be found'.tr + ':' + controller.text;
       return false;
     }
 
@@ -65,33 +66,52 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: TextField(
-                          autofocus: controller.autoFocus,
-                          focusNode: controller.focusNode,
-                          textInputAction: TextInputAction.next,
-                          maxLines: 1,
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(5),
-                            border: new OutlineInputBorder(),
-                          ),
-                          onEditingComplete: () async {
-                            if (!await _validate()) return;
-                            List<Map> res =
-                                await controller._dataGridSource.getData(
-                              {controller.codeColumnName: controller.text},
-                              {},
-                              0,
-                              1,
-                            );
-                            controller.onChanged!(controller.text, res.first);
-                            controller.focusNode.nextFocus();
-                          },
-                          controller: controller._textEditingController,
-                          enabled: controller.enabled,
-                          onChanged: (v) {
-                            //TO DO: add check from backend do validate, if error then set column to empty
-                          }),
+                      child: Focus(
+                        onFocusChange: (hasFocus) async {
+                          if (!hasFocus) {
+                            await _validate();
+
+                            if (!EHUtilHelper.isEmpty(controller.text)) {
+                              List<Map> res =
+                                  await controller._dataGridSource.getData(
+                                {controller.codeColumnName: controller.text},
+                                {},
+                                0,
+                                1,
+                              );
+                              if (res.isNotEmpty) {
+                                controller.onChanged!(
+                                    controller.text, res.first);
+                              } else {
+                                //set code to empty as it's wrong code
+                                //controller.onChanged!(controller.text, null);
+                                controller.onChanged!(null, null);
+                              }
+                            } else {
+                              controller.onChanged!(null, null);
+                            }
+                          }
+                        },
+                        canRequestFocus: false,
+                        child: TextField(
+                            autofocus: controller.autoFocus,
+                            focusNode: controller.focusNode,
+                            textInputAction: TextInputAction.next,
+                            maxLines: 1,
+                            textAlignVertical: TextAlignVertical.center,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(5),
+                              border: new OutlineInputBorder(),
+                            ),
+                            onEditingComplete: () async {
+                              controller.focusNode.nextFocus();
+                            },
+                            controller: controller._textEditingController,
+                            enabled: controller.enabled,
+                            onChanged: (v) {
+                              //TO DO: add check from backend do validate, if error then set column to empty
+                            }),
+                      ),
                     ),
                     Container(
                       width: 30,
@@ -157,15 +177,15 @@ class EHPopupController extends EHEditWidgetController {
 
   String? queryCode;
 
-  set text(val) {
-    this._textEditingController.text = val;
+  set text(String? val) {
+    this._textEditingController.text = val ?? '';
   }
 
   String get text {
     return _textEditingController.text;
   }
 
-  void Function(String code, Map row)? onChanged;
+  void Function(String? code, Map? row)? onChanged;
 
   EHDataGridSource getDateSource(
       EHDataGridSource? dataGridSource, String? queryCode) {
@@ -197,7 +217,7 @@ class EHPopupController extends EHEditWidgetController {
       this.queryCode,
       required this.popupTitle,
       String label = '',
-      String text = '',
+      String? text = '',
       bool enabled = true,
       bool mustInput = false,
       this.onChanged,

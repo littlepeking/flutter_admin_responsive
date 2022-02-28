@@ -44,15 +44,17 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
                           if (isSelected!) {
                             controller.selectedValues.add(itemKey);
                             _theState.notify();
-                            _validate(controller.selectedValues);
+
                             if (controller.onChanged != null)
                               controller.onChanged!(controller.selectedValues);
+                            _validate(controller.selectedValues);
                           } else {
                             controller.selectedValues.remove(itemKey);
                             _theState.notify();
-                            _validate(controller.selectedValues);
+
                             if (controller.onChanged != null)
                               controller.onChanged!(controller.selectedValues);
+                            _validate(controller.selectedValues);
                           }
                         });
                   }),

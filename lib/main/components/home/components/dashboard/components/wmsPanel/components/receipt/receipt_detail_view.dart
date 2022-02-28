@@ -50,19 +50,6 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                     model!.receiptKey = value;
                                   })),
                         )),
-                    Obx(() => EHTextField(
-                          key: controller.textKey2,
-                          controller: EHTextFieldController(
-                              focusNode: controller.textFn2,
-                              label: '测试2',
-                              //errorBucket: controller.errorBucket,
-                              text: controller.receiptModel.value.receiptKey,
-                              mustInput: true,
-                              onChanged: (value) =>
-                                  controller.receiptModel.update((model) {
-                                    model!.receiptKey = value;
-                                  })),
-                        )),
                     Obx(() => EHPopup(
                           key: controller.popupKey1,
                           controller: EHPopupController(
@@ -78,9 +65,22 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                 //  controller.popUpFn!.requestFocus();
                                 controller.receiptModel.update((model) {
                                   model!.customerId = code;
-                                  model.customerName = row['name'] ?? '';
+                                  model.customerName = row?['name'] ?? '';
                                 });
                               }),
+                        )),
+                    Obx(() => EHTextField(
+                          key: controller.textKey2,
+                          controller: EHTextFieldController(
+                              focusNode: controller.textFn2,
+                              label: '测试2',
+                              //errorBucket: controller.errorBucket,
+                              text: controller.receiptModel.value.receiptKey,
+                              mustInput: true,
+                              onChanged: (value) =>
+                                  controller.receiptModel.update((model) {
+                                    model!.receiptKey = value;
+                                  })),
                         )),
                     Obx(() => EHDatePicker(
                         key: controller.datePicker1,

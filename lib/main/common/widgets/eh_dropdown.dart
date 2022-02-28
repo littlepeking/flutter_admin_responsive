@@ -121,9 +121,9 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                           : '',
                       onChanged: controller.enabled
                           ? (v) async {
-                              await _validate(v.toString());
                               if (controller.onChanged != null)
                                 controller.onChanged!(v.toString());
+                              await _validate(v.toString());
                               controller.focusNode.nextFocus();
                             }
                           : null,

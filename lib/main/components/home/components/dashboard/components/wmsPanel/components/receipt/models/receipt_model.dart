@@ -4,12 +4,12 @@ import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 
 class ReceiptModel extends EHModel {
   String receiptKey;
-  String customerId;
+  String? customerId;
   String customerName;
 
   String dropdownValue;
   List<String> multiSelectValues;
-  DateTime dateTime;
+  DateTime? dateTime;
   DateTime? dateTime2;
   ReceiptModel({
     required this.receiptKey,

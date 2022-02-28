@@ -54,7 +54,7 @@ class EHDatePickerController extends EHEditWidgetController {
       bool mustInput = false,
       this.showTimePicker = false,
       String? dateFormat,
-      ValueChanged<DateTime>? onChanged,
+      ValueChanged<DateTime?>? onChanged,
       Future<bool> Function()? validate,
       Map<Key?, String>? errorBucket})
       : super(
@@ -80,11 +80,26 @@ class EHDatePickerController extends EHEditWidgetController {
         enabled: enabled,
         mustInput: mustInput,
         validate: () async {
+          //Call by TextField to prevent focus change.
           return await _validate();
         },
-        onChanged: (value) async {
-          DateTime parsedDate = new DateFormat(_dateFormat).parseStrict(value);
-          if (onChanged != null) onChanged(parsedDate);
+        onChanged: (value) {
+          try {
+            DateTime? parsedDate = dateTime;
+            if (!EHUtilHelper.isEmpty(_textEditingController.text)) {
+              try {
+                parsedDate = new DateFormat(_dateFormat)
+                    .parseStrict(_textEditingController.text);
+              } catch (e) {
+                parsedDate = null;
+              }
+            } else {
+              parsedDate = null;
+            }
+            if (onChanged != null) onChanged(parsedDate);
+          } catch (e) {
+            return;
+          }
         },
         afterWidget: ExcludeFocus(
             child: SizedBox(
@@ -122,6 +137,8 @@ class EHDatePickerController extends EHEditWidgetController {
                                 if (selectedDateTime != null &&
                                     onChanged != null)
                                   onChanged(selectedDateTime);
+                                focusNode.requestFocus();
+                                focusNode.nextFocus();
                               },
                               onSubmit: (value) async {
                                 DateTime? selectedDateTime = await addTime2Date(
@@ -129,6 +146,8 @@ class EHDatePickerController extends EHEditWidgetController {
                                 if (selectedDateTime != null &&
                                     onChanged != null)
                                   onChanged(selectedDateTime);
+                                focusNode.requestFocus();
+                                focusNode.nextFocus();
                               },
                               onCancel: () {
                                 Get.back();
@@ -163,11 +182,13 @@ class EHDatePickerController extends EHEditWidgetController {
         return null;
       } else {
         Get.back();
+        errorBucket![textFieldKey] = '';
         return new DateTime(selectedDate.year, selectedDate.month,
             selectedDate.day, time.hour, time.minute);
       }
     } else {
       Get.back();
+      errorBucket![textFieldKey] = '';
       return selectedDate;
     }
   }
@@ -241,7 +262,8 @@ class EHDatePickerController extends EHEditWidgetController {
     if (!isValid) return false;
 
     try {
-      new DateFormat(_dateFormat).parseStrict(_textEditingController.text);
+      if (!EHUtilHelper.isEmpty(_textEditingController.text))
+        new DateFormat(_dateFormat).parseStrict(_textEditingController.text);
     } catch (e) {
       errorBucket![textFieldKey] = 'Date format should be: '.tr + _dateFormat;
       return false;
