@@ -58,13 +58,16 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                columnConfig.columnHeaderName != null
-                                    ? columnConfig.columnHeaderName!.tr
-                                    : columnConfig.columnName.tr,
-                                overflow: TextOverflow.ellipsis,
-                                style:
-                                    Theme.of(Get.context!).textTheme.bodyText1,
-                              ),
+                                  columnConfig.columnHeaderName != null
+                                      ? columnConfig.columnHeaderName!.tr
+                                      : columnConfig.columnName.tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: new TextStyle().copyWith(
+                                      fontSize: Theme.of(Get.context!)
+                                          .textTheme
+                                          .bodyText1!
+                                          .fontSize,
+                                      fontWeight: FontWeight.bold)),
                               Obx(
                                 () => Icon(
                                   getColumnFilter(columnConfig.columnName)
