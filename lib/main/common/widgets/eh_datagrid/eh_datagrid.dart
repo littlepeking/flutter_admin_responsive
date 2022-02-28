@@ -120,6 +120,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
       return Obx(() => EHDropdown(
           key: GlobalKey(),
           controller: EHDropDownController(
+              dropDownWidth: 100,
               padding: EdgeInsets.zero,
               showErrorInfo: false,
               showLabel: false,
