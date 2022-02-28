@@ -194,47 +194,51 @@ class EHDatePickerController extends EHEditWidgetController {
   }
 
   Future<TimeOfDay?> showCustomTimePicker(TimeOfDay? initTime) async {
-    Widget dialog = Obx(() => SimpleDialog(children: [
-          MediaQuery(
-              data: MediaQuery.of(Get.context!).copyWith(
-                  textScaleFactor: 1.2,
-                  alwaysUse24HourFormat: is24HoursMode.value),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: Row(
-                        children: [
-                          Text('Use 24 hours'.tr),
-                          SizedBox(
-                            width: 20,
+    Widget dialog = Obx(() => SimpleDialog(
+            contentPadding: EdgeInsets.all(5),
+            titlePadding: EdgeInsets.zero,
+            insetPadding: EdgeInsets.zero,
+            children: [
+              MediaQuery(
+                  data: MediaQuery.of(Get.context!)
+                      .copyWith(alwaysUse24HourFormat: is24HoursMode.value),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Use 24 hours'.tr),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              FlutterSwitch(
+                                width: 55,
+                                height: 30,
+                                activeTextColor: Colors.green,
+                                inactiveTextColor: Colors.grey,
+                                value: is24HoursMode.value,
+                                onToggle: (val) {
+                                  is24HoursMode.value = val;
+                                },
+                              ),
+                            ],
                           ),
-                          FlutterSwitch(
-                            width: 55,
-                            height: 30,
-                            activeTextColor: Colors.green,
-                            inactiveTextColor: Colors.grey,
-                            value: is24HoursMode.value,
-                            onToggle: (val) {
-                              is24HoursMode.value = val;
-                            },
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  TimePickerDialog(
-                    initialTime: initTime ?? TimeOfDay.now(),
-                    // initialEntryMode: initialEntryMode,
-                  ),
-                ],
-              )),
-        ]));
+                      SizedBox(
+                        height: 2,
+                      ),
+                      TimePickerDialog(
+                        initialTime: initTime ?? TimeOfDay.now(),
+                        // initialEntryMode: initialEntryMode,
+                      ),
+                    ],
+                  )),
+            ]));
     TimeOfDay? time = await showDialog<TimeOfDay>(
         context: Get.context!,
         builder: (context) {
