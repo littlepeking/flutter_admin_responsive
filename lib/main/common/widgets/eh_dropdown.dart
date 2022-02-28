@@ -1,6 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
-import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
 import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
@@ -9,8 +9,8 @@ import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EHDropdown extends EHStatelessWidget<EHDropDownController> {
-  EHDropdown({required Key key, required EHDropDownController controller})
+class EHDropdown extends EHEditableWidget<EHDropDownController> {
+  EHDropdown({Key? key, required EHDropDownController controller})
       : super(key: key, controller: controller);
 
   List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> items) {
@@ -78,7 +78,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
               decoration: BoxDecoration(
                 color: !controller.isMenu
                     ? null
-                    : ThemeController.instance.isDarkMode == true
+                    : ThemeController.instance.isDarkMode.value
                         ? Colors.grey[900]
                         : Colors.white,
                 borderRadius: BorderRadius.circular(5.0),
@@ -145,7 +145,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                           ? (v) async {
                               if (controller.onChanged != null)
                                 controller.onChanged!(v.toString());
-                              await _validate(v.toString());
+                              await controller._validate(v.toString());
                               controller.focusNode.nextFocus();
                             }
                           : null,
@@ -154,7 +154,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                       itemHeight: 23,
                       itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
                       dropdownWidth: controller.dropDownWidth ??
-                          LayoutConstant.DefaultDropDownItemWidth,
+                          LayoutConstant.defaultDropDownItemWidth,
                       //dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
                       dropdownDecoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
@@ -172,23 +172,9 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
           ],
         )));
   }
-
-  Future<bool> _validate(String value) async {
-    bool isValid = controller.checkMustInput(key!, value, emptyValue: '');
-
-    if (!isValid) return false;
-
-    isValid = await controller.validate();
-
-    if (!isValid && EHUtilHelper.isEmpty(controller.errorBucket![key]))
-      throw Exception(
-          'Error: Must provide error message in errorBucket while validate failed');
-
-    return isValid;
-  }
 }
 
-class EHDropDownController extends EHEditWidgetController {
+class EHDropDownController extends EHEditableWidgetController {
   late Map<String, String> items;
 
   RxString _selectedValue = ''.obs;
@@ -242,5 +228,24 @@ class EHDropDownController extends EHEditWidgetController {
     this.items = items;
     this.selectedValue = selectedValue;
     this.validate = validate ?? () async => true;
+  }
+
+  Future<bool> _validate(String value) async {
+    bool isValid = checkMustInput(key, value, emptyValue: '');
+
+    if (!isValid) return false;
+
+    isValid = await validate();
+
+    if (!isValid && EHUtilHelper.isEmpty(errorBucket![key]))
+      throw Exception(
+          'Error: Must provide error message in errorBucket while validate failed');
+
+    return isValid;
+  }
+
+  @override
+  validateWidget() async {
+    return await _validate(selectedValue);
   }
 }

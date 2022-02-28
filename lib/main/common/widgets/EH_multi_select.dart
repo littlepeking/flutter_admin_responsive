@@ -1,9 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
-import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
-import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +12,8 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 
 class _TheState {}
 
-class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
-  EHMultiSelect({required Key key, required EHMultiSelectController controller})
+class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
+  EHMultiSelect({Key? key, required EHMultiSelectController controller})
       : super(key: key, controller: controller);
 
   final _theState = RM.inject(() =>
@@ -47,14 +46,14 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
 
                             if (controller.onChanged != null)
                               controller.onChanged!(controller.selectedValues);
-                            _validate(controller.selectedValues);
+                            controller._validate(controller.selectedValues);
                           } else {
                             controller.selectedValues.remove(itemKey);
                             _theState.notify();
 
                             if (controller.onChanged != null)
                               controller.onChanged!(controller.selectedValues);
-                            _validate(controller.selectedValues);
+                            controller._validate(controller.selectedValues);
                           }
                         });
                   }),
@@ -174,7 +173,7 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
                         itemHeight: 23,
                         itemPadding:
                             const EdgeInsets.symmetric(horizontal: 2.0),
-                        dropdownWidth: LayoutConstant.DefaultDropDownItemWidth,
+                        dropdownWidth: LayoutConstant.defaultDropDownItemWidth,
                         //dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
                         dropdownDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
@@ -191,20 +190,6 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
                 : SizedBox()
           ],
         ));
-  }
-
-  Future<bool> _validate(List<String> value) async {
-    bool isValid = controller.checkMustInput(key!, value, emptyValue: '');
-
-    if (!isValid) return false;
-
-    isValid = await controller.validate();
-
-    if (!isValid && EHUtilHelper.isEmpty(controller.errorBucket![key]))
-      throw Exception(
-          'Error: Must provide error message in errorBucket while validate failed');
-
-    return isValid;
   }
 
   getDisplayValues() {
@@ -224,7 +209,7 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
   }
 }
 
-class EHMultiSelectController extends EHEditWidgetController {
+class EHMultiSelectController extends EHEditableWidgetController {
   late Map<String, String> items;
 
   EdgeInsets padding;
@@ -273,5 +258,24 @@ class EHMultiSelectController extends EHEditWidgetController {
     this.items = items;
     this.selectedValues = selectedValues;
     this.validate = validate ?? () async => true;
+  }
+
+  Future<bool> _validate(List<String> value) async {
+    bool isValid = checkMustInput(key, value, emptyValue: '');
+
+    if (!isValid) return false;
+
+    isValid = await validate();
+
+    if (!isValid && EHUtilHelper.isEmpty(errorBucket![key]))
+      throw Exception(
+          'Error: Must provide error message in errorBucket while validate failed');
+
+    return isValid;
+  }
+
+  @override
+  Future<bool> validateWidget() async {
+    return await _validate(selectedValues);
   }
 }
