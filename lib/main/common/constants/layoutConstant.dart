@@ -8,4 +8,6 @@ class LayoutConstant {
       Responsive.isDesktop(Get.context!)
           ? EdgeInsets.symmetric(horizontal: 5)
           : EdgeInsets.symmetric(horizontal: 2);
+
+  static double DefaulyDropDownItemWidth = 200;
 }

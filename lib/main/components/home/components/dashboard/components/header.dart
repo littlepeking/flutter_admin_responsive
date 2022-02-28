@@ -45,7 +45,7 @@ List<Widget> getHeaderButtons(BuildContext context) {
 getFunctionButtons() {
   return [
     EHImageButton(
-      text: 'WMS'.tr,
+      text: 'WMS',
       icon: Icon(Icons.cabin),
       onPressed: (data) {
         // if (System.wms != GlobalDataController.instance.system.value) {
@@ -55,7 +55,7 @@ getFunctionButtons() {
       },
     ),
     EHImageButton(
-      text: 'TMS'.tr,
+      text: 'TMS',
       icon: Icon(Icons.local_shipping),
       onPressed: (data) {
         if (System.tms != GlobalDataController.instance.system.value) {
@@ -65,7 +65,7 @@ getFunctionButtons() {
       },
     ),
     EHImageButton(
-      text: 'Notification'.tr,
+      text: 'Notification',
       icon: Icon(Icons.notifications),
       onPressed: (data) {
         if (System.notification != GlobalDataController.instance.system.value) {
@@ -76,7 +76,7 @@ getFunctionButtons() {
     ),
     SizedBox(width: 0),
     EHImageButton(
-        text: 'changeTheme'.tr,
+        text: 'changeTheme',
         icon: Icon(Icons.ac_unit_sharp),
         onPressed: (data) {
           Get.changeThemeMode(
@@ -88,7 +88,7 @@ getFunctionButtons() {
         }),
     SizedBox(width: 0),
     EHImageButton(
-        text: 'changeLocale'.tr,
+        text: 'changeLocale',
         icon: Icon(Icons.language),
         onPressed: (data) {
           var enLocale = Locale('en', 'US');

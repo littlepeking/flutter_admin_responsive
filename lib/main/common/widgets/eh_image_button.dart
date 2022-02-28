@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../constants.dart';
 
 class EHImageButton<T> extends StatelessWidget {
@@ -22,7 +23,7 @@ class EHImageButton<T> extends StatelessWidget {
         ? IconButton(
             onPressed: () => onPressed(data),
             icon: icon,
-            tooltip: this.text,
+            tooltip: this.text.tr,
           )
         : MouseRegion(
             cursor: SystemMouseCursors.click,
@@ -45,7 +46,7 @@ class EHImageButton<T> extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: defaultPadding / 2),
-                        child: Text(text),
+                        child: Text(text.tr),
                       ),
                       SizedBox(width: 5),
                     ],

@@ -31,7 +31,7 @@ class EHEditWidgetController extends EHController {
 
   RxString _label = ''.obs;
 
-  get label {
+  String get label {
     return _label.value;
   }
 

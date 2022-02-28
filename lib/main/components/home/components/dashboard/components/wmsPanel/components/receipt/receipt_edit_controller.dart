@@ -3,6 +3,7 @@ import 'package:eh_flutter_framework/main/common/base/EHEditPanelController.dart
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/test/TestData.dart';
@@ -21,13 +22,14 @@ class ReceiptEditController extends EHEditFormController {
 
   late EHDataGridController asnHeaderDataGridController;
 
+  EHDropDownController? ehDropDownMenuController;
+
   ReceiptDetailViewController receiptDetailInfoController =
       ReceiptDetailViewController();
 
   RxDouble splitterWeights = 0.5.obs;
 
   FocusNode fnButton = FocusNode();
-
   ReceiptEditController() {
     asnHeaderDataGridController = EHDataGridController(
         showCheckbox: true,

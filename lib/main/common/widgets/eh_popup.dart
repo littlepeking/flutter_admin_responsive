@@ -59,7 +59,7 @@ class EHPopup extends EHStatelessWidget<EHPopupController> {
             children: [
               EHEditLabel(
                 mustInput: controller.mustInput,
-                label: controller.label,
+                label: controller.label.tr,
               ),
               Container(
                 height: 25,

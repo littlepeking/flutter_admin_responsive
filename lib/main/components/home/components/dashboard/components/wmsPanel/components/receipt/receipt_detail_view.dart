@@ -57,7 +57,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                               focusNode: controller.popUpFn,
                               codeColumnName: 'customerId',
                               dataGridSource: DataGridTest.getDataGridSource(),
-                              label: '测试1',
+                              label: 'popUp',
                               text: controller.receiptModel.value.customerId,
                               mustInput: true,
                               //  autoFocus: true,
@@ -68,19 +68,6 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                   model.customerName = row?['name'] ?? '';
                                 });
                               }),
-                        )),
-                    Obx(() => EHTextField(
-                          key: controller.textKey2,
-                          controller: EHTextFieldController(
-                              focusNode: controller.textFn2,
-                              label: '测试2',
-                              //errorBucket: controller.errorBucket,
-                              text: controller.receiptModel.value.receiptKey,
-                              mustInput: true,
-                              onChanged: (value) =>
-                                  controller.receiptModel.update((model) {
-                                    model!.receiptKey = value;
-                                  })),
                         )),
                     Obx(() => EHDatePicker(
                         key: controller.datePicker1,
@@ -93,7 +80,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                 controller.receiptModel.update((model) {
                                   model!.dateTime = value;
                                 }),
-                            label: 'date'.tr))),
+                            label: 'date'))),
                     Obx(() => EHDatePicker(
                         key: controller.datePicker2,
                         controller: EHDatePickerController(
@@ -105,13 +92,13 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                 controller.receiptModel.update((model) {
                                   model!.dateTime2 = value;
                                 }),
-                            label: 'date'.tr))),
+                            label: 'date'))),
                     Obx(() => EHDropdown(
                           key: controller.dropdownKey1,
                           controller: EHDropDownController(
                               validate: () async => true,
                               focusNode: controller.ddlFn1,
-                              label: '测试4',
+                              label: 'popUp',
                               mustInput: true,
                               selectedValue:
                                   controller.receiptModel.value.dropdownValue,
@@ -143,6 +130,19 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                               onChanged: (value) =>
                                   controller.receiptModel.update((model) {
                                     model!.dropdownValue = value;
+                                  })),
+                        )),
+                    Obx(() => EHTextField(
+                          key: controller.textKey2,
+                          controller: EHTextFieldController(
+                              focusNode: controller.textFn2,
+                              label: '测试2',
+                              //errorBucket: controller.errorBucket,
+                              text: controller.receiptModel.value.receiptKey,
+                              mustInput: true,
+                              onChanged: (value) =>
+                                  controller.receiptModel.update((model) {
+                                    model!.receiptKey = value;
                                   })),
                         )),
                     Obx(() => EHMultiSelect(

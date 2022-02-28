@@ -1,17 +1,11 @@
-import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-
-import 'receipt_detail_view.dart';
 import 'receipt_edit_controller.dart';
-
 import 'package:split_view/split_view.dart';
 
 class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
@@ -20,6 +14,7 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
   Widget build(BuildContext context) {
     if (Responsive.isMobile(context)) {
       return Column(children: [
+        buildToolbar(context),
         // KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
         //   return !isKeyboardVisible && !Responsive.isExtraSmall(context)
         //       ?
@@ -35,35 +30,7 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
     } else {
       return Column(
         children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            height: 35,
-            child: Row(
-              children: [
-                ElevatedButton(
-                  focusNode: controller.fnButton,
-                  onPressed: () {
-                    controller.validateForm();
-                    EHToastMessageHelper.showInfoMessage(
-                        MediaQuery.of(context).viewInsets.bottom.toString());
-                  },
-                  child: Text('Validate Form'.tr),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    EHToastMessageHelper.showInfoMessage(controller
-                        .asnHeaderDataGridController.dataGridSource
-                        .getSelectedRows()
-                        .toString());
-                  },
-                  child: Text('Show Selected Rows'.tr),
-                ),
-              ],
-            ),
-          ),
+          buildToolbar(context),
           Expanded(
             child: SplitView(
               children: [
@@ -90,5 +57,52 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
         ],
       );
     }
+  }
+
+  Container buildToolbar(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      height: 36,
+      child: Row(
+        children: [
+          ElevatedButton(
+            focusNode: controller.fnButton,
+            onPressed: () {
+              controller.validateForm();
+              EHToastMessageHelper.showInfoMessage(
+                  MediaQuery.of(context).viewInsets.bottom.toString());
+            },
+            child: Text('Validate Form'.tr),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              EHToastMessageHelper.showInfoMessage(controller
+                  .asnHeaderDataGridController.dataGridSource
+                  .getSelectedRows()
+                  .toString());
+            },
+            child: Text('Show Selected Rows'.tr),
+          ),
+          EHDropdown(
+              key: GlobalKey(),
+              controller: EHDropDownController(
+                focusNode: FocusNode(),
+                isMenu: true,
+                label: 'Actions',
+                items: {
+                  'receivingASN': 'Receiving ASN',
+                  'closeASN': 'Close ASN',
+                  'printItemLabel': 'Print SKU Label'
+                },
+                onChanged: (value) {
+                  EHToastMessageHelper.showInfoMessage(value.toString());
+                },
+              ))
+        ],
+      ),
+    );
   }
 }

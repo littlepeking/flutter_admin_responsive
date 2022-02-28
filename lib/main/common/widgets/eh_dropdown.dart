@@ -3,6 +3,7 @@ import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dar
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
+import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +27,8 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
               padding: const EdgeInsets.only(left: 5),
               child: Text(
                 controller.items.containsKey(item)
-                    ? controller.items[item]!
+                    ? controller.items[item]!.tr
                     : ' ',
-                style: const TextStyle(
-                    //  fontSize: 14,
-                    ),
               ),
             ),
           ),
@@ -68,14 +66,19 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
         width: controller.width,
         child: Column(
           children: [
-            controller.showLabel
+            controller.showLabel && !controller.isMenu
                 ? EHEditLabel(
                     mustInput: controller.mustInput,
-                    label: controller.label,
+                    label: controller.label.tr,
                   )
                 : SizedBox(),
             Container(
               decoration: BoxDecoration(
+                color: !controller.isMenu
+                    ? null
+                    : ThemeController.instance.isDarkMode == true
+                        ? Colors.grey[900]
+                        : Colors.white,
                 borderRadius: BorderRadius.circular(5.0),
                 border: controller.focused.value
                     ? Border.all(
@@ -104,13 +107,28 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                     child: DropdownButton2(
                       focusNode: controller.focusNode,
                       isExpanded: true,
-                      hint: Text(
-                        'Select Item',
-                        style: TextStyle(
-                          //fontSize: 14,
-                          color: Theme.of(context).hintColor,
-                        ),
-                      ),
+                      // hint: Text(
+                      //   'Select Item',
+                      //   style: TextStyle(
+                      //     //fontSize: 14,
+                      //     color: Theme.of(context).hintColor,
+                      //   ),
+                      // ),
+                      customButton: controller.isMenu
+                          ? Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(controller.label.tr),
+                                ),
+                                const Icon(
+                                  Icons.keyboard_arrow_down,
+                                  size: 24,
+                                  // color: Colors.red,
+                                ),
+                              ],
+                            )
+                          : null,
                       items: _addDividersAfterItems(
                           controller.items.keys.toList()),
                       customItemsIndexes: _getDividersIndexes(),
@@ -131,10 +149,17 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                       buttonWidth: controller.width,
                       itemHeight: 23,
                       itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+                      dropdownWidth: LayoutConstant.DefaulyDropDownItemWidth,
+                      //dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
+                      dropdownDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        //color: Colors.redAccent,
+                      ),
+                      //offset: const Offset(0, 20),
                     )),
               ),
             ),
-            controller.showErrorInfo
+            controller.showErrorInfo && !controller.isMenu
                 ? Obx(() => EHEditErrorInfo(
                     errorBucket: controller.errorBucket!.value,
                     errorFieldKey: key))
@@ -180,9 +205,11 @@ class EHDropDownController extends EHEditWidgetController {
   }
 
   ValueChanged<String>? onChanged;
+  bool isMenu;
 
   EHDropDownController(
       {double? width,
+      this.isMenu = false,
       EdgeInsets? padding,
       bool autoFocus = false,
       required FocusNode focusNode,
@@ -201,10 +228,9 @@ class EHDropDownController extends EHEditWidgetController {
             enabled: enabled,
             mustInput: mustInput,
             label: label,
-            width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
             errorBucket: errorBucket) {
-    ;
+    this.width = isMenu ? null : LayoutConstant.editWidgetSize;
     this.items = items;
     this.selectedValue = selectedValue;
     this.validate = validate ?? () async => true;

@@ -42,7 +42,7 @@ class EHTextField extends EHStatelessWidget<EHTextFieldController> {
             children: [
               EHEditLabel(
                 mustInput: controller.mustInput,
-                label: controller.label,
+                label: controller.label.tr,
               ),
               Row(
                 children: [

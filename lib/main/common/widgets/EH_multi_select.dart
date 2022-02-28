@@ -120,7 +120,7 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
             controller.showLabel
                 ? EHEditLabel(
                     mustInput: controller.mustInput,
-                    label: controller.label,
+                    label: controller.label.tr,
                   )
                 : SizedBox(),
             Container(
@@ -161,19 +161,26 @@ class EHMultiSelect extends EHStatelessWidget<EHMultiSelectController> {
                         ),
                       ),
                       DropdownButton2(
-                          focusNode: controller.focusNode,
-                          isExpanded: true,
-                          items: _addDividersAfterItems(
-                              controller.items.keys.toList()),
-                          customItemsIndexes: _getDividersIndexes(),
-                          customItemsHeight: 4,
-                          value: '',
-                          onChanged: controller.enabled ? (x) {} : null,
-                          buttonHeight: 23,
-                          buttonWidth: controller.width,
-                          itemHeight: 23,
-                          itemPadding:
-                              const EdgeInsets.symmetric(horizontal: 2.0)),
+                        focusNode: controller.focusNode,
+                        isExpanded: true,
+                        items: _addDividersAfterItems(
+                            controller.items.keys.toList()),
+                        customItemsIndexes: _getDividersIndexes(),
+                        customItemsHeight: 4,
+                        value: '',
+                        onChanged: controller.enabled ? (x) {} : null,
+                        buttonHeight: 23,
+                        buttonWidth: controller.width,
+                        itemHeight: 23,
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 2.0),
+                        dropdownWidth: 200,
+                        //dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
+                        dropdownDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          //color: Colors.redAccent,
+                        ),
+                      ),
                     ])),
               ),
             ),

@@ -27,7 +27,7 @@ class EhTheme {
             primary: Colors.grey[900]!,
             side: BorderSide(
               width: 1.0,
-              color: Colors.white,
+              color: Colors.grey[600]!,
             )),
         // disabledColor: Colors.grey,
       ),

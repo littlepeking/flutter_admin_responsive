@@ -54,5 +54,14 @@ Map<String, String> zhCNMessages = {
   'Please select a date firstly': '请先选择日期',
   'Use 24 hours': '24小时制',
   'Confirm': '确认',
-  'Cancel': '取消'
+  'Cancel': '取消',
+  'Actions': '执行',
+  ////
+  ///test i18 data
+  'popUp': '弹出框',
+  'Receiving ASN': '接收ASN',
+  'closeASN': '关闭ASN',
+  'Print SKU Label': '打印物料标签'
+
+  ///
 };
