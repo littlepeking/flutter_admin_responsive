@@ -60,7 +60,7 @@ Map<String, String> zhCNMessages = {
   ///test i18 data
   'popUp': '弹出框',
   'Receiving ASN': '接收ASN',
-  'closeASN': '关闭ASN',
+  'Close ASN': '关闭ASN',
   'Print SKU Label': '打印物料标签'
 
   ///

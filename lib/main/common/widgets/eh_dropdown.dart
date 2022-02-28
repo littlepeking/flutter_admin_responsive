@@ -16,7 +16,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
   List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> items) {
     List<DropdownMenuItem<String>> _menuItems = [];
 
-    if (!items.contains('')) items.insert(0, '');
+    if (!controller.isMenu && !items.contains('')) items.insert(0, '');
 
     for (var item in items) {
       _menuItems.addAll(
@@ -47,7 +47,9 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
   }
 
   List<int> _getDividersIndexes() {
-    int itemLength = controller.items.length + 1;
+    int itemLength = controller.isMenu
+        ? controller.items.length
+        : controller.items.length + 1;
     List<int> _dividersIndexes = [];
     for (var i = 0; i < (itemLength * 2) - 1; i++) {
       //Dividers indexes will be the odd indexes
@@ -133,10 +135,12 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                           controller.items.keys.toList()),
                       customItemsIndexes: _getDividersIndexes(),
                       customItemsHeight: 4,
-                      value: controller.items
-                              .containsKey(controller._selectedValue.value)
-                          ? controller._selectedValue.value
-                          : '',
+                      value: controller.isMenu
+                          ? controller.items[0]
+                          : controller.items
+                                  .containsKey(controller._selectedValue.value)
+                              ? controller._selectedValue.value
+                              : '',
                       onChanged: controller.enabled
                           ? (v) async {
                               if (controller.onChanged != null)
