@@ -1,5 +1,4 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
-import 'package:eh_flutter_framework/main/common/base/EHEditPanelController.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
@@ -13,7 +12,7 @@ import 'package:get/get.dart';
 import 'receipt_detail_view.dart';
 import 'receipt_detail_view_controller.dart';
 
-class ReceiptEditController extends EHEditFormController {
+class ReceiptEditController extends EHController {
   PageStorageBucket pageStorageBucket = PageStorageBucket();
 
   late EHTabsViewController receiptHeaderTabsViewController;

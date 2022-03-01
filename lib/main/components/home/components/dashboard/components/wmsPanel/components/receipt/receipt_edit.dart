@@ -68,7 +68,6 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
           ElevatedButton(
             focusNode: controller.fnButton,
             onPressed: () {
-              controller.validateForm();
               EHToastMessageHelper.showInfoMessage(
                   MediaQuery.of(context).viewInsets.bottom.toString());
             },
