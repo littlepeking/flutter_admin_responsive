@@ -15,7 +15,7 @@ import 'package:get/get.dart';
 
 class EHPopup extends EHEditableWidget<EHPopupController> {
   EHPopup({
-    Key? key,
+    required Key key,
     required EHPopupController controller,
   }) : super(key: key, controller: controller);
 
@@ -77,7 +77,7 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                               border: new OutlineInputBorder(),
                             ),
                             onEditingComplete: () async {
-                              controller.focusNode.nextFocus();
+                              controller.focusNode!.nextFocus();
                             },
                             controller: controller._textEditingController,
                             enabled: controller.enabled,
@@ -106,8 +106,8 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                       dataGridSource:
                                           controller._dataGridSource,
                                       onRowSelected: (row) {
-                                        controller.focusNode.requestFocus();
-                                        controller.focusNode.nextFocus();
+                                        controller.focusNode!.requestFocus();
+                                        controller.focusNode!.nextFocus();
                                         controller.onChanged!(
                                             row[controller.codeColumnName]
                                                 .toString(),
@@ -213,7 +213,7 @@ class EHPopupController extends EHEditableWidgetController {
   }
 
   Future<bool> _validate() async {
-    bool isValid = checkMustInput(key, text);
+    bool isValid = checkMustInput(key!, text);
 
     if (!isValid) return false;
 

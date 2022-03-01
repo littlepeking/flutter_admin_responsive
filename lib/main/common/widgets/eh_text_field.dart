@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 
 class EHTextField extends EHEditableWidget<EHTextFieldController> {
   EHTextField({
-    Key? key,
+    required Key key,
     required EHTextFieldController controller,
   }) : super(key: key, controller: controller);
 
@@ -92,7 +92,7 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                           //   print(v);
                           // },
                           onEditingComplete: () {
-                            controller.focusNode.nextFocus();
+                            controller.focusNode!.nextFocus();
                             //controller.focusNode.unfocus();
                           },
                         ),
@@ -132,7 +132,7 @@ class EHTextFieldController extends EHEditableWidgetController {
   EHTextFieldController(
       {double? width,
       bool autoFocus = false,
-      required FocusNode focusNode,
+      FocusNode? focusNode,
       String label = '',
       String text = '',
       bool enabled = true,
@@ -155,7 +155,7 @@ class EHTextFieldController extends EHEditableWidgetController {
   }
 
   Future<bool> _validate() async {
-    bool isValid = checkMustInput(key, text);
+    bool isValid = checkMustInput(key!, text);
 
     if (!isValid) return false;
 

@@ -13,7 +13,7 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 class _TheState {}
 
 class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
-  EHMultiSelect({Key? key, required EHMultiSelectController controller})
+  EHMultiSelect({required Key key, required EHMultiSelectController controller})
       : super(key: key, controller: controller);
 
   final _theState = RM.inject(() =>
@@ -261,7 +261,7 @@ class EHMultiSelectController extends EHEditableWidgetController {
   }
 
   Future<bool> _validate(List<String> value) async {
-    bool isValid = checkMustInput(key, value, emptyValue: '');
+    bool isValid = checkMustInput(key!, value, emptyValue: '');
 
     if (!isValid) return false;
 

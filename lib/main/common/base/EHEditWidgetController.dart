@@ -11,7 +11,8 @@ abstract class EHEditableWidgetController extends EHController {
       String label = '',
       bool enabled = true,
       bool autoFocus = false,
-      FocusNode? focusNode,
+      this.focusNode,
+      this.key,
       Future<bool> Function()? validate,
       Map<Key?, String>? errorBucket}) {
     this.width = LayoutConstant.editWidgetSize;
@@ -20,13 +21,14 @@ abstract class EHEditableWidgetController extends EHController {
     this.enabled = enabled;
     this.mustInput = mustInput;
     this.autoFocus = autoFocus;
-    this.focusNode = focusNode ?? FocusNode();
     this.errorBucket = (errorBucket == null
         ? EHController.globalErrorBucket
         : errorBucket.obs);
   }
 
-  late Key key;
+  late Key? key;
+
+  FocusNode? focusNode;
 
   late Future<bool> Function() validate;
 
@@ -73,8 +75,6 @@ abstract class EHEditableWidgetController extends EHController {
   }
 
   RxMap<Key?, String>? errorBucket;
-
-  late FocusNode focusNode;
 
   bool checkMustInput(Key key, text, {String emptyValue = ''}) {
     if (mustInput) {

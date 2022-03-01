@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EHDropdown extends EHEditableWidget<EHDropDownController> {
-  EHDropdown({Key? key, required EHDropDownController controller})
+  EHDropdown({required Key key, required EHDropDownController controller})
       : super(key: key, controller: controller);
 
   List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> items) {
@@ -146,7 +146,7 @@ class EHDropdown extends EHEditableWidget<EHDropDownController> {
                               if (controller.onChanged != null)
                                 controller.onChanged!(v.toString());
                               await controller._validate(v.toString());
-                              controller.focusNode.nextFocus();
+                              controller.focusNode!.nextFocus();
                             }
                           : null,
                       buttonHeight: 23,
@@ -231,7 +231,7 @@ class EHDropDownController extends EHEditableWidgetController {
   }
 
   Future<bool> _validate(String value) async {
-    bool isValid = checkMustInput(key, value, emptyValue: '');
+    bool isValid = checkMustInput(key!, value, emptyValue: '');
 
     if (!isValid) return false;
 

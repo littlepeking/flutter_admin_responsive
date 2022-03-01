@@ -16,7 +16,7 @@ import 'package:intl/intl.dart';
 
 class EHDatePicker extends EHEditableWidget<EHDatePickerController> {
   EHDatePicker({
-    Key? key,
+    required Key key,
     required EHDatePickerController controller,
   })  : this.textFieldKey = key ?? GlobalKey(),
         super(
@@ -47,7 +47,7 @@ class EHDatePickerController extends EHEditableWidgetController {
   EHDatePickerController(
       {double? width,
       bool autoFocus = false,
-      required FocusNode focusNode,
+      FocusNode? focusNode,
       String label = '',
       DateTime? dateTime,
       bool enabled = true,
@@ -137,7 +137,7 @@ class EHDatePickerController extends EHEditableWidgetController {
                                 if (selectedDateTime != null &&
                                     onChanged != null)
                                   onChanged(selectedDateTime);
-                                focusNode.requestFocus();
+                                focusNode!.requestFocus();
                                 focusNode.nextFocus();
                               },
                               onSubmit: (value) async {
@@ -146,7 +146,7 @@ class EHDatePickerController extends EHEditableWidgetController {
                                 if (selectedDateTime != null &&
                                     onChanged != null)
                                   onChanged(selectedDateTime);
-                                focusNode.requestFocus();
+                                focusNode!.requestFocus();
                                 focusNode.nextFocus();
                               },
                               onCancel: () {
