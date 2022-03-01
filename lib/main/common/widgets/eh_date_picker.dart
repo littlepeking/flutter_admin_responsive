@@ -16,9 +16,9 @@ import 'package:intl/intl.dart';
 
 class EHDatePicker extends EHEditableWidget<EHDatePickerController> {
   EHDatePicker({
-    required Key? key,
+    Key? key,
     required EHDatePickerController controller,
-  })  : this.textFieldKey = key,
+  })  : this.textFieldKey = key ?? GlobalKey(),
         super(
             key: GlobalKey(debugLabel: key.toString()), controller: controller);
 

@@ -15,7 +15,7 @@ import 'package:get/get.dart';
 
 class EHPopup extends EHEditableWidget<EHPopupController> {
   EHPopup({
-    required Key? key,
+    Key? key,
     required EHPopupController controller,
   }) : super(key: key, controller: controller);
 

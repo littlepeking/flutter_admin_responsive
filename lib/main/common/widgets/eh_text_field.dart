@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 
 class EHTextField extends EHEditableWidget<EHTextFieldController> {
   EHTextField({
-    required Key? key,
+    Key? key,
     required EHTextFieldController controller,
   }) : super(key: key, controller: controller);
 
