@@ -18,7 +18,7 @@ class EHDatePicker extends EHEditableWidget<EHDatePickerController> {
   EHDatePicker({
     required Key key,
     required EHDatePickerController controller,
-  })  : this.textFieldKey = key ?? GlobalKey(),
+  })  : this.textFieldKey = key,
         super(
             key: GlobalKey(debugLabel: key.toString()), controller: controller);
 

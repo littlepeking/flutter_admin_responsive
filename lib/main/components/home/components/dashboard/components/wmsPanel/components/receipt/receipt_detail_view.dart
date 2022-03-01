@@ -25,7 +25,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        EHEditForm(controller: controller.formController),
+        EHEditForm(controller: controller.widgetBuilderFormController),
+        EHEditForm(controller: controller.widgetControllerFormController),
         Container(
           child: Container(
             // padding: EdgeInsets.all(10),

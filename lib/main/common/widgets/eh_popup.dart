@@ -186,7 +186,7 @@ class EHPopupController extends EHEditableWidgetController {
       bool autoFocus = false,
       //focusNode必须手工在controller中实例化并赋值给控件的focusNode属性,否则光标焦点跳转会有问题。
       //因为flutter要求focusNode必须在statefulWidget中进行设置，但目前框架暂时只使用statelessWidget，因此只能手工设置。
-      required FocusNode focusNode,
+      FocusNode? focusNode,
       this.queryCode,
       required this.popupTitle,
       String label = '',

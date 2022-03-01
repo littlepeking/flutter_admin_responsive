@@ -11,7 +11,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class ReceiptDetailViewController extends EHController {
   ReceiptDetailViewController() {
-    formController = EHEditFormController([
+    widgetBuilderFormController = EHEditFormController(widgetBuilders: [
       (key, focusNode) => EHTextField(
             key: key,
             // autoFocus: true,
@@ -55,6 +55,40 @@ class ReceiptDetailViewController extends EHController {
                     model!.dateTime = value;
                   }),
               label: 'date')),
+    ]);
+
+    widgetControllerFormController = EHEditFormController(widgetControllers: [
+      EHTextFieldController(
+          autoFocus: true,
+          label: '测试1',
+          text: receiptModel.value.receiptKey,
+          mustInput: true,
+          onChanged: (value) => receiptModel.update((model) {
+                model!.receiptKey = value;
+              })),
+      EHPopupController(
+          popupTitle: 'Please Select Supplier',
+          codeColumnName: 'customerId',
+          dataGridSource: DataGridTest.getDataGridSource(),
+          label: 'popUp',
+          text: receiptModel.value.customerId,
+          mustInput: true,
+          //  autoFocus: true,
+          onChanged: (code, row) {
+            //  controller.popUpFn!.requestFocus();
+            receiptModel.update((model) {
+              model!.customerId = code;
+              model.customerName = row?['name'] ?? '';
+            });
+          }),
+      EHDatePickerController(
+          mustInput: true,
+          //enabled: false,
+          dateTime: receiptModel.value.dateTime,
+          onChanged: (value) => receiptModel.update((model) {
+                model!.dateTime = value;
+              }),
+          label: 'date'),
     ]);
   }
 
@@ -102,5 +136,7 @@ class ReceiptDetailViewController extends EHController {
           dateTime2: null)
       .obs;
 
-  late EHEditFormController formController;
+  late EHEditFormController widgetBuilderFormController;
+
+  late EHEditFormController widgetControllerFormController;
 }
