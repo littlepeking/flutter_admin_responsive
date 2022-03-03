@@ -117,7 +117,7 @@ class EHTextFieldController extends EHEditableWidgetController {
   EHTextEditingController _textEditingController =
       new EHTextEditingController();
 
-  set text(val) {
+  set text(String val) {
     this._textEditingController.text = val;
   }
 

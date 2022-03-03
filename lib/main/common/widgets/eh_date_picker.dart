@@ -84,9 +84,7 @@ class EHDatePickerController extends EHEditableWidgetController {
     this._textEditingController = EHTextFieldController(
         focusNode: focusNode,
         label: label,
-        bindingValue: bindingValue == null
-            ? ''
-            : DateFormat(_dateFormat).format(bindingValue),
+        bindingValue: getBindingStringValue(bindingValue),
         textHint: this._dateFormat,
         enabled: enabled,
         mustInput: mustInput,
@@ -193,6 +191,12 @@ class EHDatePickerController extends EHEditableWidgetController {
                     }
                   : null),
         )));
+  }
+
+  getBindingStringValue(DateTime? bindingValue) {
+    return bindingValue == null
+        ? ''
+        : DateFormat(_dateFormat).format(bindingValue);
   }
 
   Future<DateTime?> addTime2Date(

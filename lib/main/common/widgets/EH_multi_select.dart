@@ -52,8 +52,8 @@ class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
                             controller._validate(controller.selectedValues);
                           } else {
                             controller.selectedValues.remove(itemKey);
-                            _theState.notify();
                             controller.setModelValue(controller.selectedValues);
+                            _theState.notify();
 
                             if (controller.onChanged != null)
                               controller.onChanged!(controller.selectedValues);
@@ -223,17 +223,9 @@ class EHMultiSelectController extends EHEditableWidgetController {
 
   bool showErrorInfo;
 
-  RxList<String> _selectedValues = <String>[].obs;
+  List<String> selectedValues = <String>[];
 
   RxBool focused = false.obs;
-
-  RxList<String> get selectedValues {
-    return _selectedValues;
-  }
-
-  set selectedValues(List<String> value) {
-    _selectedValues.value = value;
-  }
 
   ValueChanged<List<String>>? onChanged;
 

@@ -19,35 +19,33 @@ class ReceiptDetailViewController extends EHController {
             key: key,
             // autoFocus: true,
             controller: EHTextFieldController(
-              focusNode: focusNode,
-              autoFocus: true,
-              label: '测试1',
-              bindingValue: receiptModel.value.receiptKey,
-              mustInput: true,
-              // onChanged: (value) => receiptModel.update((model) {
-              //       model!.receiptKey = value;
-              //     })
-            ),
+                focusNode: focusNode,
+                autoFocus: true,
+                label: '测试1',
+                bindingValue: receiptModel.value.receiptKey,
+                mustInput: true,
+                onChanged: (value) => receiptModel.update((model) {
+                      model!.receiptKey = value;
+                    })),
           ),
       (key, focusNode) => EHPopup(
             key: key,
             controller: EHPopupController(
-              popupTitle: 'Please Select Supplier',
-              focusNode: focusNode,
-              codeColumnName: 'customerId',
-              dataGridSource: DataGridTest.getDataGridSource(),
-              label: 'popUp',
-              bindingValue: receiptModel.value.customerId,
-              mustInput: true,
-              //  autoFocus: true,
-              // onChanged: (code, row) {
-              //   //  controller.popUpFn!.requestFocus();
-              //   receiptModel.update((model) {
-              //     model!.customerId = code;
-              //     model.customerName = row?['name'] ?? '';
-              //   });
-              // }
-            ),
+                popupTitle: 'Please Select Supplier',
+                focusNode: focusNode,
+                codeColumnName: 'customerId',
+                dataGridSource: DataGridTest.getDataGridSource(),
+                label: 'popUp',
+                bindingValue: receiptModel.value.customerId,
+                mustInput: true,
+                //  autoFocus: true,
+                onChanged: (code, row) {
+                  //  controller.popUpFn!.requestFocus();
+                  receiptModel.update((model) {
+                    model!.customerId = code;
+                    model.customerName = row?['name'] ?? '';
+                  });
+                }),
           ),
       (key, focusNode) => EHDatePicker(
           key: key,
@@ -56,87 +54,62 @@ class ReceiptDetailViewController extends EHController {
               //enabled: false,
               focusNode: focusNode,
               bindingValue: receiptModel.value.dateTime,
-              // onChanged: (value) => receiptModel.update((model) {
-              //       model!.dateTime = value;
-              //     }),
+              onChanged: (value) => receiptModel.update((model) {
+                    model!.dateTime = value;
+                  }),
               label: 'date')),
     ]);
 
-    widgetControllerFormController = EHEditFormController(
-        // model: receiptModel.value,
-        rxModel: receiptModel,
-        widgetControllerBuilders: [
-          () => EHPopupController(
-                autoFocus: true,
-                bindingFieldName: 'customerId',
-                bindingValue: receiptModel.value.customerId,
-                popupTitle: 'Please Select Supplier',
-                codeColumnName: 'customerId',
-                dataGridSource: DataGridTest.getDataGridSource(),
-                label: 'popUp',
-
-                mustInput: true,
-                //  autoFocus: true,
-                // onChanged: (code, row) {
-                //   //  controller.popUpFn!.requestFocus();
-                //   receiptModel.update((model) {
-                //     model!.customerId = code;
-                //     model.customerName = row?['name'] ?? '';
-                //   });
-                // }
-              ),
-          () => EHMultiSelectController(
-                bindingFieldName: 'multiSelectValues',
-                bindingValue: receiptModel.value.multiSelectValues,
-                label: '测试5',
-                enabled: true,
-                mustInput: true,
-
-                items: {
-                  '0': 'Item0',
-                  '1': 'Item1',
-                  '2': 'Item2',
-                  '3': 'Item3',
-                  '4': 'Item4',
-                  '5': 'Item5',
-                },
-                // onChanged: (value) => receiptModel.update((model) {
-                //       model!.multiSelectValues = value;
-                //     })
-              ),
-          () => EHDatePickerController(
-              bindingFieldName: 'dateTime',
-              bindingValue: receiptModel.value.dateTime,
-              mustInput: true,
-              //enabled: false,
-
-              // onChanged: (value) => receiptModel.update((model) {
-              //       model!.dateTime = value;
-              //     }),
-              label: 'date'),
-          () => EHDropDownController(
-                bindingFieldName: 'dropdownValue',
-                bindingValue: receiptModel.value.dropdownValue,
-                validate: () async => true,
-                label: 'popUp',
-                mustInput: true,
-                items: {
-                  '0': 'Item0',
-                  '1': 'Item1',
-                  '2': 'Item2',
-                },
-              ),
-          () => EHDatePickerController(
-              bindingFieldName: 'dateTime2',
-              bindingValue: receiptModel.value.dateTime2,
-              mustInput: true,
-              //enabled: false,
-              showTimePicker: true,
-              // onChanged: (value) => receiptModel.update((model) {
-              //       model!.dateTime2 = value;
-              //     }),
-              label: 'date'),
-        ]);
+    widgetControllerFormController =
+        EHEditFormController(rxModel: receiptModel, widgetControllerBuilders: [
+      () => EHTextFieldController(
+          label: '测试1',
+          autoFocus: true,
+          bindingFieldName: 'receiptKey',
+          mustInput: true,
+          onChanged: (value) => {}),
+      () => EHPopupController(
+          label: 'popUp',
+          bindingFieldName: 'customerId',
+          popupTitle: 'Please Select Supplier',
+          codeColumnName: 'customerId',
+          dataGridSource: DataGridTest.getDataGridSource(),
+          mustInput: true,
+          onChanged: (code, row) {}),
+      () => EHMultiSelectController(
+          bindingFieldName: 'multiSelectValues',
+          label: '测试5',
+          mustInput: true,
+          items: {
+            '0': 'MItem0',
+            '1': 'MItem1',
+            '2': 'MItem2',
+          },
+          onChanged: (value) => {}),
+      () => EHDatePickerController(
+            label: 'date',
+            bindingFieldName: 'dateTime',
+            mustInput: true,
+            onChanged: (value) => {},
+          ),
+      () => EHDropDownController(
+          label: 'popUp',
+          bindingFieldName: 'dropdownValue',
+          validate: () async => true,
+          items: {
+            '0': 'Item0',
+            '1': 'Item1',
+            '2': 'Item2',
+          },
+          onChanged: (value) => {}),
+      () => EHDatePickerController(
+            label: 'date',
+            bindingFieldName: 'dateTime2',
+            mustInput: true,
+            showTimePicker: true,
+            onChanged: (value) => {},
+          ),
+    ]);
   }
 
   FocusNode popUpFn = FocusNode();
@@ -178,7 +151,7 @@ class ReceiptDetailViewController extends EHController {
           customerId: 'cus001',
           customerName: 'cus001Name',
           dropdownValue: '1',
-          multiSelectValues: [],
+          multiSelectValues: ['1', '2'],
           dateTime: DateTime.now(),
           dateTime2: null)
       .obs;

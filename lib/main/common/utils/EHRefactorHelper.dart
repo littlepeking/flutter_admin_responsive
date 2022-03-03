@@ -14,4 +14,10 @@ class EHRefactorHelper {
     var instanceMirror = methodExecutor.reflect(object);
     instanceMirror.invokeSetter(fieldName, value);
   }
+
+  static Object? getFieldValue(Object object, String fieldName) {
+    initializeReflectable();
+    var instanceMirror = methodExecutor.reflect(object);
+    return instanceMirror.invokeGetter(fieldName);
+  }
 }
