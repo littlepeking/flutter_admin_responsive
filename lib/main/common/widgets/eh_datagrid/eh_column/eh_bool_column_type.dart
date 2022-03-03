@@ -29,7 +29,7 @@ class EHBoolColumnType extends EHColumnType<bool> {
                   showLabel: false,
                   enabled: false,
                   focusNode: FocusNode(),
-                  selectedValue: value.toString(),
+                  bindingValue: value.toString(),
                   items: {'true': 'Yes', 'false': 'No'}),
             ),
           );

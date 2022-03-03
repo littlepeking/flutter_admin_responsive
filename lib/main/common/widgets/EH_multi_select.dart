@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
+import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
@@ -36,12 +37,14 @@ class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
               padding: const EdgeInsets.only(left: 5),
               child: Row(
                 children: [
+                  // ignore: deprecated_member_use
                   _theState.rebuilder(() {
                     return Checkbox(
                         value: controller.selectedValues.contains(itemKey),
                         onChanged: (isSelected) {
                           if (isSelected!) {
                             controller.selectedValues.add(itemKey);
+                            controller.setModelValue(controller.selectedValues);
                             _theState.notify();
 
                             if (controller.onChanged != null)
@@ -50,6 +53,7 @@ class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
                           } else {
                             controller.selectedValues.remove(itemKey);
                             _theState.notify();
+                            controller.setModelValue(controller.selectedValues);
 
                             if (controller.onChanged != null)
                               controller.onChanged!(controller.selectedValues);
@@ -185,6 +189,7 @@ class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
             ),
             controller.showErrorInfo
                 ? Obx(() => EHEditErrorInfo(
+                    // ignore: invalid_use_of_protected_member
                     errorBucket: controller.errorBucket!.value,
                     errorFieldKey: key))
                 : SizedBox()
@@ -233,12 +238,14 @@ class EHMultiSelectController extends EHEditableWidgetController {
   ValueChanged<List<String>>? onChanged;
 
   EHMultiSelectController(
-      {double? width,
+      {EHModel? model,
+      String? bindingFieldName,
+      double? width,
       this.padding = const EdgeInsets.symmetric(horizontal: 5),
       bool autoFocus = false,
-      required FocusNode focusNode,
+      FocusNode? focusNode,
       String label = '',
-      List<String> selectedValues = const [],
+      List<String> bindingValue = const [],
       bool enabled = true,
       bool mustInput = false,
       this.onChanged,
@@ -248,6 +255,8 @@ class EHMultiSelectController extends EHEditableWidgetController {
       this.showErrorInfo = true,
       this.showLabel = true})
       : super(
+            model: model,
+            bindingFieldName: bindingFieldName,
             autoFocus: autoFocus,
             enabled: enabled,
             mustInput: mustInput,
@@ -256,7 +265,7 @@ class EHMultiSelectController extends EHEditableWidgetController {
             focusNode: focusNode,
             errorBucket: errorBucket) {
     this.items = items;
-    this.selectedValues = selectedValues;
+    this.selectedValues = bindingValue;
     this.validate = validate ?? () async => true;
   }
 

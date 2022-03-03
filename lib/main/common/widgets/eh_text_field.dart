@@ -1,6 +1,7 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
+import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
@@ -38,9 +39,9 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                         canRequestFocus: false,
                         onFocusChange: (hasFocus) async {
                           if (!hasFocus) {
-                            if (!await controller._validate()) {
-                              // controller.focusNode.requestFocus();
-                            }
+                            await controller._validate();
+
+                            controller.setModelValue(controller.text);
 
                             if (controller.onChanged != null)
                               controller.onChanged!(controller.text);
@@ -103,6 +104,7 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                 ],
               ),
               Obx(() => EHEditErrorInfo(
+                  // ignore: invalid_use_of_protected_member
                   errorBucket: controller.errorBucket!.value,
                   errorFieldKey: key))
             ],
@@ -134,15 +136,19 @@ class EHTextFieldController extends EHEditableWidgetController {
       bool autoFocus = false,
       FocusNode? focusNode,
       String label = '',
-      String text = '',
+      String bindingValue = '',
       bool enabled = true,
       bool mustInput = false,
+      EHModel? model,
+      String? bindingFieldName,
       this.onChanged,
       Future<bool> Function()? validate,
       Map<Key?, String>? errorBucket,
       this.afterWidget,
       this.textHint = ''})
       : super(
+            model: model,
+            bindingFieldName: bindingFieldName,
             autoFocus: autoFocus,
             enabled: enabled,
             mustInput: mustInput,
@@ -151,7 +157,7 @@ class EHTextFieldController extends EHEditableWidgetController {
             focusNode: focusNode,
             errorBucket: errorBucket) {
     this.validate = validate ?? () async => true;
-    this.text = text;
+    this.text = bindingValue;
   }
 
   Future<bool> _validate() async {

@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
+import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
 import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
@@ -104,6 +105,7 @@ class EHDropdown extends EHEditableWidget<EHDropDownController> {
                 child: Focus(
                     canRequestFocus: false,
                     onFocusChange: (focused) {
+                      //set flag if current wiget is focused
                       controller.focused.value = focused;
                     },
                     child: DropdownButton2(
@@ -143,6 +145,7 @@ class EHDropdown extends EHEditableWidget<EHDropDownController> {
                               : '',
                       onChanged: controller.enabled
                           ? (v) async {
+                              controller.setModelValue(v);
                               if (controller.onChanged != null)
                                 controller.onChanged!(v.toString());
                               await controller._validate(v.toString());
@@ -166,6 +169,7 @@ class EHDropdown extends EHEditableWidget<EHDropDownController> {
             ),
             controller.showErrorInfo && !controller.isMenu
                 ? Obx(() => EHEditErrorInfo(
+                    // ignore: invalid_use_of_protected_member
                     errorBucket: controller.errorBucket!.value,
                     errorFieldKey: key))
                 : SizedBox()
@@ -201,14 +205,16 @@ class EHDropDownController extends EHEditableWidgetController {
   double? dropDownWidth;
 
   EHDropDownController(
-      {double? width,
+      {EHModel? model,
+      String? bindingFieldName,
+      double? width,
       this.dropDownWidth,
       this.isMenu = false,
       EdgeInsets? padding,
       bool autoFocus = false,
-      required FocusNode focusNode,
+      FocusNode? focusNode,
       String label = '',
-      String selectedValue = '',
+      String bindingValue = '',
       bool enabled = true,
       bool mustInput = false,
       this.onChanged,
@@ -218,6 +224,8 @@ class EHDropDownController extends EHEditableWidgetController {
       this.showErrorInfo = true,
       this.showLabel = true})
       : super(
+            model: model,
+            bindingFieldName: bindingFieldName,
             autoFocus: autoFocus,
             enabled: enabled,
             mustInput: mustInput,
@@ -226,7 +234,7 @@ class EHDropDownController extends EHEditableWidgetController {
             errorBucket: errorBucket) {
     this.width = isMenu ? null : LayoutConstant.editWidgetSize;
     this.items = items;
-    this.selectedValue = selectedValue;
+    this.selectedValue = bindingValue;
     this.validate = validate ?? () async => true;
   }
 

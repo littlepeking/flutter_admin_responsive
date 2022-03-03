@@ -1,6 +1,7 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
+import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHDialog.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
@@ -39,17 +40,23 @@ class EHDatePicker extends EHEditableWidget<EHDatePickerController> {
 class EHDatePickerController extends EHEditableWidgetController {
   late EHTextFieldController _textEditingController;
 
+  EHTextFieldController get innerTextEditingController {
+    return _textEditingController;
+  }
+
   late Key textFieldKey;
   late String _dateFormat;
   RxBool is24HoursMode = true.obs;
   bool showTimePicker;
 
   EHDatePickerController(
-      {double? width,
+      {EHModel? model,
+      String? bindingFieldName,
+      double? width,
       bool autoFocus = false,
       FocusNode? focusNode,
       String label = '',
-      DateTime? dateTime,
+      DateTime? bindingValue,
       bool enabled = true,
       bool mustInput = false,
       this.showTimePicker = false,
@@ -58,6 +65,8 @@ class EHDatePickerController extends EHEditableWidgetController {
       Future<bool> Function()? validate,
       Map<Key?, String>? errorBucket})
       : super(
+            model: model,
+            bindingFieldName: bindingFieldName,
             autoFocus: autoFocus,
             enabled: enabled,
             mustInput: mustInput,
@@ -75,7 +84,9 @@ class EHDatePickerController extends EHEditableWidgetController {
     this._textEditingController = EHTextFieldController(
         focusNode: focusNode,
         label: label,
-        text: dateTime == null ? '' : DateFormat(_dateFormat).format(dateTime),
+        bindingValue: bindingValue == null
+            ? ''
+            : DateFormat(_dateFormat).format(bindingValue),
         textHint: this._dateFormat,
         enabled: enabled,
         mustInput: mustInput,
@@ -83,19 +94,19 @@ class EHDatePickerController extends EHEditableWidgetController {
           //Call by TextField to prevent focus change.
           return await _validate();
         },
-        onChanged: (value) {
+        onChanged: (text) {
           try {
-            DateTime? parsedDate = dateTime;
+            DateTime? parsedDate = bindingValue;
             if (!EHUtilHelper.isEmpty(_textEditingController.text)) {
               try {
-                parsedDate = new DateFormat(_dateFormat)
-                    .parseStrict(_textEditingController.text);
+                parsedDate = new DateFormat(_dateFormat).parseStrict(text);
               } catch (e) {
                 parsedDate = null;
               }
             } else {
               parsedDate = null;
             }
+            setModelValue(parsedDate);
             if (onChanged != null) onChanged(parsedDate);
           } catch (e) {
             return;
@@ -133,21 +144,40 @@ class EHDatePickerController extends EHEditableWidgetController {
                                 //selection change ==null means deselect date, return directly and waiting for select date again
                                 if (args.value == null) return;
                                 DateTime? selectedDateTime = await addTime2Date(
-                                    args.value as DateTime?, dateTime);
-                                if (selectedDateTime != null &&
-                                    onChanged != null)
-                                  onChanged(selectedDateTime);
-                                focusNode!.requestFocus();
-                                focusNode.nextFocus();
+                                    args.value as DateTime?, bindingValue);
+
+                                if (selectedDateTime != null) {
+                                  setModelValue(selectedDateTime);
+                                  if (onChanged != null) {
+                                    onChanged(selectedDateTime);
+                                  }
+                                }
+                                this
+                                    ._textEditingController
+                                    .focusNode!
+                                    .requestFocus();
+                                this
+                                    ._textEditingController
+                                    .focusNode!
+                                    .nextFocus();
                               },
                               onSubmit: (value) async {
                                 DateTime? selectedDateTime = await addTime2Date(
-                                    value as DateTime?, dateTime);
-                                if (selectedDateTime != null &&
-                                    onChanged != null)
-                                  onChanged(selectedDateTime);
-                                focusNode!.requestFocus();
-                                focusNode.nextFocus();
+                                    value as DateTime?, value);
+                                if (selectedDateTime != null) {
+                                  setModelValue(selectedDateTime);
+                                  if (onChanged != null) {
+                                    onChanged(selectedDateTime);
+                                  }
+                                }
+                                this
+                                    ._textEditingController
+                                    .focusNode!
+                                    .requestFocus();
+                                this
+                                    ._textEditingController
+                                    .focusNode!
+                                    .nextFocus();
                               },
                               onCancel: () {
                                 Get.back();

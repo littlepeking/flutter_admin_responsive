@@ -54,9 +54,12 @@ dependencies:
 # SYNC FUSTION DEPENDENCY -END
 
   flutter_keyboard_visibility: ^5.1.1
+  reflectable: ^3.0.7
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: any  
+  built_value_generator: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
@@ -45,9 +44,7 @@ class PositionedList extends StatefulWidget {
     this.addSemanticIndexes = true,
     this.addRepaintBoundaries = true,
     this.addAutomaticKeepAlives = true,
-  })  : assert(itemCount != null),
-        assert(itemBuilder != null),
-        assert((positionedIndex == 0) || (positionedIndex < itemCount)),
+  })  : assert((positionedIndex == 0) || (positionedIndex < itemCount)),
         super(key: key);
 
   /// Number of items the [itemBuilder] can produce.

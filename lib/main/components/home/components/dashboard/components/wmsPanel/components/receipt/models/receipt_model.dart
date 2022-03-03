@@ -2,6 +2,9 @@ import 'dart:core';
 
 import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 
+import '../../../../../../../../../common/utils/EHRefactorHelper.dart';
+
+@methodExecutor
 class ReceiptModel extends EHModel {
   String receiptKey;
   String? customerId;
@@ -19,5 +22,7 @@ class ReceiptModel extends EHModel {
     required this.multiSelectValues,
     required this.dateTime,
     required this.dateTime2,
-  });
+  }) {
+    this.receiptKey = receiptKey;
+  }
 }

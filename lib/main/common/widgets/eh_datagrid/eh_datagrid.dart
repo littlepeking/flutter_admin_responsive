@@ -124,7 +124,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
               padding: EdgeInsets.zero,
               showErrorInfo: false,
               showLabel: false,
-              selectedValue: getColumnFilter(columnConfig.columnName).text,
+              bindingValue: getColumnFilter(columnConfig.columnName).text,
               focusNode:
                   controller.dataGridSource.getFilterFocusNode(columnConfig),
               items: {
@@ -145,7 +145,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
               showErrorInfo: false,
               showLabel: false,
               focusNode: FocusNode(),
-              selectedValues: EHUtilHelper.isEmpty(
+              bindingValue: EHUtilHelper.isEmpty(
                       getColumnFilter(columnConfig.columnName).text)
                   ? []
                   : getColumnFilter(columnConfig.columnName).text.split(','),

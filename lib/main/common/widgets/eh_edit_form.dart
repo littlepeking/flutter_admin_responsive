@@ -2,7 +2,9 @@ import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
 import 'package:eh_flutter_framework/main/common/base/EHException.dart';
+import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/utils/EHRefactorHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/EH_multi_select.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
@@ -11,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'eh_dropdown.dart';
+
+typedef EHEditableWidgetController EHFormWidgetControllerBuilder();
 
 class EHEditForm extends EHStatelessWidget<EHEditFormController> {
   EHEditForm({Key? key, required EHEditFormController controller})
@@ -31,7 +35,7 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Wrap(
-                      children: controller.widgetControllers == null
+                      children: controller.widgetControllerBuilders == null
                           ? controller.widgetBuilders!.map((builder) {
                               int index =
                                   controller.widgetBuilders!.indexOf(builder);
@@ -39,9 +43,10 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
                                   controller.widgetKeys[index],
                                   controller.widgetFocusNodes[index]));
                             }).toList()
-                          : controller.widgetControllers!
+                          : controller.widgetControllerBuilders!
                               .map((widgetController) {
-                              return buildWidgetByController(widgetController);
+                              return buildWidgetByController(
+                                  controller, widgetController);
                             }).toList())
                 ],
               ),
@@ -50,54 +55,71 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
     );
   }
 
-  EHEditableWidget buildWidgetByController(
-      EHEditableWidgetController widgetController) {
-    int index = controller.widgetControllers!.indexOf(widgetController);
-    widgetController.key = controller.widgetKeys[index];
-    widgetController.focusNode = controller.widgetFocusNodes[index];
-    if (widgetController is EHTextFieldController) {
-      return EHTextField(
-          key: widgetController.key!, controller: widgetController);
-    } else if (widgetController is EHDropDownController) {
-      return EHDropdown(
-          key: widgetController.key!, controller: widgetController);
-    } else if (widgetController is EHMultiSelectController) {
-      return EHMultiSelect(
-          key: widgetController.key!, controller: widgetController);
-    } else if (widgetController is EHPopupController) {
-      return EHPopup(key: widgetController.key!, controller: widgetController);
-    } else if (widgetController is EHDatePickerController) {
-      return EHDatePicker(
-          key: widgetController.key!, controller: widgetController);
-    } else {
-      throw EHException('not implement yet');
-    }
+  Widget buildWidgetByController(EHEditFormController formController,
+      EHFormWidgetControllerBuilder controllerBuilder) {
+    int index =
+        formController.widgetControllerBuilders!.indexOf(controllerBuilder);
+
+    return Obx(() {
+      EHEditableWidgetController controller = controllerBuilder();
+
+      controller.key = formController.widgetKeys[index];
+      controller.focusNode = formController.widgetFocusNodes[index];
+      controller.model = formController.rxModel!.value;
+      controller.rxModel = formController.rxModel;
+
+      if (controller is EHTextFieldController) {
+        // EHRefactorHelper.setFieldValue();
+        return EHTextField(key: controller.key!, controller: controller);
+      } else if (controller is EHDropDownController) {
+        return EHDropdown(key: controller.key!, controller: controller);
+      } else if (controller is EHMultiSelectController) {
+        return EHMultiSelect(key: controller.key!, controller: controller);
+      } else if (controller is EHPopupController) {
+        return EHPopup(key: controller.key!, controller: controller);
+      } else if (controller is EHDatePickerController) {
+        controller.innerTextEditingController.focusNode = controller.focusNode;
+        return EHDatePicker(key: controller.key!, controller: controller);
+      } else {
+        throw EHException('not implement yet');
+      }
+    });
   }
 }
 
 class EHEditFormController extends EHController {
-  EHEditFormController({this.widgetControllers, this.widgetBuilders}) {
-    if (this.widgetControllers == null && this.widgetBuilders == null)
+  EHEditFormController(
+      {this.widgetControllerBuilders,
+      this.widgetBuilders,
+      // this.model,
+      this.rxModel,
+      this.onChanged}) {
+    if (this.widgetControllerBuilders == null && this.widgetBuilders == null)
       throw EHException(
           'widgetControllers and widgetBuilders need be provided at least one of them.');
 
-    int widgetNumber = this.widgetControllers != null
-        ? this.widgetControllers!.length
+    int widgetNumber = this.widgetControllerBuilders != null
+        ? this.widgetControllerBuilders!.length
         : this.widgetBuilders!.length;
 
     widgetFocusNodes = List.generate(widgetNumber, (index) => FocusNode());
     widgetKeys = List.generate(widgetNumber, (index) => GlobalKey());
   }
 
-  List<EHEditableWidgetController>? widgetControllers;
-
   List<EHEditWidgetBuilder>? widgetBuilders;
+
+  List<EHFormWidgetControllerBuilder>? widgetControllerBuilders;
 
   late List<EHEditableWidget> widgets;
 
   late List<FocusNode> widgetFocusNodes;
 
   late List<Key> widgetKeys;
+
+  //EHModel? model;
+  Rx<EHModel>? rxModel;
+
+  void Function(EHModel)? onChanged;
 
   Future<bool> validate() async {
     bool isValid = true;

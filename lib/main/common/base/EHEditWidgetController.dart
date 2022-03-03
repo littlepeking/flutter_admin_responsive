@@ -1,12 +1,16 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
+import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
+import 'package:eh_flutter_framework/main/common/utils/EHRefactorHelper.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 abstract class EHEditableWidgetController extends EHController {
   EHEditableWidgetController(
-      {this.width,
+      {this.model,
+      this.bindingFieldName,
+      this.width,
       bool mustInput = false,
       String label = '',
       bool enabled = true,
@@ -26,9 +30,17 @@ abstract class EHEditableWidgetController extends EHController {
         : errorBucket.obs);
   }
 
+  Function? notifyChanged;
+
   late Key? key;
 
   FocusNode? focusNode;
+
+  EHModel? model;
+
+  Rx<EHModel>? rxModel;
+
+  String? bindingFieldName;
 
   late Future<bool> Function() validate;
 
@@ -76,6 +88,8 @@ abstract class EHEditableWidgetController extends EHController {
 
   RxMap<Key?, String>? errorBucket;
 
+  validateWidget();
+
   bool checkMustInput(Key key, text, {String emptyValue = ''}) {
     if (mustInput) {
       if (text is List && text.length == 0 ||
@@ -92,5 +106,10 @@ abstract class EHEditableWidgetController extends EHController {
     return true;
   }
 
-  validateWidget();
+  setModelValue(value) {
+    if (model != null && bindingFieldName != null) {
+      EHRefactorHelper.setFieldValue(model!, bindingFieldName!, value);
+      rxModel!.refresh();
+    }
+  }
 }

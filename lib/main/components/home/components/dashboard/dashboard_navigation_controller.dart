@@ -14,6 +14,7 @@ class DashBoardNavigationController extends GetxController {
   final GlobalKey<NavigatorState>? navigatorKey =
       Get.nestedKey(NavigationKeys.dashBoardNavKey);
 
+  // ignore: body_might_complete_normally_nullable
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case "/wmsPanel":

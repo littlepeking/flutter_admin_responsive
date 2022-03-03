@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
+import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHDialog.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
@@ -53,15 +54,21 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                 1,
                               );
                               if (res.isNotEmpty) {
-                                controller.onChanged!(
-                                    controller.text, res.first);
+                                controller.setModelValue(controller.text);
+                                if (controller.onChanged != null)
+                                  controller.onChanged!(
+                                      controller.text, res.first);
                               } else {
                                 //set code to empty as it's wrong code
                                 //controller.onChanged!(controller.text, null);
-                                controller.onChanged!(null, null);
+                                controller.setModelValue(null);
+                                if (controller.onChanged != null)
+                                  controller.onChanged!(null, null);
                               }
                             } else {
-                              controller.onChanged!(null, null);
+                              controller.setModelValue(null);
+                              if (controller.onChanged != null)
+                                controller.onChanged!(null, null);
                             }
                           }
                         },
@@ -108,10 +115,14 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                       onRowSelected: (row) {
                                         controller.focusNode!.requestFocus();
                                         controller.focusNode!.nextFocus();
-                                        controller.onChanged!(
+                                        controller.setModelValue(
                                             row[controller.codeColumnName]
-                                                .toString(),
-                                            row);
+                                                .toString());
+                                        if (controller.onChanged != null)
+                                          controller.onChanged!(
+                                              row[controller.codeColumnName]
+                                                  .toString(),
+                                              row);
                                         controller.errorBucket![key] = '';
                                         Get.back(result: true);
                                       },
@@ -129,6 +140,7 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                 ),
               ),
               Obx(() => EHEditErrorInfo(
+                  // ignore: invalid_use_of_protected_member
                   errorBucket: controller.errorBucket!.value,
                   errorFieldKey: key))
             ],
@@ -182,7 +194,9 @@ class EHPopupController extends EHEditableWidgetController {
   }
 
   EHPopupController(
-      {double? width,
+      {EHModel? model,
+      String? bindingFieldName,
+      double? width,
       bool autoFocus = false,
       //focusNode必须手工在controller中实例化并赋值给控件的focusNode属性,否则光标焦点跳转会有问题。
       //因为flutter要求focusNode必须在statefulWidget中进行设置，但目前框架暂时只使用statelessWidget，因此只能手工设置。
@@ -190,7 +204,7 @@ class EHPopupController extends EHEditableWidgetController {
       this.queryCode,
       required this.popupTitle,
       String label = '',
-      String? text = '',
+      String? bindingValue = '',
       bool enabled = true,
       bool mustInput = false,
       this.onChanged,
@@ -199,6 +213,8 @@ class EHPopupController extends EHEditableWidgetController {
       EHDataGridSource? dataGridSource,
       Map<Key?, String>? errorBucket})
       : super(
+            model: model,
+            bindingFieldName: bindingFieldName,
             autoFocus: autoFocus,
             enabled: enabled,
             mustInput: mustInput,
@@ -207,7 +223,7 @@ class EHPopupController extends EHEditableWidgetController {
             focusNode: focusNode,
             errorBucket: errorBucket) {
     this.validate = validate ?? () async => true;
-    this.text = text;
+    this.text = bindingValue;
     this.codeColumnName = codeColumnName!; //未集成后台的code配置前，该字段需要手工传入
     this._dataGridSource = getDateSource(dataGridSource, queryCode);
   }

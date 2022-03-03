@@ -1,22 +1,15 @@
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
-import 'package:eh_flutter_framework/main/common/utils/EHDialog.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_image_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_multi_select.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:eh_flutter_framework/test/TestData.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import 'receipt_detail_view_controller.dart';
-
-import 'package:intl/intl.dart';
 
 class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
   ReceiptDetailView({Key? key, controller})
@@ -25,8 +18,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        EHEditForm(controller: controller.widgetBuilderFormController),
         EHEditForm(controller: controller.widgetControllerFormController),
+        EHEditForm(controller: controller.widgetBuilderFormController),
         Container(
           child: Container(
             // padding: EdgeInsets.all(10),
@@ -47,7 +40,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                   focusNode: controller.textFn1,
                                   autoFocus: true,
                                   label: '测试1',
-                                  text:
+                                  bindingValue:
                                       controller.receiptModel.value.receiptKey,
                                   mustInput: true,
                                   //  autoFocus: true,
@@ -65,7 +58,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                   dataGridSource:
                                       DataGridTest.getDataGridSource(),
                                   label: 'popUp',
-                                  text:
+                                  bindingValue:
                                       controller.receiptModel.value.customerId,
                                   mustInput: true,
                                   //  autoFocus: true,
@@ -83,7 +76,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                 mustInput: true,
                                 //enabled: false,
                                 focusNode: controller.datePickerFn1,
-                                dateTime:
+                                bindingValue:
                                     controller.receiptModel.value.dateTime,
                                 onChanged: (value) =>
                                     controller.receiptModel.update((model) {
@@ -96,7 +89,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                 mustInput: true,
                                 showTimePicker: true,
                                 focusNode: controller.datePickerFn2,
-                                dateTime:
+                                bindingValue:
                                     controller.receiptModel.value.dateTime2,
                                 onChanged: (value) =>
                                     controller.receiptModel.update((model) {
@@ -110,7 +103,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                   focusNode: controller.ddlFn1,
                                   label: 'popUp',
                                   mustInput: true,
-                                  selectedValue: controller
+                                  bindingValue: controller
                                       .receiptModel.value.dropdownValue,
                                   items: {
                                     '0': 'Item0',
@@ -129,7 +122,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                   label: '测试5',
                                   enabled: false,
                                   mustInput: true,
-                                  selectedValue: controller
+                                  bindingValue: controller
                                       .receiptModel.value.dropdownValue,
                                   width: 250,
                                   items: {
@@ -148,7 +141,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                   focusNode: controller.textFn2,
                                   label: '测试2',
                                   //errorBucket: controller.errorBucket,
-                                  text:
+                                  bindingValue:
                                       controller.receiptModel.value.receiptKey,
                                   mustInput: true,
                                   onChanged: (value) =>
@@ -163,7 +156,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                   label: '测试5',
                                   enabled: true,
                                   mustInput: true,
-                                  selectedValues: controller
+                                  bindingValue: controller
                                       .receiptModel.value.multiSelectValues,
                                   width: 200,
                                   items: {
