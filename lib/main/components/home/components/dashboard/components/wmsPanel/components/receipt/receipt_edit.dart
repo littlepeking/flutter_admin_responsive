@@ -106,7 +106,14 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
                   'printItemLabel': 'Print SKU Label'
                 },
                 onChanged: (value) {
-                  EHToastMessageHelper.showInfoMessage(value.toString());
+                  if (value == 'receivingASN') {
+                    controller.receiptDetailInfoController.receiptModel.value
+                        .multiSelectValues = ['2'];
+                    controller.receiptDetailInfoController.receiptModel.value
+                        .receiptKey = 'changed';
+                    controller.receiptDetailInfoController.receiptModel
+                        .refresh();
+                  }
                 },
               ))
         ],

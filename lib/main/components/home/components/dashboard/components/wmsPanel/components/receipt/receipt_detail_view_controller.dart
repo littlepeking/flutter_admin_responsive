@@ -75,7 +75,11 @@ class ReceiptDetailViewController extends EHController {
           codeColumnName: 'customerId',
           dataGridSource: DataGridTest.getDataGridSource(),
           mustInput: true,
-          onChanged: (code, row) {}),
+          onChanged: (code, row) {
+            receiptModel.value.receiptKey = row!['customerId'].toString();
+            //no need manual refresh when update current form's data model as it already triggered by EHEditForm.
+            // receiptModel.refresh();
+          }),
       () => EHMultiSelectController(
           bindingFieldName: 'multiSelectValues',
           label: '测试5',
