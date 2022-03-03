@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:core';
 
 import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
@@ -22,7 +23,15 @@ class ReceiptModel extends EHModel {
     required this.multiSelectValues,
     required this.dateTime,
     required this.dateTime2,
-  }) {
-    this.receiptKey = receiptKey;
-  }
+  });
+
+  String toJsonStr() => jsonEncode({
+        'receiptKey': receiptKey,
+        'customerId': customerId,
+        'customerName': customerName,
+        'dropdownValue': dropdownValue,
+        'multiSelectValues': multiSelectValues.toString(),
+        'dateTime': dateTime.toString(),
+        'dateTime2': dateTime2.toString(),
+      });
 }

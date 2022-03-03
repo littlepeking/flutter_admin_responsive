@@ -68,8 +68,16 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
           ElevatedButton(
             focusNode: controller.fnButton,
             onPressed: () {
-              EHToastMessageHelper.showInfoMessage(
-                  MediaQuery.of(context).viewInsets.bottom.toString());
+              controller
+                  .receiptDetailInfoController.widgetControllerFormController
+                  .validate();
+              controller.receiptDetailInfoController.widgetBuilderFormController
+                  .validate();
+              String modelStr = controller
+                  .receiptDetailInfoController.receiptModel.value
+                  .toJsonStr();
+              print(modelStr);
+              EHToastMessageHelper.showInfoMessage(modelStr);
             },
             child: Text('Validate Form'.tr),
           ),

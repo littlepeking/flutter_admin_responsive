@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
@@ -22,6 +24,8 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
 
   @override
   Widget build(BuildContext context) {
+    bool initilized = controller.widgets.length != 0;
+
     return Container(
       child: Container(
         // padding: EdgeInsets.all(10),
@@ -39,14 +43,34 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
                           ? controller.widgetBuilders!.map((builder) {
                               int index =
                                   controller.widgetBuilders!.indexOf(builder);
-                              return Obx(() => builder(
-                                  controller.widgetKeys[index],
-                                  controller.widgetFocusNodes[index]));
+                              if (!initilized) {
+                                controller.widgets.add(Obx(() {
+                                  EHEditableWidget widget = builder(
+                                      controller.widgetKeys[index],
+                                      controller.widgetFocusNodes[index]);
+
+                                  if (!controller.widgetsControllers
+                                      .contains(widget.controller)) {
+                                    controller.widgetsControllers
+                                        .add(widget.controller);
+                                  }
+
+                                  return widget;
+                                }));
+                              }
+
+                              return controller.widgets[index];
                             }).toList()
                           : controller.widgetControllerBuilders!
                               .map((widgetController) {
-                              return buildWidgetByController(
-                                  controller, widgetController);
+                              int index = controller.widgetControllerBuilders!
+                                  .indexOf(widgetController);
+
+                              if (!initilized)
+                                controller.widgets.add(buildWidgetByController(
+                                    controller, widgetController));
+
+                              return controller.widgets[index];
                             }).toList())
                 ],
               ),
@@ -55,13 +79,14 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
     );
   }
 
-  Widget buildWidgetByController(EHEditFormController formController,
+  Obx buildWidgetByController(EHEditFormController formController,
       EHFormWidgetControllerBuilder controllerBuilder) {
     int index =
         formController.widgetControllerBuilders!.indexOf(controllerBuilder);
 
+    EHEditableWidgetController controller = controllerBuilder();
+    formController.widgetsControllers.add(controller);
     return Obx(() {
-      EHEditableWidgetController controller = controllerBuilder();
       controller.key = formController.widgetKeys[index];
       controller.focusNode = formController.widgetFocusNodes[index];
       controller.model = formController.rxModel!.value;
@@ -123,7 +148,9 @@ class EHEditFormController extends EHController {
 
   List<EHFormWidgetControllerBuilder>? widgetControllerBuilders;
 
-  late List<EHEditableWidget> widgets;
+  late List<EHEditableWidgetController> widgetsControllers = [];
+
+  List<Obx> widgets = [];
 
   late List<FocusNode> widgetFocusNodes;
 
@@ -136,8 +163,8 @@ class EHEditFormController extends EHController {
 
   Future<bool> validate() async {
     bool isValid = true;
-    for (int i = 0; i < widgets.length; i++) {
-      isValid &= await widgets[i].validate();
+    for (int i = 0; i < widgetsControllers.length; i++) {
+      isValid &= await widgetsControllers[i].validateWidget();
     }
     return isValid;
   }
