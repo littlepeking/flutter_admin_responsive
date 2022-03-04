@@ -2,6 +2,7 @@ import 'package:eh_flutter_framework/main/common/i18n/customSfLocalization.dart'
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'common/Utils/theme.dart';
+import 'common/i18n/fallback_localization_delegate.dart';
 import 'common/i18n/messages.dart';
 import 'common/utils/ThemeController.dart';
 import 'components/home/components/error/PageNotFound.dart';
@@ -15,7 +16,8 @@ void main() {
       GlobalMaterialLocalizations.delegate,
       // ... app-specific localization delegate[s] here
       //SfGlobalLocalizations.delegate,
-      CustomSfLocalizationDelegate()
+      CustomSfLocalizationDelegate(),
+      FallbackLocalizationDelegate()
     ],
     supportedLocales: [
       const Locale('en'),
