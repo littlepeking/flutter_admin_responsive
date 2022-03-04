@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
@@ -77,12 +79,14 @@ class ReceiptDetailViewController extends EHController {
 
     getWidgetControllerFormController =
         () => widgetControllerFormController = EHEditFormController(
+            widgetFocusNodes: widgetControllerFormController?.widgetFocusNodes,
+            widgetKeys: widgetControllerFormController?.widgetKeys,
             dependentObxValues: [ddlType.value, gridDynamicFilter.value],
             rxModel: receiptModel,
             widgetControllerBuilders: [
               () => EHTextFieldController(
                   label: '测试1',
-                  //    autoFocus: true,
+                  //autoFocus: true,
                   bindingFieldName: 'receiptKey',
                   mustInput: true,
                   onChanged: (value) => {}),
@@ -113,6 +117,9 @@ class ReceiptDetailViewController extends EHController {
                   },
                   onChanged: (value) {
                     ddlType.value = value;
+
+                    Timer(Duration(seconds: 1),
+                        () => print(FocusManager.instance.primaryFocus));
                   }),
               () => EHTextFieldController(
                   label: '测试1',
@@ -153,8 +160,9 @@ class ReceiptDetailViewController extends EHController {
                       DataGridTest.getDataGridSource(gridDynamicFilter.value),
                   mustInput: true,
                   onChanged: (code, row) {
-                    receiptModel.value.receiptKey =
-                        row!['customerId'].toString();
+                    if (row != null)
+                      receiptModel.value.receiptKey =
+                          row!['customerId'].toString();
                     //no need manual refresh when update current form's data model as it already triggered by EHEditForm.
                     // receiptModel.refresh();
                   }),
@@ -168,7 +176,8 @@ class ReceiptDetailViewController extends EHController {
             ]);
   }
 
-  late EHEditFormController widgetControllerFormController;
+  // ignore: avoid_init_to_null
+  late EHEditFormController? widgetControllerFormController = null;
 
   Function? getWidgetControllerFormController;
 
@@ -207,8 +216,6 @@ class ReceiptDetailViewController extends EHController {
   GlobalKey datePicker2 = GlobalKey();
 
   late EHEditFormController widgetBuilderFormController;
-
-  //late EHEditFormController widgetControllerFormController;
 
   static getDDLItems(String type) {
     if (type == "0") {

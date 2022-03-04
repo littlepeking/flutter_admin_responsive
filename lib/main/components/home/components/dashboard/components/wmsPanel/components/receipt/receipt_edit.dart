@@ -69,7 +69,7 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
             focusNode: controller.fnButton,
             onPressed: () {
               controller
-                  .receiptDetailInfoController.widgetControllerFormController
+                  .receiptDetailInfoController.widgetControllerFormController!
                   .validate();
               controller.receiptDetailInfoController.widgetBuilderFormController
                   .validate();

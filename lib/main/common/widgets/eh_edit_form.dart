@@ -44,8 +44,8 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
                               if (!initilized) {
                                 controller.widgets.add(Obx(() {
                                   EHEditableWidget widget = builder(
-                                      controller.widgetKeys[index],
-                                      controller.widgetFocusNodes[index]);
+                                      controller.widgetKeys![index],
+                                      controller.widgetFocusNodes![index]);
 
                                   if (!controller.widgetsControllers
                                       .contains(widget.controller)) {
@@ -85,8 +85,8 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
     EHEditableWidgetController controller = controllerBuilder();
     formController.widgetsControllers.add(controller);
     return Obx(() {
-      controller.key = formController.widgetKeys[index];
-      controller.focusNode = formController.widgetFocusNodes[index];
+      controller.key = formController.widgetKeys![index];
+      controller.focusNode = formController.widgetFocusNodes![index];
       controller.model = formController.rxModel!.value;
       controller.rxModel = formController.rxModel;
       if (controller is EHTextFieldController) {
@@ -125,7 +125,9 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
 
 class EHEditFormController extends EHController {
   EHEditFormController(
-      {this.widgetControllerBuilders,
+      {this.widgetFocusNodes,
+      this.widgetKeys,
+      this.widgetControllerBuilders,
       this.widgetBuilders,
       this.dependentObxValues,
       // this.model,
@@ -139,8 +141,10 @@ class EHEditFormController extends EHController {
         ? this.widgetControllerBuilders!.length
         : this.widgetBuilders!.length;
 
-    widgetFocusNodes = List.generate(widgetNumber, (index) => FocusNode());
-    widgetKeys = List.generate(widgetNumber, (index) => GlobalKey());
+    widgetFocusNodes =
+        widgetFocusNodes ?? List.generate(widgetNumber, (index) => FocusNode());
+    widgetKeys =
+        widgetKeys ?? List.generate(widgetNumber, (index) => GlobalKey());
   }
 
   List<EHEditWidgetBuilder>? widgetBuilders;
@@ -151,9 +155,9 @@ class EHEditFormController extends EHController {
 
   List<Obx> widgets = [];
 
-  late List<FocusNode> widgetFocusNodes;
+  List<FocusNode>? widgetFocusNodes;
 
-  late List<Key> widgetKeys;
+  List<Key>? widgetKeys;
 
   //EHModel? model;
   Rx<EHModel>? rxModel;
