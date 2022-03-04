@@ -162,7 +162,7 @@ class ReceiptDetailViewController extends EHController {
                   onChanged: (code, row) {
                     if (row != null)
                       receiptModel.value.receiptKey =
-                          row!['customerId'].toString();
+                          row['customerId'].toString();
                     //no need manual refresh when update current form's data model as it already triggered by EHEditForm.
                     // receiptModel.refresh();
                   }),
