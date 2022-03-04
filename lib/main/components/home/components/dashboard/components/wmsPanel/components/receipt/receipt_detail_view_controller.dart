@@ -16,7 +16,7 @@ import '../../../../../../../../common/widgets/eh_dropdown.dart';
 class ReceiptDetailViewController extends EHController {
   RxString ddlType = '0'.obs;
 
-  Rx<MapEntry<String, String>> gridDynamicFilter = MapEntry('city', '').obs;
+  Rxn<MapEntry<String, String>> gridDynamicFilter = Rxn(MapEntry('city', ''));
 
   Rx<ReceiptModel> receiptModel = ReceiptModel(
           receiptKey: 'key001',
@@ -130,8 +130,13 @@ class ReceiptDetailViewController extends EHController {
                     'isConfirmed:true': 'isConfirmed:Y',
                   },
                   onChanged: (value) {
-                    List<String> values = value.split(':');
-                    gridDynamicFilter.value = MapEntry(values[0], values[1]);
+                    if (value == '')
+                      gridDynamicFilter.value = null;
+                    else {
+                      List<String> values = value.split(':');
+
+                      gridDynamicFilter.value = MapEntry(values[0], values[1]);
+                    }
                     //gridDynamicFilter.refresh();
                   }),
               () => EHPopupController(
