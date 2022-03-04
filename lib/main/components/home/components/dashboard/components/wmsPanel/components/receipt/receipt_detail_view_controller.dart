@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
+import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
@@ -13,6 +14,21 @@ import '../../../../../../../../common/widgets/EH_multi_select.dart';
 import '../../../../../../../../common/widgets/eh_dropdown.dart';
 
 class ReceiptDetailViewController extends EHController {
+  RxString ddlType = '0'.obs;
+
+  Rx<MapEntry<String, String>> gridDynamicFilter = MapEntry('city', '').obs;
+
+  Rx<ReceiptModel> receiptModel = ReceiptModel(
+          receiptKey: 'key001',
+          customerId: 'cus001',
+          customerName: 'cus001Name',
+          dropdownValue: '1',
+          dropdownValue2: '0',
+          multiSelectValues: ['1', '2'],
+          dateTime: DateTime.now(),
+          dateTime2: null)
+      .obs;
+
   ReceiptDetailViewController() {
     widgetBuilderFormController = EHEditFormController(widgetBuilders: [
       (key, focusNode) => EHTextField(
@@ -34,7 +50,7 @@ class ReceiptDetailViewController extends EHController {
                 popupTitle: 'Please Select Supplier',
                 focusNode: focusNode,
                 codeColumnName: 'customerId',
-                dataGridSource: DataGridTest.getDataGridSource(),
+                dataGridSource: DataGridTest.getDataGridSource(null),
                 label: 'popUp',
                 bindingValue: receiptModel.value.customerId,
                 mustInput: true,
@@ -60,61 +76,91 @@ class ReceiptDetailViewController extends EHController {
               label: 'date')),
     ]);
 
-    widgetControllerFormController =
-        EHEditFormController(rxModel: receiptModel, widgetControllerBuilders: [
-      () => EHTextFieldController(
-          label: '测试1',
-          autoFocus: true,
-          bindingFieldName: 'receiptKey',
-          mustInput: true,
-          onChanged: (value) => {}),
-      () => EHPopupController(
-          label: 'popUp',
-          bindingFieldName: 'customerId',
-          popupTitle: 'Please Select Supplier',
-          codeColumnName: 'customerId',
-          dataGridSource: DataGridTest.getDataGridSource(),
-          mustInput: true,
-          onChanged: (code, row) {
-            receiptModel.value.receiptKey = row!['customerId'].toString();
-            //no need manual refresh when update current form's data model as it already triggered by EHEditForm.
-            // receiptModel.refresh();
-          }),
-      () => EHMultiSelectController(
-          bindingFieldName: 'multiSelectValues',
-          label: '测试5',
-          mustInput: true,
-          items: {
-            '0': 'MItem0',
-            '1': 'MItem1',
-            '2': 'MItem2',
-          },
-          onChanged: (value) => {}),
-      () => EHDatePickerController(
-            label: 'date',
-            bindingFieldName: 'dateTime',
-            mustInput: true,
-            onChanged: (value) => {},
-          ),
-      () => EHDropDownController(
-          label: 'popUp',
-          bindingFieldName: 'dropdownValue',
-          validate: () async => true,
-          items: {
-            '0': 'Item0',
-            '1': 'Item1',
-            '2': 'Item2',
-          },
-          onChanged: (value) => {}),
-      () => EHDatePickerController(
-            label: 'date',
-            bindingFieldName: 'dateTime2',
-            mustInput: true,
-            showTimePicker: true,
-            onChanged: (value) => {},
-          ),
-    ]);
+    getWidgetControllerFormController =
+        () => widgetControllerFormController = EHEditFormController(
+            dependentObxValues: [ddlType.value, gridDynamicFilter.value],
+            rxModel: receiptModel,
+            widgetControllerBuilders: [
+              () => EHTextFieldController(
+                  label: '测试1',
+                  autoFocus: true,
+                  bindingFieldName: 'receiptKey',
+                  mustInput: true,
+                  onChanged: (value) => {}),
+              () => EHMultiSelectController(
+                  bindingFieldName: 'multiSelectValues',
+                  label: '测试5',
+                  mustInput: true,
+                  items: {
+                    '0': 'MItem0',
+                    '1': 'MItem1',
+                    '2': 'MItem2',
+                  },
+                  onChanged: (value) => {}),
+              () => EHDatePickerController(
+                    label: 'date',
+                    bindingFieldName: 'dateTime',
+                    mustInput: true,
+                    onChanged: (value) => {},
+                  ),
+              () => EHDropDownController(
+                  label: 'popUp',
+                  bindingFieldName: 'dropdownValue',
+                  validate: () async => true,
+                  items: {
+                    '0': 'Item0',
+                    '1': 'Item1',
+                    '2': 'Item2',
+                  },
+                  onChanged: (value) {
+                    ddlType.value = value;
+                  }),
+              () => EHDropDownController(
+                  label: 'popUp',
+                  bindingFieldName: 'dropdownValue2',
+                  validate: () async => true,
+                  items: getDDLItems(ddlType.value),
+                  onChanged: (value) => {}),
+              () => EHDropDownController(
+                  label: 'popUp',
+                  bindingFieldName: 'dropdownValue',
+                  validate: () async => true,
+                  items: {
+                    'city:PEK': 'city:Beijing',
+                    'isConfirmed:true': 'isConfirmed:Y',
+                  },
+                  onChanged: (value) {
+                    List<String> values = value.split(':');
+                    gridDynamicFilter.value = MapEntry(values[0], values[1]);
+                    //gridDynamicFilter.refresh();
+                  }),
+              () => EHPopupController(
+                  label: 'popUp',
+                  bindingFieldName: 'customerId',
+                  popupTitle: 'Please Select Supplier',
+                  codeColumnName: 'customerId',
+                  dataGridSource:
+                      DataGridTest.getDataGridSource(gridDynamicFilter.value),
+                  mustInput: true,
+                  onChanged: (code, row) {
+                    receiptModel.value.receiptKey =
+                        row!['customerId'].toString();
+                    //no need manual refresh when update current form's data model as it already triggered by EHEditForm.
+                    // receiptModel.refresh();
+                  }),
+              () => EHDatePickerController(
+                    label: 'date',
+                    bindingFieldName: 'dateTime2',
+                    mustInput: true,
+                    showTimePicker: true,
+                    onChanged: (value) => {},
+                  ),
+            ]);
   }
+
+  late EHEditFormController widgetControllerFormController;
+
+  Function? getWidgetControllerFormController;
 
   FocusNode popUpFn = FocusNode();
   FocusNode textFn1 = FocusNode(
@@ -150,17 +196,23 @@ class ReceiptDetailViewController extends EHController {
 
   GlobalKey datePicker2 = GlobalKey();
 
-  Rx<ReceiptModel> receiptModel = ReceiptModel(
-          receiptKey: 'key001',
-          customerId: 'cus001',
-          customerName: 'cus001Name',
-          dropdownValue: '1',
-          multiSelectValues: ['1', '2'],
-          dateTime: DateTime.now(),
-          dateTime2: null)
-      .obs;
-
   late EHEditFormController widgetBuilderFormController;
 
-  late EHEditFormController widgetControllerFormController;
+  //late EHEditFormController widgetControllerFormController;
+
+  static getDDLItems(String type) {
+    if (type == "0") {
+      return {
+        '0': 'Item0',
+      };
+    } else if (type == "1") {
+      return {
+        '1': 'Item1',
+      };
+    } else {
+      return {
+        '2': 'Item4',
+      };
+    }
+  }
 }

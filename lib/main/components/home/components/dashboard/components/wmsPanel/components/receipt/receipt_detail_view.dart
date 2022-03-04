@@ -18,7 +18,16 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        EHEditForm(controller: controller.widgetControllerFormController),
+        // Obx(() => Column(
+        //       children: [
+        //         Text(controller.ddlType.value),
+        //         EHEditForm(
+        //             controller:
+        //                 controller.getWidgetControllerFormController!()),
+        //       ],
+        //     )),
+        Obx(() => EHEditForm(
+            controller: controller.getWidgetControllerFormController!())),
         EHEditForm(controller: controller.widgetBuilderFormController),
         Container(
           child: Container(
@@ -56,7 +65,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                   focusNode: controller.popUpFn,
                                   codeColumnName: 'customerId',
                                   dataGridSource:
-                                      DataGridTest.getDataGridSource(),
+                                      DataGridTest.getDataGridSource(null),
                                   label: 'popUp',
                                   bindingValue:
                                       controller.receiptModel.value.customerId,

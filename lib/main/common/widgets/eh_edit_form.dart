@@ -127,6 +127,7 @@ class EHEditFormController extends EHController {
   EHEditFormController(
       {this.widgetControllerBuilders,
       this.widgetBuilders,
+      this.dependentObxValues,
       // this.model,
       this.rxModel,
       this.onChanged}) {
@@ -158,6 +159,10 @@ class EHEditFormController extends EHController {
   Rx<EHModel>? rxModel;
 
   void Function(EHModel)? onChanged;
+
+  //Create dependentObjects to let Obx know EHEditForm also need monitor these dependent Objects.
+  //only need be used when need dynamically update EHEditableWidgetController's attributes other than model.
+  List<Object?>? dependentObxValues;
 
   Future<bool> validate() async {
     bool isValid = true;

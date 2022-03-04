@@ -67,6 +67,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
                       customerId,
                       customerName,
                       dropdownValue,
+                      dropdownValue2,
                       multiSelectValues,
                       dateTime,
                       dateTime2}) =>
@@ -77,6 +78,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
                           dateTime: dateTime,
                           dateTime2: dateTime2,
                           dropdownValue: dropdownValue,
+                          dropdownValue2: dropdownValue2,
                           multiSelectValues: multiSelectValues,
                           receiptKey: receiptKey)
                       : null
@@ -91,6 +93,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
               r'noSuchMethod': 1,
               r'hashCode': 0,
               r'runtimeType': 0,
+              r'toJsonStr': 0,
               r'receiptKey': 0,
               r'receiptKey=': 1,
               r'customerId': 0,
@@ -99,6 +102,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
               r'customerName=': 1,
               r'dropdownValue': 0,
               r'dropdownValue=': 1,
+              r'dropdownValue2': 0,
+              r'dropdownValue2=': 1,
               r'multiSelectValues': 0,
               r'multiSelectValues=': 1,
               r'dateTime': 0,
@@ -117,10 +122,12 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r'noSuchMethod': (dynamic instance) => instance.noSuchMethod,
         r'hashCode': (dynamic instance) => instance.hashCode,
         r'runtimeType': (dynamic instance) => instance.runtimeType,
+        r'toJsonStr': (dynamic instance) => instance.toJsonStr,
         r'receiptKey': (dynamic instance) => instance.receiptKey,
         r'customerId': (dynamic instance) => instance.customerId,
         r'customerName': (dynamic instance) => instance.customerName,
         r'dropdownValue': (dynamic instance) => instance.dropdownValue,
+        r'dropdownValue2': (dynamic instance) => instance.dropdownValue2,
         r'multiSelectValues': (dynamic instance) => instance.multiSelectValues,
         r'dateTime': (dynamic instance) => instance.dateTime,
         r'dateTime2': (dynamic instance) => instance.dateTime2
@@ -134,6 +141,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
             instance.customerName = value,
         r'dropdownValue=': (dynamic instance, value) =>
             instance.dropdownValue = value,
+        r'dropdownValue2=': (dynamic instance, value) =>
+            instance.dropdownValue2 = value,
         r'multiSelectValues=': (dynamic instance, value) =>
             instance.multiSelectValues = value,
         r'dateTime=': (dynamic instance, value) => instance.dateTime = value,
@@ -151,6 +160,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             #customerId,
             #customerName,
             #dropdownValue,
+            #dropdownValue2,
             #multiSelectValues,
             #dateTime,
             #dateTime2
