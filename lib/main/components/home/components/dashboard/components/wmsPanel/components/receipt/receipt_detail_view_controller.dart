@@ -85,29 +85,13 @@ class ReceiptDetailViewController extends EHController {
             rxModel: receiptModel,
             widgetControllerBuilders: [
               () => EHTextFieldController(
-                  label: '测试1',
+                  label: '文本框',
                   //autoFocus: true,
                   bindingFieldName: 'receiptKey',
                   mustInput: true,
                   onChanged: (value) => {}),
-              () => EHMultiSelectController(
-                  bindingFieldName: 'multiSelectValues',
-                  label: '测试5',
-                  mustInput: true,
-                  items: {
-                    '0': 'MItem0',
-                    '1': 'MItem1',
-                    '2': 'MItem2',
-                  },
-                  onChanged: (value) => {}),
-              () => EHDatePickerController(
-                    label: 'date',
-                    bindingFieldName: 'dateTime',
-                    mustInput: true,
-                    onChanged: (value) => {},
-                  ),
               () => EHDropDownController(
-                  label: 'popUp',
+                  label: '下拉框1（级联动态下拉框2）',
                   bindingFieldName: 'dropdownValue',
                   validate: () async => true,
                   items: {
@@ -117,24 +101,15 @@ class ReceiptDetailViewController extends EHController {
                   },
                   onChanged: (value) {
                     ddlType.value = value;
-
-                    Timer(Duration(seconds: 1),
-                        () => print(FocusManager.instance.primaryFocus));
                   }),
-              () => EHTextFieldController(
-                  label: '测试1',
-                  //autoFocus: true,
-                  bindingFieldName: 'receiptKey',
-                  mustInput: true,
-                  onChanged: (value) => {}),
               () => EHDropDownController(
-                  label: 'popUp',
+                  label: '下拉框2',
                   bindingFieldName: 'dropdownValue2',
                   validate: () async => true,
                   items: getDDLItems(ddlType.value),
                   onChanged: (value) => {}),
               () => EHDropDownController(
-                  label: 'popUp',
+                  label: '下拉框（级联动态弹出框）',
                   bindingFieldName: 'dropdownValue',
                   validate: () async => true,
                   items: {
@@ -166,8 +141,24 @@ class ReceiptDetailViewController extends EHController {
                     //no need manual refresh when update current form's data model as it already triggered by EHEditForm.
                     // receiptModel.refresh();
                   }),
+              () => EHMultiSelectController(
+                  bindingFieldName: 'multiSelectValues',
+                  label: '多选框',
+                  mustInput: true,
+                  items: {
+                    '0': 'MItem0',
+                    '1': 'MItem1',
+                    '2': 'MItem2',
+                  },
+                  onChanged: (value) => {}),
               () => EHDatePickerController(
                     label: 'date',
+                    bindingFieldName: 'dateTime',
+                    mustInput: true,
+                    onChanged: (value) => {},
+                  ),
+              () => EHDatePickerController(
+                    label: 'time',
                     bindingFieldName: 'dateTime2',
                     mustInput: true,
                     showTimePicker: true,
