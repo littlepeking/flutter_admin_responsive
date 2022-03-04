@@ -1,5 +1,4 @@
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
-import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
@@ -36,7 +35,7 @@ class ReceiptDetailViewController extends EHController {
             // autoFocus: true,
             controller: EHTextFieldController(
                 focusNode: focusNode,
-                autoFocus: true,
+                //autoFocus: true,
                 label: '测试1',
                 bindingValue: receiptModel.value.receiptKey,
                 mustInput: true,
@@ -83,7 +82,7 @@ class ReceiptDetailViewController extends EHController {
             widgetControllerBuilders: [
               () => EHTextFieldController(
                   label: '测试1',
-                  autoFocus: true,
+                  //    autoFocus: true,
                   bindingFieldName: 'receiptKey',
                   mustInput: true,
                   onChanged: (value) => {}),
@@ -115,6 +114,12 @@ class ReceiptDetailViewController extends EHController {
                   onChanged: (value) {
                     ddlType.value = value;
                   }),
+              () => EHTextFieldController(
+                  label: '测试1',
+                  //autoFocus: true,
+                  bindingFieldName: 'receiptKey',
+                  mustInput: true,
+                  onChanged: (value) => {}),
               () => EHDropDownController(
                   label: 'popUp',
                   bindingFieldName: 'dropdownValue2',
