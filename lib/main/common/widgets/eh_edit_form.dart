@@ -125,8 +125,15 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
 
 class EHEditFormController extends EHController {
   EHEditFormController(
-      {this.widgetFocusNodes,
+      {
+      ////////////////////////////////////////////////////////////////////////
+      ///Need this two parameters to make child correctly focused on EHEditFrom next rendering through Obx.
+      ///It will keep form child widgets highlight but lose cursor without keeping widgetKeys,
+      ///but good to find the issue and figure out the issue but I have no idea about the root cause so far.
+      ////////////////////////////////////////////////////////////////////////
+      this.widgetFocusNodes,
       this.widgetKeys,
+      ////////////////////////////////////////////////////////////////////////
       this.widgetControllerBuilders,
       this.widgetBuilders,
       this.dependentObxValues,
