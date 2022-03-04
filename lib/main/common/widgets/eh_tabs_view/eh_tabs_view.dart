@@ -39,7 +39,7 @@ class EHTabsView extends StatelessWidget {
           //color: Colors.grey,
           child: tab.tabWidget = tab.tabWidget ??
               (() {
-                print('called tab.getTabWidgetFunc ${tab.tabController}');
+                //print('called tab.getTabWidgetFunc ${tab.tabController}');
                 return tab.getTabWidgetFunc(tab.tabController);
               })(),
         ),
