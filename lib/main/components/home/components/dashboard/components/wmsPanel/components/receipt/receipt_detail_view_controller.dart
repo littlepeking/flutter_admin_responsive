@@ -92,7 +92,7 @@ class ReceiptDetailViewController extends EHController {
                   mustInput: true,
                   onChanged: (value) => {}),
               () => EHDropDownController(
-                  label: '下拉框1（级联动态下拉框2）',
+                  label: '下拉框1-级联',
                   bindingFieldName: 'dropdownValue',
                   validate: () async => true,
                   items: {
@@ -110,7 +110,7 @@ class ReceiptDetailViewController extends EHController {
                   items: getDDLItems(ddlType.value),
                   onChanged: (value) => {}),
               () => EHDropDownController(
-                  label: '下拉框（级联动态弹出框）',
+                  label: '下拉框-级联',
                   bindingFieldName: 'dropdownValue',
                   validate: () async => true,
                   items: {
