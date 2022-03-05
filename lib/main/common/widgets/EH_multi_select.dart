@@ -150,9 +150,9 @@ class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
               child: DropdownButtonHideUnderline(
                 child: Focus(
                     canRequestFocus: false,
-                    onFocusChange: (focused) {
+                    onFocusChange: (hasFocus) {
                       //change border color when dropdown widget is focused or not
-                      controller.focused.value = focused;
+                      controller.focused.value = hasFocus;
                     },
                     child: Stack(children: [
                       Container(

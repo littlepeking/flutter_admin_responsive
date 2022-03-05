@@ -33,6 +33,8 @@ class EHCheckBox extends EHEditableWidget<EHCheckBoxController> {
                 children: [
                   Expanded(
                     child: Container(
+                      padding: EdgeInsets.only(left: 10),
+                      alignment: Alignment.centerLeft,
                       height: 25,
                       child: Focus(
                         descendantsAreFocusable: true,

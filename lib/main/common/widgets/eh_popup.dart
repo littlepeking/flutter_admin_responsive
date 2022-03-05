@@ -87,10 +87,7 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                               controller.focusNode!.nextFocus();
                             },
                             controller: controller._textEditingController,
-                            enabled: controller.enabled,
-                            onChanged: (v) {
-                              //TO DO: add check from backend do validate, if error then set column to empty
-                            }),
+                            enabled: controller.enabled),
                       ),
                     ),
                     Container(
