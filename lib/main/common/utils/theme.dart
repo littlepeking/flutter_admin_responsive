@@ -20,6 +20,7 @@ class EhTheme {
         // disabledColor: Colors.grey,
       ),
       checkboxTheme: CheckboxThemeData(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           fillColor: MaterialStateProperty.all(Colors.grey),
           checkColor: MaterialStateProperty.all(Colors.white)),
       elevatedButtonTheme: ElevatedButtonThemeData(
