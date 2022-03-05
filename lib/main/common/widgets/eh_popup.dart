@@ -113,11 +113,13 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                       dataGridSource:
                                           controller._dataGridSource,
                                       onRowSelected: (row) {
-                                        controller.focusNode!.requestFocus();
-                                        controller.focusNode!.nextFocus();
                                         controller.setModelValue(
                                             row[controller.codeColumnName]
                                                 .toString());
+
+                                        controller.focusNode!.requestFocus();
+                                        controller.focusNode!.nextFocus();
+
                                         if (controller.onChanged != null)
                                           controller.onChanged!(
                                               row[controller.codeColumnName]

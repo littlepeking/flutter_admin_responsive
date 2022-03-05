@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
@@ -164,6 +165,13 @@ class ReceiptDetailViewController extends EHController {
                     showTimePicker: true,
                     onChanged: (value) => {},
                   ),
+              () => EHCheckBoxController(
+                  label: 'checkBox',
+                  bindingFieldName: 'isChecked',
+                  onChanged: (v) {
+                    widgetControllerFormController!.widgetFocusNodes![0]
+                        .requestFocus();
+                  })
             ]);
   }
 
@@ -193,6 +201,7 @@ class ReceiptDetailViewController extends EHController {
   FocusNode datePickerFn1 = FocusNode();
 
   FocusNode datePickerFn2 = FocusNode();
+  FocusNode checkBoxFn1 = FocusNode();
 
   GlobalKey popupKey1 = GlobalKey();
   GlobalKey textKey1 = GlobalKey();
@@ -205,6 +214,8 @@ class ReceiptDetailViewController extends EHController {
   GlobalKey datePicker1 = GlobalKey();
 
   GlobalKey datePicker2 = GlobalKey();
+
+  GlobalKey checkBoxKey1 = GlobalKey();
 
   late EHEditFormController widgetBuilderFormController;
 

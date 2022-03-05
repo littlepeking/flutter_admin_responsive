@@ -16,6 +16,7 @@ class ReceiptModel extends EHModel {
   List<String> multiSelectValues;
   DateTime? dateTime;
   DateTime? dateTime2;
+  bool? isChecked;
   ReceiptModel({
     required this.receiptKey,
     required this.customerId,
@@ -25,6 +26,7 @@ class ReceiptModel extends EHModel {
     required this.multiSelectValues,
     required this.dateTime,
     required this.dateTime2,
+    this.isChecked,
   });
 
   String toJsonStr() => jsonEncode({
@@ -32,8 +34,9 @@ class ReceiptModel extends EHModel {
         'customerId': customerId,
         'customerName': customerName,
         'dropdownValue': dropdownValue,
-        'multiSelectValues': multiSelectValues.toString(),
+        'multiSelectValues': multiSelectValues,
         'dateTime': dateTime.toString(),
         'dateTime2': dateTime2.toString(),
+        'isChecked': isChecked
       });
 }

@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
@@ -144,20 +145,6 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                         model!.dropdownValue = value;
                                       })),
                             )),
-                        Obx(() => EHTextField(
-                              key: controller.textKey2,
-                              controller: EHTextFieldController(
-                                  focusNode: controller.textFn2,
-                                  label: '测试2',
-                                  //errorBucket: controller.errorBucket,
-                                  bindingValue:
-                                      controller.receiptModel.value.receiptKey,
-                                  mustInput: true,
-                                  onChanged: (value) =>
-                                      controller.receiptModel.update((model) {
-                                        model!.receiptKey = value;
-                                      })),
-                            )),
                         Obx(() => EHMultiSelect(
                               key: controller.multiSelectKey1,
                               controller: EHMultiSelectController(
@@ -176,6 +163,35 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                   onChanged: (value) =>
                                       controller.receiptModel.update((model) {
                                         model!.multiSelectValues = value;
+                                      })),
+                            )),
+                        Obx(() => EHCheckBox(
+                              key: controller.checkBoxKey1,
+                              controller: EHCheckBoxController(
+                                  focusNode: controller.checkBoxFn1,
+                                  label: '选择框',
+                                  enabled: true,
+                                  mustInput: true,
+                                  bindingValue:
+                                      controller.receiptModel.value.isChecked,
+                                  width: 200,
+                                  onChanged: (value) =>
+                                      controller.receiptModel.update((model) {
+                                        model!.isChecked = value;
+                                      })),
+                            )),
+                        Obx(() => EHTextField(
+                              key: controller.textKey2,
+                              controller: EHTextFieldController(
+                                  focusNode: controller.textFn2,
+                                  label: '测试2',
+                                  //errorBucket: controller.errorBucket,
+                                  bindingValue:
+                                      controller.receiptModel.value.receiptKey,
+                                  mustInput: true,
+                                  onChanged: (value) =>
+                                      controller.receiptModel.update((model) {
+                                        model!.receiptKey = value;
                                       })),
                             )),
                       ]),

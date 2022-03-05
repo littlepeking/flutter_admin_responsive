@@ -105,6 +105,10 @@ class EHDatePickerController extends EHEditableWidgetController {
               parsedDate = null;
             }
             setModelValue(parsedDate);
+
+            focusNode!.requestFocus();
+            focusNode.nextFocus();
+
             if (onChanged != null) onChanged(parsedDate);
           } catch (e) {
             return;
@@ -146,36 +150,41 @@ class EHDatePickerController extends EHEditableWidgetController {
 
                                 if (selectedDateTime != null) {
                                   setModelValue(selectedDateTime);
+
+                                  this
+                                      ._textEditingController
+                                      .focusNode!
+                                      .requestFocus();
+                                  this
+                                      ._textEditingController
+                                      .focusNode!
+                                      .nextFocus();
+
                                   if (onChanged != null) {
                                     onChanged(selectedDateTime);
                                   }
                                 }
-                                this
-                                    ._textEditingController
-                                    .focusNode!
-                                    .requestFocus();
-                                this
-                                    ._textEditingController
-                                    .focusNode!
-                                    .nextFocus();
                               },
                               onSubmit: (value) async {
                                 DateTime? selectedDateTime = await addTime2Date(
                                     value as DateTime?, value);
+
                                 if (selectedDateTime != null) {
                                   setModelValue(selectedDateTime);
+
+                                  this
+                                      ._textEditingController
+                                      .focusNode!
+                                      .requestFocus();
+                                  this
+                                      ._textEditingController
+                                      .focusNode!
+                                      .nextFocus();
+
                                   if (onChanged != null) {
                                     onChanged(selectedDateTime);
                                   }
                                 }
-                                this
-                                    ._textEditingController
-                                    .focusNode!
-                                    .requestFocus();
-                                this
-                                    ._textEditingController
-                                    .focusNode!
-                                    .nextFocus();
                               },
                               onCancel: () {
                                 Get.back();

@@ -146,11 +146,12 @@ class EHDropdown extends EHEditableWidget<EHDropDownController> {
                       onChanged: controller.enabled
                           ? (v) async {
                               controller.setModelValue(v);
-                              if (controller.onChanged != null)
-                                controller.onChanged!(v.toString());
                               await controller._validate(v.toString());
                               controller.focusNode!.requestFocus();
                               controller.focusNode!.nextFocus();
+
+                              if (controller.onChanged != null)
+                                controller.onChanged!(v.toString());
                             }
                           : null,
                       buttonHeight: 23,

@@ -70,9 +70,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
                       dropdownValue2,
                       multiSelectValues,
                       dateTime,
-                      dateTime2}) =>
+                      dateTime2,
+                      isChecked}) =>
                   b
                       ? prefix2.ReceiptModel(
+                          isChecked: isChecked,
                           customerId: customerId,
                           customerName: customerName,
                           dateTime: dateTime,
@@ -109,7 +111,9 @@ final _data = <r.Reflectable, r.ReflectorData>{
               r'dateTime': 0,
               r'dateTime=': 1,
               r'dateTime2': 0,
-              r'dateTime2=': 1
+              r'dateTime2=': 1,
+              r'isChecked': 0,
+              r'isChecked=': 1
             })
       ],
       null,
@@ -130,7 +134,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r'dropdownValue2': (dynamic instance) => instance.dropdownValue2,
         r'multiSelectValues': (dynamic instance) => instance.multiSelectValues,
         r'dateTime': (dynamic instance) => instance.dateTime,
-        r'dateTime2': (dynamic instance) => instance.dateTime2
+        r'dateTime2': (dynamic instance) => instance.dateTime2,
+        r'isChecked': (dynamic instance) => instance.isChecked
       },
       {
         r'receiptKey=': (dynamic instance, value) =>
@@ -146,7 +151,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r'multiSelectValues=': (dynamic instance, value) =>
             instance.multiSelectValues = value,
         r'dateTime=': (dynamic instance, value) => instance.dateTime = value,
-        r'dateTime2=': (dynamic instance, value) => instance.dateTime2 = value
+        r'dateTime2=': (dynamic instance, value) => instance.dateTime2 = value,
+        r'isChecked=': (dynamic instance, value) => instance.isChecked = value
       },
       null,
       [
@@ -163,7 +169,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
             #dropdownValue2,
             #multiSelectValues,
             #dateTime,
-            #dateTime2
+            #dateTime2,
+            #isChecked
           ]
         ]
       ])

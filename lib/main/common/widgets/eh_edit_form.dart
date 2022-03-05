@@ -6,6 +6,7 @@ import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHRefactorHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/EH_multi_select.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
@@ -94,6 +95,12 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
                 controller.model!, controller.bindingFieldName!) ??
             '') as String;
         return EHTextField(key: controller.key!, controller: controller);
+      }
+      if (controller is EHCheckBoxController) {
+        controller.bindingValue = (EHRefactorHelper.getFieldValue(
+                controller.model!, controller.bindingFieldName!) ??
+            false) as bool?;
+        return EHCheckBox(key: controller.key!, controller: controller);
       } else if (controller is EHDropDownController) {
         controller.selectedValue = (EHRefactorHelper.getFieldValue(
                 controller.model!, controller.bindingFieldName!) ??
