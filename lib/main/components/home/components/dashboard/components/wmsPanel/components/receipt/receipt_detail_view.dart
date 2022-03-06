@@ -66,7 +66,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                   focusNode: controller.popUpFn,
                                   codeColumnName: 'customerId',
                                   dataGridSource:
-                                      DataGridTest.getDataGridSource(null),
+                                      DataGridTest.getDataGridSource(),
                                   label: 'popUp',
                                   bindingValue:
                                       controller.receiptModel.value.customerId,

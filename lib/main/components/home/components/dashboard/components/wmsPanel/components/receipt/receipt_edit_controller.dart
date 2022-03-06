@@ -34,7 +34,7 @@ class ReceiptEditController extends EHController {
         showCheckbox: true,
         onRowSelected: (data) =>
             EHToastMessageHelper.showInfoMessage(data.toString()),
-        dataGridSource: DataGridTest.getDataGridSource(null));
+        dataGridSource: DataGridTest.getDataGridSource());
 
     receiptHeaderTabsViewController = EHTabsViewController(tabs: [
       EHTab('General Info', asnHeaderDataGridController, (EHController c) {

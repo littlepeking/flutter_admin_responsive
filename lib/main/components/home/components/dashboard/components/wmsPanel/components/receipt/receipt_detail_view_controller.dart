@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 import '../../../../../../../../common/widgets/EH_multi_select.dart';
+import '../../../../../../../../common/widgets/eh_datagrid/eh_datagrid_source.dart';
 import '../../../../../../../../common/widgets/eh_dropdown.dart';
 
 class ReceiptDetailViewController extends EHController {
@@ -32,6 +33,8 @@ class ReceiptDetailViewController extends EHController {
       .obs;
 
   ReceiptDetailViewController() {
+    EHDataGridSource popUpDataSource = DataGridTest.getDataGridSource();
+
     widgetBuilderFormController = EHEditFormController(widgetBuilders: [
       (key, focusNode) => EHTextField(
             key: key,
@@ -52,7 +55,7 @@ class ReceiptDetailViewController extends EHController {
                 popupTitle: 'Please Select Supplier',
                 focusNode: focusNode,
                 codeColumnName: 'customerId',
-                dataGridSource: DataGridTest.getDataGridSource(null),
+                dataGridSource: DataGridTest.getDataGridSource(),
                 label: 'popUp',
                 bindingValue: receiptModel.value.customerId,
                 mustInput: true,
@@ -118,12 +121,17 @@ class ReceiptDetailViewController extends EHController {
                     'isConfirmed:true': 'isConfirmed:Y',
                   },
                   onChanged: (value) {
-                    if (value == '')
-                      gridDynamicFilter.value = null;
-                    else {
+                    if (value == '') {
+                      popUpDataSource.setFilter('city', '');
+                      popUpDataSource.setFilter('isConfirmed', '');
+                      // gridDynamicFilter.value = null;
+                    } else {
+                      popUpDataSource.setFilter('city', '');
+                      popUpDataSource.setFilter('isConfirmed', '');
                       List<String> values = value.split(':');
+                      popUpDataSource.setFilter(values[0], values[1]);
 
-                      gridDynamicFilter.value = MapEntry(values[0], values[1]);
+                      //gridDynamicFilter.value = MapEntry(values[0], values[1]);
                     }
                     //gridDynamicFilter.refresh();
                   }),
@@ -132,8 +140,7 @@ class ReceiptDetailViewController extends EHController {
                   bindingFieldName: 'customerId',
                   popupTitle: 'Please Select Supplier',
                   codeColumnName: 'customerId',
-                  dataGridSource:
-                      DataGridTest.getDataGridSource(gridDynamicFilter.value),
+                  dataGridSource: popUpDataSource,
                   mustInput: true,
                   onChanged: (code, row) {
                     if (row != null)

@@ -9,8 +9,9 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_source.dart';
 
 class DataGridTest {
-  static getDataGridSource(MapEntry<String, String>? keyValueFilter) {
+  static getDataGridSource() {
     return EHDataGridSource(
+        loadDataAtInit: false,
         columnFilters: [
           EHDataGridFilterInfo(
               columnName: 'id', sort: EHDataGridColumnSortType.Asc)
@@ -47,16 +48,16 @@ class DataGridTest {
           int pageSize,
         ) async =>
             await DataGridTest.getOrders(
-                filters, orderBy, pageIndex, pageSize, keyValueFilter));
+                filters, orderBy, pageIndex, pageSize));
   }
 
   /// Get orders collection
   static Future<List<Map>> getOrders(
-      Map<String, String> filters,
-      Map<String, String> _orderBy,
-      int pageIndex,
-      int pageSize,
-      MapEntry<String, String>? keyValueFilter) async {
+    Map<String, String> filters,
+    Map<String, String> _orderBy,
+    int pageIndex,
+    int pageSize,
+  ) async {
     // final int startIndex = orderData.isNotEmpty ? orderData.length : 0,
     //     endIndex = startIndex + 25;
     final int startIndex = 0, endIndex = 100;
@@ -89,8 +90,8 @@ class DataGridTest {
       data = filterData(data, element);
     });
 
-    //test dynamic filtering
-    if (keyValueFilter != null) data = filterData(data, keyValueFilter);
+    // //test dynamic filtering
+    // if (keyValueFilter != null) data = filterData(data, keyValueFilter);
 
     return data;
   }

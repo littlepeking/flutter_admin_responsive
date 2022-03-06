@@ -46,9 +46,14 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                             await controller._validate();
 
                             if (!EHUtilHelper.isEmpty(controller.text)) {
+                              Map<String, String> codeFilters =
+                                  controller._dataGridSource.filters;
+                              codeFilters[controller.codeColumnName] =
+                                  controller.text;
+
                               List<Map> res =
                                   await controller._dataGridSource.getData(
-                                {controller.codeColumnName: controller.text},
+                                codeFilters,
                                 {},
                                 0,
                                 1,
@@ -97,6 +102,7 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                           //   alignment: Alignment.centerLeft,
                           padding: EdgeInsets.zero,
                           onPressed: () async {
+                            controller._dataGridSource.handleRefresh();
                             bool result = await EHDialog.showPopupDialog(
                                 Card(
                                   elevation: 10,
@@ -179,6 +185,7 @@ class EHPopupController extends EHEditableWidgetController {
 
     if (queryCode != null) {
       return EHDataGridSource(
+          loadDataAtInit: false,
           columnsConfig: [],
           getData: (
             Map<String, String> filters,
@@ -188,7 +195,8 @@ class EHPopupController extends EHEditableWidgetController {
           ) async =>
               <Map>[]);
     } else {
-      return dataGridSource!;
+      dataGridSource!.loadDataAtInit = false;
+      return dataGridSource;
     }
   }
 
@@ -232,8 +240,11 @@ class EHPopupController extends EHEditableWidgetController {
 
     if (!isValid) return false;
 
+    Map<String, String> codeFilters = _dataGridSource.filters;
+    codeFilters[codeColumnName] = text;
+
     List<Map> res = await _dataGridSource.getData(
-      {codeColumnName: text},
+      codeFilters,
       {},
       0,
       1,

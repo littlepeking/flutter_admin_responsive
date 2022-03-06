@@ -25,11 +25,14 @@ class EHDataGridSource extends DataGridSource {
       this.pageIndex = -1,
       List<EHDataGridFilterInfo>? columnFilters,
       required this.columnsConfig,
-      required this.getData}) {
+      required this.getData,
+      this.loadDataAtInit = true}) {
     this.columnFilters = columnFilters != null
         ? columnFilters.obs
         : <EHDataGridFilterInfo>[].obs;
   }
+
+  bool loadDataAtInit;
 
   late Map<EHDataGridColumnConfig, FocusNode> _fnFilterMap = {};
 
@@ -105,6 +108,21 @@ class EHDataGridSource extends DataGridSource {
     });
 
     return _orderBy;
+  }
+
+  setFilter(String columnName, String value, {EHDataGridColumnSortType? sort}) {
+    Iterable<EHDataGridFilterInfo> filterIterable =
+        columnFilters.where((filter) => filter.columnName == columnName);
+
+    if (filterIterable.isEmpty) {
+      columnFilters.add(EHDataGridFilterInfo(
+          columnName: columnName,
+          sort: sort ?? EHDataGridColumnSortType.None,
+          text: value));
+    } else {
+      filterIterable.first.text = value;
+      filterIterable.first.sort = sort ?? filterIterable.first.sort;
+    }
   }
 
   /// Building DataGridRows

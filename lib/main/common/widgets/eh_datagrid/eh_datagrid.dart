@@ -185,30 +185,36 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
     // print(this.controller.dataPagerHeight);
     // print(this.controller.dataGridSource.pageSize!);
 
-    return Obx(() => SfDataGrid(
-        showCheckboxColumn: controller.showCheckbox,
-        selectionMode: SelectionMode.multiple,
-        //navigationMode: GridNavigationMode.row,
-        controller: controller.dataGridSource.dataGridController,
-        rowHeight: this.controller.rowHeight,
-        headerRowHeight: this.controller.headerRowHeight,
-        source: this.controller.dataGridSource,
-        rowsPerPage: this.controller.dataGridSource.pageSize!.value,
-        allowSorting: false,
-        allowColumnsResizing: true,
-        columnResizeMode: ColumnResizeMode.onResize,
-        columnWidthMode: ColumnWidthMode.fill,
-        columns: getGridColumns(),
-        onColumnResizeUpdate: (ColumnResizeUpdateDetails args) {
-          EHDataGridColumnConfig column = this
-              .controller
-              .dataGridSource
-              .columnsConfig
-              .where((element) => element.columnName == args.column.columnName)
-              .single;
-          column.width.value = args.width;
-          return true;
-        }));
+    return
+        //Obx(() =>
+
+        SfDataGrid(
+            showCheckboxColumn: controller.showCheckbox,
+            selectionMode: SelectionMode.multiple,
+            //navigationMode: GridNavigationMode.row,
+            controller: controller.dataGridSource.dataGridController,
+            rowHeight: this.controller.rowHeight,
+            headerRowHeight: this.controller.headerRowHeight,
+            source: this.controller.dataGridSource,
+            //rowsPerPage: this.controller.dataGridSource.pageSize!.value,
+            allowSorting: false,
+            allowColumnsResizing: true,
+            columnResizeMode: ColumnResizeMode.onResize,
+            columnWidthMode: ColumnWidthMode.fill,
+            columns: getGridColumns(),
+            onColumnResizeUpdate: (ColumnResizeUpdateDetails args) {
+              EHDataGridColumnConfig column = this
+                  .controller
+                  .dataGridSource
+                  .columnsConfig
+                  .where(
+                      (element) => element.columnName == args.column.columnName)
+                  .single;
+              column.width.value = args.width;
+              return true;
+            }
+            //)
+            );
   }
 
   Widget _buildDataPager() {
@@ -227,6 +233,10 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
         onPageNavigationStart: (pagenumber) async {
           if (this.controller.dataGridSource.pageIndex != pagenumber) {
             this.controller.dataGridSource.pageIndex = pagenumber;
+            if (!controller.dataGridSource.loadDataAtInit) {
+              controller.dataGridSource.loadDataAtInit = true;
+              return;
+            }
             await this.controller.dataGridSource.handleRefresh();
           }
         },
