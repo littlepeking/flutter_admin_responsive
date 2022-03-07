@@ -9,11 +9,12 @@ import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../utils/EHRefactorHelper.dart';
+
 class EHCheckBox extends EHEditableWidget<EHCheckBoxController> {
   EHCheckBox({
-    required Key key,
     required EHCheckBoxController controller,
-  }) : super(key: key, controller: controller);
+  }) : super(key: controller.key, controller: controller);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,7 @@ class EHCheckBox extends EHEditableWidget<EHCheckBoxController> {
                         // },
                         child: Checkbox(
                             focusNode: controller.focusNode,
-                            value: controller.bindingValue,
+                            value: controller.checkValue,
                             tristate: false,
                             onChanged: controller.enabled
                                 ? (value) {
@@ -81,7 +82,8 @@ class EHCheckBox extends EHEditableWidget<EHCheckBoxController> {
 class EHCheckBoxController extends EHEditableWidgetController {
   ValueChanged<bool>? onChanged;
   EHCheckBoxController(
-      {double? width,
+      {Key? key,
+      double? width,
       bool autoFocus = false,
       FocusNode? focusNode,
       String label = '',
@@ -94,6 +96,7 @@ class EHCheckBoxController extends EHEditableWidgetController {
       Future<bool> Function()? validate,
       Map<Key?, String>? errorBucket})
       : super(
+            key: key,
             model: model,
             bindingFieldName: bindingFieldName,
             autoFocus: autoFocus,
@@ -103,11 +106,30 @@ class EHCheckBoxController extends EHEditableWidgetController {
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
             errorBucket: errorBucket) {
-    this.bindingValue = bindingValue ?? false;
+    //Check if exists ehEditForm first
+    this._bindingValue = bindingValue;
+
+    init();
+
     this.validate = validate ?? () async => true;
   }
 
-  late bool? bindingValue;
+  late bool? _bindingValue;
+
+  late bool checkValue;
+
+  @override
+  init() {
+    bool? value;
+    if (model != null && bindingFieldName != null) {
+      value =
+          EHRefactorHelper.getFieldValue(model!, bindingFieldName!) as bool?;
+    } else {
+      value = _bindingValue;
+    }
+
+    this.checkValue = value ?? false;
+  }
 
   Future<bool> _validate() async {
     bool isValid = await validate();

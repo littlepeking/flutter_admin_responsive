@@ -22,8 +22,8 @@ class EHBoolColumnType extends EHColumnType<bool> {
         : Container(
             padding: EdgeInsets.only(top: 5),
             child: EHDropdown(
-              key: GlobalKey(),
               controller: EHDropDownController(
+                  key: GlobalKey(),
                   width: 60,
                   showErrorInfo: false,
                   showLabel: false,

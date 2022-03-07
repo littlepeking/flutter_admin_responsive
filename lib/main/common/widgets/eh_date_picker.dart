@@ -11,29 +11,22 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+import '../utils/EHRefactorHelper.dart';
 import 'eh_text_field.dart';
 
 import 'package:intl/intl.dart';
 
 class EHDatePicker extends EHEditableWidget<EHDatePickerController> {
   EHDatePicker({
-    required Key key,
     required EHDatePickerController controller,
-  })  : this.textFieldKey = key,
-        super(
-            key: GlobalKey(debugLabel: key.toString()), controller: controller);
-
-  late final textFieldKey;
+  }) : super(key: GlobalKey(), controller: controller);
 
   @override
   Widget build(BuildContext context) {
     if (controller.errorBucket == null)
       controller.errorBucket = EHController.globalErrorBucket;
-    controller.textFieldKey = this.textFieldKey!;
 
-    return EHTextField(
-        key: textFieldKey!, //GET RELATED KEY USING DEBUGLABEL AS WORKAROUND
-        controller: controller._textEditingController);
+    return EHTextField(controller: controller._textEditingController);
   }
 }
 
@@ -44,13 +37,45 @@ class EHDatePickerController extends EHEditableWidgetController {
     return _textEditingController;
   }
 
-  late Key textFieldKey;
   late String _dateFormat;
   RxBool is24HoursMode = true.obs;
   bool showTimePicker;
 
+  set textFieldKey(val) {
+    this._textEditingController.key = val;
+  }
+
+  Key? get textFieldKey {
+    return this._textEditingController.key;
+  }
+
+  late DateTime? _bindingValue;
+
+  String getDisplayValue() {
+    DateTime? value;
+
+    //Check if exists ehEditForm first
+    if (model != null && bindingFieldName != null) {
+      value = EHRefactorHelper.getFieldValue(model!, bindingFieldName!)
+          as DateTime?;
+    } else {
+      value = _bindingValue;
+    }
+
+    String displayValue;
+    if (key != null && EHController.globalDisplayValueBucket[key] != null) {
+      displayValue = EHController.globalDisplayValueBucket[key]!;
+    } else {
+      displayValue = getBindingStringValue(value);
+    }
+
+    return displayValue;
+  }
+
   EHDatePickerController(
-      {EHModel? model,
+      {Key? key,
+      List<Object?>? dependentObxValues,
+      EHModel? model,
       String? bindingFieldName,
       double? width,
       bool autoFocus = false,
@@ -73,7 +98,7 @@ class EHDatePickerController extends EHEditableWidgetController {
             label: label,
             validate: validate,
             width: width ?? LayoutConstant.editWidgetSize,
-            focusNode: focusNode,
+            focusNode: FocusNode(),
             errorBucket: errorBucket) {
     this._dateFormat = dateFormat == null
         ? !this.showTimePicker
@@ -81,10 +106,13 @@ class EHDatePickerController extends EHEditableWidgetController {
             : 'yyyy/MM/dd HH:mm:ss'
         : dateFormat;
 
+    _bindingValue = bindingValue;
+
     this._textEditingController = EHTextFieldController(
+        key: key,
         focusNode: focusNode,
         label: label,
-        bindingValue: getBindingStringValue(bindingValue),
+        bindingValue: getDisplayValue(),
         textHint: this._dateFormat,
         enabled: enabled,
         mustInput: mustInput,
@@ -95,7 +123,7 @@ class EHDatePickerController extends EHEditableWidgetController {
         onChanged: (text) {
           try {
             DateTime? parsedDate = bindingValue;
-            if (!EHUtilHelper.isEmpty(_textEditingController.text)) {
+            if (!EHUtilHelper.isEmpty(_textEditingController.displayValue)) {
               try {
                 parsedDate = new DateFormat(_dateFormat).parseStrict(text);
               } catch (e) {
@@ -149,6 +177,12 @@ class EHDatePickerController extends EHEditableWidgetController {
                                     args.value as DateTime?, bindingValue);
 
                                 if (selectedDateTime != null) {
+                                  this
+                                      ._textEditingController
+                                      .displayValue = EHController
+                                              .globalDisplayValueBucket[
+                                          textFieldKey!] =
+                                      getBindingStringValue(selectedDateTime);
                                   setModelValue(selectedDateTime);
 
                                   this
@@ -202,6 +236,12 @@ class EHDatePickerController extends EHEditableWidgetController {
         )));
   }
 
+  @override
+  init() {
+    this.textFieldKey = key;
+    this._textEditingController.focusNode = focusNode;
+  }
+
   getBindingStringValue(DateTime? bindingValue) {
     return bindingValue == null
         ? ''
@@ -225,13 +265,13 @@ class EHDatePickerController extends EHEditableWidgetController {
         return null;
       } else {
         Get.back();
-        errorBucket![textFieldKey] = '';
+        errorBucket![textFieldKey!] = '';
         return new DateTime(selectedDate.year, selectedDate.month,
             selectedDate.day, time.hour, time.minute);
       }
     } else {
       Get.back();
-      errorBucket![textFieldKey] = '';
+      errorBucket![textFieldKey!] = '';
       return selectedDate;
     }
   }
@@ -293,8 +333,8 @@ class EHDatePickerController extends EHEditableWidgetController {
   getDisplayDate() {
     DateTime? date;
     try {
-      date =
-          new DateFormat(_dateFormat).parseStrict(_textEditingController.text);
+      date = new DateFormat(_dateFormat)
+          .parseStrict(_textEditingController.displayValue);
     } catch (e) {
       //print(e);
     }
@@ -303,22 +343,24 @@ class EHDatePickerController extends EHEditableWidgetController {
   }
 
   Future<bool> _validate() async {
-    bool isValid = checkMustInput(textFieldKey, _textEditingController.text,
+    bool isValid = checkMustInput(
+        textFieldKey!, _textEditingController.displayValue,
         emptyValue: '');
 
     if (!isValid) return false;
 
     try {
-      if (!EHUtilHelper.isEmpty(_textEditingController.text))
-        new DateFormat(_dateFormat).parseStrict(_textEditingController.text);
+      if (!EHUtilHelper.isEmpty(_textEditingController.displayValue))
+        new DateFormat(_dateFormat)
+            .parseStrict(_textEditingController.displayValue);
     } catch (e) {
-      errorBucket![textFieldKey] = 'Date format should be: '.tr + _dateFormat;
+      errorBucket![textFieldKey!] = 'Date format should be: '.tr + _dateFormat;
       return false;
     }
 
     isValid = await validate();
 
-    if (!isValid && EHUtilHelper.isEmpty(errorBucket![textFieldKey]))
+    if (!isValid && EHUtilHelper.isEmpty(errorBucket![textFieldKey!]))
       throw Exception(
           'Error: Must provide error message in errorBucket while validate failed');
 

@@ -94,28 +94,27 @@ class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
             child: Text('Show Selected Rows'.tr),
           ),
           EHDropdown(
-              key: GlobalKey(),
               controller: EHDropDownController(
-                focusNode: FocusNode(),
-                isMenu: true,
-                dropDownWidth: 150,
-                label: 'Actions',
-                items: {
-                  'receivingASN': 'Receiving ASN',
-                  'closeASN': 'Close ASN',
-                  'printItemLabel': 'Print SKU Label'
-                },
-                onChanged: (value) {
-                  if (value == 'receivingASN') {
-                    controller.receiptDetailInfoController.receiptModel.value
-                        .multiSelectValues = ['2'];
-                    controller.receiptDetailInfoController.receiptModel.value
-                        .receiptKey = 'changed';
-                    controller.receiptDetailInfoController.receiptModel
-                        .refresh();
-                  }
-                },
-              ))
+            key: GlobalKey(),
+            focusNode: FocusNode(),
+            isMenu: true,
+            dropDownWidth: 150,
+            label: 'Actions',
+            items: {
+              'receivingASN': 'Receiving ASN',
+              'closeASN': 'Close ASN',
+              'printItemLabel': 'Print SKU Label'
+            },
+            onChanged: (value) {
+              if (value == 'receivingASN') {
+                controller.receiptDetailInfoController.receiptModel.value
+                    .multiSelectValues = ['2'];
+                controller.receiptDetailInfoController.receiptModel.value
+                    .receiptKey = 'changed';
+                controller.receiptDetailInfoController.receiptModel.refresh();
+              }
+            },
+          ))
         ],
       ),
     );

@@ -90,39 +90,21 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
       controller.focusNode = formController.widgetFocusNodes![index];
       controller.model = formController.rxModel!.value;
       controller.rxModel = formController.rxModel;
+
+      controller.init();
+
       if (controller is EHTextFieldController) {
-        controller.text = (EHRefactorHelper.getFieldValue(
-                controller.model!, controller.bindingFieldName!) ??
-            '') as String;
-        return EHTextField(key: controller.key!, controller: controller);
-      }
-      if (controller is EHCheckBoxController) {
-        controller.bindingValue = (EHRefactorHelper.getFieldValue(
-                controller.model!, controller.bindingFieldName!) ??
-            false) as bool?;
-        return EHCheckBox(key: controller.key!, controller: controller);
+        return EHTextField(controller: controller);
+      } else if (controller is EHCheckBoxController) {
+        return EHCheckBox(controller: controller);
       } else if (controller is EHDropDownController) {
-        controller.selectedValue = (EHRefactorHelper.getFieldValue(
-                controller.model!, controller.bindingFieldName!) ??
-            '') as String;
-        return EHDropdown(key: controller.key!, controller: controller);
+        return EHDropdown(controller: controller);
       } else if (controller is EHMultiSelectController) {
-        controller.selectedValues = (EHRefactorHelper.getFieldValue(
-                controller.model!, controller.bindingFieldName!) ??
-            <String>[]) as List<String>;
-        return EHMultiSelect(key: controller.key!, controller: controller);
+        return EHMultiSelect(controller: controller);
       } else if (controller is EHPopupController) {
-        controller.text = (EHRefactorHelper.getFieldValue(
-                controller.model!, controller.bindingFieldName!) ??
-            '') as String;
-        return EHPopup(key: controller.key!, controller: controller);
+        return EHPopup(controller: controller);
       } else if (controller is EHDatePickerController) {
-        Object? date = EHRefactorHelper.getFieldValue(
-            controller.model!, controller.bindingFieldName!);
-        controller.innerTextEditingController.text =
-            controller.getBindingStringValue(date as DateTime?);
-        controller.innerTextEditingController.focusNode = controller.focusNode;
-        return EHDatePicker(key: controller.key!, controller: controller);
+        return EHDatePicker(controller: controller);
       } else {
         throw EHException('not implement yet');
       }

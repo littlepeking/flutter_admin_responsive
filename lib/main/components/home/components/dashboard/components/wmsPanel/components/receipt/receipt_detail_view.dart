@@ -29,7 +29,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
         //     )),
         Obx(() => EHEditForm(
             controller: controller.getWidgetControllerFormController!())),
-        EHEditForm(controller: controller.widgetBuilderFormController),
+        // EHEditForm(controller: controller.widgetBuilderFormController),
         Container(
           child: Container(
             // padding: EdgeInsets.all(10),
@@ -44,9 +44,9 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                     children: [
                       Wrap(children: [
                         Obx(() => EHTextField(
-                              key: controller.textKey1,
                               // autoFocus: true,
                               controller: EHTextFieldController(
+                                  key: controller.textKey1,
                                   focusNode: controller.textFn1,
                                   //autoFocus: true,
                                   label: '测试1',
@@ -60,8 +60,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                       })),
                             )),
                         Obx(() => EHPopup(
-                              key: controller.popupKey1,
                               controller: EHPopupController(
+                                  key: controller.popupKey1,
                                   popupTitle: 'Please Select Supplier',
                                   focusNode: controller.popUpFn,
                                   codeColumnName: 'customerId',
@@ -81,21 +81,11 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                   }),
                             )),
                         Obx(() => EHDatePicker(
-                            key: controller.datePicker1,
-                            controller: EHDatePickerController(
-                                mustInput: true,
-                                //enabled: false,
-                                focusNode: controller.datePickerFn1,
-                                bindingValue:
-                                    controller.receiptModel.value.dateTime,
-                                onChanged: (value) =>
-                                    controller.receiptModel.update((model) {
-                                      model!.dateTime = value;
-                                    }),
-                                label: 'date'))),
+                            controller:
+                                controller.datePicker1ControllerFunc())),
                         Obx(() => EHDatePicker(
-                            key: controller.datePicker2,
                             controller: EHDatePickerController(
+                                key: controller.datePicker2,
                                 mustInput: true,
                                 showTimePicker: true,
                                 focusNode: controller.datePickerFn2,
@@ -107,8 +97,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                     }),
                                 label: 'date'))),
                         Obx(() => EHDropdown(
-                              key: controller.dropdownKey1,
                               controller: EHDropDownController(
+                                  key: controller.dropdownKey1,
                                   validate: () async => true,
                                   focusNode: controller.ddlFn1,
                                   label: 'popUp',
@@ -126,8 +116,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                       })),
                             )),
                         Obx(() => EHDropdown(
-                              key: controller.dropdownKey2,
                               controller: EHDropDownController(
+                                  key: controller.dropdownKey2,
                                   focusNode: controller.ddlFn2,
                                   label: '测试5',
                                   enabled: false,
@@ -146,8 +136,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                       })),
                             )),
                         Obx(() => EHMultiSelect(
-                              key: controller.multiSelectKey1,
                               controller: EHMultiSelectController(
+                                  key: controller.multiSelectKey1,
                                   focusNode: controller.ddlFn2,
                                   label: '测试5',
                                   enabled: true,
@@ -166,8 +156,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                       })),
                             )),
                         Obx(() => EHCheckBox(
-                              key: controller.checkBoxKey1,
                               controller: EHCheckBoxController(
+                                  key: controller.checkBoxKey1,
                                   focusNode: controller.checkBoxFn1,
                                   label: '选择框',
                                   enabled: true,
@@ -181,8 +171,8 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
                                       })),
                             )),
                         Obx(() => EHTextField(
-                              key: controller.textKey2,
                               controller: EHTextFieldController(
+                                  key: controller.textKey2,
                                   focusNode: controller.textFn2,
                                   label: '测试2',
                                   //errorBucket: controller.errorBucket,

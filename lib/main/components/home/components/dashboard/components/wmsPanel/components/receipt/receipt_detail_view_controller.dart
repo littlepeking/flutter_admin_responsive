@@ -30,14 +30,30 @@ class ReceiptDetailViewController extends EHController {
           dateTime2: null)
       .obs;
 
+  late Function datePicker1ControllerFunc;
   ReceiptDetailViewController() {
+    datePicker1ControllerFunc = () {
+      print('object');
+      return EHDatePickerController(
+          key: datePicker1,
+          dependentObxValues: [receiptModel.value],
+          mustInput: true,
+          //enabled: false,
+          focusNode: datePickerFn1,
+          bindingValue: receiptModel.value.dateTime,
+          onChanged: (value) => receiptModel.update((model) {
+                model!.dateTime = value;
+              }),
+          label: 'date');
+    };
+
     EHDataGridSource popUpDataSource = DataGridTest.getDataGridSource();
 
     widgetBuilderFormController = EHEditFormController(widgetBuilders: [
       (key, focusNode) => EHTextField(
-            key: key,
             // autoFocus: true,
             controller: EHTextFieldController(
+                key: key,
                 focusNode: focusNode,
                 //autoFocus: true,
                 label: '测试1',
@@ -48,8 +64,8 @@ class ReceiptDetailViewController extends EHController {
                     })),
           ),
       (key, focusNode) => EHPopup(
-            key: key,
             controller: EHPopupController(
+                key: key,
                 popupTitle: 'Please Select Supplier',
                 focusNode: focusNode,
                 codeColumnName: 'customerId',
@@ -67,8 +83,8 @@ class ReceiptDetailViewController extends EHController {
                 }),
           ),
       (key, focusNode) => EHDatePicker(
-          key: key,
           controller: EHDatePickerController(
+              key: key,
               mustInput: true,
               //enabled: false,
               focusNode: focusNode,

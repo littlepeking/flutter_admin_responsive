@@ -112,4 +112,6 @@ abstract class EHEditableWidgetController extends EHController {
       rxModel!.refresh();
     }
   }
+
+  void init() {}
 }

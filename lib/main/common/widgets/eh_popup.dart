@@ -14,11 +14,13 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../base/EHController.dart';
+import '../utils/EHRefactorHelper.dart';
+
 class EHPopup extends EHEditableWidget<EHPopupController> {
   EHPopup({
-    required Key key,
     required EHPopupController controller,
-  }) : super(key: key, controller: controller);
+  }) : super(key: controller.key, controller: controller);
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +45,11 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                       child: Focus(
                         onFocusChange: (hasFocus) async {
                           if (!hasFocus) {
-                            await controller._validate();
+                            EHController
+                                    .globalDisplayValueBucket[controller.key!] =
+                                controller.text;
 
-                            if (!EHUtilHelper.isEmpty(controller.text)) {
+                            if (await controller._validate()) {
                               Map<String, String> codeFilters =
                                   controller._dataGridSource.filters;
                               codeFilters[controller.codeColumnName] =
@@ -64,16 +68,10 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                   controller.onChanged!(
                                       controller.text, res.first);
                               } else {
-                                //set code to empty as it's wrong code
-                                //controller.onChanged!(controller.text, null);
                                 controller.setModelValue(null);
                                 if (controller.onChanged != null)
                                   controller.onChanged!(null, null);
                               }
-                            } else {
-                              controller.setModelValue(null);
-                              if (controller.onChanged != null)
-                                controller.onChanged!(null, null);
                             }
                           }
                         },
@@ -116,6 +114,10 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                       dataGridSource:
                                           controller._dataGridSource,
                                       onRowSelected: (row) {
+                                        EHController.globalDisplayValueBucket[
+                                                controller.key!] =
+                                            row[controller.codeColumnName]
+                                                .toString();
                                         controller.setModelValue(
                                             row[controller.codeColumnName]
                                                 .toString());
@@ -128,7 +130,8 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                               row[controller.codeColumnName]
                                                   .toString(),
                                               row);
-                                        controller.errorBucket![key] = '';
+                                        controller
+                                            .errorBucket![controller.key] = '';
                                         Get.back(result: true);
                                       },
                                     )),
@@ -167,6 +170,8 @@ class EHPopupController extends EHEditableWidgetController {
 
   String? queryCode;
 
+  late String? _bindingValue;
+
   set text(String? val) {
     this._textEditingController.text = val ?? '';
   }
@@ -201,7 +206,8 @@ class EHPopupController extends EHEditableWidgetController {
   }
 
   EHPopupController(
-      {EHModel? model,
+      {Key? key,
+      EHModel? model,
       String? bindingFieldName,
       double? width,
       bool autoFocus = false,
@@ -220,6 +226,7 @@ class EHPopupController extends EHEditableWidgetController {
       EHDataGridSource? dataGridSource,
       Map<Key?, String>? errorBucket})
       : super(
+            key: key,
             model: model,
             bindingFieldName: bindingFieldName,
             autoFocus: autoFocus,
@@ -230,9 +237,32 @@ class EHPopupController extends EHEditableWidgetController {
             focusNode: focusNode,
             errorBucket: errorBucket) {
     this.validate = validate ?? () async => true;
-    this.text = bindingValue;
+
+    _bindingValue = bindingValue;
+
+    init();
+
     this.codeColumnName = codeColumnName!; //未集成后台的code配置前，该字段需要手工传入
     this._dataGridSource = getDateSource(dataGridSource, queryCode);
+  }
+
+  @override
+  init() {
+    String? initDisplayValue;
+
+    //Check if exists ehEditForm first
+    if (model != null && bindingFieldName != null) {
+      initDisplayValue =
+          EHRefactorHelper.getFieldValue(model!, bindingFieldName!) as String?;
+    } else {
+      initDisplayValue = _bindingValue;
+    }
+
+    if (key != null && EHController.globalDisplayValueBucket[key] != null) {
+      this.text = EHController.globalDisplayValueBucket[key]!;
+    } else {
+      this.text = initDisplayValue ?? '';
+    }
   }
 
   Future<bool> _validate() async {

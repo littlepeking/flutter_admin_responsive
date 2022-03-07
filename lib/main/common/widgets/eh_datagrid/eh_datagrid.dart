@@ -118,8 +118,8 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
           });
     } else if (columnConfig.columnType.widgetType == EHWidgetType.CheckBox) {
       return Obx(() => EHDropdown(
-          key: GlobalKey(),
           controller: EHDropDownController(
+              key: GlobalKey(),
               dropDownWidth: 100,
               padding: EdgeInsets.zero,
               showErrorInfo: false,
@@ -139,8 +139,8 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
               })));
     } else if (columnConfig.columnType.widgetType == EHWidgetType.DropDown) {
       return Obx(() => EHMultiSelect(
-            key: GlobalKey(),
             controller: EHMultiSelectController(
+              key: GlobalKey(),
               padding: EdgeInsets.zero,
               showErrorInfo: false,
               showLabel: false,

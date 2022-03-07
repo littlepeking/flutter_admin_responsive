@@ -10,9 +10,12 @@ import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../base/EHController.dart';
+import '../utils/EHRefactorHelper.dart';
+
 class EHDropdown extends EHEditableWidget<EHDropDownController> {
-  EHDropdown({required Key key, required EHDropDownController controller})
-      : super(key: key, controller: controller);
+  EHDropdown({required EHDropDownController controller})
+      : super(key: controller.key, controller: controller);
 
   List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> items) {
     List<DropdownMenuItem<String>> _menuItems = [];
@@ -204,10 +207,13 @@ class EHDropDownController extends EHEditableWidgetController {
   ValueChanged<String>? onChanged;
   bool isMenu;
 
+  late String _bindingValue;
+
   double? dropDownWidth;
 
   EHDropDownController(
-      {EHModel? model,
+      {Key? key,
+      EHModel? model,
       String? bindingFieldName,
       double? width,
       this.dropDownWidth,
@@ -226,6 +232,7 @@ class EHDropDownController extends EHEditableWidgetController {
       this.showErrorInfo = true,
       this.showLabel = true})
       : super(
+            key: key,
             model: model,
             bindingFieldName: bindingFieldName,
             autoFocus: autoFocus,
@@ -236,8 +243,25 @@ class EHDropDownController extends EHEditableWidgetController {
             errorBucket: errorBucket) {
     this.width = isMenu ? null : LayoutConstant.editWidgetSize;
     this.items = items;
-    this.selectedValue = bindingValue;
+    this._bindingValue = bindingValue;
+
+    init();
+
     this.validate = validate ?? () async => true;
+  }
+
+  @override
+  init() {
+    String? value;
+    //Check if exists ehEditForm first
+    if (model != null && bindingFieldName != null) {
+      value =
+          EHRefactorHelper.getFieldValue(model!, bindingFieldName!) as String?;
+    } else {
+      value = _bindingValue;
+    }
+
+    this.selectedValue = value ?? '';
   }
 
   Future<bool> _validate(String value) async {

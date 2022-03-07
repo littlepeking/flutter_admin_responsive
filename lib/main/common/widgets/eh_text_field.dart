@@ -9,11 +9,12 @@ import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../utils/EHRefactorHelper.dart';
+
 class EHTextField extends EHEditableWidget<EHTextFieldController> {
   EHTextField({
-    required Key key,
     required EHTextFieldController controller,
-  }) : super(key: key, controller: controller);
+  }) : super(key: controller.key, controller: controller);
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +40,14 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                         canRequestFocus: false,
                         onFocusChange: (hasFocus) async {
                           if (!hasFocus) {
-                            await controller._validate();
+                            EHController.globalDisplayValueBucket[key!] =
+                                controller.displayValue;
+                            if (await controller._validate()) {
+                              controller.setModelValue(controller.displayValue);
 
-                            controller.setModelValue(controller.text);
-
-                            if (controller.onChanged != null)
-                              controller.onChanged!(controller.text);
+                              if (controller.onChanged != null)
+                                controller.onChanged!(controller.displayValue);
+                            }
                           }
                         },
                         child: TextField(
@@ -117,13 +120,23 @@ class EHTextFieldController extends EHEditableWidgetController {
   EHTextEditingController _textEditingController =
       new EHTextEditingController();
 
-  set text(String val) {
+  set displayValue(String val) {
     this._textEditingController.text = val;
   }
 
-  String get text {
+  String get displayValue {
     return _textEditingController.text;
   }
+
+  late String _bindingValue;
+
+  // set bindingValue(String val) {
+  //   _bindingValue = val;
+  // }
+
+  // String get bindingValue {
+  //   return _bindingValue;
+  // }
 
   ValueChanged<String>? onChanged;
 
@@ -131,8 +144,11 @@ class EHTextFieldController extends EHEditableWidgetController {
 
   String textHint;
 
+  Key? key;
+
   EHTextFieldController(
-      {double? width,
+      {this.key,
+      double? width,
       bool autoFocus = false,
       FocusNode? focusNode,
       String label = '',
@@ -157,11 +173,31 @@ class EHTextFieldController extends EHEditableWidgetController {
             focusNode: focusNode,
             errorBucket: errorBucket) {
     this.validate = validate ?? () async => true;
-    this.text = bindingValue;
+    this._bindingValue = bindingValue;
+    init();
+  }
+
+  @override
+  init() {
+    String? value;
+
+    //Check if exists ehEditForm first
+    if (model != null && bindingFieldName != null) {
+      value =
+          EHRefactorHelper.getFieldValue(model!, bindingFieldName!) as String?;
+    } else {
+      value = _bindingValue;
+    }
+
+    if (key != null && EHController.globalDisplayValueBucket[key] != null) {
+      this.displayValue = EHController.globalDisplayValueBucket[key!]!;
+    } else {
+      this.displayValue = value ?? '';
+    }
   }
 
   Future<bool> _validate() async {
-    bool isValid = checkMustInput(key!, text);
+    bool isValid = checkMustInput(key!, displayValue);
 
     if (!isValid) return false;
 

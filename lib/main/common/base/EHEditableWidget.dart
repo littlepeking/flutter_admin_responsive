@@ -6,7 +6,7 @@ abstract class EHEditableWidget<T extends EHEditableWidgetController>
   final T controller;
 
   EHEditableWidget({Key? key, required this.controller}) : super(key: key) {
-    this.controller.key = key ?? GlobalKey();
+    if (this.controller.key == null) this.controller.key = key ?? GlobalKey();
   }
 
   Future<bool> validate() async {

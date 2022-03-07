@@ -11,11 +11,13 @@ import 'package:get/get.dart';
 
 import 'package:states_rebuilder/states_rebuilder.dart';
 
+import '../utils/EHRefactorHelper.dart';
+
 class _TheState {}
 
 class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
-  EHMultiSelect({required Key key, required EHMultiSelectController controller})
-      : super(key: key, controller: controller);
+  EHMultiSelect({required EHMultiSelectController controller})
+      : super(key: controller.key, controller: controller);
 
   final _theState = RM.inject(() =>
       _TheState()); //Get idea from  multiselect: ^0.0.4 to fix werid obx build error temporarily ...
@@ -225,12 +227,15 @@ class EHMultiSelectController extends EHEditableWidgetController {
 
   List<String> selectedValues = <String>[];
 
+  late List<String> _bindingValue;
+
   RxBool focused = false.obs;
 
   ValueChanged<List<String>>? onChanged;
 
   EHMultiSelectController(
-      {EHModel? model,
+      {Key? key,
+      EHModel? model,
       String? bindingFieldName,
       double? width,
       this.padding = const EdgeInsets.symmetric(horizontal: 5),
@@ -247,6 +252,7 @@ class EHMultiSelectController extends EHEditableWidgetController {
       this.showErrorInfo = true,
       this.showLabel = true})
       : super(
+            key: key,
             model: model,
             bindingFieldName: bindingFieldName,
             autoFocus: autoFocus,
@@ -257,8 +263,26 @@ class EHMultiSelectController extends EHEditableWidgetController {
             focusNode: focusNode,
             errorBucket: errorBucket) {
     this.items = items;
-    this.selectedValues = bindingValue;
+    this._bindingValue = bindingValue;
+
+    init();
+
     this.validate = validate ?? () async => true;
+  }
+
+  @override
+  init() {
+    List<String>? value;
+
+    //Check if exists ehEditForm first
+    if (model != null && bindingFieldName != null) {
+      value = (EHRefactorHelper.getFieldValue(model!, bindingFieldName!) ??
+          <String>[]) as List<String>;
+    } else {
+      value = _bindingValue;
+    }
+
+    this.selectedValues = value;
   }
 
   Future<bool> _validate(List<String> value) async {
