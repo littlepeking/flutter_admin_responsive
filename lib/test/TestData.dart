@@ -11,7 +11,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid
 class DataGridTest {
   static getDataGridSource() {
     return EHDataGridSource(
-        loadDataAtInit: false,
+        // loadDataAtInit: false,
         columnFilters: [
           EHDataGridFilterInfo(
               columnName: 'id', sort: EHDataGridColumnSortType.Asc)

@@ -225,6 +225,10 @@ class EHDataGridSource extends DataGridSource {
   @override
   Future<void> handleRefresh() async {
     try {
+      ////////////////////
+      //Resolve the issue of header checkbox is not unchecked after refresh
+      this.dataGridController.selectedRows = [];
+      ////////////////////
       await requestData();
       buildDataGridRows();
       notifyListeners();
@@ -235,8 +239,11 @@ class EHDataGridSource extends DataGridSource {
 
   Future<List<Map>> requestData() async {
     try {
-      _dataList = await getData(this.filters, this.orderBy, this.pageIndex ?? 0,
-          this.pageSize!.value);
+      Map<String, String> filters = Map<String, String>.fromEntries(
+          this.filters.entries.where((element) => !element.key.contains('__')));
+
+      _dataList = await getData(
+          filters, this.orderBy, this.pageIndex ?? 0, this.pageSize!.value);
       return _dataList;
     } catch (e) {
       EHToastMessageHelper.showInfoMessage(

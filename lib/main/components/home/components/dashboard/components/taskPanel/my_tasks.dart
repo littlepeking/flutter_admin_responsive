@@ -14,6 +14,7 @@ class MyTasks extends GetView {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     TaskPanelController taskPanelController =
         Get.put(TaskPanelController(), permanent: true);
 
