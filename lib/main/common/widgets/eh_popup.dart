@@ -106,7 +106,7 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                   elevation: 10,
                                   margin: Responsive.isMobile(Get.context!)
                                       ? EdgeInsets.symmetric(horizontal: 3)
-                                      : EdgeInsets.symmetric(horizontal: 10),
+                                      : EdgeInsets.symmetric(horizontal: 20),
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: EHDataGrid(
