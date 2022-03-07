@@ -29,7 +29,7 @@ class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
         //     )),
         Obx(() => EHEditForm(
             controller: controller.getWidgetControllerFormController!())),
-        // EHEditForm(controller: controller.widgetBuilderFormController),
+        EHEditForm(controller: controller.widgetBuilderFormController),
         Container(
           child: Container(
             // padding: EdgeInsets.all(10),
