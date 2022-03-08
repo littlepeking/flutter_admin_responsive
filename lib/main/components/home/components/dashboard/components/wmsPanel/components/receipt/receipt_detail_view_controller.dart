@@ -27,13 +27,12 @@ class ReceiptDetailViewController extends EHController {
           dropdownValue2: '0',
           multiSelectValues: ['1', '2'],
           dateTime: DateTime.now(),
-          dateTime2: null)
+          dateTime2: DateTime.now())
       .obs;
 
   late Function datePicker1ControllerFunc;
   ReceiptDetailViewController() {
     datePicker1ControllerFunc = () {
-      print('object');
       return EHDatePickerController(
           key: datePicker1,
           dependentObxValues: [receiptModel.value],
@@ -180,6 +179,21 @@ class ReceiptDetailViewController extends EHController {
                     onChanged: (value) => {},
                   ),
               () => EHDatePickerController(
+                    enabled: false,
+                    label: 'date',
+                    bindingFieldName: 'dateTime',
+                    mustInput: true,
+                    onChanged: (value) => {},
+                  ),
+              () => EHDatePickerController(
+                    label: 'time',
+                    bindingFieldName: 'dateTime2',
+                    mustInput: true,
+                    showTimePicker: true,
+                    onChanged: (value) => {},
+                  ),
+              () => EHDatePickerController(
+                    enabled: false,
                     label: 'time',
                     bindingFieldName: 'dateTime2',
                     mustInput: true,

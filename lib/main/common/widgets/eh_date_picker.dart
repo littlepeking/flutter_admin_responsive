@@ -132,6 +132,7 @@ class EHDatePickerController extends EHEditableWidgetController {
             } else {
               parsedDate = null;
             }
+            EHController.globalDisplayValueBucket.remove(textFieldKey!);
             setModelValue(parsedDate);
 
             focusNode!.requestFocus();
@@ -177,11 +178,9 @@ class EHDatePickerController extends EHEditableWidgetController {
                                     args.value as DateTime?, bindingValue);
 
                                 if (selectedDateTime != null) {
-                                  this
-                                      ._textEditingController
-                                      .displayValue = EHController
-                                              .globalDisplayValueBucket[
-                                          textFieldKey!] =
+                                  EHController.globalDisplayValueBucket
+                                      .remove(textFieldKey!);
+                                  this._textEditingController.displayValue =
                                       getBindingStringValue(selectedDateTime);
                                   setModelValue(selectedDateTime);
 
@@ -204,6 +203,8 @@ class EHDatePickerController extends EHEditableWidgetController {
                                     value as DateTime?, value);
 
                                 if (selectedDateTime != null) {
+                                  EHController.globalDisplayValueBucket
+                                      .remove(textFieldKey!);
                                   setModelValue(selectedDateTime);
 
                                   this
@@ -238,6 +239,7 @@ class EHDatePickerController extends EHEditableWidgetController {
 
   @override
   init() {
+    _textEditingController.displayValue = getDisplayValue();
     this.textFieldKey = key;
     this._textEditingController.focusNode = focusNode;
   }

@@ -36,7 +36,7 @@ class EhTheme {
         enabledBorder: _buildBorder(Colors.grey[600]!),
         focusedBorder: _buildBorder(Colors.white),
         errorBorder: _buildBorder(Colors.red),
-        disabledBorder: _buildBorder(Colors.grey[400]!),
+        disabledBorder: _buildBorder(Colors.grey[800]!),
       ),
       textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.white));
 

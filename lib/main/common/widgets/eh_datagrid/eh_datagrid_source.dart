@@ -227,7 +227,7 @@ class EHDataGridSource extends DataGridSource {
     try {
       ////////////////////
       //Resolve the issue of header checkbox is not unchecked after refresh
-      this.dataGridController.selectedRows = [];
+      //this.dataGridController.selectedRows = [];
       ////////////////////
       await requestData();
       buildDataGridRows();

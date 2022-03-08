@@ -45,10 +45,6 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                       child: Focus(
                         onFocusChange: (hasFocus) async {
                           if (!hasFocus) {
-                            EHController
-                                    .globalDisplayValueBucket[controller.key!] =
-                                controller.text;
-
                             if (await controller._validate()) {
                               Map<String, String> codeFilters =
                                   controller._dataGridSource.filters;
@@ -72,6 +68,11 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                 if (controller.onChanged != null)
                                   controller.onChanged!(null, null);
                               }
+                              EHController.globalDisplayValueBucket
+                                  .remove(controller.key!);
+                            } else {
+                              EHController.globalDisplayValueBucket[
+                                  controller.key!] = controller.text;
                             }
                           }
                         },
@@ -100,6 +101,7 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                           //   alignment: Alignment.centerLeft,
                           padding: EdgeInsets.zero,
                           onPressed: () async {
+                            if (!controller.enabled) return;
                             controller._dataGridSource.handleRefresh();
                             bool result = await EHDialog.showPopupDialog(
                                 Card(
@@ -114,10 +116,8 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                       dataGridSource:
                                           controller._dataGridSource,
                                       onRowSelected: (row) {
-                                        EHController.globalDisplayValueBucket[
-                                                controller.key!] =
-                                            row[controller.codeColumnName]
-                                                .toString();
+                                        EHController.globalDisplayValueBucket
+                                            .remove(controller.key!);
                                         controller.setModelValue(
                                             row[controller.codeColumnName]
                                                 .toString());
@@ -142,7 +142,12 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
 
                             print('result: $result');
                           },
-                          icon: Icon(Icons.search)),
+                          icon: controller.enabled
+                              ? Icon(Icons.search)
+                              : Icon(
+                                  Icons.search,
+                                  color: Colors.grey,
+                                )),
                     )
                   ],
                 ),

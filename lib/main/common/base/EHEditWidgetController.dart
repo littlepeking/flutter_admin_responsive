@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:eh_flutter_framework/main/common/base/EHController.dart';
 import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
 import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
@@ -113,5 +115,13 @@ abstract class EHEditableWidgetController extends EHController {
     }
   }
 
-  void init() {}
+  void init() {
+    // StreamSubscription? streamSubscription;
+    // if (rxModel != null) {
+    //   streamSubscription = rxModel!.listen((event) {
+    //     print((event as ReceiptModel).toJsonStr());
+    //     streamSubscription!.cancel();
+    //   });
+    // }
+  }
 }

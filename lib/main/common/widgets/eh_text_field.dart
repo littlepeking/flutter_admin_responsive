@@ -40,13 +40,16 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                         canRequestFocus: false,
                         onFocusChange: (hasFocus) async {
                           if (!hasFocus) {
-                            EHController.globalDisplayValueBucket[key!] =
-                                controller.displayValue;
                             if (await controller._validate()) {
+                              EHController.globalDisplayValueBucket
+                                  .remove(controller.key!);
                               controller.setModelValue(controller.displayValue);
 
                               if (controller.onChanged != null)
                                 controller.onChanged!(controller.displayValue);
+                            } else {
+                              EHController.globalDisplayValueBucket[key!] =
+                                  controller.displayValue;
                             }
                           }
                         },
@@ -194,6 +197,8 @@ class EHTextFieldController extends EHEditableWidgetController {
     } else {
       this.displayValue = value ?? '';
     }
+
+    // super.init();
   }
 
   Future<bool> _validate() async {
