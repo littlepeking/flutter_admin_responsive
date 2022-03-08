@@ -9,10 +9,11 @@ import 'package:eh_flutter_framework/test/TestData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../../../common/base/EHPanelController.dart';
 import 'receipt_detail_view.dart';
 import 'receipt_detail_view_controller.dart';
 
-class ReceiptEditController extends EHController {
+class ReceiptEditController extends EHPanelController {
   PageStorageBucket pageStorageBucket = PageStorageBucket();
 
   late EHTabsViewController receiptHeaderTabsViewController;
@@ -30,6 +31,8 @@ class ReceiptEditController extends EHController {
 
   FocusNode fnButton = FocusNode();
   ReceiptEditController() {
+    initChildPanel(receiptDetailInfoController);
+
     asnHeaderDataGridController = EHDataGridController(
         showCheckbox: true,
         onRowSelected: (data) =>

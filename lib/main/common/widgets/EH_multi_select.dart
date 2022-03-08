@@ -41,27 +41,33 @@ class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
                 children: [
                   // ignore: deprecated_member_use
                   _theState.rebuilder(() {
-                    return Checkbox(
-                        value: controller.selectedValues.contains(itemKey),
-                        onChanged: (isSelected) {
-                          if (isSelected!) {
-                            controller.selectedValues.add(itemKey);
-                            controller.setModelValue(controller.selectedValues);
-                            _theState.notify();
+                    return ExcludeFocus(
+                      child: Checkbox(
+                          value: controller.selectedValues.contains(itemKey),
+                          onChanged: (isSelected) {
+                            if (isSelected!) {
+                              controller.selectedValues.add(itemKey);
+                              controller
+                                  .setModelValue(controller.selectedValues);
+                              _theState.notify();
 
-                            if (controller.onChanged != null)
-                              controller.onChanged!(controller.selectedValues);
-                            controller._validate(controller.selectedValues);
-                          } else {
-                            controller.selectedValues.remove(itemKey);
-                            controller.setModelValue(controller.selectedValues);
-                            _theState.notify();
+                              if (controller.onChanged != null)
+                                controller
+                                    .onChanged!(controller.selectedValues);
+                              controller._validate(controller.selectedValues);
+                            } else {
+                              controller.selectedValues.remove(itemKey);
+                              controller
+                                  .setModelValue(controller.selectedValues);
+                              _theState.notify();
 
-                            if (controller.onChanged != null)
-                              controller.onChanged!(controller.selectedValues);
-                            controller._validate(controller.selectedValues);
-                          }
-                        });
+                              if (controller.onChanged != null)
+                                controller
+                                    .onChanged!(controller.selectedValues);
+                              controller._validate(controller.selectedValues);
+                            }
+                          }),
+                    );
                   }),
                   Expanded(
                     child: Text(

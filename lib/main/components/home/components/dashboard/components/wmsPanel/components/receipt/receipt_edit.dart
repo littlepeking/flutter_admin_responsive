@@ -1,4 +1,4 @@
-import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/base/EHPanel.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
@@ -8,7 +8,7 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'receipt_edit_controller.dart';
 import 'package:split_view/split_view.dart';
 
-class ReceiptEdit extends EHStatelessWidget<ReceiptEditController> {
+class ReceiptEdit extends EHPanel<ReceiptEditController> {
   ReceiptEdit({Key? key, controller}) : super(key: key, controller: controller);
   @override
   Widget build(BuildContext context) {

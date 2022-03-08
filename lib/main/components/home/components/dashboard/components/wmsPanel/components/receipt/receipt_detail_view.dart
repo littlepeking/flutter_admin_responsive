@@ -1,4 +1,4 @@
-import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
+import 'package:eh_flutter_framework/main/common/base/EHPanel.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 
 import 'receipt_detail_view_controller.dart';
 
-class ReceiptDetailView extends EHStatelessWidget<ReceiptDetailViewController> {
+class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
   ReceiptDetailView({Key? key, controller})
       : super(key: key, controller: controller);
   @override

@@ -1,10 +1,12 @@
-import 'package:eh_flutter_framework/main/common/base/EHController.dart';
+import 'package:eh_flutter_framework/main/common/base/EHPanelController.dart';
+import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/models/receipt_model.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_edit_controller.dart';
 import 'package:eh_flutter_framework/test/TestData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +16,7 @@ import '../../../../../../../../common/widgets/EH_multi_select.dart';
 import '../../../../../../../../common/widgets/eh_datagrid/eh_datagrid_source.dart';
 import '../../../../../../../../common/widgets/eh_dropdown.dart';
 
-class ReceiptDetailViewController extends EHController {
+class ReceiptDetailViewController extends EHPanelController {
   RxString ddlType = '0'.obs;
 
   Rxn<MapEntry<String, String>> gridDynamicFilter = Rxn(MapEntry('city', ''));
@@ -106,7 +108,7 @@ class ReceiptDetailViewController extends EHController {
                   //autoFocus: true,
                   bindingFieldName: 'receiptKey',
                   mustInput: true,
-                  onChanged: (value) => {}),
+                  onChanged: (value) {}),
               () => EHDropDownController(
                   label: '下拉框1-级联',
                   bindingFieldName: 'dropdownValue',
@@ -118,6 +120,18 @@ class ReceiptDetailViewController extends EHController {
                   },
                   onChanged: (value) {
                     ddlType.value = value;
+                    //use parent controller to do something...
+                    EHToastMessageHelper.showInfoMessage(
+                        (root as ReceiptEditController)
+                            .asnHeaderDataGridController
+                            .dataGridSource
+                            .getSelectedRows()
+                            .map((e) {
+                              // print(e);
+                              return e['id'];
+                            })
+                            .join(',')
+                            .toString());
                   }),
               () => EHDropDownController(
                   label: '下拉框2',
