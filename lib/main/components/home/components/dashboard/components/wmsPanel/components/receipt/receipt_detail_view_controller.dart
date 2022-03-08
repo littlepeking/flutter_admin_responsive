@@ -123,6 +123,7 @@ class ReceiptDetailViewController extends EHController {
                   label: '下拉框2',
                   bindingFieldName: 'dropdownValue2',
                   validate: () async => true,
+                  //items: getDDLItems(receiptModel.value.dropdownValue),
                   items: getDDLItems(ddlType.value),
                   onChanged: (value) => {}),
               () => EHDropDownController(
