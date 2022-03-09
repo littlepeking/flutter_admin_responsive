@@ -2,6 +2,7 @@
 import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
 import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
@@ -99,24 +100,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
   }
 
   buildFilterWidget(EHDataGridColumnConfig columnConfig) {
-    if (columnConfig.columnType.widgetType == EHWidgetType.Text) {
-      return TextField(
-          focusNode: controller.dataGridSource.getFilterFocusNode(columnConfig),
-          controller: EHTextEditingController(
-              text: getColumnFilter(columnConfig.columnName).text),
-          textAlignVertical: TextAlignVertical.center,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(5),
-            border: new OutlineInputBorder(),
-            hintText: "Filter...".tr,
-          ),
-          onChanged: (value) {
-            getColumnFilter(columnConfig.columnName).text = value;
-          },
-          onSubmitted: (value) async {
-            filterGridData(controller, columnConfig);
-          });
-    } else if (columnConfig.columnType.widgetType == EHWidgetType.CheckBox) {
+    if (columnConfig.columnType is EHBoolColumnType) {
       return Obx(() => EHDropdown(
           controller: EHDropDownController(
               key: GlobalKey(),
@@ -137,6 +121,25 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                 controller.dataGridSource.columnFilters.refresh();
                 filterGridData(controller, columnConfig);
               })));
+    }
+
+    if (columnConfig.columnType.widgetType == EHWidgetType.Text) {
+      return TextField(
+          focusNode: controller.dataGridSource.getFilterFocusNode(columnConfig),
+          controller: EHTextEditingController(
+              text: getColumnFilter(columnConfig.columnName).text),
+          textAlignVertical: TextAlignVertical.center,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(5),
+            border: new OutlineInputBorder(),
+            hintText: "Filter...".tr,
+          ),
+          onChanged: (value) {
+            getColumnFilter(columnConfig.columnName).text = value;
+          },
+          onSubmitted: (value) async {
+            filterGridData(controller, columnConfig);
+          });
     } else if (columnConfig.columnType.widgetType == EHWidgetType.DropDown) {
       return Obx(() => EHMultiSelect(
             controller: EHMultiSelectController(

@@ -38,7 +38,7 @@ class DataGridTest {
               columnName: 'date', columnType: EHDateColumnType()),
           EHDataGridColumnConfig(
               columnName: 'isConfirmed',
-              columnType: EHBoolColumnType(widgetType: EHWidgetType.CheckBox),
+              columnType: EHBoolColumnType(),
               columnWidth: 110),
         ],
         getData: (

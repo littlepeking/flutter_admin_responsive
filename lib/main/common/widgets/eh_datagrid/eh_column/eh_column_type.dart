@@ -13,9 +13,10 @@ abstract class EHColumnType<T> {
       this.selectItems,
       this.padding = defaultPadding,
       this.alignment = Alignment.topLeft}) {
-    if (widgetType == EHWidgetType.DropDown && selectItems == null)
+    if (widgetType == EHWidgetType.DropDown && selectItems == null) {
       throw EHException(
           'selectItems must be provide when EHWidgetType is DropDown');
+    }
   }
 
   getWidget(T value, int rowIndex, String columnName, List<Map> dataList);
