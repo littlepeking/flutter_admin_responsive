@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'common/Utils/theme.dart';
 import 'common/i18n/fallback_localization_delegate.dart';
 import 'common/i18n/messages.dart';
-import 'common/utils/ThemeController.dart';
+import 'common/utils/theme_controller.dart';
 import 'components/home/components/error/PageNotFound.dart';
 import 'controllers/global_data_controller.dart';
 import 'routes/page_config.dart';

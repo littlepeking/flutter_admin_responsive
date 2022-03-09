@@ -1,5 +1,5 @@
-import 'package:eh_flutter_framework/main/common/Utils/EHNavigator.dart';
-import 'package:eh_flutter_framework/main/common/constants/NavigationKeys.dart';
+import 'package:eh_flutter_framework/main/common/Utils/eh_navigator.dart';
+import 'package:eh_flutter_framework/main/common/constants/navigation_keys.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/wms_panel.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/taskPanel/my_tasks.dart';
 import 'package:flutter/material.dart';

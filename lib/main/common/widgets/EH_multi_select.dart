@@ -1,9 +1,9 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
-import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
-import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
-import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
-import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_edit_widget_controller.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_editable_widget.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
+import 'package:eh_flutter_framework/main/common/constants/layout_constant.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 import 'package:states_rebuilder/states_rebuilder.dart';
 
-import '../utils/EHRefactorHelper.dart';
+import '../utils/eh_refactor_helper.dart';
 
 class _TheState {}
 

@@ -1,5 +1,5 @@
-import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
-import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
+import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -3,8 +3,8 @@
 // @dart = 2.12
 
 import 'dart:core';
-import 'package:eh_flutter_framework/main/common/base/EHModel.dart' as prefix1;
-import 'package:eh_flutter_framework/main/common/utils/EHRefactorHelper.dart'
+import 'package:eh_flutter_framework/main/common/base/eh_model.dart' as prefix1;
+import 'package:eh_flutter_framework/main/common/utils/eh_refactor_helper.dart'
     as prefix0;
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/models/receipt_model.dart'
     as prefix2;

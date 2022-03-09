@@ -1,4 +1,4 @@
-import 'package:eh_flutter_framework/main/common/base/EHException.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_exception.dart';
 import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_constants.dart';
 import 'package:flutter/material.dart';

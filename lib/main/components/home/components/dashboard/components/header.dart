@@ -1,5 +1,5 @@
-import 'package:eh_flutter_framework/main/common/constants/NavigationKeys.dart';
-import 'package:eh_flutter_framework/main/common/utils/EHNavigator.dart';
+import 'package:eh_flutter_framework/main/common/constants/navigation_keys.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_navigator.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_image_button.dart';
@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../common/utils/ThemeController.dart';
+import '../../../../../common/utils/theme_controller.dart';
 
 class Header extends StatelessWidget {
   const Header({

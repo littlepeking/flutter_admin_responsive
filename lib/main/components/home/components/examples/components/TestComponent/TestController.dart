@@ -1,4 +1,4 @@
-import 'package:eh_flutter_framework/main/common/base/EHController.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:get/get.dart';
 
 class TestController extends EHController {

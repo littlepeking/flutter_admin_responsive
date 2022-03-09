@@ -1,6 +1,6 @@
 ///Package imports
-import 'package:eh_flutter_framework/main/common/base/EHStatelessWidget.dart';
-import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';

@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:eh_flutter_framework/main/common/base/EHController.dart';
-import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
-import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
-import 'package:eh_flutter_framework/main/common/utils/EHRefactorHelper.dart';
-import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
+import 'package:eh_flutter_framework/main/common/constants/layout_constant.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_refactor_helper.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

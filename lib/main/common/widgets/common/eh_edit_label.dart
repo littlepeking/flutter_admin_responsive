@@ -1,5 +1,5 @@
-import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
-import 'package:eh_flutter_framework/main/common/utils/ThemeController.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
+import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

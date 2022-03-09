@@ -1,5 +1,5 @@
-import 'package:eh_flutter_framework/main/common/base/EHPanelController.dart';
-import 'package:eh_flutter_framework/main/common/utils/EHToastMsgHelper.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';

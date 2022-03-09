@@ -1,4 +1,4 @@
-import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_edit_widget_controller.dart';
 import 'package:flutter/material.dart';
 
 abstract class EHEditableWidget<T extends EHEditableWidgetController>

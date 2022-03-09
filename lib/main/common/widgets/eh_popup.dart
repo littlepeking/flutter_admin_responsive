@@ -1,9 +1,9 @@
-import 'package:eh_flutter_framework/main/common/base/EHEditWidgetController.dart';
-import 'package:eh_flutter_framework/main/common/base/EHEditableWidget.dart';
-import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
-import 'package:eh_flutter_framework/main/common/constants/layoutConstant.dart';
-import 'package:eh_flutter_framework/main/common/utils/EHDialog.dart';
-import 'package:eh_flutter_framework/main/common/utils/EHUtilHelper.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_edit_widget_controller.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_editable_widget.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
+import 'package:eh_flutter_framework/main/common/constants/layout_constant.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_dialog.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
@@ -14,8 +14,8 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../base/EHController.dart';
-import '../utils/EHRefactorHelper.dart';
+import '../base/eh_controller.dart';
+import '../utils/eh_refactor_helper.dart';
 
 class EHPopup extends EHEditableWidget<EHPopupController> {
   EHPopup({

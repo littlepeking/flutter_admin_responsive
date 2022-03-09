@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:eh_flutter_framework/main/common/base/EHModel.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
 
-import '../../../../../../../../../common/utils/EHRefactorHelper.dart';
+import '../../../../../../../../../common/utils/eh_refactor_helper.dart';
 
 @methodExecutor
 class ReceiptModel extends EHModel {
