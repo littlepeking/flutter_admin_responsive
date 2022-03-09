@@ -33,7 +33,7 @@ class ReceiptDetailViewController extends EHPanelController {
       .obs;
 
   late Function datePicker1ControllerFunc;
-  ReceiptDetailViewController() {
+  ReceiptDetailViewController(EHPanelController parent) : super(parent) {
     datePicker1ControllerFunc = () {
       return EHDatePickerController(
           key: datePicker1,

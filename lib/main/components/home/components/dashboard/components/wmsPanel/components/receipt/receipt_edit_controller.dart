@@ -24,14 +24,14 @@ class ReceiptEditController extends EHPanelController {
 
   EHDropDownController? ehDropDownMenuController;
 
-  ReceiptDetailViewController receiptDetailInfoController =
-      ReceiptDetailViewController();
+  late ReceiptDetailViewController receiptDetailInfoController;
 
   RxDouble splitterWeights = 0.5.obs;
 
   FocusNode fnButton = FocusNode();
-  ReceiptEditController() {
-    initChildPanel(receiptDetailInfoController);
+  ReceiptEditController(EHPanelController? parent) : super(parent) {
+    receiptDetailInfoController = ReceiptDetailViewController(this);
+    // initChildPanel(receiptDetailInfoController);
 
     asnHeaderDataGridController = EHDataGridController(
         showCheckbox: true,
