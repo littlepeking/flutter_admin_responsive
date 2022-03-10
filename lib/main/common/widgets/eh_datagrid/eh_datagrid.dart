@@ -3,6 +3,7 @@ import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_int_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
@@ -144,6 +145,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
       return Obx(() => EHMultiSelect(
             controller: EHMultiSelectController(
               key: GlobalKey(),
+              allowSelectEmpty: true,
               padding: EdgeInsets.zero,
               showErrorInfo: false,
               showLabel: false,
@@ -152,7 +154,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                       getColumnFilter(columnConfig.columnName).text)
                   ? []
                   : getColumnFilter(columnConfig.columnName).text.split(','),
-              items: columnConfig.columnType.selectItems!,
+              items: columnConfig.columnType.items!,
               onChanged: (value) {
                 getColumnFilter(columnConfig.columnName).text = value.join(',');
                 controller.dataGridSource.columnFilters.refresh();

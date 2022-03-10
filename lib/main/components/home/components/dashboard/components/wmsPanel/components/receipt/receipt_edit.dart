@@ -86,6 +86,20 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
           ),
           ElevatedButton(
             onPressed: () {
+              print(controller
+                  .asnHeaderDataGridController.dataGridSource.filters
+                  .toString());
+              EHToastMessageHelper.showInfoMessage(controller
+                  .asnHeaderDataGridController.dataGridSource.filters
+                  .toString());
+            },
+            child: Text('Show Grid Filters'.tr),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          ElevatedButton(
+            onPressed: () {
               EHToastMessageHelper.showInfoMessage(controller
                   .asnHeaderDataGridController.dataGridSource
                   .getSelectedRows()

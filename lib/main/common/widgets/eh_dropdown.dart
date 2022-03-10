@@ -242,7 +242,9 @@ class EHDropDownController extends EHEditableWidgetController {
             focusNode: focusNode,
             errorBucket: errorBucket) {
     this.width = isMenu ? null : LayoutConstant.editWidgetSize;
-    this.items = items;
+    this.items = new Map<String, String>.from(items);
+    if (!this.items.containsKey('') && !isMenu) this.items[''] = '';
+
     this._bindingValue = bindingValue;
 
     init();

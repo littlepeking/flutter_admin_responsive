@@ -57,6 +57,7 @@ Map<String, String> zhCNMessages = {
   'Confirm': '确认',
   'Cancel': '取消',
   'Actions': '执行',
+  '[Empty]': '[空]',
   ////
   ///test i18 data
   'popUp': '弹出框',

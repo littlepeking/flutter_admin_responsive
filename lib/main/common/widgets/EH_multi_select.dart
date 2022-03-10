@@ -29,7 +29,9 @@ class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
   List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> keys) {
     List<DropdownMenuItem<String>> _menuItems = [];
 
-    keys.forEach((itemKey) {
+    keys.sort();
+
+    keys.where((e) => e != '-999').forEach((itemKey) {
       _menuItems.addAll(
         [
           DropdownMenuItem<String>(
@@ -97,14 +99,12 @@ class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
     });
 
     _menuItems.add(DropdownMenuItem<String>(
-      enabled: false,
-      //add DEFAULT ITEM as dropdownbutton2 need init value and it cannot be empty.
-      value: '',
-      child: SizedBox(
-        height: 0,
-      ),
-    ));
-
+        enabled: false,
+        //add DEFAULT ITEM as dropdownbutton2 need init value and it cannot be empty.
+        value: '-999',
+        child: SizedBox(
+          height: 0,
+        )));
     return _menuItems;
   }
 
@@ -178,7 +178,8 @@ class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
                             controller.items.keys.toList()),
                         customItemsIndexes: _getDividersIndexes(),
                         customItemsHeight: 4,
-                        value: '',
+                        value:
+                            '-999', //default value to satisfy the dropdown2 param
                         onChanged: controller.enabled ? (x) {} : null,
                         buttonHeight: 23,
                         buttonWidth: controller.width,
@@ -251,6 +252,7 @@ class EHMultiSelectController extends EHEditableWidgetController {
       List<String> bindingValue = const [],
       bool enabled = true,
       bool mustInput = false,
+      bool allowSelectEmpty = false,
       this.onChanged,
       Future<bool> Function()? validate,
       Map<Key?, String>? errorBucket,
@@ -268,7 +270,10 @@ class EHMultiSelectController extends EHEditableWidgetController {
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
             errorBucket: errorBucket) {
-    this.items = items;
+    this.items = new Map<String, String>.from(items);
+    if (allowSelectEmpty && !this.items.containsKey('-1'))
+      this.items['-1'] = '[Empty]'.tr; // placeholder for empty value
+    this.items['-999'] = 'add item to prevent dropdown2 throw error ';
     this._bindingValue = bindingValue;
 
     init();

@@ -76,13 +76,10 @@ class EHDataGridSource extends DataGridSource {
   List<DataGridRow> _dataGridRows = <DataGridRow>[];
 
   Map<String, String> get filters {
-    Map<String, String> _filters = Map();
-
-    columnFilters.forEach((element) {
-      _filters.putIfAbsent(element.columnName, () => element.text);
+    return columnFilters.fold(Map<String, String>(), (_filters, e) {
+      if (!e.columnName.contains('__')) _filters[e.columnName] = e.text;
+      return _filters;
     });
-
-    return _filters;
   }
 
   List<Map> getSelectedRows() {

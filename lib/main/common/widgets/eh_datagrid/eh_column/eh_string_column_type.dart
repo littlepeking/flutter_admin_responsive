@@ -11,27 +11,28 @@ class EHStringColumnType extends EHColumnType<String> {
       Map<String, String>? selectItems,
       this.overflow = TextOverflow.ellipsis,
       alignment = Alignment.topLeft})
-      : super(
-            alignment: alignment,
-            widgetType: widgetType,
-            selectItems: selectItems);
+      : super(alignment: alignment, widgetType: widgetType, items: selectItems);
 
   @override
-  getWidget(String value, int rowIndex, columnName, List<Map> dataList) {
-    return widgetType == EHWidgetType.DropDown
-        ? Container(
-            padding: EdgeInsets.all(this.padding),
-            alignment: alignment,
-            child: EHText(
-              text: selectItems![value]!,
-            ),
-          )
-        : Container(
-            padding: EdgeInsets.all(this.padding),
-            alignment: alignment,
-            child: EHText(
-              text: value,
-            ),
-          );
+  getWidget(String? value, int rowIndex, columnName, List<Map> dataList) {
+    if (widgetType == EHWidgetType.DropDown) {
+      // throw EHException(
+      //     'selectItems must be provide when EHWidgetType is DropDown');
+
+      return Container(
+        padding: EdgeInsets.all(this.padding),
+        alignment: alignment,
+        child: EHText(
+          text: value == null ? '' : items![value]!,
+        ),
+      );
+    } else
+      return Container(
+        padding: EdgeInsets.all(this.padding),
+        alignment: alignment,
+        child: EHText(
+          text: value ?? '',
+        ),
+      );
   }
 }

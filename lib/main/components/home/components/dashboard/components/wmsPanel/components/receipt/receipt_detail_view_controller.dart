@@ -167,7 +167,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   label: 'popUp',
                   bindingFieldName: 'customerId',
                   popupTitle: 'Please Select Supplier',
-                  codeColumnName: 'customerId',
+                  codeColumnName: 'id',
                   dataGridSource: popUpDataSource,
                   mustInput: true,
                   onChanged: (code, row) {

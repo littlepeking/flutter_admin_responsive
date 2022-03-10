@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 
 class EHBoolColumnType extends EHColumnType<bool> {
   EHBoolColumnType({EHWidgetType widgetType = EHWidgetType.CheckBox})
-      : super(
-            widgetType: widgetType,
-            selectItems: {'true': 'Yes', 'false': 'No'});
+      : super(widgetType: widgetType, items: {'true': 'Yes', 'false': 'No'});
 
   @override
-  getWidget(bool value, int rowIndex, columnName, List<Map> dataList) {
+  getWidget(bool? value, int rowIndex, columnName, List<Map> dataList) {
+    if (value == null) value = false;
+
     return widgetType == EHWidgetType.CheckBox
         ? Container(
             padding: EdgeInsets.all(this.padding),
@@ -32,7 +32,7 @@ class EHBoolColumnType extends EHColumnType<bool> {
                   enabled: false,
                   focusNode: FocusNode(),
                   bindingValue: value.toString(),
-                  items: selectItems!),
+                  items: items!),
             ),
           );
   }
