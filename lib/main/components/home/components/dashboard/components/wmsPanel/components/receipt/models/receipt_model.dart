@@ -37,6 +37,7 @@ class ReceiptModel extends EHModel {
   factory ReceiptModel.fromJson(Map<String, dynamic> json) =>
       _$ReceiptModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$ReceiptModelToJson(this);
 
   String toJsonStr() => jsonEncode(toJson());
