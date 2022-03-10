@@ -1,10 +1,15 @@
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:json_annotation/json_annotation.dart';
+
 import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
 
 import '../../../../../../../../../common/utils/eh_refactor_helper.dart';
 
+part 'receipt_model.g.dart';
+
+@JsonSerializable()
 @methodExecutor
 class ReceiptModel extends EHModel {
   String receiptKey;
@@ -29,14 +34,11 @@ class ReceiptModel extends EHModel {
     this.isChecked,
   });
 
-  String toJsonStr() => jsonEncode({
-        'receiptKey': receiptKey,
-        'customerId': customerId,
-        'customerName': customerName,
-        'dropdownValue': dropdownValue,
-        'multiSelectValues': multiSelectValues,
-        'dateTime': dateTime.toString(),
-        'dateTime2': dateTime2.toString(),
-        'isChecked': isChecked
-      });
+  factory ReceiptModel.fromJson(Map<String, dynamic> json) =>
+      _$ReceiptModelFromJson(json);
+
+  /// Connect the generated [_$PersonToJson] function to the `toJson` method.
+  Map<String, dynamic> toJson() => _$ReceiptModelToJson(this);
+
+  String toJsonStr() => jsonEncode(toJson());
 }

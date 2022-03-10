@@ -55,6 +55,8 @@ dependencies:
 
   flutter_keyboard_visibility: ^5.1.1
   reflectable: ^3.0.7
+  json_annotation: ^4.4.0
+  json_serializable: ^6.1.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

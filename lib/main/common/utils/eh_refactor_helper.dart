@@ -20,4 +20,12 @@ class EHRefactorHelper {
     var instanceMirror = methodExecutor.reflect(object);
     return instanceMirror.invokeGetter(fieldName);
   }
+
+  static Object? executeMethod(String methodName, Object object,
+      List positionalArguments, Map<Symbol, dynamic>? namedArguments) {
+    initializeReflectable();
+    var instanceMirror = methodExecutor.reflect(object);
+    return instanceMirror.invoke(
+        methodName, positionalArguments, namedArguments);
+  }
 }
