@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_edit_widget_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_editable_widget.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:eh_flutter_framework/main/common/constants/layout_constant.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
@@ -13,7 +14,7 @@ import 'package:get/get.dart';
 import '../base/eh_controller.dart';
 import '../utils/eh_refactor_helper.dart';
 
-class EHDropdown extends EHEditableWidget<EHDropDownController> {
+class EHDropdown extends EHStatelessWidget<EHDropDownController> {
   EHDropdown({required EHDropDownController controller})
       : super(key: controller.key, controller: controller);
 
@@ -68,7 +69,6 @@ class EHDropdown extends EHEditableWidget<EHDropDownController> {
   Widget build(BuildContext context) {
     return Obx(() => Container(
         padding: controller.padding ?? LayoutConstant.defaultEditWidgetPadding,
-        // height: 70,
         width: controller.width,
         child: Column(
           children: [
@@ -79,6 +79,7 @@ class EHDropdown extends EHEditableWidget<EHDropDownController> {
                   )
                 : SizedBox(),
             Container(
+              padding: controller.isMenu ? EdgeInsets.all(1) : EdgeInsets.zero,
               decoration: BoxDecoration(
                 color: !controller.isMenu
                     ? null
