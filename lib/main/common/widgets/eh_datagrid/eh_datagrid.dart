@@ -20,7 +20,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 /// DataGrid Package
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-import '../EH_multi_select.dart';
+import '../eh_multi_select.dart';
 import 'eh_datagrid_constants.dart';
 
 /// Render data pager
@@ -40,7 +40,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
           .where((element) => element.columnName == columnConfig.columnName)
           .isEmpty) {
         controller.dataGridSource.columnFilters
-            .add(EHDataGridFilterInfo(columnName: columnConfig.columnName));
+            .add(EHFilterInfo(columnName: columnConfig.columnName));
       }
     });
 
@@ -102,7 +102,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
     return gridColumnList;
   }
 
-  buildFilterWidget(EHDataGridColumnConfig columnConfig) {
+  buildFilterWidget(EHColumnConf columnConfig) {
     if (columnConfig.columnType is EHBoolColumnType) {
       return Obx(() => EHDropdown(
           controller: EHDropDownController(
@@ -184,21 +184,21 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
     }
   }
 
-  filterGridData(EHDataGridController controller,
-      EHDataGridColumnConfig columnConfig) async {
+  filterGridData(
+      EHDataGridController controller, EHColumnConf columnConfig) async {
     await controller.dataGridSource.handleRefresh();
 
     controller.dataGridSource.getFilterFocusNode(columnConfig).requestFocus();
   }
 
-  int getColumnIndex(EHDataGridColumnConfig columnConfig) {
+  int getColumnIndex(EHColumnConf columnConfig) {
     return controller.dataGridSource.columnsConfig
         .where((c) => !c.columnName.contains('__'))
         .toList()
         .indexOf(columnConfig);
   }
 
-  EHDataGridFilterInfo getColumnFilter(String columnName) {
+  EHFilterInfo getColumnFilter(String columnName) {
     return controller.dataGridSource.columnFilters
         .where((e) => e.columnName == columnName)
         .first;
@@ -227,7 +227,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
             columnWidthMode: ColumnWidthMode.fill,
             columns: getGridColumns(),
             onColumnResizeUpdate: (ColumnResizeUpdateDetails args) {
-              EHDataGridColumnConfig column = this
+              EHColumnConf column = this
                   .controller
                   .dataGridSource
                   .columnsConfig
@@ -307,7 +307,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
     });
   }
 
-  sortColumn(EHDataGridColumnConfig columnConfig) {
+  sortColumn(EHColumnConf columnConfig) {
     this
         .controller
         .dataGridSource

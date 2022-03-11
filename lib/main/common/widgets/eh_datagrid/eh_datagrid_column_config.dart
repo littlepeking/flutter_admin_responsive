@@ -2,7 +2,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/e
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_column_type.dart';
 import 'package:get/get.dart';
 
-class EHDataGridColumnConfig {
+class EHColumnConf {
   String columnName;
 
   String? sortColumnName; //排序时使用的列，默认为columnName
@@ -15,10 +15,8 @@ class EHDataGridColumnConfig {
 
   bool hideInMobile;
 
-  EHDataGridColumnConfig(
-      {required this.columnName,
-      required this.columnType,
-      double? columnWidth,
+  EHColumnConf(this.columnName, this.columnType,
+      {double? columnWidth,
       this.columnHeaderName,
       this.sortColumnName,
       this.hideInMobile = false})

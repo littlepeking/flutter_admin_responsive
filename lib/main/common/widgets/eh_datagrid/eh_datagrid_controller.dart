@@ -36,9 +36,8 @@ class EHDataGridController extends EHController {
             .isEmpty)
       dataGridSource.columnsConfig.insert(
           0,
-          EHDataGridColumnConfig(
-              columnName: '__select',
-              columnType: EHImageButtonColumnType(onPressed: onRowSelected)));
+          EHColumnConf(
+              '__select', EHImageButtonColumnType(onPressed: onRowSelected)));
 
     this.dataGridSource = dataGridSource;
   }

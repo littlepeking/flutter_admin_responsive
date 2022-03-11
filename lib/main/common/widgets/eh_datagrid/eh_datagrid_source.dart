@@ -26,20 +26,19 @@ class EHDataGridSource extends DataGridSource {
   EHDataGridSource(
       {this.isMobile = false,
       this.pageIndex = -1,
-      List<EHDataGridFilterInfo>? columnFilters,
+      List<EHFilterInfo>? columnFilters,
       required this.columnsConfig,
       required this.getData,
       this.loadDataAtInit = true}) {
-    this.columnFilters = columnFilters != null
-        ? columnFilters.obs
-        : <EHDataGridFilterInfo>[].obs;
+    this.columnFilters =
+        columnFilters != null ? columnFilters.obs : <EHFilterInfo>[].obs;
   }
 
   bool loadDataAtInit;
 
-  late Map<EHDataGridColumnConfig, FocusNode> _fnFilterMap = {};
+  late Map<EHColumnConf, FocusNode> _fnFilterMap = {};
 
-  getFilterFocusNode(EHDataGridColumnConfig columnConfig) {
+  getFilterFocusNode(EHColumnConf columnConfig) {
     if (!_fnFilterMap.containsKey(columnConfig))
       _fnFilterMap.putIfAbsent(columnConfig, () => FocusNode());
 
@@ -61,7 +60,7 @@ class EHDataGridSource extends DataGridSource {
   /// Determine to decide whether the platform is mobile or web/tablet.
   bool isMobile = false;
 
-  List<EHDataGridColumnConfig> columnsConfig;
+  List<EHColumnConf> columnsConfig;
 
   List<Map> _dataList = <Map>[];
 
@@ -72,8 +71,7 @@ class EHDataGridSource extends DataGridSource {
   double? totalPageNumber = 1;
 
   //Key: column name, value: filter value controller
-  late RxList<EHDataGridFilterInfo> columnFilters =
-      <EHDataGridFilterInfo>[].obs;
+  late RxList<EHFilterInfo> columnFilters = <EHFilterInfo>[].obs;
 
   /// Instance of DataGridRow.
   List<DataGridRow> _dataGridRows = <DataGridRow>[];
@@ -82,7 +80,7 @@ class EHDataGridSource extends DataGridSource {
     return columnFilters.fold(Map<String, Object?>(), (_filters, e) {
       if (!e.columnName.contains('__')) {
         late Object? filterValue;
-        EHDataGridColumnConfig columnConfig = columnsConfig
+        EHColumnConf columnConfig = columnsConfig
             .where((config) => config.columnName == e.columnName)
             .first;
         if (columnConfig.columnType is EHIntColumnType) {
@@ -131,11 +129,11 @@ class EHDataGridSource extends DataGridSource {
   }
 
   setFilter(String columnName, String value, {EHDataGridColumnSortType? sort}) {
-    Iterable<EHDataGridFilterInfo> filterIterable =
+    Iterable<EHFilterInfo> filterIterable =
         columnFilters.where((filter) => filter.columnName == columnName);
 
     if (filterIterable.isEmpty) {
-      columnFilters.add(EHDataGridFilterInfo(
+      columnFilters.add(EHFilterInfo(
           columnName: columnName,
           sort: sort ?? EHDataGridColumnSortType.None,
           text: value));
