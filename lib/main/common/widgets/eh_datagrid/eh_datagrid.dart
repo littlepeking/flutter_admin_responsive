@@ -115,7 +115,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
               focusNode:
                   controller.dataGridSource.getFilterFocusNode(columnConfig),
               items: {
-                '': '------',
+                '': '[--All--]'.tr,
                 'true': 'Yes'.tr,
                 'false': 'No'.tr,
               },
