@@ -9,10 +9,13 @@ class EHButton extends EHStatelessWidget<EHButtonController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5),
-      child: ElevatedButton(
-        onPressed: controller.onPressed,
-        child: controller.child,
+      padding: EdgeInsets.symmetric(horizontal: 0),
+      child: SizedBox(
+        height: 28,
+        child: ElevatedButton(
+          onPressed: controller.onPressed,
+          child: controller.child,
+        ),
       ),
     );
   }

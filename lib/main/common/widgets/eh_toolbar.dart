@@ -11,6 +11,10 @@ class EHToolBar extends StatelessWidget {
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         //  height: 36,
-        child: Wrap(children: children));
+        child: Wrap(
+          children: children,
+          spacing: 5,
+          runSpacing: 5,
+        ));
   }
 }
