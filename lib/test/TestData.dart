@@ -42,7 +42,7 @@ class DataGridTest {
               columnWidth: 110),
         ],
         getData: (
-          Map<String, String> filters,
+          Map<String, Object?> filters,
           Map<String, String> orderBy,
           int pageIndex,
           int pageSize,
@@ -53,7 +53,7 @@ class DataGridTest {
 
   /// Get orders collection
   static Future<List<Map>> getOrders(
-    Map<String, String> filters,
+    Map<String, Object?> filters,
     Map<String, String> _orderBy,
     int pageIndex,
     int pageSize,
@@ -97,8 +97,8 @@ class DataGridTest {
   }
 
   static List<Map> filterData(
-      List<Map> data, MapEntry<String, String> filterEntry) {
-    return filterEntry.value.isEmpty
+      List<Map> data, MapEntry<String, Object?> filterEntry) {
+    return filterEntry.value == null || filterEntry.value.toString().isEmpty
         ? data
         : data
             .where((element) => element[filterEntry.key]

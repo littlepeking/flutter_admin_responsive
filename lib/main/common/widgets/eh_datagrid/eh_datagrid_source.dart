@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 /// Dart import
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
@@ -16,6 +17,8 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import 'eh_datagrid_constants.dart';
+
+import 'package:intl/intl.dart';
 
 /// Set order's data collection to data grid source.
 class EHDataGridSource extends DataGridSource {
@@ -49,7 +52,7 @@ class EHDataGridSource extends DataGridSource {
   var selectable;
 
   late Future<List<Map>> Function(
-    Map<String, String> filters,
+    Map<String, Object?> filters,
     Map<String, String> orderBy,
     int pageIndex,
     int pageSize,
@@ -75,9 +78,29 @@ class EHDataGridSource extends DataGridSource {
   /// Instance of DataGridRow.
   List<DataGridRow> _dataGridRows = <DataGridRow>[];
 
-  Map<String, String> get filters {
-    return columnFilters.fold(Map<String, String>(), (_filters, e) {
-      if (!e.columnName.contains('__')) _filters[e.columnName] = e.text;
+  Map<String, Object?> get filters {
+    return columnFilters.fold(Map<String, Object?>(), (_filters, e) {
+      if (!e.columnName.contains('__')) {
+        late Object? filterValue;
+        EHDataGridColumnConfig columnConfig = columnsConfig
+            .where((config) => config.columnName == e.columnName)
+            .first;
+        if (columnConfig.columnType is EHIntColumnType) {
+          filterValue = EHUtilHelper.isEmpty(e.text) ? null : int.parse(e.text);
+        } else if (columnConfig.columnType is EHDoubleColumnType) {
+          filterValue =
+              EHUtilHelper.isEmpty(e.text) ? null : double.parse(e.text);
+        } else if (columnConfig.columnType is EHDateColumnType) {
+          filterValue = EHUtilHelper.isEmpty(e.text)
+              ? null
+              : DateFormat('yyyy/MM/dd').parseStrict(e.text);
+        } else if (columnConfig.columnType is EHBoolColumnType) {
+          filterValue = EHUtilHelper.isEmpty(e.text) ? null : e.text == 'true';
+        } else if (columnConfig.columnType is EHStringColumnType) {
+          filterValue = e.text;
+        }
+        _filters[e.columnName] = filterValue;
+      }
       return _filters;
     });
   }
@@ -236,7 +259,7 @@ class EHDataGridSource extends DataGridSource {
 
   Future<List<Map>> requestData() async {
     try {
-      Map<String, String> filters = Map<String, String>.fromEntries(
+      Map<String, Object?> filters = Map<String, Object?>.fromEntries(
           this.filters.entries.where((element) => !element.key.contains('__')));
 
       _dataList = await getData(

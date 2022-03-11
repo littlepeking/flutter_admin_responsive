@@ -46,7 +46,7 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                         onFocusChange: (hasFocus) async {
                           if (!hasFocus) {
                             if (await controller._validate()) {
-                              Map<String, String> codeFilters =
+                              Map<String, Object?> codeFilters =
                                   controller._dataGridSource.filters;
                               codeFilters[controller.codeColumnName] =
                                   controller.text;
@@ -198,7 +198,7 @@ class EHPopupController extends EHEditableWidgetController {
           loadDataAtInit: false,
           columnsConfig: [],
           getData: (
-            Map<String, String> filters,
+            Map<String, Object?> filters,
             Map<String, String> orderBy,
             int pageIndex,
             int pageSize,
@@ -275,7 +275,7 @@ class EHPopupController extends EHEditableWidgetController {
 
     if (!isValid) return false;
 
-    Map<String, String> codeFilters = _dataGridSource.filters;
+    Map<String, Object?> codeFilters = _dataGridSource.filters;
     codeFilters[codeColumnName] = text;
 
     List<Map> res = await _dataGridSource.getData(

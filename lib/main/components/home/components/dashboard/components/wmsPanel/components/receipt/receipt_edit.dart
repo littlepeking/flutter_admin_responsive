@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
@@ -86,12 +88,10 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
           ),
           ElevatedButton(
             onPressed: () {
-              print(controller
-                  .asnHeaderDataGridController.dataGridSource.filters
-                  .toString());
-              EHToastMessageHelper.showInfoMessage(controller
-                  .asnHeaderDataGridController.dataGridSource.filters
-                  .toString());
+              print(jsonEncode(controller
+                  .asnHeaderDataGridController.dataGridSource.filters));
+              EHToastMessageHelper.showInfoMessage(jsonEncode(controller
+                  .asnHeaderDataGridController.dataGridSource.filters));
             },
             child: Text('Show Grid Filters'.tr),
           ),
