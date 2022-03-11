@@ -7,6 +7,6 @@ const bgColor = Color(0xFF212332);
 const creamColor = Color(0xFFFFFFFF);
 const snowColor = Color(0xFFFFFAFA);
 
-const double defaultPadding = 8.0;
+const double defaultPadding = 4.0;
 
 PageStorageBucket globalPageStorageBucket = new PageStorageBucket();

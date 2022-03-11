@@ -16,7 +16,7 @@ class Dashboard extends GetView<DashBoardNavigationController> {
                 left: defaultPadding,
                 right: defaultPadding,
                 top: defaultPadding)
-            : EdgeInsets.only(left: 3, right: 3, top: 0),
+            : EdgeInsets.only(left: 0, right: 0, top: 0),
         child: Column(
           children: [
             if (!Responsive.isMobile(context)) Header(),
