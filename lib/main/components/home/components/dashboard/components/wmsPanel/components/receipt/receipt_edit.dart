@@ -8,6 +8,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_vi
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../../../../../../../common/widgets/eh_button.dart';
+import '../../../../../../../../common/widgets/eh_toolbar.dart';
 import 'receipt_edit_controller.dart';
 import 'package:split_view/split_view.dart';
 
@@ -63,73 +64,68 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
   }
 
   buildToolbar(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      //  height: 36,
-      child: Wrap(
-        children: [
-          EHButton(
-              controller: EHButtonController(
-            onPressed: () {
-              controller
-                  .receiptDetailInfoController.widgetControllerFormController!
-                  .validate();
-              controller.receiptDetailInfoController.widgetBuilderFormController
-                  .validate();
-              String modelStr = controller
-                  .receiptDetailInfoController.receiptModel.value
-                  .toJsonStr();
-              print(modelStr);
-              EHToastMessageHelper.showInfoMessage(modelStr);
-            },
-            child: Text('Validate Form'.tr),
-          )),
-          EHButton(
-              controller: EHButtonController(
-            onPressed: () {
-              print(jsonEncode(controller
-                  .asnHeaderDataGridController.dataGridSource.filters));
-              EHToastMessageHelper.showInfoMessage(jsonEncode(controller
-                  .asnHeaderDataGridController.dataGridSource.filters));
-            },
-            child: Text('Show Grid Filters'.tr),
-          )),
-          EHButton(
+    return EHToolBar(
+      children: [
+        EHButton(
             controller: EHButtonController(
-                child: Text('Show Selected Rows'.tr),
-                onPressed: () => EHToastMessageHelper.showInfoMessage(controller
-                    .asnHeaderDataGridController.dataGridSource
-                    .getSelectedRows()
-                    .toString())),
-          ),
-          Container(
-            width: 75,
-            child: EHDropdown(
-                controller: EHDropDownController(
-              key: GlobalKey(),
-              focusNode: FocusNode(),
-              isMenu: true,
-              dropDownWidth: 150,
-              label: 'Actions',
-              items: {
-                'receivingASN': 'Receiving ASN',
-                'closeASN': 'Close ASN',
-                'printItemLabel': 'Print SKU Label'
-              },
-              onChanged: (value) {
-                if (value == 'receivingASN') {
-                  controller.receiptDetailInfoController.receiptModel.value
-                      .multiSelectValues = ['2'];
-                  controller.receiptDetailInfoController.receiptModel.value
-                      .receiptKey = 'changed';
-                  controller.receiptDetailInfoController.receiptModel.refresh();
-                }
-              },
-            )),
-          )
-        ],
-      ),
+          onPressed: () {
+            controller
+                .receiptDetailInfoController.widgetControllerFormController!
+                .validate();
+            controller.receiptDetailInfoController.widgetBuilderFormController
+                .validate();
+            String modelStr = controller
+                .receiptDetailInfoController.receiptModel.value
+                .toJsonStr();
+            print(modelStr);
+            EHToastMessageHelper.showInfoMessage(modelStr);
+          },
+          child: Text('Validate Form'.tr),
+        )),
+        EHButton(
+            controller: EHButtonController(
+          onPressed: () {
+            print(jsonEncode(
+                controller.asnHeaderDataGridController.dataGridSource.filters));
+            EHToastMessageHelper.showInfoMessage(jsonEncode(
+                controller.asnHeaderDataGridController.dataGridSource.filters));
+          },
+          child: Text('Show Grid Filters'.tr),
+        )),
+        EHButton(
+          controller: EHButtonController(
+              child: Text('Show Selected Rows'.tr),
+              onPressed: () => EHToastMessageHelper.showInfoMessage(controller
+                  .asnHeaderDataGridController.dataGridSource
+                  .getSelectedRows()
+                  .toString())),
+        ),
+        Container(
+          width: 75,
+          child: EHDropdown(
+              controller: EHDropDownController(
+            key: GlobalKey(),
+            focusNode: FocusNode(),
+            isMenu: true,
+            dropDownWidth: 150,
+            label: 'Actions',
+            items: {
+              'receivingASN': 'Receiving ASN',
+              'closeASN': 'Close ASN',
+              'printItemLabel': 'Print SKU Label'
+            },
+            onChanged: (value) {
+              if (value == 'receivingASN') {
+                controller.receiptDetailInfoController.receiptModel.value
+                    .multiSelectValues = ['2'];
+                controller.receiptDetailInfoController.receiptModel.value
+                    .receiptKey = 'changed';
+                controller.receiptDetailInfoController.receiptModel.refresh();
+              }
+            },
+          )),
+        )
+      ],
     );
   }
 }
