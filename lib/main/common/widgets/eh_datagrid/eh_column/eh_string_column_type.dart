@@ -8,10 +8,10 @@ class EHStringColumnType extends EHColumnType<String> {
   TextOverflow overflow;
   EHStringColumnType(
       {EHWidgetType widgetType = EHWidgetType.Text,
-      Map<String, String>? selectItems,
+      Map<String, String>? items,
       this.overflow = TextOverflow.ellipsis,
       alignment = Alignment.topLeft})
-      : super(alignment: alignment, widgetType: widgetType, items: selectItems);
+      : super(alignment: alignment, widgetType: widgetType, items: items);
 
   @override
   getWidget(String? value, int rowIndex, columnName, List<Map> dataList) {

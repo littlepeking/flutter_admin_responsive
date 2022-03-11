@@ -65,8 +65,7 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                   popupTitle: 'Please Select Supplier',
                                   focusNode: controller.popUpFn,
                                   codeColumnName: 'customerId',
-                                  dataGridSource:
-                                      DataGridTest.getDataGridSource(),
+                                  dataSource: DataGridTest.getDataGridSource(),
                                   label: 'popUp',
                                   bindingValue:
                                       controller.receiptModel.value.customerId,

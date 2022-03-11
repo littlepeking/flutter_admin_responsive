@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
-import '../../../../../../../../common/widgets/EH_multi_select.dart';
+import '../../../../../../../../common/widgets/eh_multi_select.dart';
 import '../../../../../../../../common/widgets/eh_datagrid/eh_datagrid_source.dart';
 import '../../../../../../../../common/widgets/eh_dropdown.dart';
 
@@ -72,7 +72,7 @@ class ReceiptDetailViewController extends EHPanelController {
                 popupTitle: 'Please Select Supplier',
                 focusNode: focusNode,
                 codeColumnName: 'customerId',
-                dataGridSource: DataGridTest.getDataGridSource(),
+                dataSource: DataGridTest.getDataGridSource(),
                 label: 'popUp',
                 bindingValue: receiptModel.value.customerId,
                 mustInput: true,
@@ -184,7 +184,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   bindingFieldName: 'customerId',
                   popupTitle: 'Please Select Supplier',
                   codeColumnName: 'id',
-                  dataGridSource: popUpDataSource,
+                  dataSource: popUpDataSource,
                   mustInput: true,
                   onChanged: (code, row) {
                     if (row != null)

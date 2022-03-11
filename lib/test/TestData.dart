@@ -13,33 +13,22 @@ class DataGridTest {
     return EHDataGridSource(
         // loadDataAtInit: false,
         columnFilters: [
-          EHDataGridFilterInfo(
-              columnName: 'id', sort: EHDataGridColumnSortType.Asc)
+          EHFilterInfo(columnName: 'id', sort: EHDataGridColumnSortType.Asc)
         ],
         columnsConfig: [
-          EHDataGridColumnConfig(
-              columnName: 'id', columnType: EHIntColumnType()),
-          EHDataGridColumnConfig(
-              columnName: 'customerId', columnType: EHIntColumnType()),
-          EHDataGridColumnConfig(
-              columnName: 'name', columnType: EHStringColumnType()),
-          EHDataGridColumnConfig(
-              columnName: 'city',
-              columnType: EHStringColumnType(
-                  widgetType: EHWidgetType.DropDown,
-                  selectItems: {
-                    'PEK': 'Beijing',
-                    'SH': 'Shanghai',
-                    'SZ': 'Shenzhen'
-                  })),
-          EHDataGridColumnConfig(
-              columnName: 'qty', columnType: EHDoubleColumnType()),
-          EHDataGridColumnConfig(
-              columnName: 'date', columnType: EHDateColumnType()),
-          EHDataGridColumnConfig(
-              columnName: 'isConfirmed',
-              columnType: EHBoolColumnType(),
-              columnWidth: 110),
+          EHColumnConf('id', EHIntColumnType()),
+          EHColumnConf('customerId', EHIntColumnType()),
+          EHColumnConf('name', EHStringColumnType()),
+          EHColumnConf(
+              'city',
+              EHStringColumnType(widgetType: EHWidgetType.DropDown, items: {
+                'PEK': 'Beijing',
+                'SH': 'Shanghai',
+                'SZ': 'Shenzhen'
+              })),
+          EHColumnConf('qty', EHDoubleColumnType()),
+          EHColumnConf('date', EHDateColumnType()),
+          EHColumnConf('isConfirmed', EHBoolColumnType(), columnWidth: 110),
         ],
         getData: (
           Map<String, Object?> filters,

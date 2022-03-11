@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class EHToolBar extends StatelessWidget {
   EHToolBar({required this.children});
 
-  List<Widget> children;
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {

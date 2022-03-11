@@ -228,7 +228,7 @@ class EHPopupController extends EHEditableWidgetController {
       this.onChanged,
       Future<bool> Function()? validate,
       String? codeColumnName,
-      EHDataGridSource? dataGridSource,
+      EHDataGridSource? dataSource,
       Map<Key?, String>? errorBucket})
       : super(
             key: key,
@@ -248,7 +248,7 @@ class EHPopupController extends EHEditableWidgetController {
     init();
 
     this.codeColumnName = codeColumnName!; //未集成后台的code配置前，该字段需要手工传入
-    this._dataGridSource = getDateSource(dataGridSource, queryCode);
+    this._dataGridSource = getDateSource(dataSource, queryCode);
   }
 
   @override

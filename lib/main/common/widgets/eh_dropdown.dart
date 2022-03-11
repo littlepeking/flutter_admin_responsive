@@ -1,6 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_edit_widget_controller.dart';
-import 'package:eh_flutter_framework/main/common/base/eh_editable_widget.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:eh_flutter_framework/main/common/constants/layout_constant.dart';
@@ -11,7 +10,6 @@ import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../base/eh_controller.dart';
 import '../utils/eh_refactor_helper.dart';
 
 class EHDropdown extends EHStatelessWidget<EHDropDownController> {
