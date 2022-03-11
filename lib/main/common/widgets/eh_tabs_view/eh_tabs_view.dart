@@ -19,12 +19,14 @@ class EHTabsView extends StatelessWidget {
   final Widget? preTabHeaderWidget;
   final EHTabsViewExpandMode expandMode;
   final bool? useBottomList;
+  final bool showSideBorder;
 
   EHTabsView(
       {Key? key,
       this.preTabHeaderWidget,
       this.expandMode = EHTabsViewExpandMode.Scrollable,
       this.useBottomList,
+      this.showSideBorder = true,
       required this.controller})
       : super(key: key);
 
@@ -77,10 +79,19 @@ class EHTabsView extends StatelessWidget {
       return Container(
           padding: EdgeInsets.all(3),
           decoration: BoxDecoration(
-              border: Border.all(
-                  color: ThemeController.instance.isDarkMode.isTrue
-                      ? Colors.white30
-                      : Colors.black45)),
+              border: Border.symmetric(
+                  horizontal: BorderSide(
+                      width: showSideBorder ? 1.0 : 2.0,
+                      color: ThemeController.instance.isDarkMode.isTrue
+                          ? Colors.white30
+                          : Colors.black45),
+                  vertical: showSideBorder
+                      ? BorderSide(
+                          width: 1.0,
+                          color: ThemeController.instance.isDarkMode.isTrue
+                              ? Colors.white30
+                              : Colors.black45)
+                      : BorderSide.none)),
           child: IndexedStack(
             index: controller.selectedIndex.value,
             children: controller.tabsConfig.map((tab) {
