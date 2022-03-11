@@ -13,6 +13,8 @@ part 'receipt_model.g.dart';
 @methodExecutor
 class ReceiptModel extends EHModel {
   String receiptKey;
+  int? num1;
+  double? num2;
   String? customerId;
   String customerName;
 
@@ -24,6 +26,8 @@ class ReceiptModel extends EHModel {
   bool? isChecked;
   ReceiptModel({
     required this.receiptKey,
+    required this.num1,
+    required this.num2,
     required this.customerId,
     required this.customerName,
     required this.dropdownValue,

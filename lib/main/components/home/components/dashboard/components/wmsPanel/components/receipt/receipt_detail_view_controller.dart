@@ -23,6 +23,8 @@ class ReceiptDetailViewController extends EHPanelController {
 
   Rx<ReceiptModel> receiptModel = ReceiptModel(
           receiptKey: 'key001',
+          num1: 1,
+          num2: 2.50,
           customerId: 'cus001',
           customerName: 'cus001Name',
           dropdownValue: '1',
@@ -107,6 +109,20 @@ class ReceiptDetailViewController extends EHPanelController {
                   label: '文本框',
                   //autoFocus: true,
                   bindingFieldName: 'receiptKey',
+                  mustInput: true,
+                  onChanged: (value) {}),
+              () => EHTextFieldController(
+                  label: '整数',
+                  type: EHTextInputType.Int,
+                  //autoFocus: true,
+                  bindingFieldName: 'num1',
+                  //   mustInput: true,
+                  onChanged: (value) {}),
+              () => EHTextFieldController(
+                  label: '浮点数',
+                  type: EHTextInputType.Double,
+                  //autoFocus: true,
+                  bindingFieldName: 'num2',
                   mustInput: true,
                   onChanged: (value) {}),
               () => EHDropDownController(

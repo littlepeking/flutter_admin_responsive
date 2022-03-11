@@ -7,6 +7,7 @@ import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../utils/eh_refactor_helper.dart';
@@ -20,6 +21,24 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
   Widget build(BuildContext context) {
     if (controller.errorBucket == null)
       controller.errorBucket = EHController.globalErrorBucket;
+
+    late List<TextInputFormatter> inputFormatters;
+    late TextInputType keyboardType;
+    if (controller.type == EHTextInputType.Text) {
+      inputFormatters = [];
+      keyboardType = TextInputType.text;
+    } else if (controller.type == EHTextInputType.Int) {
+      inputFormatters =
+          inputFormatters = [FilteringTextInputFormatter.digitsOnly];
+      keyboardType = TextInputType.number;
+    } else if (controller.type == EHTextInputType.Double) {
+      inputFormatters = [
+        FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))
+      ];
+
+      keyboardType = TextInputType.numberWithOptions(decimal: true);
+    }
+
     return Obx(() => Container(
           padding: LayoutConstant.defaultEditWidgetPadding,
           // height: 70,
@@ -43,7 +62,21 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                             if (await controller._validate()) {
                               EHController.globalDisplayValueBucket
                                   .remove(controller.key!);
-                              controller.setModelValue(controller.displayValue);
+
+                              late Object? value;
+                              if (controller.type == EHTextInputType.Int) {
+                                value = controller.displayValue == ''
+                                    ? null
+                                    : int.parse(controller.displayValue);
+                              } else if (controller.type ==
+                                  EHTextInputType.Double) {
+                                value = controller.displayValue == ''
+                                    ? null
+                                    : double.parse(controller.displayValue);
+                              } else {
+                                value = controller.displayValue;
+                              }
+                              controller.setModelValue(value);
 
                               if (controller.onChanged != null)
                                 controller.onChanged!(controller.displayValue);
@@ -54,10 +87,8 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                           }
                         },
                         child: TextField(
-                          // keyboardType: TextInputType.number,
-                          // inputFormatters: <TextInputFormatter>[
-                          //   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                          // ],
+                          keyboardType: keyboardType,
+                          inputFormatters: inputFormatters,
                           autofocus: controller.autoFocus,
                           focusNode: controller.focusNode,
                           textInputAction: TextInputAction.next,
@@ -149,6 +180,8 @@ class EHTextFieldController extends EHEditableWidgetController {
 
   Key? key;
 
+  EHTextInputType type;
+
   EHTextFieldController(
       {this.key,
       double? width,
@@ -158,6 +191,7 @@ class EHTextFieldController extends EHEditableWidgetController {
       String bindingValue = '',
       bool enabled = true,
       bool mustInput = false,
+      this.type = EHTextInputType.Text,
       EHModel? model,
       String? bindingFieldName,
       this.onChanged,
@@ -177,6 +211,7 @@ class EHTextFieldController extends EHEditableWidgetController {
             errorBucket: errorBucket) {
     this.validate = validate ?? () async => true;
     this._bindingValue = bindingValue;
+
     init();
   }
 
@@ -186,8 +221,8 @@ class EHTextFieldController extends EHEditableWidgetController {
 
     //Check if exists ehEditForm first
     if (model != null && bindingFieldName != null) {
-      value =
-          EHRefactorHelper.getFieldValue(model!, bindingFieldName!) as String?;
+      Object? v = EHRefactorHelper.getFieldValue(model!, bindingFieldName!);
+      value = v == null ? '' : v.toString();
     } else {
       value = _bindingValue;
     }
@@ -195,7 +230,7 @@ class EHTextFieldController extends EHEditableWidgetController {
     if (key != null && EHController.globalDisplayValueBucket[key] != null) {
       this.displayValue = EHController.globalDisplayValueBucket[key!]!;
     } else {
-      this.displayValue = value ?? '';
+      this.displayValue = value;
     }
 
     // super.init();
@@ -220,6 +255,8 @@ class EHTextFieldController extends EHEditableWidgetController {
     return await _validate();
   }
 }
+
+enum EHTextInputType { Int, Double, Text }
 
 class EHTextEditingController extends TextEditingController {
   @override

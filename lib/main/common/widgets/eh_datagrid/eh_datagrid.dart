@@ -3,6 +3,7 @@ import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_double_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_int_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
@@ -10,6 +11,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 /// Core theme import
@@ -125,7 +127,24 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
     }
 
     if (columnConfig.columnType.widgetType == EHWidgetType.Text) {
+      List<TextInputFormatter> inputFormatters = [];
+      TextInputType keyboardType = TextInputType.text;
+      if (columnConfig.columnType is EHIntColumnType) {
+        inputFormatters =
+            inputFormatters = [FilteringTextInputFormatter.digitsOnly];
+
+        keyboardType = TextInputType.number;
+      } else if (columnConfig.columnType is EHDoubleColumnType) {
+        inputFormatters = inputFormatters = [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))
+        ];
+
+        keyboardType = TextInputType.numberWithOptions(decimal: true);
+      }
+
       return TextField(
+          inputFormatters: inputFormatters,
+          keyboardType: keyboardType,
           focusNode: controller.dataGridSource.getFilterFocusNode(columnConfig),
           controller: EHTextEditingController(
               text: getColumnFilter(columnConfig.columnName).text),
