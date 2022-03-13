@@ -92,7 +92,7 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
                 controller.asnHeaderDataGridController.dataGridSource.filters));
             EHToastMessageHelper.showInfoMessage(jsonEncode(
                 controller.asnHeaderDataGridController.dataGridSource.filters));
-            List<ReceiptModel> list = await ReceiptService.getInstance().query(
+            List<ReceiptModel> list = await ReceiptService().query(
                 conditions: controller
                     .asnHeaderDataGridController.dataGridSource.filters);
 
