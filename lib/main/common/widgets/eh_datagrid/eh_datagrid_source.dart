@@ -2,6 +2,7 @@
 /// Dart import
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
@@ -24,8 +25,7 @@ import 'package:intl/intl.dart';
 class EHDataGridSource extends DataGridSource {
   /// Creates the order data source class with required details.
   EHDataGridSource(
-      {this.isMobile = false,
-      this.pageIndex = -1,
+      {this.pageIndex = -1,
       List<EHFilterInfo>? columnFilters,
       required this.columnsConfig,
       required this.getData,
@@ -50,7 +50,7 @@ class EHDataGridSource extends DataGridSource {
 
   var selectable;
 
-  late Future<List<Map>> Function(
+  late Future<List<Map<String, dynamic>>> Function(
     Map<String, Object?> filters,
     Map<String, String> orderBy,
     int pageIndex,
@@ -58,7 +58,7 @@ class EHDataGridSource extends DataGridSource {
   ) getData;
 
   /// Determine to decide whether the platform is mobile or web/tablet.
-  bool isMobile = false;
+  bool isMobile = Responsive.isMobile(Get.context!);
 
   List<EHColumnConf> columnsConfig;
 
@@ -242,32 +242,22 @@ class EHDataGridSource extends DataGridSource {
 
   @override
   Future<void> handleRefresh() async {
-    try {
-      ////////////////////
-      //Resolve the issue of header checkbox is not unchecked after refresh
-      //this.dataGridController.selectedRows = [];
-      ////////////////////
-      await requestData();
-      buildDataGridRows();
-      notifyListeners();
-    } catch (e) {
-      EHToastMessageHelper.showInfoMessage("Data update failed");
-    }
+    ////////////////////
+    //Resolve the issue of header checkbox is not unchecked after refresh
+    //this.dataGridController.selectedRows = [];
+    ////////////////////
+    await requestData();
+    buildDataGridRows();
+    notifyListeners();
   }
 
   Future<List<Map>> requestData() async {
-    try {
-      Map<String, Object?> filters = Map<String, Object?>.fromEntries(
-          this.filters.entries.where((element) => !element.key.contains('__')));
+    Map<String, Object?> filters = Map<String, Object?>.fromEntries(
+        this.filters.entries.where((element) => !element.key.contains('__')));
 
-      _dataList = await getData(
-          filters, this.orderBy, this.pageIndex ?? 0, this.pageSize!.value);
-      return _dataList;
-    } catch (e) {
-      EHToastMessageHelper.showInfoMessage(
-          "Data request failed from server" + e.toString());
-    }
-    return <Map>[];
+    _dataList = await getData(
+        filters, this.orderBy, this.pageIndex ?? 0, this.pageSize!.value);
+    return _dataList;
   }
 
   // @override

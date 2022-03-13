@@ -51,6 +51,7 @@ class ReceiptDetailViewController extends EHPanelController {
     };
 
     EHDataGridSource popUpDataSource = DataGridTest.getDataGridSource();
+    //EHDataGridSource popUpDataSource = DataGridTest.getCommonDataGridSource();
 
     widgetBuilderFormController = EHEditFormController(widgetBuilders: [
       (key, focusNode) => EHTextField(

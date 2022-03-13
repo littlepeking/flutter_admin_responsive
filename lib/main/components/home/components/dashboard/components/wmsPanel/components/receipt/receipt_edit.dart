@@ -1,10 +1,13 @@
 import 'dart:convert';
 
+import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
+import 'package:eh_flutter_framework/main/common/services/wms/outbound/receipt_service.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/models/receipt_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../../../../../../../common/widgets/eh_button.dart';
@@ -84,11 +87,16 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
         )),
         EHButton(
             controller: EHButtonController(
-          onPressed: () {
+          onPressed: () async {
             print(jsonEncode(
                 controller.asnHeaderDataGridController.dataGridSource.filters));
             EHToastMessageHelper.showInfoMessage(jsonEncode(
                 controller.asnHeaderDataGridController.dataGridSource.filters));
+            List<ReceiptModel> list = await ReceiptService.getInstance().query(
+                conditions: controller
+                    .asnHeaderDataGridController.dataGridSource.filters);
+
+            EHToastMessageHelper.showInfoMessage(list.toString());
           },
           child: Text('Show Grid Filters'.tr),
         )),

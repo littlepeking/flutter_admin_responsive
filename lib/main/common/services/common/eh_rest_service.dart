@@ -8,25 +8,24 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' hide Response, FormData;
 import 'package:shared_preferences/shared_preferences.dart';
 
-var httpService = EHHttpService();
-
-class EHHttpService {
+class EHRestService extends GetxController {
   var _dio = Dio();
   var useCharles = false;
 
   ///使用charles需修改对应ip
   String charlesProxy = '169.254.124.128:8887';
 
-  static EHHttpService _singleton = new EHHttpService._internal();
+  static EHRestService _singleton = new EHRestService._internal();
 
-  factory EHHttpService() => _singleton;
+  factory EHRestService() => _singleton;
 
-  EHHttpService._internal() {
+  EHRestService._internal() {
     //dio.options.baseUrl = "http://rest.vtpm.starblingbling.com/";
     //dio.options.connectTimeout = 20000;
     //dio.options.receiveTimeout = 10000;
 
-    _dio.interceptors.add(LogInterceptor());
+    _dio.interceptors
+        .add(LogInterceptor(requestBody: true, responseBody: true));
     _dio.interceptors.add(InterceptorsWrapper(onRequest:
         (RequestOptions requestOptions,
             RequestInterceptorHandler handler) async {
@@ -49,7 +48,10 @@ class EHHttpService {
 
       return handler.next(response);
     }, onError: (DioError error, ErrorInterceptorHandler handler) async {
-      if (error.response?.statusCode == 401) {
+      if (error.response?.statusCode == 404) {
+        EHToastMessageHelper.showInfoMessage('request url cannot found'.tr);
+        //return handler.next(error);
+      } else if (error.response?.statusCode == 401) {
         EHNavigator.navigateTo("/login");
         // bus.emit("401");
         EHToastMessageHelper.showInfoMessage(
@@ -67,6 +69,8 @@ class EHHttpService {
           if (errData != null) {
             EHToastMessageHelper.showInfoMessage(errData["message"]);
           }
+
+          return handler.next(error);
         }
       }
       return handler.next(error);
@@ -110,6 +114,22 @@ class EHHttpService {
       body = formData;
     }
     return _dio.post<T>(path,
+        data: body, queryParameters: params, options: options);
+  }
+
+  Future<Response<T>> postByServiceName<T>({
+    required String serviceName,
+    required String actionName,
+    body,
+    Map<String, dynamic>? params,
+    bool isFormData = false,
+    Options? options,
+  }) {
+    if (isFormData) {
+      FormData formData = new FormData.fromMap(body);
+      body = formData;
+    }
+    return _dio.post<T>(serviceName + '/' + actionName,
         data: body, queryParameters: params, options: options);
   }
 

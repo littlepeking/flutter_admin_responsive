@@ -3,13 +3,22 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/e
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_double_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_int_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_string_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_common_datagrid_source.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_source.dart';
 
+import '../main/common/widgets/eh_datagrid/eh_service_datagrid_source.dart';
+
 class DataGridTest {
   static getDataGridSource() {
+    //return getStaticDataGridSource();
+    //return getServiceDataGridSource();
+    return getCommonDataGridSource();
+  }
+
+  static getStaticDataGridSource() {
     return EHDataGridSource(
         // loadDataAtInit: false,
         columnFilters: [
@@ -40,8 +49,53 @@ class DataGridTest {
                 filters, orderBy, pageIndex, pageSize));
   }
 
+  static getCommonDataGridSource() {
+    return EHCommonDataGridSource(
+      dataSourceCode: 'orders.list.query',
+      columnFilters: [
+        EHFilterInfo(columnName: 'id', sort: EHDataGridColumnSortType.Asc)
+      ],
+      columnsConfig: [
+        EHColumnConf('id', EHIntColumnType()),
+        EHColumnConf('customerId', EHIntColumnType()),
+        EHColumnConf('name', EHStringColumnType()),
+        EHColumnConf(
+            'city',
+            EHStringColumnType(
+                widgetType: EHWidgetType.DropDown,
+                items: {'PEK': 'Beijing', 'SH': 'Shanghai', 'SZ': 'Shenzhen'})),
+        EHColumnConf('qty', EHDoubleColumnType()),
+        EHColumnConf('date', EHDateColumnType()),
+        EHColumnConf('isConfirmed', EHBoolColumnType(), columnWidth: 110),
+      ],
+    );
+  }
+
+  static getServiceDataGridSource() {
+    return EHServiceDataGridSource(
+      serviceName: 'Orders',
+      // loadDataAtInit: false,
+      columnFilters: [
+        EHFilterInfo(columnName: 'id', sort: EHDataGridColumnSortType.Asc)
+      ],
+      columnsConfig: [
+        EHColumnConf('id', EHIntColumnType()),
+        EHColumnConf('customerId', EHIntColumnType()),
+        EHColumnConf('name', EHStringColumnType()),
+        EHColumnConf(
+            'city',
+            EHStringColumnType(
+                widgetType: EHWidgetType.DropDown,
+                items: {'PEK': 'Beijing', 'SH': 'Shanghai', 'SZ': 'Shenzhen'})),
+        EHColumnConf('qty', EHDoubleColumnType()),
+        EHColumnConf('date', EHDateColumnType()),
+        EHColumnConf('isConfirmed', EHBoolColumnType(), columnWidth: 110),
+      ],
+    );
+  }
+
   /// Get orders collection
-  static Future<List<Map>> getOrders(
+  static Future<List<Map<String, dynamic>>> getOrders(
     Map<String, Object?> filters,
     Map<String, String> _orderBy,
     int pageIndex,
@@ -51,7 +105,7 @@ class DataGridTest {
     //     endIndex = startIndex + 25;
     final int startIndex = 0, endIndex = 100;
 
-    List<Map> data = [];
+    List<Map<String, dynamic>> data = [];
     for (int i = startIndex; i < endIndex; i++) {
       // orderData.add({
       //   'id': 1000 + i,
@@ -85,8 +139,8 @@ class DataGridTest {
     return data;
   }
 
-  static List<Map> filterData(
-      List<Map> data, MapEntry<String, Object?> filterEntry) {
+  static List<Map<String, dynamic>> filterData(
+      List<Map<String, dynamic>> data, MapEntry<String, Object?> filterEntry) {
     return filterEntry.value == null || filterEntry.value.toString().isEmpty
         ? data
         : data

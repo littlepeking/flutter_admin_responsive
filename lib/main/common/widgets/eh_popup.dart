@@ -187,28 +187,12 @@ class EHPopupController extends EHEditableWidgetController {
 
   void Function(String? code, Map? row)? onChanged;
 
-  EHDataGridSource getDateSource(
-      EHDataGridSource? dataGridSource, String? queryCode) {
-    if (dataGridSource == null && queryCode == null)
-      throw Exception(
-          'dataGridSource or queryCode must be provided one of them at least.');
+  // EHDataGridSource getDateSource(EHDataGridSource dataGridSource) {
+  //   // throw Exception(
+  //   //     'dataGridSource or queryCode must be provided one of them at least.');
 
-    if (queryCode != null) {
-      return EHDataGridSource(
-          loadDataAtInit: false,
-          columnsConfig: [],
-          getData: (
-            Map<String, Object?> filters,
-            Map<String, String> orderBy,
-            int pageIndex,
-            int pageSize,
-          ) async =>
-              <Map>[]);
-    } else {
-      dataGridSource!.loadDataAtInit = false;
-      return dataGridSource;
-    }
-  }
+  //   return dataGridSource;
+  // }
 
   EHPopupController(
       {Key? key,
@@ -228,7 +212,7 @@ class EHPopupController extends EHEditableWidgetController {
       this.onChanged,
       Future<bool> Function()? validate,
       String? codeColumnName,
-      EHDataGridSource? dataSource,
+      required EHDataGridSource dataSource,
       Map<Key?, String>? errorBucket})
       : super(
             key: key,
@@ -247,8 +231,10 @@ class EHPopupController extends EHEditableWidgetController {
 
     init();
 
-    this.codeColumnName = codeColumnName!; //未集成后台的code配置前，该字段需要手工传入
-    this._dataGridSource = getDateSource(dataSource, queryCode);
+    this.codeColumnName = codeColumnName!;
+    //prevent refresh Exception (pager building will trigger refresh again, so we need make sure popup does not trigger it at that time)
+    dataSource.loadDataAtInit = false;
+    this._dataGridSource = dataSource;
   }
 
   @override

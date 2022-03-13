@@ -50,7 +50,10 @@ getFunctionButtons() {
       onPressed: (data) {
         // if (System.wms != GlobalDataController.instance.system.value) {
         GlobalDataController.instance.system.value = System.wms;
-        EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/wmsPanel");
+        EHNavigator.navigateTo(
+          "/wmsPanel",
+          navigatorKey: NavigationKeys.dashBoardNavKey,
+        );
         // }
       },
     ),
@@ -60,7 +63,10 @@ getFunctionButtons() {
       onPressed: (data) {
         if (System.tms != GlobalDataController.instance.system.value) {
           GlobalDataController.instance.system.value = System.tms;
-          EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/tmsPanel");
+          EHNavigator.navigateTo(
+            "/tmsPanel",
+            navigatorKey: NavigationKeys.dashBoardNavKey,
+          );
         }
       },
     ),
@@ -70,7 +76,10 @@ getFunctionButtons() {
       onPressed: (data) {
         if (System.notification != GlobalDataController.instance.system.value) {
           GlobalDataController.instance.system.value = System.notification;
-          EHNavigator.navigateTo(NavigationKeys.dashBoardNavKey, "/myTasks");
+          EHNavigator.navigateTo(
+            "/myTasks",
+            navigatorKey: NavigationKeys.dashBoardNavKey,
+          );
         }
       },
     ),

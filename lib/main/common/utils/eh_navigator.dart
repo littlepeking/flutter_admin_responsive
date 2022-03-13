@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EHNavigator {
-  static navigateTo(int navigatorKey, String routeName) {
+  static navigateTo(String routeName, {int? navigatorKey}) {
     Get.offAndToNamed(routeName, id: navigatorKey);
 
     //   Future<dynamic>? navigateTo(String routeName) {
