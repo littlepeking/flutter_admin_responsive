@@ -60,6 +60,7 @@ Map<String, String> zhCNMessages = {
   'Actions': '执行',
   '[Empty]': '[空]',
   '[--All--]': '[全部]',
+  'request url cannot found': '请求的服务器地址不存在',
   ////
   ///test i18 data
   'popUp': '弹出框',
