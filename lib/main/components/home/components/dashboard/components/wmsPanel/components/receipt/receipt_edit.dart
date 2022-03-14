@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
 import 'package:eh_flutter_framework/main/common/services/wms/outbound/receipt_service.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
@@ -71,11 +70,12 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
       children: [
         EHButton(
             controller: EHButtonController(
-          onPressed: () {
-            controller
+          onPressed: () async {
+            await controller
                 .receiptDetailInfoController.widgetControllerFormController!
                 .validate();
-            controller.receiptDetailInfoController.widgetBuilderFormController
+            await controller
+                .receiptDetailInfoController.widgetBuilderFormController
                 .validate();
             String modelStr = controller
                 .receiptDetailInfoController.receiptModel.value

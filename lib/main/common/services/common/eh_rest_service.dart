@@ -4,9 +4,14 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_navigator.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
+import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response, FormData;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
+
+import '../../widgets/eh_loading_indicator.dart';
 
 class EHRestService extends GetxController {
   var _dio = Dio();
@@ -19,6 +24,9 @@ class EHRestService extends GetxController {
 
   factory EHRestService() => _singleton;
 
+  EHLoadingIndicator _loadingIndicator =
+      EHLoadingIndicator(context: Get.context, barrierDimisable: false);
+
   EHRestService._internal() {
     //dio.options.baseUrl = "http://rest.vtpm.starblingbling.com/";
     //dio.options.connectTimeout = 20000;
@@ -29,6 +37,25 @@ class EHRestService extends GetxController {
     _dio.interceptors.add(InterceptorsWrapper(onRequest:
         (RequestOptions requestOptions,
             RequestInterceptorHandler handler) async {
+      if (!_loadingIndicator.isOpen)
+        _loadingIndicator.show(
+            textStyle: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+                color: ThemeController.instance.isDarkMode.value
+                    ? Colors.white
+                    : Colors.black),
+            horizontal: true,
+            backgroundColor: ThemeController.instance.isDarkMode.value
+                ? Colors.black87
+                : Colors.white,
+            indicatorColor: ThemeController.instance.isDarkMode.value
+                ? Colors.white
+                : Colors.blue,
+            message: 'Loading...'.tr,
+            width: 200,
+            height: 80,
+            type: SimpleFontelicoProgressDialogType.normal);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String jwtToken = prefs.get("jwt-token") == null
           ? ''
@@ -37,6 +64,8 @@ class EHRestService extends GetxController {
       return handler.next(requestOptions);
     }, onResponse:
         (Response response, ResponseInterceptorHandler handler) async {
+      //await Future.delayed(Duration(seconds: 2));
+      if (_loadingIndicator.isOpen) _loadingIndicator.hide();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String jwtToken = prefs.get("jwt-token").toString();
 
@@ -48,6 +77,8 @@ class EHRestService extends GetxController {
 
       return handler.next(response);
     }, onError: (DioError error, ErrorInterceptorHandler handler) async {
+      // await Future.delayed(Duration(seconds: 2));
+      if (_loadingIndicator.isOpen) _loadingIndicator.hide();
       if (error.response?.statusCode == 404) {
         EHToastMessageHelper.showInfoMessage('request url cannot found'.tr);
         //return handler.next(error);
