@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
+import '../../../../../../../../common/widgets/eh_form_divider.dart';
 import '../../../../../../../../common/widgets/eh_multi_select.dart';
 import '../../../../../../../../common/widgets/eh_datagrid/eh_datagrid_source.dart';
 import '../../../../../../../../common/widgets/eh_dropdown.dart';
@@ -114,16 +115,6 @@ class ReceiptDetailViewController extends EHPanelController {
                   bindingFieldName: 'receiptKey',
                   mustInput: true,
                   onChanged: (value) {}),
-              () => EHCustomFormWidgetController<ReceiptModel>(
-                    widgetBuilder: (key, focusNode, rxModel) => Obx(() => Text(
-                          rxModel!.value.receiptKey,
-                          style: TextStyle(color: Colors.yellow),
-                        )),
-                  ),
-              () => EHCustomFormWidgetController<ReceiptModel>(
-                    widgetBuilder: (key, focusNode, rxModel) =>
-                        CustomWidget(key, focusNode, rxModel),
-                  ),
               () => EHTextFieldController(
                   label: '整数',
                   type: EHTextInputType.Int,
@@ -251,6 +242,32 @@ class ReceiptDetailViewController extends EHPanelController {
                     widgetControllerFormController!.widgetFocusNodes![0]
                         .requestFocus();
                   }),
+              () => EHCustomFormWidgetController<ReceiptModel>(
+                    widgetBuilder: (key, focusNode, rxModel) =>
+                        CustomWidget(key, focusNode, rxModel),
+                  ),
+              () => EHFormDividerController(width: 1),
+              () => EHTextFieldController(
+                  label: '文本框',
+                  //autoFocus: true,
+                  width: double.infinity,
+                  bindingFieldName: 'receiptKey',
+                  mustInput: true,
+                  maxLines: 3,
+                  onChanged: (value) {}),
+              () => EHFormDividerController(),
+              () => EHCustomFormWidgetController<ReceiptModel>(
+                    widgetBuilder: (key, focusNode, rxModel) {
+                      return Container(
+                          width: 200,
+                          child: TextField(
+                            maxLines: 3,
+                            key: key,
+                            focusNode: focusNode,
+                            style: TextStyle(color: Colors.yellow),
+                          ));
+                    },
+                  ),
             ]);
   }
 

@@ -22,7 +22,7 @@ abstract class EHEditableWidgetController<T extends EHModel>
       this.key,
       Future<bool> Function()? validate,
       Map<Key?, String>? errorBucket}) {
-    this.width = LayoutConstant.editWidgetSize;
+    this.width = width ?? LayoutConstant.editWidgetSize;
     this.validate = validate ?? () async => true;
     this.label = label;
     this.enabled = enabled;

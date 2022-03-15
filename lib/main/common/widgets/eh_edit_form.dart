@@ -4,6 +4,7 @@ import 'package:eh_flutter_framework/main/common/base/eh_editable_widget.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_exception.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_form_divider.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_multi_select.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
@@ -106,6 +107,8 @@ class EHEditForm<T extends EHModel>
         return EHPopup(controller: controller);
       } else if (controller is EHDatePickerController) {
         return EHDatePicker(controller: controller);
+      } else if (controller is EHFormDividerController) {
+        return EHFormDivider(controller: controller);
       } else if (controller is EHCustomFormWidgetController) {
         return EHCustomFormWidget<T>(
             controller: controller as EHCustomFormWidgetController<T>);

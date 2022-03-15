@@ -26,7 +26,11 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
     late TextInputType keyboardType;
     if (controller.type == EHTextInputType.Text) {
       inputFormatters = [];
-      keyboardType = TextInputType.text;
+      if (controller.maxLines > 1) {
+        keyboardType = TextInputType.multiline;
+      } else {
+        keyboardType = TextInputType.text;
+      }
     } else if (controller.type == EHTextInputType.Int) {
       inputFormatters =
           inputFormatters = [FilteringTextInputFormatter.digitsOnly];
@@ -53,7 +57,7 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                 children: [
                   Expanded(
                     child: Container(
-                      height: 25,
+                      height: controller.maxLines == 1 ? 25 : null,
                       child: Focus(
                         descendantsAreFocusable: true,
                         canRequestFocus: false,
@@ -92,7 +96,7 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                           autofocus: controller.autoFocus,
                           focusNode: controller.focusNode,
                           textInputAction: TextInputAction.next,
-                          maxLines: 1,
+                          maxLines: controller.maxLines,
                           textAlignVertical: TextAlignVertical.center,
                           decoration: InputDecoration(
                             hintStyle: TextStyle().copyWith(
@@ -182,9 +186,12 @@ class EHTextFieldController extends EHEditableWidgetController {
 
   EHTextInputType type;
 
+  int maxLines;
+
   EHTextFieldController(
       {this.key,
       double? width,
+      this.maxLines = 1,
       bool autoFocus = false,
       FocusNode? focusNode,
       String label = '',
