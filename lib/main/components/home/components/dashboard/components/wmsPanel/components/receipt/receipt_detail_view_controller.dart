@@ -250,24 +250,36 @@ class ReceiptDetailViewController extends EHPanelController {
               () => EHTextFieldController(
                   label: '文本框',
                   //autoFocus: true,
-                  width: double.infinity,
+                  width: 300,
                   bindingFieldName: 'receiptKey',
                   mustInput: true,
                   maxLines: 3,
                   onChanged: (value) {}),
-              () => EHFormDividerController(),
+              () => EHTextFieldController(
+                  label: '文本框',
+                  //autoFocus: true,
+                  width: 300,
+                  bindingFieldName: 'receiptKey',
+                  mustInput: true,
+                  maxLines: 3,
+                  onChanged: (value) {}),
               () => EHCustomFormWidgetController<ReceiptModel>(
                     widgetBuilder: (key, focusNode, rxModel) {
                       return Container(
+                          color: Colors.yellow,
                           width: 200,
-                          child: TextField(
-                            maxLines: 3,
-                            key: key,
-                            focusNode: focusNode,
-                            style: TextStyle(color: Colors.yellow),
-                          ));
+                          child: Obx(() => Center(
+                                child: Text(
+                                  rxModel!.value.receiptKey,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.red),
+                                ),
+                              )));
                     },
                   ),
+              () => EHFormDividerController(width: 1),
             ]);
   }
 
