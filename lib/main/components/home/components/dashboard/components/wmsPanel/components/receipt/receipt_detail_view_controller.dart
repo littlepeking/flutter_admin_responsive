@@ -1,6 +1,8 @@
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_custom_form_widget.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
@@ -99,8 +101,8 @@ class ReceiptDetailViewController extends EHPanelController {
               label: 'date')),
     ]);
 
-    getWidgetControllerFormController =
-        () => widgetControllerFormController = EHEditFormController(
+    getWidgetControllerFormController = () =>
+        widgetControllerFormController = EHEditFormController<ReceiptModel>(
             widgetFocusNodes: widgetControllerFormController?.widgetFocusNodes,
             widgetKeys: widgetControllerFormController?.widgetKeys,
             dependentObxValues: [ddlType.value, gridDynamicFilter.value],
@@ -112,6 +114,16 @@ class ReceiptDetailViewController extends EHPanelController {
                   bindingFieldName: 'receiptKey',
                   mustInput: true,
                   onChanged: (value) {}),
+              () => EHCustomFormWidgetController<ReceiptModel>(
+                    widgetBuilder: (key, focusNode, rxModel) => Obx(() => Text(
+                          rxModel!.value.receiptKey,
+                          style: TextStyle(color: Colors.yellow),
+                        )),
+                  ),
+              () => EHCustomFormWidgetController<ReceiptModel>(
+                    widgetBuilder: (key, focusNode, rxModel) =>
+                        CustomWidget(key, focusNode, rxModel),
+                  ),
               () => EHTextFieldController(
                   label: '整数',
                   type: EHTextInputType.Int,
@@ -238,7 +250,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   onChanged: (v) {
                     widgetControllerFormController!.widgetFocusNodes![0]
                         .requestFocus();
-                  })
+                  }),
             ]);
   }
 
@@ -300,5 +312,23 @@ class ReceiptDetailViewController extends EHPanelController {
         '2': 'Item4',
       };
     }
+  }
+}
+
+class CustomWidget extends EHValidationWidget {
+  CustomWidget(this.key, this.focusNode, this.rxModel);
+
+  FocusNode? focusNode;
+  Key? key;
+  Rx<ReceiptModel>? rxModel;
+
+  @override
+  bool validate() {
+    return false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => Text(rxModel!.value.receiptKey));
   }
 }

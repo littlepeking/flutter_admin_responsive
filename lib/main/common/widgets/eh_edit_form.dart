@@ -13,11 +13,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'eh_dropdown.dart';
+import 'eh_custom_form_widget.dart';
 
 typedef EHEditableWidgetController EHFormWidgetControllerBuilder();
 
-class EHEditForm extends EHStatelessWidget<EHEditFormController> {
-  EHEditForm({Key? key, required EHEditFormController controller})
+class EHEditForm<T extends EHModel>
+    extends EHStatelessWidget<EHEditFormController<T>> {
+  EHEditForm({Key? key, required EHEditFormController<T> controller})
       : super(key: key, controller: controller);
 
   @override
@@ -104,6 +106,9 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
         return EHPopup(controller: controller);
       } else if (controller is EHDatePickerController) {
         return EHDatePicker(controller: controller);
+      } else if (controller is EHCustomFormWidgetController) {
+        return EHCustomFormWidget<T>(
+            controller: controller as EHCustomFormWidgetController<T>);
       } else {
         throw EHException('not implement yet');
       }
@@ -111,7 +116,7 @@ class EHEditForm extends EHStatelessWidget<EHEditFormController> {
   }
 }
 
-class EHEditFormController extends EHController {
+class EHEditFormController<T extends EHModel> extends EHController {
   EHEditFormController(
       {
       ////////////////////////////////////////////////////////////////////////
@@ -155,9 +160,9 @@ class EHEditFormController extends EHController {
   List<Key>? widgetKeys;
 
   //EHModel? model;
-  Rx<EHModel>? rxModel;
+  Rx<T>? rxModel;
 
-  void Function(EHModel)? onChanged;
+  void Function(T)? onChanged;
 
   //Create dependentObjects to let Obx know EHEditForm also need monitor these dependent Objects.
   //only need be used when need dynamically update EHEditableWidgetController's attributes other than model.

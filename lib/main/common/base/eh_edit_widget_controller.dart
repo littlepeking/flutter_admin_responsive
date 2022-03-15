@@ -8,7 +8,8 @@ import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-abstract class EHEditableWidgetController extends EHController {
+abstract class EHEditableWidgetController<T extends EHModel>
+    extends EHController {
   EHEditableWidgetController(
       {this.model,
       this.bindingFieldName,
@@ -38,9 +39,9 @@ abstract class EHEditableWidgetController extends EHController {
 
   FocusNode? focusNode;
 
-  EHModel? model;
+  T? model;
 
-  Rx<EHModel>? rxModel;
+  Rx<T>? rxModel;
 
   String? bindingFieldName;
 
