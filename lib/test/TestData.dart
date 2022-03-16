@@ -8,14 +8,19 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_source.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 
+import '../main/common/services/common/eh_rest_service.dart';
+import '../main/common/utils/theme_controller.dart';
 import '../main/common/widgets/eh_datagrid/eh_service_datagrid_source.dart';
 
 class DataGridTest {
   static getDataGridSource() {
-    //return getStaticDataGridSource();
+    return getStaticDataGridSource();
     //return getServiceDataGridSource();
-    return getCommonDataGridSource();
+    //return getCommonDataGridSource();
   }
 
   static getStaticDataGridSource() {
@@ -101,6 +106,24 @@ class DataGridTest {
     int pageIndex,
     int pageSize,
   ) async {
+    EHRestService().loadingIndicator.show(
+        textStyle: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
+            color: ThemeController.instance.isDarkMode.value
+                ? Colors.white
+                : Colors.black),
+        horizontal: true,
+        backgroundColor: ThemeController.instance.isDarkMode.value
+            ? Colors.black87
+            : Colors.white,
+        indicatorColor: ThemeController.instance.isDarkMode.value
+            ? Colors.white
+            : Colors.blue,
+        message: 'Loading...'.tr,
+        width: 200,
+        height: 80,
+        type: SimpleFontelicoProgressDialogType.normal);
     // final int startIndex = orderData.isNotEmpty ? orderData.length : 0,
     //     endIndex = startIndex + 25;
     final int startIndex = 0, endIndex = 100;
@@ -135,7 +158,8 @@ class DataGridTest {
 
     // //test dynamic filtering
     // if (keyValueFilter != null) data = filterData(data, keyValueFilter);
-
+    await Future.delayed(Duration(seconds: 2));
+    EHRestService().loadingIndicator.hide();
     return data;
   }
 

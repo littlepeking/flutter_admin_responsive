@@ -1,9 +1,12 @@
 library simple_fontellico_progress_dialog;
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:simple_fontellico_progress_dialog/fontelico_icons.dart';
 import 'package:simple_fontellico_progress_dialog/rotate_icon.dart';
 import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
+
+import '../utils/theme_controller.dart';
 
 class EHLoadingIndicator {
   /// Value to indicate if dialog is open
@@ -154,6 +157,25 @@ class EHLoadingIndicator {
             valueColor: AlwaysStoppedAnimation<Color>(_indicatorColor!));
     }
   }
+
+  showIndicator() => this.show(
+      textStyle: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 14,
+          color: ThemeController.instance.isDarkMode.value
+              ? Colors.white
+              : Colors.black),
+      horizontal: true,
+      backgroundColor: ThemeController.instance.isDarkMode.value
+          ? Colors.black87
+          : Colors.white,
+      indicatorColor: ThemeController.instance.isDarkMode.value
+          ? Colors.white
+          : Colors.blue,
+      message: 'Loading...'.tr,
+      width: 200,
+      height: 80,
+      type: SimpleFontelicoProgressDialogType.normal);
 
   /// message: String to indicate a message into the dialog. Required
   /// type: Simple dialog type (normal, threeline, multiline, refresh, hurricane, phoenix, iphone)

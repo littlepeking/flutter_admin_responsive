@@ -24,7 +24,7 @@ class EHRestService extends GetxController {
 
   factory EHRestService() => _singleton;
 
-  EHLoadingIndicator _loadingIndicator =
+  EHLoadingIndicator loadingIndicator =
       EHLoadingIndicator(context: Get.context, barrierDimisable: false);
 
   EHRestService._internal() {
@@ -37,25 +37,7 @@ class EHRestService extends GetxController {
     _dio.interceptors.add(InterceptorsWrapper(onRequest:
         (RequestOptions requestOptions,
             RequestInterceptorHandler handler) async {
-      if (!_loadingIndicator.isOpen)
-        _loadingIndicator.show(
-            textStyle: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-                color: ThemeController.instance.isDarkMode.value
-                    ? Colors.white
-                    : Colors.black),
-            horizontal: true,
-            backgroundColor: ThemeController.instance.isDarkMode.value
-                ? Colors.black87
-                : Colors.white,
-            indicatorColor: ThemeController.instance.isDarkMode.value
-                ? Colors.white
-                : Colors.blue,
-            message: 'Loading...'.tr,
-            width: 200,
-            height: 80,
-            type: SimpleFontelicoProgressDialogType.normal);
+      if (!loadingIndicator.isOpen) loadingIndicator.showIndicator();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String jwtToken = prefs.get("jwt-token") == null
           ? ''
@@ -65,7 +47,7 @@ class EHRestService extends GetxController {
     }, onResponse:
         (Response response, ResponseInterceptorHandler handler) async {
       //await Future.delayed(Duration(seconds: 2));
-      if (_loadingIndicator.isOpen) _loadingIndicator.hide();
+      if (loadingIndicator.isOpen) loadingIndicator.hide();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String jwtToken = prefs.get("jwt-token").toString();
 
@@ -78,7 +60,7 @@ class EHRestService extends GetxController {
       return handler.next(response);
     }, onError: (DioError error, ErrorInterceptorHandler handler) async {
       // await Future.delayed(Duration(seconds: 2));
-      if (_loadingIndicator.isOpen) _loadingIndicator.hide();
+      if (loadingIndicator.isOpen) loadingIndicator.hide();
       if (error.response?.statusCode == 404) {
         EHToastMessageHelper.showInfoMessage('request url cannot found'.tr);
         //return handler.next(error);
