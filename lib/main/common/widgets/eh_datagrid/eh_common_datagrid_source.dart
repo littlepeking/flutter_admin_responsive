@@ -12,8 +12,6 @@ class EHCommonDataGridSource extends EHServiceDataGridSource {
       int? pageIndex,
       bool loadDataAtInit = true})
       : super(
-            serviceName: 'EHCommonService',
-            actionName: 'queryByPage',
             pageIndex: pageIndex,
             columnFilters: columnFilters,
             columnsConfig: columnsConfig,

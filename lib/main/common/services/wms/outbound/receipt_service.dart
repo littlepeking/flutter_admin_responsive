@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/services/common/eh_base_service.dart';
+import 'package:eh_flutter_framework/main/common/services/wms/wms_service_name.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/models/receipt_model.dart';
 
 class ReceiptService extends EHBaseService<ReceiptModel> {
@@ -13,5 +14,5 @@ class ReceiptService extends EHBaseService<ReceiptModel> {
   // }
 
   @override
-  String get serviceName => 'receipts';
+  String get serviceName => WMSServiceNames.ReceiptService;
 }
