@@ -106,24 +106,8 @@ class DataGridTest {
     int pageIndex,
     int pageSize,
   ) async {
-    EHRestService().loadingIndicator.show(
-        textStyle: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 14,
-            color: ThemeController.instance.isDarkMode.value
-                ? Colors.white
-                : Colors.black),
-        horizontal: true,
-        backgroundColor: ThemeController.instance.isDarkMode.value
-            ? Colors.black87
-            : Colors.white,
-        indicatorColor: ThemeController.instance.isDarkMode.value
-            ? Colors.white
-            : Colors.blue,
-        message: 'Loading...'.tr,
-        width: 200,
-        height: 80,
-        type: SimpleFontelicoProgressDialogType.normal);
+    if (!EHRestService().loadingIndicator.isOpen)
+      EHRestService().loadingIndicator.showIndicator();
     // final int startIndex = orderData.isNotEmpty ? orderData.length : 0,
     //     endIndex = startIndex + 25;
     final int startIndex = 0, endIndex = 100;
@@ -158,7 +142,7 @@ class DataGridTest {
 
     // //test dynamic filtering
     // if (keyValueFilter != null) data = filterData(data, keyValueFilter);
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(milliseconds: 300));
     EHRestService().loadingIndicator.hide();
     return data;
   }

@@ -135,8 +135,8 @@ class EHDatePickerController extends EHEditableWidgetController {
             EHController.globalDisplayValueBucket.remove(textFieldKey!);
             setModelValue(parsedDate);
 
-            focusNode!.requestFocus();
-            focusNode.nextFocus();
+            // focusNode!.requestFocus();
+            // focusNode.nextFocus();
 
             if (onChanged != null) onChanged(parsedDate);
           } catch (e) {

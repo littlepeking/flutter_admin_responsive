@@ -63,31 +63,10 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                         canRequestFocus: false,
                         onFocusChange: (hasFocus) async {
                           if (!hasFocus) {
-                            if (await controller._validate()) {
-                              EHController.globalDisplayValueBucket
-                                  .remove(controller.key!);
-
-                              late Object? value;
-                              if (controller.type == EHTextInputType.Int) {
-                                value = controller.displayValue == ''
-                                    ? null
-                                    : int.parse(controller.displayValue);
-                              } else if (controller.type ==
-                                  EHTextInputType.Double) {
-                                value = controller.displayValue == ''
-                                    ? null
-                                    : double.parse(controller.displayValue);
-                              } else {
-                                value = controller.displayValue;
-                              }
-                              controller.setModelValue(value);
-
-                              if (controller.onChanged != null)
-                                controller.onChanged!(controller.displayValue);
-                            } else {
-                              EHController.globalDisplayValueBucket[key!] =
-                                  controller.displayValue;
+                            if (!controller.isValidated) {
+                              await doValidateAndUpdateModel(false);
                             }
+                            controller.isValidated = false;
                           }
                         },
                         child: TextField(
@@ -133,8 +112,9 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                           // onSubmitted: (v) {
                           //   print(v);
                           // },
-                          onEditingComplete: () {
-                            controller.focusNode!.nextFocus();
+                          onEditingComplete: () async {
+                            await doValidateAndUpdateModel(true);
+                            controller.isValidated = true;
                             //controller.focusNode.unfocus();
                           },
                         ),
@@ -152,6 +132,33 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
           ),
         ));
   }
+
+  doValidateAndUpdateModel(bool goNextFocusIfValid) async {
+    if (await controller._validate()) {
+      EHController.globalDisplayValueBucket.remove(controller.key!);
+
+      late Object? value;
+      if (controller.type == EHTextInputType.Int) {
+        value = controller.displayValue == ''
+            ? null
+            : int.parse(controller.displayValue);
+      } else if (controller.type == EHTextInputType.Double) {
+        value = controller.displayValue == ''
+            ? null
+            : double.parse(controller.displayValue);
+      } else {
+        value = controller.displayValue;
+      }
+      controller.setModelValue(value);
+
+      if (controller.onChanged != null)
+        controller.onChanged!(controller.displayValue);
+
+      if (goNextFocusIfValid) controller.focusNode!.nextFocus();
+    } else {
+      EHController.globalDisplayValueBucket[key!] = controller.displayValue;
+    }
+  }
 }
 
 class EHTextFieldController extends EHEditableWidgetController {
@@ -167,6 +174,8 @@ class EHTextFieldController extends EHEditableWidgetController {
   }
 
   late String _bindingValue;
+
+  bool isValidated = false;
 
   // set bindingValue(String val) {
   //   _bindingValue = val;

@@ -45,35 +45,10 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                       child: Focus(
                         onFocusChange: (hasFocus) async {
                           if (!hasFocus) {
-                            if (await controller._validate()) {
-                              Map<String, Object?> codeFilters =
-                                  controller._dataGridSource.filters;
-                              codeFilters[controller.codeColumnName] =
-                                  controller.text;
-
-                              List<Map> res =
-                                  await controller._dataGridSource.getData(
-                                codeFilters,
-                                {},
-                                0,
-                                1,
-                              );
-                              if (res.isNotEmpty) {
-                                controller.setModelValue(controller.text);
-                                if (controller.onChanged != null)
-                                  controller.onChanged!(
-                                      controller.text, res.first);
-                              } else {
-                                controller.setModelValue(null);
-                                if (controller.onChanged != null)
-                                  controller.onChanged!(null, null);
-                              }
-                              EHController.globalDisplayValueBucket
-                                  .remove(controller.key!);
-                            } else {
-                              EHController.globalDisplayValueBucket[
-                                  controller.key!] = controller.text;
+                            if (!controller.isValidated) {
+                              await doValidateAndUpdateModel(false);
                             }
+                            controller.isValidated = false;
                           }
                         },
                         canRequestFocus: false,
@@ -88,7 +63,8 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                               border: new OutlineInputBorder(),
                             ),
                             onEditingComplete: () async {
-                              controller.focusNode!.nextFocus();
+                              await doValidateAndUpdateModel(true);
+                              controller.isValidated = true;
                             },
                             controller: controller._textEditingController,
                             enabled: controller.enabled),
@@ -160,6 +136,32 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
           ),
         ));
   }
+
+  doValidateAndUpdateModel(bool goNextFocusIfValid) async {
+    if (await controller._validate()) {
+      Map<String, Object?> codeFilters = controller._dataGridSource.filters;
+      codeFilters[controller.codeColumnName] = controller.text;
+
+      List<Map> res = await controller._dataGridSource.getData(
+        codeFilters,
+        {},
+        0,
+        1,
+      );
+      if (res.isNotEmpty) {
+        controller.setModelValue(controller.text);
+        if (controller.onChanged != null)
+          controller.onChanged!(controller.text, res.first);
+      } else {
+        controller.setModelValue(null);
+        if (controller.onChanged != null) controller.onChanged!(null, null);
+      }
+      EHController.globalDisplayValueBucket.remove(controller.key!);
+      if (goNextFocusIfValid) controller.focusNode!.nextFocus();
+    } else {
+      EHController.globalDisplayValueBucket[controller.key!] = controller.text;
+    }
+  }
 }
 
 class EHPopupController extends EHEditableWidgetController {
@@ -176,6 +178,8 @@ class EHPopupController extends EHEditableWidgetController {
   String? queryCode;
 
   late String? _bindingValue;
+
+  bool isValidated = false;
 
   set text(String? val) {
     this._textEditingController.text = val ?? '';
