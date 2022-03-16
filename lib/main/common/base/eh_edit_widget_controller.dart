@@ -8,6 +8,9 @@ import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+typedef Future<bool> EHEditableWidgetOnValidate<
+    S extends EHEditableWidgetController>(S controller);
+
 abstract class EHEditableWidgetController<T extends EHModel>
     extends EHController {
   EHEditableWidgetController(
@@ -20,10 +23,11 @@ abstract class EHEditableWidgetController<T extends EHModel>
       bool autoFocus = false,
       this.focusNode,
       this.key,
-      Future<bool> Function()? validate,
+      EHEditableWidgetOnValidate? onValidate,
       Map<Key?, String>? errorBucket}) {
     this.width = width ?? LayoutConstant.editWidgetSize;
-    this.validate = validate ?? () async => true;
+    this.onValidate =
+        onValidate ?? (EHEditableWidgetController controller) async => true;
     this.label = label;
     this.enabled = enabled;
     this.mustInput = mustInput;
@@ -45,7 +49,7 @@ abstract class EHEditableWidgetController<T extends EHModel>
 
   String? bindingFieldName;
 
-  late Future<bool> Function() validate;
+  late EHEditableWidgetOnValidate onValidate;
 
   double? width;
 

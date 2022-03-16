@@ -51,6 +51,8 @@ class EHDatePickerController extends EHEditableWidgetController {
 
   late DateTime? _bindingValue;
 
+  late DateTime? parsedDate;
+
   String getDisplayValue() {
     DateTime? value;
 
@@ -87,7 +89,7 @@ class EHDatePickerController extends EHEditableWidgetController {
       this.showTimePicker = false,
       String? dateFormat,
       ValueChanged<DateTime?>? onChanged,
-      Future<bool> Function()? validate,
+      EHEditableWidgetOnValidate? onValidate,
       Map<Key?, String>? errorBucket})
       : super(
             model: model,
@@ -96,7 +98,7 @@ class EHDatePickerController extends EHEditableWidgetController {
             enabled: enabled,
             mustInput: mustInput,
             label: label,
-            validate: validate,
+            onValidate: onValidate,
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: FocusNode(),
             errorBucket: errorBucket) {
@@ -116,32 +118,18 @@ class EHDatePickerController extends EHEditableWidgetController {
         textHint: this._dateFormat,
         enabled: enabled,
         mustInput: mustInput,
-        validate: () async {
+        onValidate: (controller) async {
           //Call by TextField to prevent focus change.
           return await _validate();
         },
         onChanged: (text) {
-          try {
-            DateTime? parsedDate = bindingValue;
-            if (!EHUtilHelper.isEmpty(_textEditingController.displayValue)) {
-              try {
-                parsedDate = new DateFormat(_dateFormat).parseStrict(text);
-              } catch (e) {
-                parsedDate = null;
-              }
-            } else {
-              parsedDate = null;
-            }
-            EHController.globalDisplayValueBucket.remove(textFieldKey!);
-            setModelValue(parsedDate);
+          //EHController.globalDisplayValueBucket.remove(textFieldKey!);
+          setModelValue(parsedDate);
 
-            // focusNode!.requestFocus();
-            // focusNode.nextFocus();
+          // focusNode!.requestFocus();
+          // focusNode.nextFocus();
 
-            if (onChanged != null) onChanged(parsedDate);
-          } catch (e) {
-            return;
-          }
+          if (onChanged != null) onChanged(parsedDate);
         },
         afterWidget: ExcludeFocus(
             child: SizedBox(
@@ -349,24 +337,29 @@ class EHDatePickerController extends EHEditableWidgetController {
         textFieldKey!, _textEditingController.displayValue,
         emptyValue: '');
 
-    if (!isValid) return false;
-
-    try {
-      if (!EHUtilHelper.isEmpty(_textEditingController.displayValue))
-        new DateFormat(_dateFormat)
-            .parseStrict(_textEditingController.displayValue);
-    } catch (e) {
-      errorBucket![textFieldKey!] = 'Date format should be: '.tr + _dateFormat;
+    if (!isValid)
       return false;
+    else if (EHUtilHelper.isEmpty(_textEditingController.displayValue)) {
+      parsedDate = null;
+      return true;
+    } else {
+      try {
+        parsedDate = new DateFormat(_dateFormat)
+            .parseStrict(_textEditingController.displayValue);
+      } catch (e) {
+        errorBucket![textFieldKey!] =
+            'Date format should be: '.tr + _dateFormat;
+        return false;
+      }
+
+      isValid = await onValidate(this);
+
+      if (!isValid && EHUtilHelper.isEmpty(errorBucket![textFieldKey!]))
+        throw Exception(
+            'Error: Must provide error message in errorBucket while validate failed');
+
+      return isValid;
     }
-
-    isValid = await validate();
-
-    if (!isValid && EHUtilHelper.isEmpty(errorBucket![textFieldKey!]))
-      throw Exception(
-          'Error: Must provide error message in errorBucket while validate failed');
-
-    return isValid;
   }
 
   @override

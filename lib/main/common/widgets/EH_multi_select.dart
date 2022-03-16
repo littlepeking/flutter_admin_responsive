@@ -46,28 +46,19 @@ class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
                     return ExcludeFocus(
                       child: Checkbox(
                           value: controller.selectedValues.contains(itemKey),
-                          onChanged: (isSelected) {
-                            if (isSelected!) {
-                              controller.selectedValues.add(itemKey);
-                              controller
-                                  .setModelValue(controller.selectedValues);
-                              _theState.notify();
-
-                              if (controller.onChanged != null)
-                                controller
-                                    .onChanged!(controller.selectedValues);
-                              controller._validate(controller.selectedValues);
-                            } else {
-                              controller.selectedValues.remove(itemKey);
-                              controller
-                                  .setModelValue(controller.selectedValues);
-                              _theState.notify();
-
-                              if (controller.onChanged != null)
-                                controller
-                                    .onChanged!(controller.selectedValues);
-                              controller._validate(controller.selectedValues);
-                            }
+                          onChanged: (isSelected) async {
+                            isSelected!
+                                ? controller.selectedValues.add(itemKey)
+                                : controller.selectedValues.remove(itemKey);
+                            controller.setModelValue(controller.selectedValues);
+                            _theState.notify();
+                            await controller
+                                ._validate(controller.selectedValues);
+                            //DO NOT depends on _validate result to trigger onChanges as it might broken the scenario without EHEditForm
+                            //since model need binding result based on onChange. Downside is the onChange will be triggered each time even value is not as expected.
+                            //The problem is we did not save displayValues in globalDisplayValueBucket like popup widget. We can continue enhance it when we really need it.
+                            if (controller.onChanged != null)
+                              controller.onChanged!(controller.selectedValues);
                           }),
                     );
                   }),
@@ -254,7 +245,7 @@ class EHMultiSelectController extends EHEditableWidgetController {
       bool mustInput = false,
       bool allowSelectEmpty = false,
       this.onChanged,
-      Future<bool> Function()? validate,
+      EHEditableWidgetOnValidate? onValidate,
       Map<Key?, String>? errorBucket,
       required Map<String, String> items,
       this.showErrorInfo = true,
@@ -269,7 +260,8 @@ class EHMultiSelectController extends EHEditableWidgetController {
             label: label,
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
-            errorBucket: errorBucket) {
+            errorBucket: errorBucket,
+            onValidate: onValidate) {
     this.items = new Map<String, String>.from(items);
     if (allowSelectEmpty && !this.items.containsKey('-1'))
       this.items['-1'] = '[Empty]'.tr; // placeholder for empty value
@@ -277,8 +269,6 @@ class EHMultiSelectController extends EHEditableWidgetController {
     this._bindingValue = bindingValue;
 
     init();
-
-    this.validate = validate ?? () async => true;
   }
 
   @override
@@ -301,7 +291,7 @@ class EHMultiSelectController extends EHEditableWidgetController {
 
     if (!isValid) return false;
 
-    isValid = await validate();
+    isValid = await onValidate(this);
 
     if (!isValid && EHUtilHelper.isEmpty(errorBucket![key]))
       throw Exception(

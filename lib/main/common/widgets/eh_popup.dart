@@ -78,8 +78,8 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                           padding: EdgeInsets.zero,
                           onPressed: () async {
                             if (!controller.enabled) return;
-                            controller._dataGridSource.handleRefresh();
-                            bool result = await EHDialog.showPopupDialog(
+                            await controller._dataGridSource.handleRefresh();
+                            bool? result = await EHDialog.showPopupDialog(
                                 Card(
                                   elevation: 10,
                                   margin: Responsive.isMobile(Get.context!)
@@ -139,27 +139,16 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
 
   doValidateAndUpdateModel(bool goNextFocusIfValid) async {
     if (await controller._validate()) {
-      Map<String, Object?> codeFilters = controller._dataGridSource.filters;
-      codeFilters[controller.codeColumnName] = controller.text;
+      controller.setModelValue(controller.validatedResult);
+      if (controller.onChanged != null)
+        controller.onChanged!(
+            controller.validatedResult, controller.validatedRow);
 
-      List<Map> res = await controller._dataGridSource.getData(
-        codeFilters,
-        {},
-        0,
-        1,
-      );
-      if (res.isNotEmpty) {
-        controller.setModelValue(controller.text);
-        if (controller.onChanged != null)
-          controller.onChanged!(controller.text, res.first);
-      } else {
-        controller.setModelValue(null);
-        if (controller.onChanged != null) controller.onChanged!(null, null);
-      }
       EHController.globalDisplayValueBucket.remove(controller.key!);
       if (goNextFocusIfValid) controller.focusNode!.nextFocus();
     } else {
-      EHController.globalDisplayValueBucket[controller.key!] = controller.text;
+      EHController.globalDisplayValueBucket[controller.key!] =
+          controller.displayText;
     }
   }
 }
@@ -175,17 +164,18 @@ class EHPopupController extends EHEditableWidgetController {
 
   String popupTitle;
 
-  String? queryCode;
-
   late String? _bindingValue;
 
   bool isValidated = false;
 
-  set text(String? val) {
+  set displayText(String? val) {
     this._textEditingController.text = val ?? '';
   }
 
-  String get text {
+  late String? validatedResult;
+  late Map? validatedRow;
+
+  String get displayText {
     return _textEditingController.text;
   }
 
@@ -207,14 +197,13 @@ class EHPopupController extends EHEditableWidgetController {
       //focusNode必须手工在controller中实例化并赋值给控件的focusNode属性,否则光标焦点跳转会有问题。
       //因为flutter要求focusNode必须在statefulWidget中进行设置，但目前框架暂时只使用statelessWidget，因此只能手工设置。
       FocusNode? focusNode,
-      this.queryCode,
       required this.popupTitle,
       String label = '',
       String? bindingValue = '',
       bool enabled = true,
       bool mustInput = false,
       this.onChanged,
-      Future<bool> Function()? validate,
+      EHEditableWidgetOnValidate? onValidate,
       String? codeColumnName,
       required EHDataGridSource dataSource,
       Map<Key?, String>? errorBucket})
@@ -228,9 +217,8 @@ class EHPopupController extends EHEditableWidgetController {
             label: label,
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
-            errorBucket: errorBucket) {
-    this.validate = validate ?? () async => true;
-
+            errorBucket: errorBucket,
+            onValidate: onValidate) {
     _bindingValue = bindingValue;
 
     init();
@@ -254,38 +242,52 @@ class EHPopupController extends EHEditableWidgetController {
     }
 
     if (key != null && EHController.globalDisplayValueBucket[key] != null) {
-      this.text = EHController.globalDisplayValueBucket[key]!;
+      this.displayText = EHController.globalDisplayValueBucket[key]!;
     } else {
-      this.text = initDisplayValue ?? '';
+      this.displayText = initDisplayValue ?? '';
     }
   }
 
   Future<bool> _validate() async {
-    bool isValid = checkMustInput(key!, text);
+    bool isValid = checkMustInput(key!, displayText);
 
-    if (!isValid) return false;
-
-    Map<String, Object?> codeFilters = _dataGridSource.filters;
-    codeFilters[codeColumnName] = text;
-
-    List<Map> res = await _dataGridSource.getData(
-      codeFilters,
-      {},
-      0,
-      1,
-    );
-    if (res.length == 0) {
-      errorBucket![key] = 'The code cannot be found'.tr + ':' + text;
+    if (!isValid)
       return false;
+    else if (EHUtilHelper.isEmpty(displayText)) {
+      validatedResult = null;
+      validatedRow = null;
+      return true;
+    } else {
+      Map<String, Object?> codeFilters = _dataGridSource.filters;
+      codeFilters[codeColumnName] = displayText;
+
+      List<Map> res = await _dataGridSource.getData(
+        codeFilters,
+        {},
+        0,
+        1,
+      );
+      if (res.length == 0) {
+        errorBucket![key] =
+            'No record related to code: '.tr + ':' + displayText;
+        return false;
+      }
+      if (res.length > 1) {
+        errorBucket![key] =
+            'Mutilple records related to code: '.tr + ':' + displayText;
+        return false;
+      } else {
+        validatedResult = displayText;
+        validatedRow = res[0];
+        isValid = await onValidate(this);
+
+        if (!isValid && EHUtilHelper.isEmpty(errorBucket![key]))
+          throw Exception(
+              'Error: Must provide error message in errorBucket while validate failed');
+
+        return isValid;
+      }
     }
-
-    isValid = await validate();
-
-    if (!isValid && EHUtilHelper.isEmpty(errorBucket![key]))
-      throw Exception(
-          'Error: Must provide error message in errorBucket while validate failed');
-
-    return isValid;
   }
 
   @override

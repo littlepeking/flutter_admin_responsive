@@ -93,7 +93,7 @@ class EHCheckBoxController extends EHEditableWidgetController {
       EHModel? model,
       String? bindingFieldName,
       this.onChanged,
-      Future<bool> Function()? validate,
+      EHEditableWidgetOnValidate? onValidate,
       Map<Key?, String>? errorBucket})
       : super(
             key: key,
@@ -105,13 +105,12 @@ class EHCheckBoxController extends EHEditableWidgetController {
             label: label,
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
-            errorBucket: errorBucket) {
+            errorBucket: errorBucket,
+            onValidate: onValidate) {
     //Check if exists ehEditForm first
     this._bindingValue = bindingValue;
 
     init();
-
-    this.validate = validate ?? () async => true;
   }
 
   late bool? _bindingValue;
@@ -132,7 +131,7 @@ class EHCheckBoxController extends EHEditableWidgetController {
   }
 
   Future<bool> _validate() async {
-    bool isValid = await validate();
+    bool isValid = await onValidate(this);
 
     if (!isValid && EHUtilHelper.isEmpty(errorBucket![key]))
       throw Exception(

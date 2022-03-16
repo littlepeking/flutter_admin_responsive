@@ -211,7 +211,7 @@ class EHTextFieldController extends EHEditableWidgetController {
       EHModel? model,
       String? bindingFieldName,
       this.onChanged,
-      Future<bool> Function()? validate,
+      EHEditableWidgetOnValidate? onValidate,
       Map<Key?, String>? errorBucket,
       this.afterWidget,
       this.textHint = ''})
@@ -224,8 +224,8 @@ class EHTextFieldController extends EHEditableWidgetController {
             label: label,
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: focusNode,
-            errorBucket: errorBucket) {
-    this.validate = validate ?? () async => true;
+            errorBucket: errorBucket,
+            onValidate: onValidate) {
     this._bindingValue = bindingValue;
 
     init();
@@ -257,7 +257,7 @@ class EHTextFieldController extends EHEditableWidgetController {
 
     if (!isValid) return false;
 
-    isValid = await validate();
+    isValid = await onValidate(this);
 
     if (!isValid && EHUtilHelper.isEmpty(errorBucket![key]))
       throw Exception(

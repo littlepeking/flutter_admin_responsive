@@ -99,7 +99,6 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                         Obx(() => EHDropdown(
                               controller: EHDropDownController(
                                   key: controller.dropdownKey1,
-                                  validate: () async => true,
                                   focusNode: controller.ddlFn1,
                                   label: 'popUp',
                                   mustInput: true,

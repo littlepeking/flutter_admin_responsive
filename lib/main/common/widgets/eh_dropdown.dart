@@ -148,10 +148,13 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                       onChanged: controller.enabled
                           ? (v) async {
                               controller.setModelValue(v);
-                              await controller._validate(v.toString());
-                              controller.focusNode!.requestFocus();
-                              controller.focusNode!.nextFocus();
-
+                              if (await controller._validate(v.toString())) {
+                                controller.focusNode!.requestFocus();
+                                controller.focusNode!.nextFocus();
+                              }
+                              //DO NOT depends on _validate result to trigger onChanges as it might broken the scenario without EHEditForm
+                              //since model need binding result based on onChange. Downside is the onChange will be triggered each time even value is not as expected.
+                              //The problem is we did not save displayValues in globalDisplayValueBucket like popup widget. We can continue enhance it when we really need it.
                               if (controller.onChanged != null)
                                 controller.onChanged!(v.toString());
                             }
@@ -225,7 +228,7 @@ class EHDropDownController extends EHEditableWidgetController {
       bool enabled = true,
       bool mustInput = false,
       this.onChanged,
-      Future<bool> Function()? validate,
+      EHEditableWidgetOnValidate? onValidate,
       Map<Key?, String>? errorBucket,
       required Map<String, String> items,
       this.showErrorInfo = true,
@@ -239,7 +242,8 @@ class EHDropDownController extends EHEditableWidgetController {
             mustInput: mustInput,
             label: label,
             focusNode: focusNode,
-            errorBucket: errorBucket) {
+            errorBucket: errorBucket,
+            onValidate: onValidate) {
     this.width = isMenu ? null : LayoutConstant.editWidgetSize;
     this.items = new Map<String, String>.from(items);
     if (!this.items.containsKey('') && !isMenu) this.items[''] = '';
@@ -247,8 +251,6 @@ class EHDropDownController extends EHEditableWidgetController {
     this._bindingValue = bindingValue;
 
     init();
-
-    this.validate = validate ?? () async => true;
   }
 
   @override
@@ -270,7 +272,7 @@ class EHDropDownController extends EHEditableWidgetController {
 
     if (!isValid) return false;
 
-    isValid = await validate();
+    isValid = await onValidate(this);
 
     if (!isValid && EHUtilHelper.isEmpty(errorBucket![key]))
       throw Exception(

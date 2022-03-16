@@ -1,5 +1,4 @@
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
-import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_custom_form_widget.dart';
@@ -12,8 +11,8 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:eh_flutter_framework/test/TestData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
+import '../../../../../../../../common/base/eh_controller.dart';
 import '../../../../../../../../common/widgets/eh_form_divider.dart';
 import '../../../../../../../../common/widgets/eh_multi_select.dart';
 import '../../../../../../../../common/widgets/eh_datagrid/eh_datagrid_source.dart';
@@ -115,6 +114,16 @@ class ReceiptDetailViewController extends EHPanelController {
                   bindingFieldName: 'receiptKey',
                   mustInput: true,
                   onChanged: (value) {}),
+              () => EHDropDownController(
+                  label: '下拉框',
+                  mustInput: true,
+                  bindingFieldName: 'dropdownValue',
+                  items: {
+                    '0': 'Item0',
+                    '1': 'Item1',
+                    '2': 'Item2',
+                  },
+                  onChanged: (value) {}),
               () => EHTextFieldController(
                   label: '整数',
                   type: EHTextInputType.Int,
@@ -132,7 +141,6 @@ class ReceiptDetailViewController extends EHPanelController {
               () => EHDropDownController(
                   label: '下拉框1-级联',
                   bindingFieldName: 'dropdownValue',
-                  validate: () async => true,
                   items: {
                     '0': 'Item0',
                     '1': 'Item1',
@@ -156,14 +164,12 @@ class ReceiptDetailViewController extends EHPanelController {
               () => EHDropDownController(
                   label: '下拉框2',
                   bindingFieldName: 'dropdownValue2',
-                  validate: () async => true,
                   //items: getDDLItems(receiptModel.value.dropdownValue),
                   items: getDDLItems(ddlType.value),
                   onChanged: (value) => {}),
               () => EHDropDownController(
                   label: '下拉框-级联',
                   bindingFieldName: 'dropdownValue',
-                  validate: () async => true,
                   items: {
                     'city:PEK': 'city:Beijing',
                     'isConfirmed:true': 'isConfirmed:Y',
@@ -212,6 +218,17 @@ class ReceiptDetailViewController extends EHPanelController {
                     bindingFieldName: 'dateTime',
                     mustInput: true,
                     onChanged: (value) => {},
+                    onValidate: (controller) async {
+                      var c = controller as EHDatePickerController;
+                      print(c.parsedDate);
+                      bool isAfterToday = c.parsedDate!.isAfter(DateTime.now());
+                      if (!isAfterToday) {
+                        EHController
+                                .globalErrorBucket[controller.textFieldKey!] =
+                            'Date must more than today';
+                      }
+                      return isAfterToday;
+                    },
                   ),
               () => EHDatePickerController(
                     enabled: false,
