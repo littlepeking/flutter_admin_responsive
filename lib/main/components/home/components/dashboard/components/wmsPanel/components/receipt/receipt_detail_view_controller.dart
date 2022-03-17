@@ -259,10 +259,6 @@ class ReceiptDetailViewController extends EHPanelController {
                     widgetControllerFormController!.widgetFocusNodes![0]
                         .requestFocus();
                   }),
-              () => EHCustomFormWidgetController<ReceiptModel>(
-                    widgetBuilder: (key, focusNode, rxModel) =>
-                        CustomWidget(key, focusNode, rxModel),
-                  ),
               () => EHFormDividerController(width: 1),
               () => EHTextFieldController(
                   label: '文本框',
@@ -280,14 +276,21 @@ class ReceiptDetailViewController extends EHPanelController {
                   mustInput: true,
                   maxLines: 3,
                   onChanged: (value) {}),
+              () => EHFormDividerController(width: 1),
+              () => EHCustomFormWidgetController<ReceiptModel>(
+                    widgetBuilder: (key, focusNode, rxModel) =>
+                        CustomWidget(key, focusNode, rxModel),
+                  ),
               () => EHCustomFormWidgetController<ReceiptModel>(
                     widgetBuilder: (key, focusNode, rxModel) {
                       return Container(
+                          margin: EdgeInsets.only(left: 100),
                           color: Colors.yellow,
                           width: 200,
                           child: Obx(() => Center(
                                 child: Text(
-                                  rxModel!.value.receiptKey,
+                                  'Custom widget example2:' +
+                                      rxModel!.value.receiptKey,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18,
@@ -376,6 +379,8 @@ class CustomWidget extends EHValidationWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Text(rxModel!.value.receiptKey));
+    return Obx(() => Container(
+        margin: EdgeInsets.only(left: 100),
+        child: Text('Custom widget example1:' + rxModel!.value.receiptKey)));
   }
 }
