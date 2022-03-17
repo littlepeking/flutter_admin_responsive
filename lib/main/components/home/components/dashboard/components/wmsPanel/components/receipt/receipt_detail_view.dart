@@ -83,19 +83,6 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                         Obx(() => EHDatePicker(
                             controller:
                                 controller.datePicker1ControllerFunc())),
-                        Obx(() => EHDatePicker(
-                            controller: EHDatePickerController(
-                                key: controller.datePicker2,
-                                mustInput: true,
-                                showTimePicker: true,
-                                focusNode: controller.datePickerFn2,
-                                bindingValue:
-                                    controller.receiptModel.value.dateTime2,
-                                onChanged: (value) =>
-                                    controller.receiptModel.update((model) {
-                                      model!.dateTime2 = value;
-                                    }),
-                                label: 'date'))),
                         Obx(() => EHDropdown(
                               controller: EHDropDownController(
                                   key: controller.dropdownKey1,
@@ -114,6 +101,19 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                         model!.dropdownValue = value;
                                       })),
                             )),
+                        Obx(() => EHDatePicker(
+                            controller: EHDatePickerController(
+                                key: controller.datePicker2,
+                                mustInput: true,
+                                showTimePicker: true,
+                                focusNode: controller.datePickerFn2,
+                                bindingValue:
+                                    controller.receiptModel.value.dateTime2,
+                                onChanged: (value) =>
+                                    controller.receiptModel.update((model) {
+                                      model!.dateTime2 = value;
+                                    }),
+                                label: 'date'))),
                         Obx(() => EHDropdown(
                               controller: EHDropDownController(
                                   key: controller.dropdownKey2,
@@ -137,7 +137,7 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                         Obx(() => EHMultiSelect(
                               controller: EHMultiSelectController(
                                   key: controller.multiSelectKey1,
-                                  focusNode: controller.ddlFn2,
+                                  focusNode: controller.multiSelectFn1,
                                   label: '测试5',
                                   enabled: true,
                                   mustInput: true,

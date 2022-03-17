@@ -62,6 +62,8 @@ Map<String, String> zhCNMessages = {
   '[--All--]': '[全部]',
   'request url cannot found': '请求的服务器地址不存在',
   'Loading...': '加载中....',
+  'No record related to code': '未找到关联的代码',
+  'Mutilple records related to code': '多个记录关联到代码',
   ////
   ///test i18 data
   'popUp': '弹出框',

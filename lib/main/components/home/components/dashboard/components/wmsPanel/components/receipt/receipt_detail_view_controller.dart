@@ -193,7 +193,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   label: 'popUp',
                   bindingFieldName: 'customerId',
                   popupTitle: 'Please Select Supplier',
-                  codeColumnName: 'id',
+                  codeColumnName: 'customerId',
                   dataSource: popUpDataSource,
                   mustInput: true,
                   onChanged: (code, row) {
@@ -322,6 +322,7 @@ class ReceiptDetailViewController extends EHPanelController {
   FocusNode textFn2 = FocusNode();
   FocusNode ddlFn1 = FocusNode();
   FocusNode ddlFn2 = FocusNode();
+  FocusNode multiSelectFn1 = FocusNode();
 
   FocusNode datePickerFn1 = FocusNode();
 

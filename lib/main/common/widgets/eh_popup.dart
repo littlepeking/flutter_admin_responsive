@@ -268,13 +268,12 @@ class EHPopupController extends EHEditableWidgetController {
         1,
       );
       if (res.length == 0) {
-        errorBucket![key] =
-            'No record related to code: '.tr + ':' + displayText;
+        errorBucket![key] = 'No record related to code'.tr + ':' + displayText;
         return false;
       }
       if (res.length > 1) {
         errorBucket![key] =
-            'Mutilple records related to code: '.tr + ':' + displayText;
+            'Mutilple records related to code'.tr + ':' + displayText;
         return false;
       } else {
         validatedResult = displayText;
