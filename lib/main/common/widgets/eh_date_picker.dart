@@ -92,6 +92,7 @@ class EHDatePickerController extends EHEditableWidgetController {
       EHEditableWidgetOnValidate? onValidate,
       Map<Key?, String>? errorBucket})
       : super(
+            key: key,
             model: model,
             bindingFieldName: bindingFieldName,
             autoFocus: autoFocus,

@@ -46,20 +46,10 @@ class EHEditForm<T extends EHModel>
                                   controller.widgetBuilders!.indexOf(builder);
                               if (!initilized) {
                                 controller.widgets.add(Obx(() {
-                                  EHEditableWidget widget = builder(
-                                      controller.widgetKeys![index],
-                                      controller.widgetFocusNodes![index]);
-
-                                  if (!controller.widgetsControllers
-                                      .contains(widget.controller)) {
-                                    controller.widgetsControllers
-                                        .add(widget.controller);
-                                  }
-
-                                  return widget;
+                                  return buildWidgetByWidgetBuilder(
+                                      controller, builder);
                                 }));
                               }
-
                               return controller.widgets[index];
                             }).toList()
                           : controller.widgetControllerBuilders!
@@ -78,6 +68,18 @@ class EHEditForm<T extends EHModel>
             )),
       ),
     );
+  }
+
+  EHEditableWidget buildWidgetByWidgetBuilder(
+      EHEditFormController formController, EHEditWidgetBuilder builder) {
+    int index = formController.widgetBuilders!.indexOf(builder);
+    EHEditableWidget widget = builder(
+        controller.widgetKeys![index], controller.widgetFocusNodes![index]);
+    //widget will be recreated by obx each time, we need track lastest controller with same key assigned by EHEditForm.
+    controller.widgetsControllers
+        .removeWhere((c) => c.key == widget.controller.key);
+    controller.widgetsControllers.add(widget.controller);
+    return widget;
   }
 
   Obx buildWidgetByController(EHEditFormController formController,
