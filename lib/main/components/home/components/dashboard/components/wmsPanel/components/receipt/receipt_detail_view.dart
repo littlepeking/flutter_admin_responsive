@@ -80,6 +80,8 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                     });
                                   }),
                             )),
+                        //if we need create widget controller in parent container Controller, then we have to pass function instead of passing controller directly
+                        //otherwise it will cause obx exception,because obx cannot aware the observable object in the controller.
                         Obx(() => EHDatePicker(
                             controller:
                                 controller.datePicker1ControllerFunc())),
