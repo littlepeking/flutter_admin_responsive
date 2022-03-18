@@ -124,42 +124,51 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                   controller.afterWidget ?? SizedBox()
                 ],
               ),
-              Obx(() => EHEditErrorInfo(
-                  // ignore: invalid_use_of_protected_member
-                  errorBucket: controller.errorBucket!.value,
-                  errorFieldKey: key))
+              Obx(() {
+                return EHEditErrorInfo(
+                    error: EHController.getWidgetError(
+                        controller.errorBucket!, key!));
+              }),
+              // Obx(() {
+              //   return EHEditErrorInfo(
+              //       // ignore: invalid_use_of_protected_member
+              //       error: controller.errorBucket![key] == null
+              //           ? ''
+              //           : controller.errorBucket![key]!.value);
+              // }),
             ],
           ),
         ));
   }
 
   doValidateAndUpdateModel(bool goNextFocusIfValid) async {
+    EHController.setWidgetDisplayValue(
+        controller.key!, controller.displayValue);
     if (await controller._validate()) {
       EHController.setWidgetDisplayValue(controller.key!, '');
 
-      late Object? value;
+      Object? newValue;
       if (controller.type == EHTextInputType.Int) {
-        value = controller.displayValue == ''
+        newValue = controller.displayValue == ''
             ? null
             : int.parse(controller.displayValue);
       } else if (controller.type == EHTextInputType.Double) {
-        value = controller.displayValue == ''
+        newValue = controller.displayValue == ''
             ? null
             : double.parse(controller.displayValue);
       } else {
-        value = controller.displayValue;
+        newValue = controller.displayValue;
       }
-      if (controller.setModelValue(value) ||
-          controller.model == null ||
-          controller.bindingFieldName == null) {
+
+      String newValueStr = newValue == null ? '' : newValue.toString();
+
+      if (controller.getInitValue() != newValueStr) {
+        controller.setModelValue(newValue);
         if (controller.onChanged != null)
           controller.onChanged!(controller.displayValue);
       }
 
       if (goNextFocusIfValid) controller.focusNode!.nextFocus();
-    } else {
-      EHController.setWidgetDisplayValue(
-          controller.key!, controller.displayValue);
     }
   }
 }
@@ -215,7 +224,7 @@ class EHTextFieldController extends EHEditableWidgetController {
       String? bindingFieldName,
       this.onChanged,
       EHEditableWidgetOnValidate? onValidate,
-      Map<Key?, String>? errorBucket,
+      Map<Key?, RxString>? errorBucket,
       this.afterWidget,
       this.textHint = ''})
       : super(
@@ -236,6 +245,22 @@ class EHTextFieldController extends EHEditableWidgetController {
 
   @override
   init() {
+    String? value = getInitValue();
+
+    //if exists Widget Error means displayValue should be used even it is empty. e.g.must input error
+    if (key != null &&
+        (!EHUtilHelper.isEmpty(EHController.getWidgetDisplayValue(key!)) ||
+            !EHUtilHelper.isEmpty(
+                EHController.getWidgetError(errorBucket!, key!)))) {
+      displayValue = EHController.getWidgetDisplayValue(key!);
+    } else {
+      this.displayValue = value;
+    }
+
+    // super.init();
+  }
+
+  String getInitValue() {
     String? value;
 
     //Check if exists ehEditForm first
@@ -246,14 +271,7 @@ class EHTextFieldController extends EHEditableWidgetController {
       value = _bindingValue;
     }
 
-    if (key != null &&
-        !EHUtilHelper.isEmpty(EHController.getWidgetDisplayValue(key!))) {
-      displayValue = EHController.getWidgetDisplayValue(key!);
-    } else {
-      this.displayValue = value;
-    }
-
-    // super.init();
+    return value;
   }
 
   Future<bool> _validate() async {

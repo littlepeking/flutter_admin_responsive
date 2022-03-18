@@ -71,8 +71,8 @@ class EHCheckBox extends EHEditableWidget<EHCheckBoxController> {
               ),
               Obx(() => EHEditErrorInfo(
                   // ignore: invalid_use_of_protected_member
-                  errorBucket: controller.errorBucket!.value,
-                  errorFieldKey: key))
+                  error: EHController.getWidgetError(
+                      controller.errorBucket!, key!))),
             ],
           ),
         ));
@@ -94,7 +94,7 @@ class EHCheckBoxController extends EHEditableWidgetController {
       String? bindingFieldName,
       this.onChanged,
       EHEditableWidgetOnValidate? onValidate,
-      Map<Key?, String>? errorBucket})
+      Map<Key?, RxString>? errorBucket})
       : super(
             key: key,
             model: model,

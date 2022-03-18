@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
@@ -18,8 +19,28 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
       : super(key: key, controller: controller);
   @override
   Widget build(BuildContext context) {
+    if (EHController.globalErrorBucket[controller.testKey] == null) {
+      EHController.setWidgetError(
+          EHController.globalErrorBucket, controller.testKey, '');
+    }
     return Column(
       children: [
+        Obx(() => TextField(
+              onChanged: (v) => {
+                EHController.globalErrorBucket[controller.testKey]!.value = v
+              },
+              controller: TextEditingController(
+                text: EHController.globalErrorBucket[controller.testKey]!.value,
+              ),
+            )),
+        Obx(() => TextField(
+              onChanged: (v) => {
+                EHController.globalErrorBucket[controller.testKey]!.value = v
+              },
+              controller: TextEditingController(
+                text: EHController.globalErrorBucket[controller.testKey]!.value,
+              ),
+            )),
         // Obx(() => Column(
         //       children: [
         //         Text(controller.ddlType.value),

@@ -21,6 +21,8 @@ import '../../../../../../../../common/widgets/eh_dropdown.dart';
 class ReceiptDetailViewController extends EHPanelController {
   RxString ddlType = '0'.obs;
 
+  Key testKey = GlobalKey(debugLabel: 'deef');
+
   Rxn<MapEntry<String, String>> gridDynamicFilter = Rxn(MapEntry('city', ''));
 
   Rx<ReceiptModel> receiptModel = ReceiptModel(
@@ -137,7 +139,9 @@ class ReceiptDetailViewController extends EHPanelController {
                   //autoFocus: true,
                   bindingFieldName: 'num2',
                   mustInput: true,
-                  onChanged: (value) {}),
+                  onChanged: (value) {
+                    print('text = onChange triggered');
+                  }),
               () => EHDropDownController(
                   label: '下拉框1-级联',
                   bindingFieldName: 'dropdownValue',
@@ -197,6 +201,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   dataSource: popUpDataSource,
                   mustInput: true,
                   onChanged: (code, row) {
+                    print('pop = onChange triggered');
                     if (row != null)
                       receiptModel.value.receiptKey =
                           row['customerId'].toString();
@@ -223,9 +228,10 @@ class ReceiptDetailViewController extends EHPanelController {
                       print(c.parsedDate);
                       bool isAfterToday = c.parsedDate!.isAfter(DateTime.now());
                       if (!isAfterToday) {
-                        EHController
-                                .globalErrorBucket[controller.textFieldKey!] =
-                            'Date must more than today';
+                        EHController.setWidgetError(
+                            EHController.globalErrorBucket,
+                            controller.textFieldKey!,
+                            'Date must more than today');
                       }
                       return isAfterToday;
                     },
@@ -242,7 +248,8 @@ class ReceiptDetailViewController extends EHPanelController {
                     bindingFieldName: 'dateTime2',
                     mustInput: true,
                     showTimePicker: true,
-                    onChanged: (value) => {},
+                    onChanged: (value) =>
+                        {print('datepicker = onChange triggered')},
                   ),
               () => EHDatePickerController(
                     enabled: false,

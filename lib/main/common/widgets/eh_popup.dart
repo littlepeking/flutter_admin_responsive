@@ -94,20 +94,27 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                       onRowSelected: (row) {
                                         EHController.setWidgetDisplayValue(
                                             controller.key!, '');
-                                        controller.setModelValue(
-                                            row[controller.codeColumnName]
-                                                .toString());
+
+                                        if (controller.getInitValue() !=
+                                            row[controller.codeColumnName]) {
+                                          controller.setModelValue(
+                                              row[controller.codeColumnName]
+                                                  .toString());
+                                          if (controller.onChanged != null)
+                                            controller.onChanged!(
+                                                row[controller.codeColumnName]
+                                                    .toString(),
+                                                row);
+                                        }
 
                                         controller.focusNode!.requestFocus();
                                         controller.focusNode!.nextFocus();
 
-                                        if (controller.onChanged != null)
-                                          controller.onChanged!(
-                                              row[controller.codeColumnName]
-                                                  .toString(),
-                                              row);
-                                        controller
-                                            .errorBucket![controller.key] = '';
+                                        EHController.setWidgetError(
+                                            controller.errorBucket!,
+                                            controller.key!,
+                                            '');
+
                                         Get.back(result: true);
                                       },
                                     )),
@@ -130,27 +137,26 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
               ),
               Obx(() => EHEditErrorInfo(
                   // ignore: invalid_use_of_protected_member
-                  errorBucket: controller.errorBucket!.value,
-                  errorFieldKey: key))
+                  error: EHController.getWidgetError(
+                      controller.errorBucket!, key!))),
             ],
           ),
         ));
   }
 
   doValidateAndUpdateModel(bool goNextFocusIfValid) async {
+    EHController.setWidgetDisplayValue(controller.key!, controller.displayText);
+
     if (await controller._validate()) {
-      controller.setModelValue(controller.validatedResult);
-      if (controller.onChanged != null)
-        controller.onChanged!(
-            controller.validatedResult, controller.validatedRow);
+      if (controller.getInitValue() != controller.validatedResult) {
+        controller.setModelValue(controller.validatedResult);
+        if (controller.onChanged != null)
+          controller.onChanged!(
+              controller.validatedResult, controller.validatedRow);
+      }
 
       EHController.setWidgetDisplayValue(controller.key!, '');
       if (goNextFocusIfValid) controller.focusNode!.nextFocus();
-    } else {
-      EHController.setWidgetDisplayValue(
-          controller.key!, controller.displayText);
-      // EHController.globalDisplayValueBucket[controller.key!]!.value =
-      //     controller.displayText;
     }
   }
 }
@@ -208,7 +214,7 @@ class EHPopupController extends EHEditableWidgetController {
       EHEditableWidgetOnValidate? onValidate,
       String? codeColumnName,
       required EHDataGridSource dataSource,
-      Map<Key?, String>? errorBucket})
+      Map<Key?, RxString>? errorBucket})
       : super(
             key: key,
             model: model,
@@ -233,6 +239,20 @@ class EHPopupController extends EHEditableWidgetController {
 
   @override
   init() {
+    String? initDisplayValue = getInitValue();
+
+    //if exists Widget Error means displayValue should be used even it is empty. e.g.must input error
+    if (key != null &&
+        (!EHUtilHelper.isEmpty(EHController.getWidgetDisplayValue(key!)) ||
+            !EHUtilHelper.isEmpty(
+                EHController.getWidgetError(errorBucket!, key!)))) {
+      displayText = EHController.getWidgetDisplayValue(key!);
+    } else {
+      this.displayText = initDisplayValue ?? '';
+    }
+  }
+
+  String? getInitValue() {
     String? initDisplayValue;
 
     //Check if exists ehEditForm first
@@ -243,12 +263,7 @@ class EHPopupController extends EHEditableWidgetController {
       initDisplayValue = _bindingValue;
     }
 
-    if (key != null &&
-        !EHUtilHelper.isEmpty(EHController.getWidgetDisplayValue(key!))) {
-      displayText = EHController.getWidgetDisplayValue(key!);
-    } else {
-      this.displayText = initDisplayValue ?? '';
-    }
+    return initDisplayValue;
   }
 
   Future<bool> _validate() async {
@@ -270,13 +285,17 @@ class EHPopupController extends EHEditableWidgetController {
         0,
         1,
       );
+
       if (res.length == 0) {
-        errorBucket![key] = 'No record related to code'.tr + ':' + displayText;
+        EHController.setWidgetError(errorBucket!, key!,
+            'No record related to code'.tr + ':' + displayText);
+
         return false;
       }
       if (res.length > 1) {
-        errorBucket![key] =
-            'Mutilple records related to code'.tr + ':' + displayText;
+        EHController.setWidgetError(errorBucket!, key!,
+            'Mutilple records related to code'.tr + ':' + displayText);
+
         return false;
       } else {
         validatedResult = displayText;

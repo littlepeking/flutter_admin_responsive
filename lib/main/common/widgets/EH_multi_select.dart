@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 
 import 'package:states_rebuilder/states_rebuilder.dart';
 
+import '../base/eh_controller.dart';
 import '../utils/eh_refactor_helper.dart';
 
 class _TheState {}
@@ -190,8 +191,8 @@ class EHMultiSelect extends EHEditableWidget<EHMultiSelectController> {
             controller.showErrorInfo
                 ? Obx(() => EHEditErrorInfo(
                     // ignore: invalid_use_of_protected_member
-                    errorBucket: controller.errorBucket!.value,
-                    errorFieldKey: key))
+                    error: EHController.getWidgetError(
+                        controller.errorBucket!, key!)))
                 : SizedBox()
           ],
         ));
@@ -246,7 +247,7 @@ class EHMultiSelectController extends EHEditableWidgetController {
       bool allowSelectEmpty = false,
       this.onChanged,
       EHEditableWidgetOnValidate? onValidate,
-      Map<Key?, String>? errorBucket,
+      Map<Key?, RxString>? errorBucket,
       required Map<String, String> items,
       this.showErrorInfo = true,
       this.showLabel = true})

@@ -24,7 +24,7 @@ abstract class EHEditableWidgetController<T extends EHModel>
       this.focusNode,
       this.key,
       EHEditableWidgetOnValidate? onValidate,
-      Map<Key?, String>? errorBucket}) {
+      Map<Key?, RxString>? errorBucket}) {
     this.width = width ?? LayoutConstant.editWidgetSize;
     this.onValidate =
         onValidate ?? (EHEditableWidgetController controller) async => true;
@@ -32,9 +32,8 @@ abstract class EHEditableWidgetController<T extends EHModel>
     this.enabled = enabled;
     this.mustInput = mustInput;
     this.autoFocus = autoFocus;
-    this.errorBucket = (errorBucket == null
-        ? EHController.globalErrorBucket
-        : errorBucket.obs);
+    this.errorBucket =
+        (errorBucket == null ? EHController.globalErrorBucket : errorBucket);
   }
 
   Function? notifyChanged;
@@ -93,7 +92,7 @@ abstract class EHEditableWidgetController<T extends EHModel>
     _autoFocus.value = v ?? false;
   }
 
-  RxMap<Key?, String>? errorBucket;
+  Map<Key?, RxString>? errorBucket;
 
   validateWidget();
 
@@ -102,10 +101,13 @@ abstract class EHEditableWidgetController<T extends EHModel>
       if (text is List && text.length == 0 ||
           text is String &&
               (EHUtilHelper.isEmpty(text) || text == emptyValue)) {
-        errorBucket![key] = 'This field cannot be empty'.tr;
+        EHController.setWidgetError(
+            errorBucket!, key, 'This field cannot be empty'.tr);
+
         return false;
       } else {
-        errorBucket![key] = '';
+        EHController.setWidgetError(errorBucket!, key, '');
+
         return true;
       }
     }
@@ -113,15 +115,11 @@ abstract class EHEditableWidgetController<T extends EHModel>
     return true;
   }
 
-  bool setModelValue(value) {
-    if (model != null &&
-        bindingFieldName != null &&
-        EHRefactorHelper.getFieldValue(model!, bindingFieldName!) != value) {
+  setModelValue(value) {
+    if (model != null && bindingFieldName != null) {
       EHRefactorHelper.setFieldValue(model!, bindingFieldName!, value);
       rxModel!.refresh();
-      return true;
-    } else
-      return false;
+    }
   }
 
   void init() {

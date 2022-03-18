@@ -10,6 +10,7 @@ import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../base/eh_controller.dart';
 import '../utils/eh_refactor_helper.dart';
 
 class EHDropdown extends EHStatelessWidget<EHDropDownController> {
@@ -177,8 +178,8 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
             controller.showErrorInfo && !controller.isMenu
                 ? Obx(() => EHEditErrorInfo(
                     // ignore: invalid_use_of_protected_member
-                    errorBucket: controller.errorBucket!.value,
-                    errorFieldKey: key))
+                    error: EHController.getWidgetError(
+                        controller.errorBucket!, key!)))
                 : SizedBox()
           ],
         )));
@@ -229,7 +230,7 @@ class EHDropDownController extends EHEditableWidgetController {
       bool mustInput = false,
       this.onChanged,
       EHEditableWidgetOnValidate? onValidate,
-      Map<Key?, String>? errorBucket,
+      Map<Key?, RxString>? errorBucket,
       required Map<String, String> items,
       this.showErrorInfo = true,
       this.showLabel = true})
