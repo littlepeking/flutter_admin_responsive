@@ -113,11 +113,15 @@ abstract class EHEditableWidgetController<T extends EHModel>
     return true;
   }
 
-  setModelValue(value) {
-    if (model != null && bindingFieldName != null) {
+  bool setModelValue(value) {
+    if (model != null &&
+        bindingFieldName != null &&
+        EHRefactorHelper.getFieldValue(model!, bindingFieldName!) != value) {
       EHRefactorHelper.setFieldValue(model!, bindingFieldName!, value);
       rxModel!.refresh();
-    }
+      return true;
+    } else
+      return false;
   }
 
   void init() {

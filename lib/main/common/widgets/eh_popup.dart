@@ -92,8 +92,8 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                       dataGridSource:
                                           controller._dataGridSource,
                                       onRowSelected: (row) {
-                                        EHController.globalDisplayValueBucket
-                                            .remove(controller.key!);
+                                        EHController.setWidgetDisplayValue(
+                                            controller.key!, '');
                                         controller.setModelValue(
                                             row[controller.codeColumnName]
                                                 .toString());
@@ -144,11 +144,13 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
         controller.onChanged!(
             controller.validatedResult, controller.validatedRow);
 
-      EHController.globalDisplayValueBucket.remove(controller.key!);
+      EHController.setWidgetDisplayValue(controller.key!, '');
       if (goNextFocusIfValid) controller.focusNode!.nextFocus();
     } else {
-      EHController.globalDisplayValueBucket[controller.key!] =
-          controller.displayText;
+      EHController.setWidgetDisplayValue(
+          controller.key!, controller.displayText);
+      // EHController.globalDisplayValueBucket[controller.key!]!.value =
+      //     controller.displayText;
     }
   }
 }
@@ -241,8 +243,9 @@ class EHPopupController extends EHEditableWidgetController {
       initDisplayValue = _bindingValue;
     }
 
-    if (key != null && EHController.globalDisplayValueBucket[key] != null) {
-      this.displayText = EHController.globalDisplayValueBucket[key]!;
+    if (key != null &&
+        !EHUtilHelper.isEmpty(EHController.getWidgetDisplayValue(key!))) {
+      displayText = EHController.getWidgetDisplayValue(key!);
     } else {
       this.displayText = initDisplayValue ?? '';
     }

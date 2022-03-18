@@ -135,7 +135,7 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
 
   doValidateAndUpdateModel(bool goNextFocusIfValid) async {
     if (await controller._validate()) {
-      EHController.globalDisplayValueBucket.remove(controller.key!);
+      EHController.setWidgetDisplayValue(controller.key!, '');
 
       late Object? value;
       if (controller.type == EHTextInputType.Int) {
@@ -149,14 +149,17 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
       } else {
         value = controller.displayValue;
       }
-      controller.setModelValue(value);
-
-      if (controller.onChanged != null)
-        controller.onChanged!(controller.displayValue);
+      if (controller.setModelValue(value) ||
+          controller.model == null ||
+          controller.bindingFieldName == null) {
+        if (controller.onChanged != null)
+          controller.onChanged!(controller.displayValue);
+      }
 
       if (goNextFocusIfValid) controller.focusNode!.nextFocus();
     } else {
-      EHController.globalDisplayValueBucket[key!] = controller.displayValue;
+      EHController.setWidgetDisplayValue(
+          controller.key!, controller.displayValue);
     }
   }
 }
@@ -243,8 +246,9 @@ class EHTextFieldController extends EHEditableWidgetController {
       value = _bindingValue;
     }
 
-    if (key != null && EHController.globalDisplayValueBucket[key] != null) {
-      this.displayValue = EHController.globalDisplayValueBucket[key!]!;
+    if (key != null &&
+        !EHUtilHelper.isEmpty(EHController.getWidgetDisplayValue(key!))) {
+      displayValue = EHController.getWidgetDisplayValue(key!);
     } else {
       this.displayValue = value;
     }

@@ -55,10 +55,14 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                       controller.receiptModel.value.receiptKey,
                                   mustInput: true,
                                   //  autoFocus: true,
-                                  onChanged: (value) =>
+                                  onChanged: (value) {
+                                    if (controller
+                                            .receiptModel.value.receiptKey !=
+                                        value)
                                       controller.receiptModel.update((model) {
                                         model!.receiptKey = value;
-                                      })),
+                                      });
+                                  }),
                             )),
                         Obx(() => EHPopup(
                               controller: EHPopupController(
