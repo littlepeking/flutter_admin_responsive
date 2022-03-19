@@ -25,22 +25,6 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
     }
     return Column(
       children: [
-        Obx(() => TextField(
-              onChanged: (v) => {
-                EHController.globalErrorBucket[controller.testKey]!.value = v
-              },
-              controller: TextEditingController(
-                text: EHController.globalErrorBucket[controller.testKey]!.value,
-              ),
-            )),
-        Obx(() => TextField(
-              onChanged: (v) => {
-                EHController.globalErrorBucket[controller.testKey]!.value = v
-              },
-              controller: TextEditingController(
-                text: EHController.globalErrorBucket[controller.testKey]!.value,
-              ),
-            )),
         // Obx(() => Column(
         //       children: [
         //         Text(controller.ddlType.value),

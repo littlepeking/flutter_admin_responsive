@@ -145,8 +145,6 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
   }
 
   doValidateAndUpdateModel(bool goNextFocusIfValid) async {
-    EHController.setWidgetDisplayValue(controller.key!, controller.displayText);
-
     if (await controller._validate()) {
       if (controller.getInitValue() != controller.validatedResult) {
         controller.setModelValue(controller.validatedResult);
@@ -155,7 +153,6 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
               controller.validatedResult, controller.validatedRow);
       }
 
-      EHController.setWidgetDisplayValue(controller.key!, '');
       if (goNextFocusIfValid) controller.focusNode!.nextFocus();
     }
   }
@@ -267,13 +264,15 @@ class EHPopupController extends EHEditableWidgetController {
   }
 
   Future<bool> _validate() async {
+    EHController.setWidgetDisplayValue(key!, displayText);
     bool isValid = checkMustInput(key!, displayText);
 
-    if (!isValid)
+    if (!isValid) {
       return false;
-    else if (EHUtilHelper.isEmpty(displayText)) {
+    } else if (EHUtilHelper.isEmpty(displayText)) {
       validatedResult = null;
       validatedRow = null;
+      EHController.setWidgetDisplayValue(key!, '');
       return true;
     } else {
       Map<String, Object?> codeFilters = _dataGridSource.filters;
@@ -285,7 +284,7 @@ class EHPopupController extends EHEditableWidgetController {
         0,
         1,
       );
-
+      print('3:' + displayText);
       if (res.length == 0) {
         EHController.setWidgetError(errorBucket!, key!,
             'No record related to code'.tr + ':' + displayText);
@@ -305,7 +304,7 @@ class EHPopupController extends EHEditableWidgetController {
         if (!isValid && EHUtilHelper.isEmpty(errorBucket![key]))
           throw Exception(
               'Error: Must provide error message in errorBucket while validate failed');
-
+        if (isValid) EHController.setWidgetDisplayValue(key!, '');
         return isValid;
       }
     }

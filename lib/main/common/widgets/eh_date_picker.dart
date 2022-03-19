@@ -120,6 +120,37 @@ class EHDatePickerController extends EHEditableWidgetController {
 
     _bindingValue = bindingValue;
 
+    validateAndUpdateDate(DateTime selectedDate) async {
+      DateTime? selectedDateTime =
+          await addTime2Date(selectedDate, getInitValue());
+
+      if (selectedDateTime != null) {
+        EHController.setWidgetDisplayValue(
+            textFieldKey!, getBindingStringValue(selectedDateTime));
+
+        parsedDate = selectedDateTime;
+
+        if (await userValidate()) {
+          EHController.setWidgetDisplayValue(textFieldKey!, '');
+          // this._textEditingController.displayValue =
+          //     getBindingStringValue(selectedDateTime);
+          if (!EHUtilHelper.dateEquals(getInitValue(), selectedDateTime)) {
+            setModelValue(selectedDateTime);
+            if (onChanged != null) {
+              onChanged(selectedDateTime);
+            }
+          }
+
+          this._textEditingController.focusNode!.requestFocus();
+          this._textEditingController.focusNode!.nextFocus();
+        } else {
+          this._textEditingController.focusNode!.requestFocus();
+        }
+      } else {
+        this._textEditingController.focusNode!.requestFocus();
+      }
+    }
+
     this._textEditingController = EHTextFieldController(
         key: key,
         focusNode: focusNode,
@@ -173,59 +204,17 @@ class EHDatePickerController extends EHEditableWidgetController {
                                       args) async {
                                 //selection change ==null means deselect date, return directly and waiting for select date again
                                 if (args.value == null) return;
-                                DateTime? selectedDateTime = await addTime2Date(
-                                    args.value as DateTime?, bindingValue);
 
-                                if (selectedDateTime != null) {
-                                  EHController.setWidgetDisplayValue(
-                                      textFieldKey!, '');
-                                  this._textEditingController.displayValue =
-                                      getBindingStringValue(selectedDateTime);
-                                  if (!EHUtilHelper.dateEquals(
-                                      getInitValue(), selectedDateTime)) {
-                                    setModelValue(selectedDateTime);
-                                    if (onChanged != null) {
-                                      onChanged(selectedDateTime);
-                                    }
-                                  }
-
-                                  this
-                                      ._textEditingController
-                                      .focusNode!
-                                      .requestFocus();
-                                  this
-                                      ._textEditingController
-                                      .focusNode!
-                                      .nextFocus();
-                                }
+                                validateAndUpdateDate(args.value as DateTime);
                               },
                               onSubmit: (value) async {
-                                DateTime? selectedDateTime = await addTime2Date(
-                                    value as DateTime?, value);
-
-                                if (selectedDateTime != null) {
-                                  EHController.setWidgetDisplayValue(
-                                      textFieldKey!, '');
-
-                                  this
-                                      ._textEditingController
-                                      .focusNode!
-                                      .requestFocus();
-                                  this
-                                      ._textEditingController
-                                      .focusNode!
-                                      .nextFocus();
-
-                                  if (!EHUtilHelper.dateEquals(
-                                      getInitValue(), selectedDateTime)) {
-                                    setModelValue(selectedDateTime);
-                                    if (onChanged != null) {
-                                      onChanged(selectedDateTime);
-                                    }
-                                  }
-                                }
+                                validateAndUpdateDate(value as DateTime);
                               },
                               onCancel: () {
+                                this
+                                    ._textEditingController
+                                    .focusNode!
+                                    .requestFocus();
                                 Get.back();
                               },
                               selectionMode:
@@ -349,6 +338,8 @@ class EHDatePickerController extends EHEditableWidgetController {
   }
 
   Future<bool> _validate() async {
+    EHController.setWidgetDisplayValue(
+        textFieldKey!, _textEditingController.displayValue);
     bool isValid = checkMustInput(
         textFieldKey!, _textEditingController.displayValue,
         emptyValue: '');
@@ -357,26 +348,36 @@ class EHDatePickerController extends EHEditableWidgetController {
       return false;
     else if (EHUtilHelper.isEmpty(_textEditingController.displayValue)) {
       parsedDate = null;
+      EHController.setWidgetDisplayValue(textFieldKey!, '');
       return true;
     } else {
       try {
         parsedDate = new DateFormat(_dateFormat)
             .parseStrict(_textEditingController.displayValue);
       } catch (e) {
+        EHController.setWidgetDisplayValue(
+            textFieldKey!, _textEditingController.displayValue);
         EHController.setWidgetError(errorBucket!, textFieldKey!,
             'Date format should be: '.tr + _dateFormat);
 
         return false;
       }
 
-      isValid = await onValidate(this);
+      isValid = await userValidate();
 
-      if (!isValid && EHUtilHelper.isEmpty(errorBucket![textFieldKey!]))
-        throw Exception(
-            'Error: Must provide error message in errorBucket while validate failed');
-
+      if (isValid) EHController.setWidgetDisplayValue(textFieldKey!, '');
       return isValid;
     }
+  }
+
+  Future<bool> userValidate() async {
+    bool isValid = await onValidate(this);
+
+    if (!isValid && EHUtilHelper.isEmpty(errorBucket![textFieldKey!]))
+      throw Exception(
+          'Error: Must provide error message in errorBucket while validate failed');
+
+    return isValid;
   }
 
   @override
