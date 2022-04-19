@@ -278,12 +278,14 @@ class EHPopupController extends EHEditableWidgetController {
       Map<String, Object?> codeFilters = _dataGridSource.filters;
       codeFilters[codeColumnName] = displayText;
 
-      List<Map> res = await _dataGridSource.getData(
+      Map<String, dynamic> pageData = await _dataGridSource.getData(
         codeFilters,
         {},
         0,
         1,
       );
+
+      List<Map> res = pageData['records'];
       print('3:' + displayText);
       if (res.length == 0) {
         EHController.setWidgetError(errorBucket!, key!,

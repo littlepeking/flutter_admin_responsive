@@ -18,41 +18,41 @@ import '../main/common/widgets/eh_datagrid/eh_service_datagrid_source.dart';
 
 class DataGridTest {
   static getDataGridSource() {
-    return getStaticDataGridSource();
-    //return getServiceDataGridSource();
+    //return getStaticDataGridSource();
+    return getServiceDataGridSource();
     //return getCommonDataGridSource();
   }
 
-  static getStaticDataGridSource() {
-    return EHDataGridSource(
-        // loadDataAtInit: false,
-        columnFilters: [
-          EHFilterInfo(columnName: 'id', sort: EHDataGridColumnSortType.Asc)
-        ],
-        columnsConfig: [
-          EHColumnConf('id', EHIntColumnType()),
-          EHColumnConf('customerId', EHIntColumnType()),
-          EHColumnConf('name', EHStringColumnType()),
-          EHColumnConf(
-              'city',
-              EHStringColumnType(widgetType: EHWidgetType.DropDown, items: {
-                'PEK': 'Beijing',
-                'SH': 'Shanghai',
-                'SZ': 'Shenzhen'
-              })),
-          EHColumnConf('qty', EHDoubleColumnType()),
-          EHColumnConf('date', EHDateColumnType()),
-          EHColumnConf('isConfirmed', EHBoolColumnType(), columnWidth: 110),
-        ],
-        getData: (
-          Map<String, Object?> filters,
-          Map<String, String> orderBy,
-          int pageIndex,
-          int pageSize,
-        ) async =>
-            await DataGridTest.getOrders(
-                filters, orderBy, pageIndex, pageSize));
-  }
+  // static getStaticDataGridSource() {
+  //   return EHDataGridSource(
+  //       // loadDataAtInit: false,
+  //       columnFilters: [
+  //         EHFilterInfo(columnName: 'id', sort: EHDataGridColumnSortType.Asc)
+  //       ],
+  //       columnsConfig: [
+  //         EHColumnConf('id', EHIntColumnType()),
+  //         EHColumnConf('customerId', EHIntColumnType()),
+  //         EHColumnConf('name', EHStringColumnType()),
+  //         EHColumnConf(
+  //             'city',
+  //             EHStringColumnType(widgetType: EHWidgetType.DropDown, items: {
+  //               'PEK': 'Beijing',
+  //               'SH': 'Shanghai',
+  //               'SZ': 'Shenzhen'
+  //             })),
+  //         EHColumnConf('qty', EHDoubleColumnType()),
+  //         EHColumnConf('date', EHDateColumnType()),
+  //         EHColumnConf('isConfirmed', EHBoolColumnType(), columnWidth: 110),
+  //       ],
+  //       getData: (
+  //         Map<String, Object?> filters,
+  //         Map<String, String> orderBy,
+  //         int pageIndex,
+  //         int pageSize,
+  //       ) async =>
+  //           await DataGridTest.getOrders(
+  //               filters, orderBy, pageIndex, pageSize));
+  // }
 
   static getCommonDataGridSource() {
     return EHCommonDataGridSource(
@@ -78,23 +78,22 @@ class DataGridTest {
 
   static getServiceDataGridSource() {
     return EHServiceDataGridSource(
-      serviceName: 'Orders',
+      serviceName: '/test-receipt',
       // loadDataAtInit: false,
       columnFilters: [
         EHFilterInfo(columnName: 'id', sort: EHDataGridColumnSortType.Asc)
       ],
       columnsConfig: [
-        EHColumnConf('id', EHIntColumnType()),
-        EHColumnConf('customerId', EHIntColumnType()),
-        EHColumnConf('name', EHStringColumnType()),
+        EHColumnConf('id', EHStringColumnType()),
+        EHColumnConf('receiptKey', EHStringColumnType()),
+        EHColumnConf('quantity', EHDoubleColumnType()),
         EHColumnConf(
             'city',
             EHStringColumnType(
                 widgetType: EHWidgetType.DropDown,
                 items: {'PEK': 'Beijing', 'SH': 'Shanghai', 'SZ': 'Shenzhen'})),
-        EHColumnConf('qty', EHDoubleColumnType()),
-        EHColumnConf('date', EHDateColumnType()),
-        EHColumnConf('isConfirmed', EHBoolColumnType(), columnWidth: 110),
+        // EHColumnConf('date', EHDateColumnType()),
+        // EHColumnConf('isConfirmed', EHBoolColumnType(), columnWidth: 110),
       ],
     );
   }

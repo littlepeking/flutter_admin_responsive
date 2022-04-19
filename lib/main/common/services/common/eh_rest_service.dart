@@ -28,7 +28,7 @@ class EHRestService extends GetxController {
       EHLoadingIndicator(context: Get.context, barrierDimisable: false);
 
   EHRestService._internal() {
-    //dio.options.baseUrl = "http://rest.vtpm.starblingbling.com/";
+    _dio.options.baseUrl = "http://localhost:8061/api/";
     //dio.options.connectTimeout = 20000;
     //dio.options.receiveTimeout = 10000;
 

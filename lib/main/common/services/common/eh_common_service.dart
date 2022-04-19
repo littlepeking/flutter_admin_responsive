@@ -4,17 +4,17 @@ import 'package:eh_flutter_framework/main/common/services/common/eh_common_servi
 import 'eh_rest_service.dart';
 
 class EHCommonService {
-  static Future<List<Map<String, dynamic>>> queryByPage({
-    String serviceName = EHCommonServiceNames.EHCommonService,
-    String actionName = 'query',
+  static Future<Map<String, dynamic>> queryByPage({
+    required String serviceName,
+    String actionName = 'queryByPage',
     Map<String, Object?>? extraParams = const {},
     Map<String, Object?> filters = const {},
     Map<String, String> orderBy = const {},
     int pageIndex = -1,
     int pageSize = 25,
   }) async {
-    Response<List<Map<String, dynamic>>> response = await EHRestService()
-        .postByServiceName<List<Map<String, dynamic>>>(
+    Response<Map<String, dynamic>> response = await EHRestService()
+        .postByServiceName<Map<String, dynamic>>(
             serviceName: serviceName,
             actionName: actionName,
             body: {
@@ -25,7 +25,7 @@ class EHCommonService {
           'extraParams': extraParams,
         });
 
-    return response.data ?? [];
+    return response.data!;
   }
 
   static Future<List<Map<String, dynamic>>> queryByListName({

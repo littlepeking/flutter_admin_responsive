@@ -50,7 +50,7 @@ class EHDataGridSource extends DataGridSource {
 
   var selectable;
 
-  late Future<List<Map<String, dynamic>>> Function(
+  late Future<Map<String, dynamic>> Function(
     Map<String, Object?> filters,
     Map<String, String> orderBy,
     int pageIndex,
@@ -255,8 +255,12 @@ class EHDataGridSource extends DataGridSource {
     Map<String, Object?> filters = Map<String, Object?>.fromEntries(
         this.filters.entries.where((element) => !element.key.contains('__')));
 
-    _dataList = await getData(
+    Map<String, dynamic> resData = await getData(
         filters, this.orderBy, this.pageIndex ?? 0, this.pageSize!.value);
+
+    //_dataList = resData['records'] as List<Map<String, dynamic>>;
+
+    _dataList = List<Map<String,dynamic>>.from(resData['records'] );
     return _dataList;
   }
 

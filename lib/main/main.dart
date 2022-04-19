@@ -2,13 +2,13 @@ import 'dart:async';
 import 'package:eh_flutter_framework/main/common/i18n/customSfLocalization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'common/Utils/theme.dart';
-import 'common/i18n/fallback_localization_delegate.dart';
-import 'common/i18n/messages.dart';
-import 'common/utils/theme_controller.dart';
-import 'components/home/components/error/PageNotFound.dart';
-import 'controllers/global_data_controller.dart';
-import 'routes/page_config.dart';
+import 'package:eh_flutter_framework/main/common/Utils/theme.dart';
+import 'package:eh_flutter_framework/main/common/i18n/fallback_localization_delegate.dart';
+import 'package:eh_flutter_framework/main/common/i18n/messages.dart';
+import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/error/PageNotFound.dart';
+import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
+import 'package:eh_flutter_framework/main/routes/page_config.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
