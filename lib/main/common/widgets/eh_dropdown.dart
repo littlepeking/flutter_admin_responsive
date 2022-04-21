@@ -269,6 +269,8 @@ class EHDropDownController extends EHEditableWidgetController {
   }
 
   Future<bool> _validate(String value) async {
+    EHController.setWidgetError(errorBucket!, key!, '');
+
     bool isValid = checkMustInput(key!, value, emptyValue: '');
 
     if (!isValid) return false;

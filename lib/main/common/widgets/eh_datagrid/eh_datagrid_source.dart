@@ -38,11 +38,20 @@ class EHDataGridSource extends DataGridSource {
 
   late Map<EHColumnConf, FocusNode> _fnFilterMap = {};
 
+  late Map<EHColumnConf, Key> _keyFilterMap = {};
+
   getFilterFocusNode(EHColumnConf columnConfig) {
     if (!_fnFilterMap.containsKey(columnConfig))
       _fnFilterMap.putIfAbsent(columnConfig, () => FocusNode());
 
     return _fnFilterMap[columnConfig];
+  }
+
+  getFilterKey(EHColumnConf columnConfig) {
+    if (!_keyFilterMap.containsKey(columnConfig))
+      _keyFilterMap.putIfAbsent(columnConfig, () => GlobalKey());
+
+    return _keyFilterMap[columnConfig];
   }
 
   DataGridController dataGridController =
@@ -89,9 +98,7 @@ class EHDataGridSource extends DataGridSource {
           filterValue =
               EHUtilHelper.isEmpty(e.text) ? null : double.parse(e.text);
         } else if (columnConfig.columnType is EHDateColumnType) {
-          filterValue = EHUtilHelper.isEmpty(e.text)
-              ? null
-              : DateFormat('yyyy/MM/dd').parseStrict(e.text);
+          filterValue = e.text;
         } else if (columnConfig.columnType is EHBoolColumnType) {
           filterValue = EHUtilHelper.isEmpty(e.text) ? null : e.text == 'true';
         } else if (columnConfig.columnType is EHStringColumnType) {
@@ -152,35 +159,38 @@ class EHDataGridSource extends DataGridSource {
       }
 
       List<DataGridCell<Object>> cellList = columnsConfig.map((columnConfig) {
+        dynamic cellValue = row[columnConfig.columnName];
+
         if (!row.containsKey(columnConfig.columnName))
-          return DataGridCell<String>(
-              columnName: columnConfig.columnName, value: '');
+          cellValue = null;
+        else
+          cellValue = row[columnConfig.columnName];
+
         // throw Exception("当前DataGrid的数据行未包含已配置的列${columnConfig.columnName}");
 
+        if (columnConfig.columnType is EHStringColumnType ||
+            columnConfig.columnType is EHImageButtonColumnType) {
+          return DataGridCell<String>(
+              columnName: columnConfig.columnName, value: cellValue);
+        }
         if (columnConfig.columnType is EHIntColumnType) {
           return DataGridCell<int>(
-              columnName: columnConfig.columnName,
-              value: row[columnConfig.columnName]);
+              columnName: columnConfig.columnName, value: cellValue);
         }
         if (columnConfig.columnType is EHDoubleColumnType) {
           return DataGridCell<double>(
-              columnName: columnConfig.columnName,
-              value: row[columnConfig.columnName]);
+              columnName: columnConfig.columnName, value: cellValue);
         }
         if (columnConfig.columnType is EHDateColumnType) {
           return DataGridCell<DateTime>(
               columnName: columnConfig.columnName,
-              value: row[columnConfig.columnName]);
-        }
-        if (columnConfig.columnType is EHStringColumnType) {
-          return DataGridCell<String>(
-              columnName: columnConfig.columnName,
-              value: row[columnConfig.columnName]);
+              value: cellValue == null
+                  ? null
+                  : DateTime.fromMillisecondsSinceEpoch(cellValue));
         }
         if (columnConfig.columnType is EHBoolColumnType) {
           return DataGridCell<bool>(
-              columnName: columnConfig.columnName,
-              value: row[columnConfig.columnName]);
+              columnName: columnConfig.columnName, value: cellValue);
         }
 
         throw Exception(
@@ -260,7 +270,7 @@ class EHDataGridSource extends DataGridSource {
 
     //_dataList = resData['records'] as List<Map<String, dynamic>>;
 
-    _dataList = List<Map<String,dynamic>>.from(resData['records'] );
+    _dataList = List<Map<String, dynamic>>.from(resData['records']);
     return _dataList;
   }
 

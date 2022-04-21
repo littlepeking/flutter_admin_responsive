@@ -49,10 +49,12 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
           width: controller.width,
           child: Column(
             children: [
-              EHEditLabel(
-                mustInput: controller.mustInput,
-                label: controller.label.tr,
-              ),
+              controller.showLabel
+                  ? EHEditLabel(
+                      mustInput: controller.mustInput,
+                      label: controller.label.tr,
+                    )
+                  : SizedBox(),
               Row(
                 children: [
                   Expanded(
@@ -124,11 +126,12 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                   controller.afterWidget ?? SizedBox()
                 ],
               ),
-              Obx(() {
-                return EHEditErrorInfo(
-                    error: EHController.getWidgetError(
-                        controller.errorBucket!, key!));
-              }),
+              controller.showErrorInfo
+                  ? Obx(() => EHEditErrorInfo(
+                      // ignore: invalid_use_of_protected_member
+                      error: EHController.getWidgetError(
+                          controller.errorBucket!, key!)))
+                  : SizedBox()
               // Obx(() {
               //   return EHEditErrorInfo(
               //       // ignore: invalid_use_of_protected_member
@@ -142,8 +145,6 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
   }
 
   doValidateAndUpdateModel(bool goNextFocusIfValid) async {
-    EHController.setWidgetDisplayValue(
-        controller.key!, controller.displayValue);
     if (await controller._validate()) {
       EHController.setWidgetDisplayValue(controller.key!, '');
 
@@ -168,7 +169,8 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
           controller.onChanged!(controller.displayValue);
       }
 
-      if (goNextFocusIfValid) controller.focusNode!.nextFocus();
+      if (goNextFocusIfValid && controller.goNextAfterComplete)
+        controller.focusNode!.nextFocus();
     }
   }
 }
@@ -209,6 +211,12 @@ class EHTextFieldController extends EHEditableWidgetController {
 
   int maxLines;
 
+  bool showLabel;
+
+  bool showErrorInfo;
+
+  bool goNextAfterComplete;
+
   EHTextFieldController(
       {this.key,
       double? width,
@@ -226,7 +234,10 @@ class EHTextFieldController extends EHEditableWidgetController {
       EHEditableWidgetOnValidate? onValidate,
       Map<Key?, RxString>? errorBucket,
       this.afterWidget,
-      this.textHint = ''})
+      this.textHint = '',
+      this.showErrorInfo = true,
+      this.showLabel = true,
+      this.goNextAfterComplete = true})
       : super(
             model: model,
             bindingFieldName: bindingFieldName,
@@ -275,6 +286,8 @@ class EHTextFieldController extends EHEditableWidgetController {
   }
 
   Future<bool> _validate() async {
+    EHController.setWidgetDisplayValue(key!, displayValue);
+    EHController.setWidgetError(errorBucket!, key!, '');
     bool isValid = checkMustInput(key!, displayValue);
 
     if (!isValid) return false;

@@ -86,13 +86,16 @@ class DataGridTest {
       columnsConfig: [
         EHColumnConf('id', EHStringColumnType()),
         EHColumnConf('receiptKey', EHStringColumnType()),
+
+        EHColumnConf(
+            'createTime', EHDateColumnType(dateFormat: 'yyyy/MM/dd HH:mm:ss')),
         EHColumnConf('quantity', EHDoubleColumnType()),
         EHColumnConf(
             'city',
             EHStringColumnType(
                 widgetType: EHWidgetType.DropDown,
                 items: {'PEK': 'Beijing', 'SH': 'Shanghai', 'SZ': 'Shenzhen'})),
-        // EHColumnConf('date', EHDateColumnType()),
+
         // EHColumnConf('isConfirmed', EHBoolColumnType(), columnWidth: 110),
       ],
     );

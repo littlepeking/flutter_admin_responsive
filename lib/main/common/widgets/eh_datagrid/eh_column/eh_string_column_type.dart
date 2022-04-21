@@ -23,7 +23,9 @@ class EHStringColumnType extends EHColumnType<String> {
         padding: EdgeInsets.all(this.padding),
         alignment: alignment,
         child: EHText(
-          text: value == null || value=='' ? '' : items![value]!,
+          text: value == null || value == '' || !items!.containsKey(value)
+              ? ''
+              : items![value]!,
         ),
       );
     } else

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:eh_flutter_framework/main/common/services/common/eh_rest_error.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_navigator.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
@@ -75,15 +76,22 @@ class EHRestService extends GetxController {
             error.type == DioErrorType.sendTimeout) {
           EHToastMessageHelper.showInfoMessage('Network connect error.'.tr);
         } else {
-          // if (error.response!.statusCode == 500) {
-          //   throw Exception("Server Error");
-          // }
           var errData = error.response?.data;
           if (errData != null) {
-            EHToastMessageHelper.showInfoMessage(errData["message"]);
+            RestError error = RestError.fromJsonStr(errData);
+            EHToastMessageHelper.showInfoMessage(
+                '\n' +
+                    'Error Type:'.tr +
+                    "  " +
+                    error.title.tr +
+                    '\n\n' +
+                    'Error Detail:'.tr +
+                    "\n" +
+                    error.detail,
+                title: 'System Error');
           }
 
-          return handler.next(error);
+          //return handler.next(error);
         }
       }
       return handler.next(error);

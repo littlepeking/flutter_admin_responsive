@@ -53,6 +53,8 @@ class EHDatePickerController extends EHEditableWidgetController {
 
   late DateTime? parsedDate;
 
+  bool goNextAfterComplete;
+
   String getDisplayValue() {
     DateTime? value = getInitValue();
 
@@ -99,7 +101,10 @@ class EHDatePickerController extends EHEditableWidgetController {
       String? dateFormat,
       ValueChanged<DateTime?>? onChanged,
       EHEditableWidgetOnValidate? onValidate,
-      Map<Key?, RxString>? errorBucket})
+      Map<Key?, RxString>? errorBucket,
+      bool showErrorInfo = true,
+      bool showLabel = true,
+      this.goNextAfterComplete = true})
       : super(
             key: key,
             model: model,
@@ -159,13 +164,17 @@ class EHDatePickerController extends EHEditableWidgetController {
         textHint: this._dateFormat,
         enabled: enabled,
         mustInput: mustInput,
+        showLabel: showLabel,
+        showErrorInfo: showErrorInfo,
+        goNextAfterComplete: goNextAfterComplete,
         onValidate: (controller) async {
           //Call by TextField to prevent focus change.
           return await _validate();
         },
         onChanged: (text) {
           //EHController.globalDisplayValueBucket.remove(textFieldKey!);
-          if (!EHUtilHelper.dateEquals(getInitValue(), parsedDate!)) {
+
+          if (!EHUtilHelper.dateEquals(getInitValue(), parsedDate)) {
             setModelValue(parsedDate);
             if (onChanged != null) onChanged(parsedDate);
           }
@@ -340,17 +349,20 @@ class EHDatePickerController extends EHEditableWidgetController {
   Future<bool> _validate() async {
     EHController.setWidgetDisplayValue(
         textFieldKey!, _textEditingController.displayValue);
+    EHController.setWidgetError(errorBucket!, textFieldKey!, '');
     bool isValid = checkMustInput(
         textFieldKey!, _textEditingController.displayValue,
         emptyValue: '');
 
     if (!isValid)
       return false;
+    //when date is empty, set value to null
     else if (EHUtilHelper.isEmpty(_textEditingController.displayValue)) {
       parsedDate = null;
       EHController.setWidgetDisplayValue(textFieldKey!, '');
       return true;
     } else {
+      //check if date is match format
       try {
         parsedDate = new DateFormat(_dateFormat)
             .parseStrict(_textEditingController.displayValue);
@@ -365,7 +377,9 @@ class EHDatePickerController extends EHEditableWidgetController {
 
       isValid = await userValidate();
 
-      if (isValid) EHController.setWidgetDisplayValue(textFieldKey!, '');
+      if (isValid) {
+        EHController.setWidgetDisplayValue(textFieldKey!, '');
+      }
       return isValid;
     }
   }

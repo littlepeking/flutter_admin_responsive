@@ -3,11 +3,13 @@ import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_double_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_int_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +22,11 @@ import 'package:syncfusion_flutter_core/theme.dart';
 /// DataGrid Package
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
+import '../../base/eh_exception.dart';
 import '../eh_multi_select.dart';
 import 'eh_datagrid_constants.dart';
+
+import 'package:intl/intl.dart';
 
 /// Render data pager
 class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
@@ -124,6 +129,39 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                 controller.dataGridSource.columnFilters.refresh();
                 filterGridData(controller, columnConfig);
               })));
+    } else if (columnConfig.columnType is EHDateColumnType) {
+      String dateStr = getColumnFilter(columnConfig.columnName).text;
+
+      DateTime? bindValue;
+
+      String _dateFormat = 'yyyy/MM/dd';
+      // (columnConfig.columnType as EHDateColumnType).dateFormat;
+
+      if (!EHUtilHelper.isEmpty(dateStr)) {
+        try {
+          bindValue = new DateFormat(_dateFormat).parseStrict(dateStr);
+        } catch (e) {
+          throw EHException('Date format should be: '.tr + _dateFormat);
+        }
+      }
+
+      return Obx(() => EHDatePicker(
+          controller: EHDatePickerController(
+              key: controller.dataGridSource.getFilterKey(columnConfig),
+              showErrorInfo: false,
+              showLabel: false,
+              bindingValue: bindValue,
+              focusNode:
+                  controller.dataGridSource.getFilterFocusNode(columnConfig),
+              goNextAfterComplete: false,
+              onChanged: (value) {
+                getColumnFilter(columnConfig.columnName).text =
+                    !EHUtilHelper.isEmpty(value)
+                        ? DateFormat(_dateFormat).format(value!)
+                        : '';
+                controller.dataGridSource.columnFilters.refresh();
+                filterGridData(controller, columnConfig);
+              })));
     }
 
     if (columnConfig.columnType.widgetType == EHWidgetType.Text) {
@@ -209,36 +247,30 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
     // print(this.controller.dataPagerHeight);
     // print(this.controller.dataGridSource.pageSize!);
 
-    return
-        //Obx(() =>
-
-        SfDataGrid(
-            showCheckboxColumn: controller.showCheckbox,
-            selectionMode: SelectionMode.multiple,
-            //navigationMode: GridNavigationMode.row,
-            controller: controller.dataGridSource.dataGridController,
-            rowHeight: this.controller.rowHeight,
-            headerRowHeight: this.controller.headerRowHeight,
-            source: this.controller.dataGridSource,
-            //rowsPerPage: this.controller.dataGridSource.pageSize!.value,
-            allowSorting: false,
-            allowColumnsResizing: true,
-            columnResizeMode: ColumnResizeMode.onResize,
-            columnWidthMode: ColumnWidthMode.fill,
-            columns: getGridColumns(),
-            onColumnResizeUpdate: (ColumnResizeUpdateDetails args) {
-              EHColumnConf column = this
-                  .controller
-                  .dataGridSource
-                  .columnsConfig
-                  .where(
-                      (element) => element.columnName == args.column.columnName)
-                  .single;
-              column.width.value = args.width;
-              return true;
-            }
-            //)
-            );
+    return Obx(() => SfDataGrid(
+        showCheckboxColumn: controller.showCheckbox,
+        selectionMode: SelectionMode.multiple,
+        //navigationMode: GridNavigationMode.row,
+        controller: controller.dataGridSource.dataGridController,
+        rowHeight: this.controller.rowHeight,
+        headerRowHeight: this.controller.headerRowHeight,
+        source: this.controller.dataGridSource,
+        //rowsPerPage: this.controller.dataGridSource.pageSize!.value,
+        allowSorting: false,
+        allowColumnsResizing: true,
+        columnResizeMode: ColumnResizeMode.onResize,
+        columnWidthMode: ColumnWidthMode.fill,
+        columns: getGridColumns(),
+        onColumnResizeUpdate: (ColumnResizeUpdateDetails args) {
+          EHColumnConf column = this
+              .controller
+              .dataGridSource
+              .columnsConfig
+              .where((element) => element.columnName == args.column.columnName)
+              .single;
+          column.width.value = args.width;
+          return true;
+        }));
   }
 
   Widget _buildDataPager() {
