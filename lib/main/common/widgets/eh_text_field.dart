@@ -115,8 +115,11 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                           //   print(v);
                           // },
                           onEditingComplete: () async {
-                            await doValidateAndUpdateModel(true);
+                            bool isValid = await doValidateAndUpdateModel(true);
                             controller.isValidated = true;
+
+                            if (isValid && controller.onEditingComplete != null)
+                              controller.onEditingComplete!();
                             //controller.focusNode.unfocus();
                           },
                         ),
@@ -144,7 +147,8 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
         ));
   }
 
-  doValidateAndUpdateModel(bool goNextFocusIfValid) async {
+  //return value: if valid
+  Future<bool> doValidateAndUpdateModel(bool goNextFocusIfValid) async {
     if (await controller._validate()) {
       EHController.setWidgetDisplayValue(controller.key!, '');
 
@@ -171,6 +175,10 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
 
       if (goNextFocusIfValid && controller.goNextAfterComplete)
         controller.focusNode!.nextFocus();
+
+      return true;
+    } else {
+      return false;
     }
   }
 }
@@ -200,6 +208,8 @@ class EHTextFieldController extends EHEditableWidgetController {
   // }
 
   ValueChanged<String>? onChanged;
+
+  final VoidCallback? onEditingComplete;
 
   Widget? afterWidget;
 
@@ -231,6 +241,7 @@ class EHTextFieldController extends EHEditableWidgetController {
       EHModel? model,
       String? bindingFieldName,
       this.onChanged,
+      this.onEditingComplete,
       EHEditableWidgetOnValidate? onValidate,
       Map<Key?, RxString>? errorBucket,
       this.afterWidget,

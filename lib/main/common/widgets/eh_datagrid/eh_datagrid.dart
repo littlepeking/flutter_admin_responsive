@@ -162,8 +162,9 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                         ? DateFormat(_dateFormat).format(value!)
                         : '';
                 controller.dataGridSource.columnFilters.refresh();
-                filterGridData(controller, columnConfig);
-              })));
+              },
+              onEditingComplete: () =>
+                  filterGridData(controller, columnConfig))));
     }
 
     if (columnConfig.columnType.widgetType == EHWidgetType.Text) {

@@ -105,6 +105,7 @@ class EHDatePickerController extends EHEditableWidgetController {
       String? dateFormat,
       ValueChanged<DateTime?>? onChanged,
       EHEditableWidgetOnValidate? onValidate,
+      final VoidCallback? onEditingComplete,
       Map<Key?, RxString>? errorBucket,
       bool showErrorInfo = true,
       bool showLabel = true,
@@ -152,7 +153,8 @@ class EHDatePickerController extends EHEditableWidgetController {
           }
 
           this._textEditingController.focusNode!.requestFocus();
-          this._textEditingController.focusNode!.nextFocus();
+          if (goNextAfterComplete)
+            this._textEditingController.focusNode!.nextFocus();
         } else {
           this._textEditingController.focusNode!.requestFocus();
         }
@@ -187,6 +189,7 @@ class EHDatePickerController extends EHEditableWidgetController {
           // focusNode!.requestFocus();
           // focusNode.nextFocus();
         },
+        onEditingComplete: onEditingComplete,
         afterWidget: ExcludeFocus(
             child: SizedBox(
           width: 24,

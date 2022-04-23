@@ -91,6 +91,7 @@ class DataGridTest {
         EHColumnConf('createTime',
             EHDateColumnType(dateFormat: CommonConstant.defaultDateTimeFormat)),
         EHColumnConf('quantity', EHDoubleColumnType()),
+        EHColumnConf('enabled', EHBoolColumnType()),
         EHColumnConf(
             'city',
             EHStringColumnType(
