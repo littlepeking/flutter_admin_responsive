@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 
 import '../base/eh_controller.dart';
 import '../utils/eh_refactor_helper.dart';
+import 'eh_datagrid/eh_datagrid_filter_data.dart';
 
 class EHPopup extends EHEditableWidget<EHPopupController> {
   EHPopup({
@@ -275,14 +276,16 @@ class EHPopupController extends EHEditableWidgetController {
       EHController.setWidgetDisplayValue(key!, '');
       return true;
     } else {
-      Map<String, Object?> codeFilters = _dataGridSource.filters;
-      codeFilters[codeColumnName] = displayText;
+      List<EHDataGridFilterData> codeFilters = _dataGridSource.filters;
+
+      codeFilters.singleWhere((f) => f.columnName == codeColumnName).value =
+          displayText;
 
       Map<String, dynamic> pageData = await _dataGridSource.getData(
         codeFilters,
         {},
         0,
-        1,
+        2, //to test if multiple records related to same code
       );
 
       List<Map> res = pageData['records'];

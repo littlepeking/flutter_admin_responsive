@@ -17,4 +17,14 @@ class EHUtilHelper {
     else
       return d1.isAtSameMomentAs(d2);
   }
+
+  static DateTime getStartTimeOfDay(DateTime dateTime) {
+    return new DateTime(
+        dateTime.year, dateTime.month, dateTime.day, 0, 0, 0, 0, 0);
+  }
+
+  static DateTime convertToGMT11AM(DateTime dateTime) {
+    return DateTime.utc(
+        dateTime.year, dateTime.month, dateTime.day, 11, 0, 0, 0, 0);
+  }
 }

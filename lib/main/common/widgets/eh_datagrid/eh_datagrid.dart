@@ -23,6 +23,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import '../../base/eh_exception.dart';
+import '../../constants/common_constant.dart';
 import '../eh_multi_select.dart';
 import 'eh_datagrid_constants.dart';
 
@@ -134,7 +135,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
 
       DateTime? bindValue;
 
-      String _dateFormat = 'yyyy/MM/dd';
+      String _dateFormat = CommonConstant.defaultDateFormat;
       // (columnConfig.columnType as EHDateColumnType).dateFormat;
 
       if (!EHUtilHelper.isEmpty(dateStr)) {
@@ -150,6 +151,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
               key: controller.dataGridSource.getFilterKey(columnConfig),
               showErrorInfo: false,
               showLabel: false,
+              setToStartTime: true,
               bindingValue: bindValue,
               focusNode:
                   controller.dataGridSource.getFilterFocusNode(columnConfig),

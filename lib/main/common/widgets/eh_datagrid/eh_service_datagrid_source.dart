@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_data.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 import '../../services/common/eh_common_service.dart';
 import '../../services/common/eh_common_service_names.dart';
@@ -19,7 +20,7 @@ class EHServiceDataGridSource extends EHDataGridSource {
             columnsConfig: columnsConfig,
             loadDataAtInit: loadDataAtInit = true,
             getData: (
-              Map<String, Object?> filters,
+              List<EHDataGridFilterData> filters,
               Map<String, String> orderBy,
               int pageIndex,
               int pageSize,

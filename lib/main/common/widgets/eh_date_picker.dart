@@ -2,6 +2,7 @@ import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_edit_widget_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_editable_widget.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
+import 'package:eh_flutter_framework/main/common/constants/common_constant.dart';
 import 'package:eh_flutter_framework/main/common/constants/layout_constant.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_dialog.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
@@ -55,6 +56,9 @@ class EHDatePickerController extends EHEditableWidgetController {
 
   bool goNextAfterComplete;
 
+// if used in Grid Filter will return the first second of the day in current timezone.
+  bool setToStartTime;
+
   String getDisplayValue() {
     DateTime? value = getInitValue();
 
@@ -104,7 +108,8 @@ class EHDatePickerController extends EHEditableWidgetController {
       Map<Key?, RxString>? errorBucket,
       bool showErrorInfo = true,
       bool showLabel = true,
-      this.goNextAfterComplete = true})
+      this.goNextAfterComplete = true,
+      this.setToStartTime = false})
       : super(
             key: key,
             model: model,
@@ -119,8 +124,8 @@ class EHDatePickerController extends EHEditableWidgetController {
             errorBucket: errorBucket) {
     this._dateFormat = dateFormat == null
         ? !this.showTimePicker
-            ? 'yyyy/MM/dd'
-            : 'yyyy/MM/dd HH:mm:ss'
+            ? CommonConstant.defaultDateFormat
+            : CommonConstant.defaultDateTimeFormat
         : dateFormat;
 
     _bindingValue = bindingValue;
@@ -274,6 +279,12 @@ class EHDatePickerController extends EHEditableWidgetController {
             selectedDate.day, time.hour, time.minute);
       }
     } else {
+      if (setToStartTime) {
+        selectedDate = EHUtilHelper.getStartTimeOfDay(selectedDate);
+      } else {
+        selectedDate = EHUtilHelper.convertToGMT11AM(selectedDate);
+      }
+
       Get.back();
       EHController.setWidgetError(errorBucket!, textFieldKey!, '');
       return selectedDate;

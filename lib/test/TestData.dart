@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/constants/common_constant.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_double_column_type.dart';
@@ -87,8 +88,8 @@ class DataGridTest {
         EHColumnConf('id', EHStringColumnType()),
         EHColumnConf('receiptKey', EHStringColumnType()),
 
-        EHColumnConf(
-            'createTime', EHDateColumnType(dateFormat: 'yyyy/MM/dd HH:mm:ss')),
+        EHColumnConf('createTime',
+            EHDateColumnType(dateFormat: CommonConstant.defaultDateTimeFormat)),
         EHColumnConf('quantity', EHDoubleColumnType()),
         EHColumnConf(
             'city',

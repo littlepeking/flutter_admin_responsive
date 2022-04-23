@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 /// Dart import
+import 'package:eh_flutter_framework/main/common/constants/common_constant.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
@@ -10,6 +11,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/e
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_int_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_string_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_data.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 
 /// Package imports
@@ -60,7 +62,7 @@ class EHDataGridSource extends DataGridSource {
   var selectable;
 
   late Future<Map<String, dynamic>> Function(
-    Map<String, Object?> filters,
+    List<EHDataGridFilterData> filters,
     Map<String, String> orderBy,
     int pageIndex,
     int pageSize,
@@ -85,29 +87,45 @@ class EHDataGridSource extends DataGridSource {
   /// Instance of DataGridRow.
   List<DataGridRow> _dataGridRows = <DataGridRow>[];
 
-  Map<String, Object?> get filters {
-    return columnFilters.fold(Map<String, Object?>(), (_filters, e) {
+  List<EHDataGridFilterData> get filters {
+    List<EHDataGridFilterData> filterData = <EHDataGridFilterData>[];
+    columnFilters.forEach((e) {
       if (!e.columnName.contains('__')) {
-        late Object? filterValue;
+        Object? filterValue;
         EHColumnConf columnConfig = columnsConfig
             .where((config) => config.columnName == e.columnName)
             .first;
         if (columnConfig.columnType is EHIntColumnType) {
           filterValue = EHUtilHelper.isEmpty(e.text) ? null : int.parse(e.text);
+          filterData.add(EHDataGridFilterData(
+              columnName: e.columnName, type: 'int', value: filterValue));
         } else if (columnConfig.columnType is EHDoubleColumnType) {
           filterValue =
               EHUtilHelper.isEmpty(e.text) ? null : double.parse(e.text);
+          filterData.add(EHDataGridFilterData(
+              columnName: e.columnName, type: 'double', value: filterValue));
         } else if (columnConfig.columnType is EHDateColumnType) {
-          filterValue = e.text;
+          if (e.text.trim() != "") {
+            DateTime dateTime = DateFormat(CommonConstant.defaultDateFormat)
+                .parse(e.text.trim());
+            filterValue = DateTime(
+                    dateTime.year, dateTime.month, dateTime.day, 0, 0, 0, 0)
+                .millisecondsSinceEpoch;
+          }
+          filterData.add(EHDataGridFilterData(
+              columnName: e.columnName, type: 'date', value: filterValue));
         } else if (columnConfig.columnType is EHBoolColumnType) {
           filterValue = EHUtilHelper.isEmpty(e.text) ? null : e.text == 'true';
+          filterData.add(EHDataGridFilterData(
+              columnName: e.columnName, type: 'bool', value: filterValue));
         } else if (columnConfig.columnType is EHStringColumnType) {
           filterValue = e.text;
+          filterData.add(EHDataGridFilterData(
+              columnName: e.columnName, type: 'string', value: filterValue));
         }
-        _filters[e.columnName] = filterValue;
       }
-      return _filters;
     });
+    return filterData;
   }
 
   List<Map> getSelectedRows() {
@@ -262,8 +280,11 @@ class EHDataGridSource extends DataGridSource {
   }
 
   Future<List<Map>> requestData() async {
-    Map<String, Object?> filters = Map<String, Object?>.fromEntries(
-        this.filters.entries.where((element) => !element.key.contains('__')));
+    List<EHDataGridFilterData> filters = this
+        .filters
+        .where((f) =>
+            !f.columnName.contains('__') && !EHUtilHelper.isEmpty(f.value))
+        .toList();
 
     Map<String, dynamic> resData = await getData(
         filters, this.orderBy, this.pageIndex ?? 0, this.pageSize!.value);

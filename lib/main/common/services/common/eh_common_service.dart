@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/services/common/eh_common_service_names.dart';
 
+import '../../widgets/eh_datagrid/eh_datagrid_filter_data.dart';
 import 'eh_rest_service.dart';
 
 class EHCommonService {
@@ -8,7 +9,7 @@ class EHCommonService {
     required String serviceName,
     String actionName = 'queryByPage',
     Map<String, Object?>? extraParams = const {},
-    Map<String, Object?> filters = const {},
+    List<EHDataGridFilterData> filters = const [],
     Map<String, String> orderBy = const {},
     int pageIndex = -1,
     int pageSize = 25,

@@ -2,13 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
+import '../../widgets/eh_datagrid/eh_datagrid_filter_data.dart';
 import 'eh_rest_service.dart';
 
 abstract class EHBaseService<T extends EHModel> extends GetxController {
   String get serviceName;
 
   Future<List<T>> query({
-    required Map<String, dynamic> conditions,
+    required List<EHDataGridFilterData> conditions,
   }) async {
     String serviceName = this.serviceName;
     String actionName = 'query';
