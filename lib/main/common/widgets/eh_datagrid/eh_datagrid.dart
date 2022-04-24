@@ -258,7 +258,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
         rowHeight: this.controller.rowHeight,
         headerRowHeight: this.controller.headerRowHeight,
         source: this.controller.dataGridSource,
-        //rowsPerPage: this.controller.dataGridSource.pageSize!.value,
+        rowsPerPage: this.controller.dataGridSource.pageSize!.value,
         allowSorting: false,
         allowColumnsResizing: true,
         columnResizeMode: ColumnResizeMode.onResize,
@@ -284,31 +284,31 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
         itemBorderWidth: 0,
         itemBorderRadius: BorderRadius.all(Radius.circular(30.0)),
       ),
-      child: SfDataPager(
-        itemWidth: 40,
-        itemHeight: 40,
-        itemPadding: EdgeInsets.all(5),
-        navigationItemHeight: 40,
-        onPageNavigationStart: (pagenumber) async {
-          if (this.controller.dataGridSource.pageIndex != pagenumber) {
-            this.controller.dataGridSource.pageIndex = pagenumber;
-            if (!controller.dataGridSource.loadDataAtInit) {
-              controller.dataGridSource.loadDataAtInit = true;
-              return;
-            }
-            await this.controller.dataGridSource.handleRefresh();
-          }
-        },
-        onPageNavigationEnd: (pagenumber) => {}, //hide spinner
-        delegate: controller.dataGridSource,
-        availableRowsPerPage: const <int>[25, 50, 100, 200],
-        pageCount: controller.dataGridSource.totalPageNumber!,
-        onRowsPerPageChanged: (int? rowsPerPage) async {
-          this.controller.dataGridSource.pageSize!.value = rowsPerPage!;
-          await this.controller.dataGridSource.handleRefresh();
-        },
-        direction: Axis.horizontal,
-      ),
+      child: Obx(() => SfDataPager(
+            itemWidth: 40,
+            itemHeight: 40,
+            itemPadding: EdgeInsets.all(5),
+            navigationItemHeight: 40,
+            onPageNavigationStart: (pagenumber) async {
+              if (this.controller.dataGridSource.pageIndex != pagenumber) {
+                this.controller.dataGridSource.pageIndex = pagenumber;
+                if (!controller.dataGridSource.loadDataAtInit) {
+                  controller.dataGridSource.loadDataAtInit = true;
+                  return;
+                }
+                await this.controller.dataGridSource.handleRefresh();
+              }
+            },
+            onPageNavigationEnd: (pagenumber) => {}, //hide spinner
+            delegate: controller.dataGridSource,
+            availableRowsPerPage: const <int>[1, 25, 50, 100, 200],
+            pageCount: controller.dataGridSource.totalPageNumber.value!,
+            onRowsPerPageChanged: (int? rowsPerPage) async {
+              this.controller.dataGridSource.pageSize!.value = rowsPerPage!;
+              await this.controller.dataGridSource.handleRefresh();
+            },
+            direction: Axis.horizontal,
+          )),
     );
   }
 

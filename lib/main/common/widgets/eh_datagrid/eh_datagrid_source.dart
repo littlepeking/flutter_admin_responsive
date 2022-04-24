@@ -79,7 +79,7 @@ class EHDataGridSource extends DataGridSource {
 
   int? pageIndex = -1;
 
-  double? totalPageNumber = 1;
+  Rx<double?> totalPageNumber = 1.0.obs;
 
   //Key: column name, value: filter value controller
   late RxList<EHFilterInfo> columnFilters = <EHFilterInfo>[].obs;
@@ -291,6 +291,7 @@ class EHDataGridSource extends DataGridSource {
 
     //_dataList = resData['records'] as List<Map<String, dynamic>>;
 
+    totalPageNumber.value = resData['pages'];
     _dataList = List<Map<String, dynamic>>.from(resData['records']);
     return _dataList;
   }
