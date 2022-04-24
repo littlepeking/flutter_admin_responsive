@@ -12,7 +12,7 @@ part 'receipt_model.g.dart';
 @JsonSerializable()
 @methodExecutor
 class ReceiptModel extends EHModel {
-  String receiptKey;
+  String? receiptKey;
   int? num1;
   double? num2;
   String? customerId;

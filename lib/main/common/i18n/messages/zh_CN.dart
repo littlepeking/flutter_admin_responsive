@@ -45,7 +45,7 @@ Map<String, String> zhCNMessages = {
   'qty': '数量',
   'date': '日期',
   'time': '时间',
-  'isConfirmed': '是否确认',
+  'enabled': '是否确认',
   'Data update failed': '数据获取失败，请检查网络',
   'This field cannot be empty': '字段不能为空',
   'Please Select Item': '请选择条目',

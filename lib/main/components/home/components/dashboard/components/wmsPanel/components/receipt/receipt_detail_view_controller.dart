@@ -26,7 +26,7 @@ class ReceiptDetailViewController extends EHPanelController {
   Rxn<MapEntry<String, String>> gridDynamicFilter = Rxn(MapEntry('city', ''));
 
   Rx<ReceiptModel> receiptModel = ReceiptModel(
-          receiptKey: 'key001',
+          receiptKey: 'r1',
           num1: 1,
           num2: 2.50,
           customerId: 'cus001',
@@ -65,7 +65,7 @@ class ReceiptDetailViewController extends EHPanelController {
                 focusNode: focusNode,
                 //autoFocus: true,
                 label: '测试1',
-                bindingValue: receiptModel.value.receiptKey,
+                bindingValue: receiptModel.value.receiptKey ?? '',
                 mustInput: true,
                 onChanged: (value) => receiptModel.update((model) {
                       model!.receiptKey = value;
@@ -76,16 +76,16 @@ class ReceiptDetailViewController extends EHPanelController {
                 key: key,
                 popupTitle: 'Please Select Supplier',
                 focusNode: focusNode,
-                codeColumnName: 'customerId',
+                codeColumnName: 'receiptKey',
                 dataSource: DataGridTest.getDataGridSource(),
                 label: 'popUp',
-                bindingValue: receiptModel.value.customerId,
+                bindingValue: receiptModel.value.receiptKey,
                 mustInput: true,
                 //  autoFocus: true,
                 onChanged: (code, row) {
                   //  controller.popUpFn!.requestFocus();
                   receiptModel.update((model) {
-                    model!.customerId = code;
+                    model!.receiptKey = code;
                     model.customerName = row?['name'] ?? '';
                   });
                 }),
@@ -176,16 +176,16 @@ class ReceiptDetailViewController extends EHPanelController {
                   bindingFieldName: 'dropdownValue',
                   items: {
                     'city:PEK': 'city:Beijing',
-                    'isConfirmed:true': 'isConfirmed:Y',
+                    'enabled:true': 'enabled:Y',
                   },
                   onChanged: (value) {
                     if (value == '') {
                       popUpDataSource.setFilter('city', '');
-                      popUpDataSource.setFilter('isConfirmed', '');
+                      popUpDataSource.setFilter('enabled', '');
                       // gridDynamicFilter.value = null;
                     } else {
                       popUpDataSource.setFilter('city', '');
-                      popUpDataSource.setFilter('isConfirmed', '');
+                      popUpDataSource.setFilter('enabled', '');
                       List<String> values = value.split(':');
                       popUpDataSource.setFilter(values[0], values[1]);
 
@@ -195,16 +195,16 @@ class ReceiptDetailViewController extends EHPanelController {
                   }),
               () => EHPopupController(
                   label: 'popUp',
-                  bindingFieldName: 'customerId',
+                  bindingFieldName: 'receiptKey',
                   popupTitle: 'Please Select Supplier',
-                  codeColumnName: 'customerId',
+                  codeColumnName: 'receiptKey',
                   dataSource: popUpDataSource,
                   mustInput: true,
                   onChanged: (code, row) {
                     print('pop = onChange triggered');
                     if (row != null)
                       receiptModel.value.receiptKey =
-                          row['customerId'].toString();
+                          row['receiptKey'].toString();
                     //no need manual refresh when update current form's data model as it already triggered by EHEditForm.
                     // receiptModel.refresh();
                   }),
@@ -297,7 +297,7 @@ class ReceiptDetailViewController extends EHPanelController {
                           child: Obx(() => Center(
                                 child: Text(
                                   'Custom widget example2:' +
-                                      rxModel!.value.receiptKey,
+                                      (rxModel!.value.receiptKey ?? ''),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18,
@@ -388,6 +388,7 @@ class CustomWidget extends EHValidationWidget {
   Widget build(BuildContext context) {
     return Obx(() => Container(
         margin: EdgeInsets.only(left: 100),
-        child: Text('Custom widget example1:' + rxModel!.value.receiptKey)));
+        child: Text(
+            'Custom widget example1:' + (rxModel!.value.receiptKey ?? ''))));
   }
 }

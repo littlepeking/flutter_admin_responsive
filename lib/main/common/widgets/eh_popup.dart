@@ -9,6 +9,7 @@ import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_in
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_source.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
@@ -276,19 +277,19 @@ class EHPopupController extends EHEditableWidgetController {
       EHController.setWidgetDisplayValue(key!, '');
       return true;
     } else {
-      List<EHDataGridFilterData> codeFilters = _dataGridSource.filters;
-
-      codeFilters.singleWhere((f) => f.columnName == codeColumnName).value =
-          displayText;
+      List<EHDataGridFilterData> filters = _dataGridSource.filters;
+      getFilter(filters, codeColumnName).value = displayText;
 
       Map<String, dynamic> pageData = await _dataGridSource.getData(
-        codeFilters,
+        filters,
         {},
         0,
         2, //to test if multiple records related to same code
       );
 
-      List<Map> res = pageData['records'];
+      List<Map<String, dynamic>> res =
+          List<Map<String, dynamic>>.from(pageData['records']);
+
       print('3:' + displayText);
       if (res.length == 0) {
         EHController.setWidgetError(errorBucket!, key!,
@@ -312,6 +313,21 @@ class EHPopupController extends EHEditableWidgetController {
         if (isValid) EHController.setWidgetDisplayValue(key!, '');
         return isValid;
       }
+    }
+  }
+
+  EHDataGridFilterData getFilter(
+      List<EHDataGridFilterData> filters, String columnName) {
+    Iterable<EHDataGridFilterData> filterDataList =
+        filters.where((f) => f.columnName == columnName);
+
+    if (filterDataList.length > 0) {
+      return filterDataList.first;
+    } else {
+      EHDataGridFilterData filter =
+          EHDataGridFilterData(columnName: columnName, type: 'string');
+      filters.add(filter);
+      return filter;
     }
   }
 

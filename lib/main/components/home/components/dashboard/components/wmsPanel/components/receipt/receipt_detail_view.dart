@@ -56,8 +56,9 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                   focusNode: controller.textFn1,
                                   //autoFocus: true,
                                   label: '测试1',
-                                  bindingValue:
-                                      controller.receiptModel.value.receiptKey,
+                                  bindingValue: controller
+                                          .receiptModel.value.receiptKey ??
+                                      '',
                                   mustInput: true,
                                   //  autoFocus: true,
                                   onChanged: (value) {
@@ -74,17 +75,17 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                   key: controller.popupKey1,
                                   popupTitle: 'Please Select Supplier',
                                   focusNode: controller.popUpFn,
-                                  codeColumnName: 'customerId',
+                                  codeColumnName: 'receiptKey',
                                   dataSource: DataGridTest.getDataGridSource(),
                                   label: 'popUp',
                                   bindingValue:
-                                      controller.receiptModel.value.customerId,
+                                      controller.receiptModel.value.receiptKey,
                                   mustInput: true,
                                   //  autoFocus: true,
                                   onChanged: (code, row) {
                                     //  controller.popUpFn!.requestFocus();
                                     controller.receiptModel.update((model) {
-                                      model!.customerId = code;
+                                      model!.receiptKey = code;
                                       model.customerName = row?['name'] ?? '';
                                     });
                                   }),
@@ -186,8 +187,9 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                   focusNode: controller.textFn2,
                                   label: '测试2',
                                   //errorBucket: controller.errorBucket,
-                                  bindingValue:
-                                      controller.receiptModel.value.receiptKey,
+                                  bindingValue: controller
+                                          .receiptModel.value.receiptKey ??
+                                      '',
                                   mustInput: true,
                                   onChanged: (value) =>
                                       controller.receiptModel.update((model) {

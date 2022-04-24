@@ -63,7 +63,7 @@ class DataGridTest {
       ],
       columnsConfig: [
         EHColumnConf('id', EHIntColumnType()),
-        EHColumnConf('customerId', EHIntColumnType()),
+        EHColumnConf('receiptKey', EHIntColumnType()),
         EHColumnConf('name', EHStringColumnType()),
         EHColumnConf(
             'city',
@@ -72,7 +72,7 @@ class DataGridTest {
                 items: {'PEK': 'Beijing', 'SH': 'Shanghai', 'SZ': 'Shenzhen'})),
         EHColumnConf('qty', EHDoubleColumnType()),
         EHColumnConf('date', EHDateColumnType()),
-        EHColumnConf('isConfirmed', EHBoolColumnType(), columnWidth: 110),
+        EHColumnConf('enabled', EHBoolColumnType(), columnWidth: 110),
       ],
     );
   }
@@ -130,13 +130,13 @@ class DataGridTest {
       // });
       data.add({
         'id': 1000 + i,
-        'customerId': 1700 + i,
+        'receiptKey': 1700 + i,
         'name': _names[i % 15],
         'price': 1000 + i,
         'city': _cities[i % 3],
         'qty': 1500.0 + i,
         'date': DateTime.now(),
-        'isConfirmed': i % 2 == 0 ? true : false,
+        'enabled': i % 2 == 0 ? true : false,
       });
     }
 
