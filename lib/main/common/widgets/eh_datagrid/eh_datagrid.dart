@@ -301,8 +301,10 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
             },
             onPageNavigationEnd: (pagenumber) => {}, //hide spinner
             delegate: controller.dataGridSource,
-            availableRowsPerPage: const <int>[1, 25, 50, 100, 200],
-            pageCount: controller.dataGridSource.totalPageNumber.value!,
+            availableRowsPerPage: const <int>[25, 1, 50, 100, 200],
+            pageCount: controller.dataGridSource.totalPageNumber.value == 0
+                ? 1
+                : controller.dataGridSource.totalPageNumber.value!,
             onRowsPerPageChanged: (int? rowsPerPage) async {
               this.controller.dataGridSource.pageSize!.value = rowsPerPage!;
               await this.controller.dataGridSource.handleRefresh();

@@ -38,7 +38,8 @@ class EHRestService extends GetxController {
     _dio.interceptors.add(InterceptorsWrapper(onRequest:
         (RequestOptions requestOptions,
             RequestInterceptorHandler handler) async {
-      if (!loadingIndicator.isOpen) loadingIndicator.showIndicator();
+      //DISABLE SPINNER since it will prevent cursor move to selected widget after unfocused from popup which triggering a rest service call.
+      //if (!loadingIndicator.isOpen) loadingIndicator.showIndicator();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String jwtToken = prefs.get("jwt-token") == null
           ? ''
@@ -48,7 +49,7 @@ class EHRestService extends GetxController {
     }, onResponse:
         (Response response, ResponseInterceptorHandler handler) async {
       //await Future.delayed(Duration(seconds: 2));
-      if (loadingIndicator.isOpen) loadingIndicator.hide();
+      //if (loadingIndicator.isOpen) loadingIndicator.hide();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String jwtToken = prefs.get("jwt-token").toString();
 
@@ -61,7 +62,7 @@ class EHRestService extends GetxController {
       return handler.next(response);
     }, onError: (DioError error, ErrorInterceptorHandler handler) async {
       // await Future.delayed(Duration(seconds: 2));
-      if (loadingIndicator.isOpen) loadingIndicator.hide();
+      //if (loadingIndicator.isOpen) loadingIndicator.hide();
       if (error.response?.statusCode == 404) {
         EHToastMessageHelper.showInfoMessage('request url cannot found'.tr);
         //return handler.next(error);
