@@ -41,22 +41,23 @@ class EHRestService extends GetxController {
       //DISABLE SPINNER since it will prevent cursor move to selected widget after unfocused from popup which triggering a rest service call.
       //if (!loadingIndicator.isOpen) loadingIndicator.showIndicator();
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String jwtToken = prefs.get("jwt-token") == null
-          ? ''
-          : prefs.get("jwt-token").toString();
-      requestOptions.headers.addAll({"jwt-token": jwtToken});
+      String jwtToken = prefs.get("Authorization") == null ||
+              prefs.get("Authorization") == "null"
+          //? ''
+          ? 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqZXNzaWNhIiwiYXV0aG9yaXRpZXMiOiJSRUNFSVBUVVNFUiIsImlhdCI6MTY1MDkzNjEwMn0.KK1Cl9R9n340beRkuOpT4fhsOR2GKxG0mw4UxQvn-MRVYnVF5vBto-A3w9bNYzyLl8Q15z4HdU2qhQATVUfUFg' //TEST JWT TOKEN
+          : prefs.get("Authorization").toString();
+      requestOptions.headers.addAll({"Authorization": jwtToken});
       return handler.next(requestOptions);
     }, onResponse:
         (Response response, ResponseInterceptorHandler handler) async {
       //await Future.delayed(Duration(seconds: 2));
       //if (loadingIndicator.isOpen) loadingIndicator.hide();
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String jwtToken = prefs.get("jwt-token").toString();
-
+      String jwtToken = prefs.get("Authorization").toString();
       // if the value is the same as the header, continue with the request
-      if (response.headers.value("jwt-token") != jwtToken) {
+      if (response.headers.value("Authorization") != jwtToken) {
         //Renew token here...
-        prefs.setString("jwt-token", jwtToken);
+        prefs.setString("Authorization", jwtToken);
       }
 
       return handler.next(response);
