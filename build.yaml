@@ -5,7 +5,7 @@ targets:
         generate_for:
           - lib/main/main.dart
         options:
-          formatted: true1
+          formatted: true
       json_serializable:
             options:
       #         # Options configure how source code is generated for every
