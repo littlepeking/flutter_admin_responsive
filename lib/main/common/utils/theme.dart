@@ -73,7 +73,8 @@ class EhTheme {
         focusedBorder: _buildBorder(Colors.grey),
         // errorBorder: _buildBorder(Colors.red),
         disabledBorder: _buildBorder(Colors.grey[400]!),
-      ));
+      ),
+      textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.grey));
 
   static _buildBorder(Color color) {
     return OutlineInputBorder(

@@ -291,7 +291,7 @@ class EHDataGridSource extends DataGridSource {
 
     //_dataList = resData['records'] as List<Map<String, dynamic>>;
 
-    totalPageNumber.value = resData['pages'];
+    totalPageNumber.value = resData['pages'] + .0;
     _dataList = List<Map<String, dynamic>>.from(resData['records']);
     return _dataList;
   }

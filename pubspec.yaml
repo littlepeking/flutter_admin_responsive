@@ -60,6 +60,8 @@ dependencies:
   dio: ^4.0.4
   shared_preferences: ^2.0.13
   simple_fontellico_progress_dialog: ^0.2.1
+  flutter_login: ^3.2.0
+  font_awesome_flutter: ^9.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -111,3 +113,6 @@ flutter:
     - family: Righteous
       fonts:
         - asset: assets/fonts/Righteous-Regular.ttf
+    - family: NotoSansSC
+      fonts:
+        - asset: assets/fonts/NotoSansSC-Regular.otf

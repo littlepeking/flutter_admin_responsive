@@ -41,10 +41,10 @@ void main() {
       debugShowCheckedModeBanner: false,
       theme: EhTheme.lightTheme,
       darkTheme: EhTheme.darkTheme,
-      themeMode: ThemeMode.dark,
+      themeMode: Get.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       color: Colors.white,
       //home: Home(),
-      initialRoute: '/',
+      initialRoute: '/login',
       unknownRoute: GetPage(
           name: '/not-found',
           page: () => PageNotFound(),

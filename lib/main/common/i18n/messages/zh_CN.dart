@@ -1,4 +1,7 @@
 Map<String, String> zhCNMessages = {
+  'Sign-In': '登录',
+  'Username': '用户名',
+  'Password': '密码',
   'Yes': '是',
   'No': '否',
   'Personalization': '个性化',
@@ -13,7 +16,8 @@ Map<String, String> zhCNMessages = {
   'SystemManagement': '系统管理',
   'Report': '报表',
   'Welcome': '欢迎页',
-  'Welcome use Enhantec Logistics System Suite!': '欢迎使用殷汉供应链系统套件！',
+  'SCM Execution Platform': '供应链执行平台',
+  'Welcome use Enhantec SCM Execution Platform': '欢迎使用殷汉供应链执行平台',
   'Orders': '订单管理',
   'Order Details': '订单明细',
   'Pick Details': '拣货明细',

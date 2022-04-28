@@ -1,9 +1,9 @@
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
+import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/wms_panel_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +23,23 @@ class WmsPanelWidget extends StatelessWidget {
       wmsPanelController.tabViewController.tabsConfig.add(EHTab(
           '%System Welcome Page',
           EHController(),
-          (controller) => Container(
-                height: 500,
-                padding: EdgeInsets.all(50),
-                child: EHText(
-                    weight: FontWeight.bold,
-                    text: 'Welcome use Enhantec WMS System!'.tr),
+          (controller) => Center(
+                child: Container(
+                  width: !Responsive.isMobile(Get.context!) ? 500 : null,
+                  height: !Responsive.isMobile(Get.context!) ? 500 : null,
+                  padding: EdgeInsets.all(10),
+                  //   padding: EdgeInsets.all(50),
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Obx(() => Image.asset(
+                          !ThemeController.instance.isDarkMode.value
+                              ? 'assets/images/background_image5.png'
+                              : 'assets/images/background_image5_dark.jpg',
+                          //#Image Url: https://unsplash.com/photos/bOBM8CB4ZC4
+                          fit: BoxFit.fill,
+                        )),
+                  ),
+                ),
               ),
           showInBottomList: false,
           tabTranslateParams: {'System': 'WMS'}));
