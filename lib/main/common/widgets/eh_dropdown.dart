@@ -122,19 +122,22 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
                       //   ),
                       // ),
                       customButton: controller.isMenu
-                          ? Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Text(controller.label.tr),
-                                ),
-                                const Icon(
-                                  Icons.keyboard_arrow_down,
-                                  size: 24,
-                                  // color: Colors.red,
-                                ),
-                              ],
-                            )
+                          ? IntrinsicWidth(
+                              child: Row(children: [
+                              Expanded(
+                                child: Row(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(controller.label.tr),
+                                  ),
+                                  const Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 24,
+                                    // color: Colors.red,
+                                  ),
+                                ]),
+                              ),
+                            ]))
                           : null,
                       items: _addDividersAfterItems(
                           controller.items.keys.toList()),

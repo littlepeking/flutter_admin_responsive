@@ -66,7 +66,7 @@ Map<String, String> zhCNMessages = {
   'Confirm': '确认',
   'Cancel': '取消',
   'Actions': '执行',
-  '[Empty]': '[空]',
+  '[Blank]': '[空]',
   '[--All--]': '[全部]',
   'request url cannot found': '请求的服务器地址不存在',
   'Loading...': '加载中....',

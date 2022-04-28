@@ -265,7 +265,7 @@ class EHMultiSelectController extends EHEditableWidgetController {
             onValidate: onValidate) {
     this.items = new Map<String, String>.from(items);
     if (allowSelectEmpty && !this.items.containsKey('[__EMPTY__]'))
-      this.items['[__EMPTY__]'] = '[Empty]'.tr; // placeholder for empty value
+      this.items['[__EMPTY__]'] = '[Blank]'.tr; // placeholder for empty value
     this.items['-999'] = 'add item to prevent dropdown2 throw error ';
     this._bindingValue = bindingValue;
 

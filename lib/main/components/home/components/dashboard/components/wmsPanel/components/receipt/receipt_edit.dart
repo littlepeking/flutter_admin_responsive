@@ -109,7 +109,7 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
                   .toString())),
         ),
         Container(
-          width: 75,
+          // width: 90,
           child: EHDropdown(
               controller: EHDropDownController(
             key: GlobalKey(),
