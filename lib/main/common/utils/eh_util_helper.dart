@@ -25,6 +25,12 @@ class EHUtilHelper {
 
   static DateTime convertToGMT11AM(DateTime dateTime) {
     return DateTime.utc(
-        dateTime.year, dateTime.month, dateTime.day, 11, 0, 0, 0, 0);
+            dateTime.year, dateTime.month, dateTime.day, 11, 0, 0, 0, 0)
+        .toLocal();
+  }
+
+  static DateTime getGMT11AMOfToday() {
+    DateTime d = DateTime.now();
+    return convertToGMT11AM(d);
   }
 }

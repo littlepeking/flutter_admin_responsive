@@ -142,6 +142,16 @@ class EHRestService extends GetxController {
         data: body, queryParameters: params, options: options);
   }
 
+  Future<Response<T>> getByServiceName<T>({
+    required String serviceName,
+    required String actionName,
+    Map<String, dynamic>? params,
+    Options? options,
+  }) {
+    return _dio.get<T>(serviceName + '/' + actionName,
+        queryParameters: params, options: options);
+  }
+
   Future<Response<T>> postByServiceName<T>({
     required String serviceName,
     required String actionName,

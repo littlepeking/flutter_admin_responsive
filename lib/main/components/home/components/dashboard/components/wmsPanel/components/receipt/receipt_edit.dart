@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
+import 'package:eh_flutter_framework/main/common/services/common/eh_common_service.dart';
+import 'package:eh_flutter_framework/main/common/services/common/eh_common_service_names.dart';
 import 'package:eh_flutter_framework/main/common/services/wms/outbound/receipt_service.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
@@ -10,6 +12,7 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../../../../../../../common/widgets/eh_button.dart';
+import '../../../../../../../../common/widgets/eh_datagrid/eh_datagrid_filter_data.dart';
 import '../../../../../../../../common/widgets/eh_toolbar.dart';
 import 'receipt_edit_controller.dart';
 import 'package:split_view/split_view.dart';
@@ -81,6 +84,15 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
                 .receiptDetailInfoController.receiptModel.value
                 .toJsonStr();
             print(modelStr);
+
+            ReceiptModel model = await ReceiptService().createOrUpdateModel(
+                model:
+                    controller.receiptDetailInfoController.receiptModel.value);
+
+            //controller.receiptDetailInfoController.receiptModel.value = model;
+
+            controller.receiptDetailInfoController.receiptModel.refresh();
+
             EHToastMessageHelper.showInfoMessage(modelStr);
           },
           child: Text('Validate Form'.tr),
@@ -92,9 +104,12 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
                 controller.asnHeaderDataGridController.dataGridSource.filters));
             EHToastMessageHelper.showInfoMessage(jsonEncode(
                 controller.asnHeaderDataGridController.dataGridSource.filters));
-            List<ReceiptModel> list = await ReceiptService().query(
-                conditions: controller
-                    .asnHeaderDataGridController.dataGridSource.filters);
+            List<ReceiptModel> list = await ReceiptService().queryByConditions(
+                conditions: Map.fromIterable(
+                    controller
+                        .asnHeaderDataGridController.dataGridSource.filters,
+                    key: (e) => (e as EHDataGridFilterData).columnName,
+                    value: (e) => (e as EHDataGridFilterData).value));
 
             EHToastMessageHelper.showInfoMessage(list.toString());
           },

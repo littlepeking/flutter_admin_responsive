@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_custom_form_widget.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
@@ -36,7 +37,7 @@ class ReceiptDetailViewController extends EHPanelController {
           dropdownValue3: '0',
           multiSelectValues: ['1', '2'],
           dateTime: DateTime.now(),
-          dateTime2: DateTime.now())
+          dateTime2: EHUtilHelper.getGMT11AMOfToday())
       .obs;
 
   late Function datePicker1ControllerFunc;
