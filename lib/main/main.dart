@@ -12,7 +12,6 @@ import 'package:eh_flutter_framework/main/components/home/components/error/PageN
 import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:eh_flutter_framework/main/routes/page_config.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get/get.dart';
 
 main() {
   // disable WidgetsFlutterBinding.ensureInitialized() as it will prevent runZonedGuarded.onerror be triggered.

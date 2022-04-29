@@ -23,10 +23,10 @@ class _LoginScreenState extends State<LoginScreen> {
     usernameController.text = 'jessica';
     passwordController.text = 'Laura';
 
-    double LoginBoxWidth = MediaQuery.of(context).size.width > 500
+    double loginBoxWidth = MediaQuery.of(context).size.width > 500
         ? 500
         : MediaQuery.of(context).size.width;
-    double LoginBoxHeight = MediaQuery.of(context).size.height > 700
+    double loginBoxHeight = MediaQuery.of(context).size.height > 700
         ? 700
         : MediaQuery.of(context).size.height;
 
@@ -66,8 +66,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           blendMode: BlendMode.lighten,
                           filter: ImageFilter.blur(sigmaY: 70, sigmaX: 50),
                           child: Container(
-                            height: LoginBoxHeight * .9,
-                            width: LoginBoxWidth * .9,
+                            height: loginBoxHeight * .9,
+                            width: loginBoxWidth * .9,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -175,10 +175,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                   child: Container(
                                     margin: EdgeInsets.only(
-                                      bottom: LoginBoxWidth * .05,
+                                      bottom: loginBoxWidth * .05,
                                     ),
-                                    height: LoginBoxHeight * .1,
-                                    width: LoginBoxWidth / 1.25,
+                                    height: loginBoxHeight * .1,
+                                    width: loginBoxWidth / 1.25,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       color: Colors.black.withOpacity(.1),

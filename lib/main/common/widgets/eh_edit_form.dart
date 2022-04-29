@@ -18,6 +18,8 @@ import 'eh_custom_form_widget.dart';
 
 typedef EHEditableWidgetController EHFormWidgetControllerBuilder();
 
+typedef EHEditableWidget EHEditWidgetBuilder(Key key, FocusNode focusNode);
+
 class EHEditForm<T extends EHModel>
     extends EHStatelessWidget<EHEditFormController<T>> {
   EHEditForm({Key? key, required EHEditFormController<T> controller})
@@ -180,6 +182,17 @@ class EHEditFormController<T extends EHModel> extends EHController {
     }
     return isValid;
   }
-}
 
-typedef EHEditableWidget EHEditWidgetBuilder(Key key, FocusNode focusNode);
+  EHEditableWidgetController findWidgetControllerById(String id) {
+    Iterable it = widgetsControllers.where((c) => c.id == id);
+
+    if (it.length == 1) {
+      return it.first;
+    } else if (it.length == 0) {
+      throw EHException('Widget Id $id is not found in current EHEditForm');
+    } else {
+      throw EHException(
+          'More than one Widget Id $id are found in current EHEditForm, but it should be unique.');
+    }
+  }
+}

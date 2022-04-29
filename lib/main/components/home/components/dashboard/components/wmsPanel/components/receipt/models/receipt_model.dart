@@ -20,6 +20,7 @@ class ReceiptModel extends EHModel {
 
   String dropdownValue;
   String dropdownValue2;
+  String dropdownValue3;
   List<String> multiSelectValues;
   DateTime? dateTime;
   DateTime? dateTime2;
@@ -32,6 +33,7 @@ class ReceiptModel extends EHModel {
     required this.customerName,
     required this.dropdownValue,
     required this.dropdownValue2,
+    required this.dropdownValue3,
     required this.multiSelectValues,
     required this.dateTime,
     required this.dateTime2,

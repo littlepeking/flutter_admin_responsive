@@ -9,7 +9,6 @@ import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_in
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_source.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';

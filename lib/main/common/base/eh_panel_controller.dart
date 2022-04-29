@@ -1,16 +1,17 @@
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 
 class EHPanelController extends EHController {
-  EHPanelController? parent;
-  EHPanelController? root;
+  EHPanelController? parentController;
+  EHPanelController? rootController;
 
-  EHPanelController(EHPanelController? parent) {
-    this.parent = parent;
-    this.root = parent == null ? this : parent.root;
+  EHPanelController(EHPanelController? parentController) {
+    this.parentController = parentController;
+    this.rootController =
+        parentController == null ? this : parentController.rootController;
   }
 
   bool isRootController() {
-    return root == this;
+    return rootController == this;
   }
 
   // void initChildPanel(EHPanelController childPanelController) {

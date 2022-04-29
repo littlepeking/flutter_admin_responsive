@@ -33,6 +33,7 @@ class ReceiptDetailViewController extends EHPanelController {
           customerName: 'cus001Name',
           dropdownValue: '1',
           dropdownValue2: '0',
+          dropdownValue3: '0',
           multiSelectValues: ['1', '2'],
           dateTime: DateTime.now(),
           dateTime2: DateTime.now())
@@ -154,7 +155,7 @@ class ReceiptDetailViewController extends EHPanelController {
                     ddlType.value = value;
                     //use parent controller to do something...
                     EHToastMessageHelper.showInfoMessage(
-                        (root as ReceiptEditController)
+                        (rootController as ReceiptEditController)
                             .asnHeaderDataGridController
                             .dataGridSource
                             .getSelectedRows()
@@ -168,8 +169,17 @@ class ReceiptDetailViewController extends EHPanelController {
               () => EHDropDownController(
                   label: '下拉框2',
                   bindingFieldName: 'dropdownValue2',
-                  //items: getDDLItems(receiptModel.value.dropdownValue),
                   items: getDDLItems(ddlType.value),
+                  onChanged: (value) => {}),
+              () => EHDropDownController(
+                  label: '下拉框3',
+                  bindingFieldName: 'dropdownValue3',
+                  items: () {
+                    receiptModel.value.dropdownValue3 =
+                        receiptModel.value.dropdownValue;
+                    //get items data based on other widget value
+                    return getDDLItems(receiptModel.value.dropdownValue);
+                  }(),
                   onChanged: (value) => {}),
               () => EHDropDownController(
                   label: '下拉框-级联',
@@ -375,9 +385,9 @@ class ReceiptDetailViewController extends EHPanelController {
 class CustomWidget extends EHValidationWidget {
   CustomWidget(this.key, this.focusNode, this.rxModel);
 
-  FocusNode? focusNode;
-  Key? key;
-  Rx<ReceiptModel>? rxModel;
+  final FocusNode? focusNode;
+  final Key? key;
+  final Rx<ReceiptModel>? rxModel;
 
   @override
   bool validate() {

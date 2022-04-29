@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:eh_flutter_framework/main/common/services/common/eh_rest_error.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' hide Response, FormData;
@@ -104,7 +103,7 @@ class EHRestService extends GetxController {
 
     ///charles抓包
     if (kDebugMode && useCharles) {
-      bool isProxyChecked = true;
+      bool isProxyChecked = false;
       String proxy = charlesProxy;
       (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
           (client) {

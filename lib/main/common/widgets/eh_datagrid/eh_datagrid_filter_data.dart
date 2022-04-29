@@ -17,7 +17,6 @@ class EHDataGridFilterData {
   factory EHDataGridFilterData.fromJson(Map<String, dynamic> json) =>
       _$EHDataGridFilterDataFromJson(json);
 
-  @override
   Map<String, dynamic> toJson() => _$EHDataGridFilterDataToJson(this);
 
   String toJsonStr() => jsonEncode(toJson());
