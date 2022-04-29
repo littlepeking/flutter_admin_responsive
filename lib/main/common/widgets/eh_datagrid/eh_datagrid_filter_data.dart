@@ -6,7 +6,7 @@ import '../../utils/eh_refactor_helper.dart';
 part 'eh_datagrid_filter_data.g.dart';
 
 @JsonSerializable()
-@methodExecutor
+@EHMethodExecutor
 class EHDataGridFilterData {
   String columnName;
   String type;

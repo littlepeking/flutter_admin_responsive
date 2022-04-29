@@ -8,7 +8,7 @@ import '../../utils/eh_refactor_helper.dart';
 part 'eh_rest_error.g.dart';
 
 @JsonSerializable()
-@methodExecutor
+@EHMethodExecutor
 class RestError {
   String title;
   int status;

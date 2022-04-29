@@ -42,7 +42,7 @@ abstract class EHBaseModelService<T extends EHModel> extends GetxController {
     return response.data!;
   }
 
-  Future<T> createOrUpdateModel<T extends EHModel>({
+  Future<T> createOrUpdateModel({
     String actionName = 'saveModel',
     required T model,
   }) async {

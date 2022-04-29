@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:eh_flutter_framework/main/common/base/eh_model_converters.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
@@ -10,7 +11,9 @@ import '../../../../../../../../../common/utils/eh_refactor_helper.dart';
 part 'receipt_model.g.dart';
 
 @JsonSerializable()
-@methodExecutor
+@EHMethodExecutor
+@EHDateTime2TimeStampConverter
+@EHList2StringConverter
 class ReceiptModel extends EHModel {
   String? receiptKey;
   int? num1;
@@ -22,6 +25,8 @@ class ReceiptModel extends EHModel {
   String dropdownValue2;
   String dropdownValue3;
   List<String> multiSelectValues;
+
+  //@EHDateTime2TimeStampConverter()
   DateTime? dateTime;
   DateTime? dateTime2;
   bool? isChecked;
