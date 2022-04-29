@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/i18n/customSfLocalization.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:eh_flutter_framework/main/common/Utils/theme.dart';
@@ -10,20 +12,11 @@ import 'package:eh_flutter_framework/main/components/home/components/error/PageN
 import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:eh_flutter_framework/main/routes/page_config.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  FlutterError.onError = (FlutterErrorDetails details) {
-    //this line prints the default flutter gesture caught exception in console
-    FlutterError.dumpErrorToConsole(details, forceReport: true);
-    print("--------------------------------");
-    print("Error From INSIDE FRAME_WORK");
-    print("----------------------");
-    print("++++++++++++++++++++++");
-    print("----------------------");
-    print("Error :  ${details.exception}");
-    print("StackTrace :  ${details.stack}");
-  };
+main() {
+  // disable WidgetsFlutterBinding.ensureInitialized() as it will prevent runZonedGuarded.onerror be triggered.
+  // WidgetsFlutterBinding.ensureInitialized();
   runZonedGuarded(() async {
     runApp(GetMaterialApp(
       localizationsDelegates: [
@@ -41,7 +34,9 @@ void main() {
       debugShowCheckedModeBanner: false,
       theme: EhTheme.lightTheme,
       darkTheme: EhTheme.darkTheme,
-      themeMode: Get.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      // AS WidgetsFlutterBinding.ensureInitialized() is disabled, commment following code as it will not work.
+      themeMode:
+          ThemeController.defaultIsDarkMode ? ThemeMode.dark : ThemeMode.light,
       color: Colors.white,
       //home: Home(),
       initialRoute: '/login',
@@ -57,6 +52,18 @@ void main() {
       fallbackLocale: Locale('en', 'US'),
     )); // starting point of app
   }, (error, stackTrace) {
+    print('Triggers asynchrounous error, like dioError');
+    if (error is DioError) {
+      DioError dioError = error;
+      if (dioError.response != null &&
+          dioError.response!.data != null &&
+          dioError.response!.data!['details'] != null) {
+        EHToastMessageHelper.showInfoMessage(
+            dioError.response!.data!['details'].toString().tr);
+      } else {
+        EHToastMessageHelper.showInfoMessage((error).error);
+      }
+    }
     print("--------------------------------\n");
     print("Error FROM OUT_SIDE FRAMEWORK ");
     print("--------------------------------\n");
@@ -65,6 +72,19 @@ void main() {
     print("Error :  $error");
     print("StackTrace :  $stackTrace");
   });
+
+  FlutterError.onError = (FlutterErrorDetails details) {
+    print('Triggers synchronous error');
+    //this line prints the default flutter gesture caught exception in console
+    FlutterError.dumpErrorToConsole(details, forceReport: true);
+    print("--------------------------------");
+    print("Error From INSIDE FRAME_WORK");
+    print("----------------------");
+    print("++++++++++++++++++++++");
+    print("----------------------");
+    print("Error :  ${details.exception}");
+    print("StackTrace :  ${details.stack}");
+  };
 }
 
 class InitAppBinding extends Bindings {

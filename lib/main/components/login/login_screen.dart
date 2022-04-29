@@ -1,12 +1,13 @@
 import 'dart:ui';
 
-import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
-import 'package:flutter/gestures.dart';
+import 'package:dio/dio.dart';
+import 'package:eh_flutter_framework/main/common/services/common/eh_rest_service.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-
-import '../../common/widgets/eh_image_button.dart';
+import 'package:get/get.dart' hide Response;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -14,8 +15,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    usernameController.text = 'jessica';
+    passwordController.text = 'Laura';
+
     double LoginBoxWidth = MediaQuery.of(context).size.width > 500
         ? 500
         : MediaQuery.of(context).size.width;
@@ -78,6 +85,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: Text(
                                       'SCM Execution Platform'.tr,
                                       style: TextStyle(
+                                        letterSpacing:
+                                            Get.locale == Locale('zh', 'CN')
+                                                ? 4
+                                                : 0,
                                         fontFamily: 'NotoSansSC',
                                         fontSize: 25,
                                         fontWeight: FontWeight.w600,
@@ -90,6 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   height: 10,
                                 ),
                                 component(
+                                  usernameController,
                                   Icons.account_circle_outlined,
                                   'Username'.tr,
                                   false,
@@ -99,6 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   height: 10,
                                 ),
                                 component(
+                                  passwordController,
                                   Icons.lock_outline,
                                   'Password'.tr,
                                   true,
@@ -130,7 +143,33 @@ class _LoginScreenState extends State<LoginScreen> {
                                 InkWell(
                                   splashColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
-                                  onTap: () {
+                                  onTap: () async {
+                                    if (EHUtilHelper.isEmpty(
+                                            usernameController.text) ||
+                                        EHUtilHelper.isEmpty(
+                                            passwordController.text)) {
+                                      EHToastMessageHelper.showLoginErrorMessage(
+                                          "username and password cannot be empty"
+                                              .tr);
+                                      return;
+                                    }
+
+                                    Response<Map<String, dynamic>> response =
+                                        await EHRestService().postByServiceName<
+                                                Map<String, dynamic>>(
+                                            serviceName: '/auth',
+                                            actionName: '/login',
+                                            body: {
+                                          'username': usernameController.text,
+                                          'password': passwordController.text
+                                        });
+
+                                    SharedPreferences sharedPreferences =
+                                        await SharedPreferences.getInstance();
+
+                                    sharedPreferences.setString("Authorization",
+                                        response.headers['Authorization']![0]);
+
                                     HapticFeedback.lightImpact();
                                     Get.offAllNamed('/');
                                   },
@@ -156,6 +195,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 ElevatedButton(
+                                    style: ButtonStyle(
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(18.0),
+                                                side: BorderSide(
+                                                    color: Colors.white)))),
                                     onPressed: () {
                                       var enLocale = Locale('en', 'US');
                                       var cnLocale = Locale('zh', 'CN');
@@ -185,8 +232,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget component(
-      IconData icon, String hintText, bool isPassword, bool isEmail) {
+  Widget component(TextEditingController controller, IconData icon,
+      String hintText, bool isPassword, bool isEmail) {
     double width = MediaQuery.of(context).size.width > 500
         ? 500
         : MediaQuery.of(context).size.width;
@@ -206,6 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
+        controller: controller,
         style: TextStyle(
           color: Colors.white.withOpacity(.9),
         ),

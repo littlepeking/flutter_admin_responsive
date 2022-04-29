@@ -8,5 +8,7 @@ class ThemeController extends GetxController {
     return instance.isDarkMode.value ? darkColor : lightColor;
   }
 
-  var isDarkMode = false.obs;
+  static const defaultIsDarkMode = false;
+
+  var isDarkMode = defaultIsDarkMode.obs;
 }

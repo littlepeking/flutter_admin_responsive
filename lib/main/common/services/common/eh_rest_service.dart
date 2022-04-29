@@ -3,15 +3,12 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/services/common/eh_rest_error.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_navigator.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response, FormData;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 
+import '../../Utils/eh_navigator.dart';
 import '../../widgets/eh_loading_indicator.dart';
 
 class EHRestService extends GetxController {
@@ -29,7 +26,7 @@ class EHRestService extends GetxController {
       EHLoadingIndicator(context: Get.context, barrierDimisable: false);
 
   EHRestService._internal() {
-    _dio.options.baseUrl = "http://localhost:8061/api/";
+    _dio.options.baseUrl = "http://192.168.2.36:8061/api/";
     //dio.options.connectTimeout = 20000;
     //dio.options.receiveTimeout = 10000;
 
@@ -43,8 +40,8 @@ class EHRestService extends GetxController {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String jwtToken = prefs.get("Authorization") == null ||
               prefs.get("Authorization") == "null"
-          //? ''
-          ? 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqZXNzaWNhIiwiYXV0aG9yaXRpZXMiOiJSRUNFSVBUVVNFUiIsImlhdCI6MTY1MDkzNjEwMn0.KK1Cl9R9n340beRkuOpT4fhsOR2GKxG0mw4UxQvn-MRVYnVF5vBto-A3w9bNYzyLl8Q15z4HdU2qhQATVUfUFg' //TEST JWT TOKEN
+          ? ''
+          // ? 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqZXNzaWNhIiwiYXV0aG9yaXRpZXMiOiJSRUNFSVBUVVNFUiIsImlhdCI6MTY1MDkzNjEwMn0.KK1Cl9R9n340beRkuOpT4fhsOR2GKxG0mw4UxQvn-MRVYnVF5vBto-A3w9bNYzyLl8Q15z4HdU2qhQATVUfUFg' //TEST JWT TOKEN
           : prefs.get("Authorization").toString();
       requestOptions.headers.addAll({"Authorization": jwtToken});
       return handler.next(requestOptions);
@@ -68,35 +65,41 @@ class EHRestService extends GetxController {
         EHToastMessageHelper.showInfoMessage('request url cannot found'.tr);
         //return handler.next(error);
       } else if (error.response?.statusCode == 401) {
-        EHNavigator.navigateTo("/login");
         // bus.emit("401");
-        EHToastMessageHelper.showInfoMessage(
-            'Unauthorized or Session timeout'.tr);
+        if (error.response?.data!['details'] == 'Bad credentials') {
+          EHToastMessageHelper.showLoginErrorMessage('Bad credentials'.tr);
+        } else if (error.response?.data!['details'] == 'Session timeout') {
+          EHToastMessageHelper.showInfoMessage('Session timeout'.tr);
+          EHNavigator.navigateTo("/login");
+        } else {
+          EHToastMessageHelper.showInfoMessage('Unauthorized'.tr);
+        }
       } else {
         if (error.type == DioErrorType.connectTimeout ||
             error.type == DioErrorType.receiveTimeout ||
             error.type == DioErrorType.sendTimeout) {
           EHToastMessageHelper.showInfoMessage('Network connect error.'.tr);
         } else {
-          var errData = error.response?.data;
-          if (errData != null) {
-            RestError error = RestError.fromJsonStr(errData);
-            EHToastMessageHelper.showInfoMessage(
-                '\n' +
-                    'Error Type:'.tr +
-                    "  " +
-                    error.title.tr +
-                    '\n\n' +
-                    'Error Detail:'.tr +
-                    "\n" +
-                    error.detail,
-                title: 'System Error');
-          }
+          //comment this part as all other exception should be handled by developer and if it doesn't, dioError will be finally catched by main.dart
+          // var errData = error.response?.data;
+          // if (errData != null) {
+          //   RestError error = RestError.fromJsonStr(errData);
+          //   EHToastMessageHelper.showInfoMessage(
+          //       '\n' +
+          //           'Error Type:'.tr +
+          //           "  " +
+          //           error.title.tr +
+          //           '\n\n' +
+          //           'Error Detail:'.tr +
+          //           "\n" +
+          //           error.detail,
+          //       title: 'System Error');
+          // }
 
-          //return handler.next(error);
+          return handler.next(error);
         }
       }
-      return handler.next(error);
+      //return handler.next(error);
     }));
 
     ///charles抓包

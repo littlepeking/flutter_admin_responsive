@@ -29,4 +29,28 @@ class EHToastMessageHelper {
           style: Theme.of(Get.context!).textTheme.bodyText1,
         ));
   }
+
+  static showLoginErrorMessage(String message,
+      {String title = 'Message Infomation'}) {
+    Get.snackbar(title.tr, message.tr,
+        maxWidth: 500,
+        barBlur: 5.0,
+        //backgroundColor: Colors.grey,
+        margin: EdgeInsets.all(10),
+        icon: Icon(Icons.info, color: Colors.yellow),
+        // forwardAnimationCurve: Curves.easeOutBack,
+        //colorText: Colors.black,
+        shouldIconPulse: true,
+
+        // backgroundColor: Colors.yellow,
+        duration: Duration(milliseconds: 3000),
+        titleText: Text(
+          title.tr,
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        messageText: Text(
+          message.tr,
+          style: TextStyle(color: Colors.white),
+        ));
+  }
 }
