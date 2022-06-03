@@ -29,7 +29,7 @@ class ReceiptEditController extends EHPanelController {
   RxDouble splitterWeights = 0.5.obs;
 
   FocusNode fnButton = FocusNode();
-  ReceiptEditController() : super(null) {
+  ReceiptEditController(EHPanelController? parent) : super(parent) {
     receiptDetailInfoController = ReceiptDetailViewController(this);
     // initChildPanel(receiptDetailInfoController);
 

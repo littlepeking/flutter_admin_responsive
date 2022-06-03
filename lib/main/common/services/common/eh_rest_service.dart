@@ -25,7 +25,7 @@ class EHRestService extends GetxController {
       EHLoadingIndicator(context: Get.context, barrierDimisable: false);
 
   EHRestService._internal() {
-    _dio.options.baseUrl = "http://192.168.2.36:8061/api/";
+    _dio.options.baseUrl = "http://192.168.4.39:8061/api/";
     //dio.options.connectTimeout = 20000;
     //dio.options.receiveTimeout = 10000;
 

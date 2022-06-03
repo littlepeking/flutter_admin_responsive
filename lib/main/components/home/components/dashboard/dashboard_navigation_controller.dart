@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/Utils/eh_navigator.dart';
 import 'package:eh_flutter_framework/main/common/constants/navigation_keys.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/wms_panel.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/taskPanel/my_tasks.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class DashBoardNavigationController extends GetxController {
         return EHNavigator.getPageRoute(settings, WmsPanelWidget());
       case "/tmsPanel":
         return EHNavigator.getPageRoute(settings, TmsPanelWidget());
+      case "/systemModule":
+        return EHNavigator.getPageRoute(settings, SystemModuleWidget());
       case "/myTasks":
         return EHNavigator.getPageRoute(settings, MyTasks());
       default:

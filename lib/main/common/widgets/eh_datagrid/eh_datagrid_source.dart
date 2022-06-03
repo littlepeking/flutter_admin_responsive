@@ -167,15 +167,26 @@ class EHDataGridSource extends DataGridSource {
     }
   }
 
+  List<EHColumnConf> getUnhiddenColumnConfs() {
+    columnsConfig = columnsConfig
+        .where((element) => element.hideType != EHGridColHideType.hide)
+        .toList();
+
+    if (isMobile) {
+      columnsConfig = columnsConfig
+          .where(
+              (element) => element.hideType != EHGridColHideType.hideInMobile)
+          .toList();
+    }
+
+    return columnsConfig;
+  }
+
   /// Building DataGridRows
   void buildDataGridRows() {
     List<DataGridRow> rows = _dataList.map<DataGridRow>((Map row) {
-      if (isMobile) {
-        columnsConfig =
-            columnsConfig.where((element) => !element.hideInMobile).toList();
-      }
-
-      List<DataGridCell<Object>> cellList = columnsConfig.map((columnConfig) {
+      List<DataGridCell<Object>> cellList =
+          getUnhiddenColumnConfs().map((columnConfig) {
         dynamic cellValue = row[columnConfig.columnName];
 
         if (!row.containsKey(columnConfig.columnName))
@@ -238,7 +249,7 @@ class EHDataGridSource extends DataGridSource {
     }
 
     List<Widget> cellWidgets = [];
-    columnsConfig.forEach((config) {
+    getUnhiddenColumnConfs().forEach((config) {
       Iterable<DataGridCell> iterableDateGridCell =
           row.getCells().where((cell) => cell.columnName == config.columnName);
       Object? currentCellValue;

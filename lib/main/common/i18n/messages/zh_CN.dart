@@ -30,7 +30,7 @@ Map<String, String> zhCNMessages = {
   'Asn': '收货单',
   'Asn Details': '收货单明细',
   'Shipment Orders': '运单管理',
-  '%System Welcome Page': '欢迎使用殷汉@System',
+  '%System Welcome Page': '欢迎使用殷汉 - @System',
   'Tasks': '任务',
   'Notifications': '提醒',
   'Message Infomation': '系统消息',
@@ -53,7 +53,7 @@ Map<String, String> zhCNMessages = {
   'qty': '数量',
   'date': '日期',
   'time': '时间',
-  'enabled': '是否确认',
+  'enabled': '是否启用',
   'Data update failed': '数据获取失败，请检查网络',
   'This field cannot be empty': '字段不能为空',
   'Please Select Item': '请选择条目',
@@ -76,6 +76,12 @@ Map<String, String> zhCNMessages = {
   'Loading...': '加载中....',
   'No record related to code': '未找到关联的代码',
   'Mutilple records related to code': '多个记录关联到代码',
+  'SystemModule': '系统管理组件',
+  //Security Management
+  'Security': '安全',
+  'User': '用户',
+  'Role': '角色',
+  'SYSTEM': '系统',
   ////
   ///test i18 data
   'popUp': '弹出框',

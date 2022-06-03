@@ -49,7 +49,7 @@ getFunctionButtons() {
       icon: Icon(Icons.cabin),
       onPressed: (data) {
         // if (System.wms != GlobalDataController.instance.system.value) {
-        GlobalDataController.instance.system.value = System.wms;
+        GlobalDataController.instance.system.value = SystemModule.wms;
         EHNavigator.navigateTo(
           "/wmsPanel",
           navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -61,10 +61,23 @@ getFunctionButtons() {
       text: 'TMS',
       icon: Icon(Icons.local_shipping),
       onPressed: (data) {
-        if (System.tms != GlobalDataController.instance.system.value) {
-          GlobalDataController.instance.system.value = System.tms;
+        if (SystemModule.tms != GlobalDataController.instance.system.value) {
+          GlobalDataController.instance.system.value = SystemModule.tms;
           EHNavigator.navigateTo(
             "/tmsPanel",
+            navigatorKey: NavigationKeys.dashBoardNavKey,
+          );
+        }
+      },
+    ),
+    EHImageButton(
+      text: 'SYSTEM',
+      icon: Icon(Icons.monitor),
+      onPressed: (data) {
+        if (SystemModule.system != GlobalDataController.instance.system.value) {
+          GlobalDataController.instance.system.value = SystemModule.system;
+          EHNavigator.navigateTo(
+            "/systemModule",
             navigatorKey: NavigationKeys.dashBoardNavKey,
           );
         }
@@ -74,8 +87,10 @@ getFunctionButtons() {
       text: 'Notification',
       icon: Icon(Icons.notifications),
       onPressed: (data) {
-        if (System.notification != GlobalDataController.instance.system.value) {
-          GlobalDataController.instance.system.value = System.notification;
+        if (SystemModule.notification !=
+            GlobalDataController.instance.system.value) {
+          GlobalDataController.instance.system.value =
+              SystemModule.notification;
           EHNavigator.navigateTo(
             "/myTasks",
             navigatorKey: NavigationKeys.dashBoardNavKey,

@@ -1,13 +1,14 @@
 import 'package:get/get.dart';
 
-enum System {
+enum SystemModule {
   wms,
   tms,
+  system,
   notification,
 }
 
 class GlobalDataController extends GetxController {
   static GlobalDataController instance = Get.find<GlobalDataController>();
 
-  Rx<System> system = System.wms.obs;
+  Rx<SystemModule> system = SystemModule.wms.obs;
 }

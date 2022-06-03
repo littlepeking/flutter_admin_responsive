@@ -41,7 +41,11 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
   }
 
   List<GridColumn> getGridColumns() {
-    this.controller.dataGridSource.columnsConfig.forEach((columnConfig) {
+    this
+        .controller
+        .dataGridSource
+        .getUnhiddenColumnConfs()
+        .forEach((columnConfig) {
       if (controller.dataGridSource.columnFilters
           .where((element) => element.columnName == columnConfig.columnName)
           .isEmpty) {
@@ -51,7 +55,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
     });
 
     List<GridColumn> gridColumnList =
-        this.controller.dataGridSource.columnsConfig.map(
+        this.controller.dataGridSource.getUnhiddenColumnConfs().map(
       (columnConfig) {
         return GridColumn(
             minimumWidth: 100,
