@@ -36,7 +36,7 @@ class UserListController extends EHPanelController {
         EHColumnConf('username', EHStringColumnType(),
             columnHeaderName: 'USERNAME'),
         EHColumnConf('domainUsername', EHStringColumnType(),
-            columnHeaderName: 'AD USERNAME'),
+            columnHeaderName: 'AD USER'),
         EHColumnConf(
             'authType',
             EHStringColumnType(
@@ -47,11 +47,11 @@ class UserListController extends EHPanelController {
         EHColumnConf('enabled', EHBoolColumnType(),
             columnHeaderName: 'ENABLED'),
         EHColumnConf('accountLocked', EHBoolColumnType(),
-            columnHeaderName: 'IS LOCKED'),
+            columnHeaderName: 'LOCKED'),
         EHColumnConf('credentialsExpired', EHBoolColumnType(),
             columnHeaderName: 'EXPIRED'),
         EHColumnConf('addWho', EHStringColumnType(),
-            columnHeaderName: 'ADD BY'),
+            columnHeaderName: 'ADD WHO'),
         EHColumnConf('addDate', EHDateColumnType(),
             columnHeaderName: 'ADD DATE'),
 

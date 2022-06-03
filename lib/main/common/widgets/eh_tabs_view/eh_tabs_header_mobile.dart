@@ -12,6 +12,16 @@ class EHTabsHeaderMobile extends StatelessWidget {
   EHTabsHeaderMobile({Key? key, required this.controller}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Map<String, String> translatedTabParams = {};
+
+    controller.tabsConfig.forEach((tab) {
+      if (tab.tabTranslateParams != null) {
+        tab.tabTranslateParams!.forEach((key, value) {
+          translatedTabParams[key] = value.tr;
+        });
+      }
+    });
+
     return Obx(() => Container(
           height: 30,
           child: Row(
@@ -22,10 +32,7 @@ class EHTabsHeaderMobile extends StatelessWidget {
                 weight: FontWeight.bold,
                 text: controller
                     .tabsConfig[controller.selectedIndex.value].tabName
-                    .trParams(controller
-                            .tabsConfig[controller.selectedIndex.value]
-                            .tabTranslateParams ??
-                        {}),
+                    .trParams(translatedTabParams),
                 size: 15,
               ))),
               IconButton(

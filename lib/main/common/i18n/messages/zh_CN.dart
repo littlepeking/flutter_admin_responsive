@@ -77,11 +77,22 @@ Map<String, String> zhCNMessages = {
   'No record related to code': '未找到关联的代码',
   'Mutilple records related to code': '多个记录关联到代码',
   'SystemModule': '系统管理组件',
+  'SYSTEM': '系统',
+  'ADD WHO': '添加人',
+  'EDIT WHO': '修改人',
+  'ADD DATE': '添加日期',
+  'EDIT DATE': '修改日期',
   //Security Management
   'Security': '安全',
   'User': '用户',
   'Role': '角色',
-  'SYSTEM': '系统',
+  'USERID': '用户ID',
+  'USERNAME': '用户名',
+  'AD USER': 'AD用户名',
+  'AUTH TYPE': '认证类型',
+  'ENABLED': '是否启用',
+  'LOCKED': '是否锁定',
+  'EXPIRED': '是否过期',
   ////
   ///test i18 data
   'popUp': '弹出框',

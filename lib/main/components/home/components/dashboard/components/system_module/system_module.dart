@@ -42,7 +42,7 @@ class SystemModuleWidget extends StatelessWidget {
                 ),
               ),
           showInBottomList: false,
-          tabTranslateParams: {'System': 'SystemModule'.tr}));
+          tabTranslateParams: {'System': 'SystemModule'}));
 
     return PageStorage(
         bucket: globalPageStorageBucket,

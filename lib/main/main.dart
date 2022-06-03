@@ -26,8 +26,8 @@ main() {
         FallbackLocalizationDelegate()
       ],
       supportedLocales: [
-        const Locale('en'),
-        const Locale('zh'),
+        const Locale('en', 'US'),
+        const Locale('zh', 'CN'),
         // ... other locales the app supports
       ],
       debugShowCheckedModeBanner: false,

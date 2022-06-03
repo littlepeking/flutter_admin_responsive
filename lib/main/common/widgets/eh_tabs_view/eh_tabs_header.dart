@@ -12,6 +12,16 @@ class EHTabHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, String> translatedTabParams = {};
+
+    controller.tabsConfig.forEach((tab) {
+      if (tab.tabTranslateParams != null) {
+        tab.tabTranslateParams!.forEach((key, value) {
+          translatedTabParams[key] = value.tr;
+        });
+      }
+    });
+
     return Container(
       child: Row(
         children: [
@@ -79,11 +89,8 @@ class EHTabHeader extends StatelessWidget {
                                                 '   ' +
                                                     controller.tabsConfig[index]
                                                         .tabName
-                                                        .trParams(controller
-                                                                .tabsConfig[
-                                                                    index]
-                                                                .tabTranslateParams ??
-                                                            {}) +
+                                                        .trParams(
+                                                            translatedTabParams) +
                                                     '   ',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(

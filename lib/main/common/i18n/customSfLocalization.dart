@@ -7,7 +7,7 @@ class CustomSfLocalizationDelegate
   const CustomSfLocalizationDelegate();
 
   @override
-  bool isSupported(Locale locale) => locale.languageCode == 'zh';
+  bool isSupported(Locale locale) => true;
 
   @override
   Future<SfLocalizations> load(Locale locale) {

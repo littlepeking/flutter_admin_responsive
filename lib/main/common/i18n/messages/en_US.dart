@@ -20,5 +20,6 @@ Map<String, String> enUSMessages = {
   'name': 'NAME',
   'city': 'CITY',
   'qty': 'QUANTITY',
-  'date': 'DATE'
+  'date': 'DATE',
+  'SystemModule': 'System Management'
 };
