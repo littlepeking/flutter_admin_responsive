@@ -25,7 +25,7 @@ class Dashboard extends GetView<DashBoardNavigationController> {
               child: Navigator(
                 key: controller.navigatorKey,
                 onGenerateRoute: controller.generateRoute,
-                initialRoute: "/wmsPanel",
+                initialRoute: "/systemModule",
               ),
             ),
           ],

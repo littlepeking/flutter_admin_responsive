@@ -10,5 +10,5 @@ enum SystemModule {
 class GlobalDataController extends GetxController {
   static GlobalDataController instance = Get.find<GlobalDataController>();
 
-  Rx<SystemModule> system = SystemModule.wms.obs;
+  Rx<SystemModule> system = SystemModule.system.obs;
 }

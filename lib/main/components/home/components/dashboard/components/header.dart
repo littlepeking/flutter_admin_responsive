@@ -71,7 +71,7 @@ getFunctionButtons() {
       },
     ),
     EHImageButton(
-      text: 'SYSTEM',
+      text: 'System',
       icon: Icon(Icons.monitor),
       onPressed: (data) {
         if (SystemModule.system != GlobalDataController.instance.system.value) {

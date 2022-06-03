@@ -36,16 +36,16 @@ class UserList extends EHPanel<UserListController> {
                 .getSelectedRows()
                 .toString());
           },
-          child: Text('Add User'.tr),
+          child: Text('Add'.tr),
         )),
         EHButton(
             controller: EHButtonController(
           onPressed: () async {},
-          child: Text('Edit User'.tr),
+          child: Text('Edit'.tr),
         )),
         EHButton(
             controller: EHButtonController(
-          child: Text('Delete User'.tr),
+          child: Text('Delete'.tr),
           onPressed: () async {},
         )),
         Container(
