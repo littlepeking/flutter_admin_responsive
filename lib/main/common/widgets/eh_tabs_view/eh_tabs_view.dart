@@ -50,9 +50,9 @@ class EHTabsView extends StatelessWidget {
     }
 
     getExpandModeTabWidget(EHTab<EHController> tab) {
-      EHTabsViewExpandMode tabexpandMode = tab.expandMode ?? expandMode;
+      EHTabsViewExpandMode tabExpandMode = tab.expandMode ?? expandMode;
 
-      switch (tabexpandMode) {
+      switch (tabExpandMode) {
         case EHTabsViewExpandMode.Scrollable:
           return SingleChildScrollView(
             primary:

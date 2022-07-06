@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
+import 'package:eh_flutter_framework/main/common/constants/common_constant.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
@@ -36,7 +37,7 @@ class UserListController extends EHPanelController {
         EHColumnConf('username', EHStringColumnType(),
             columnHeaderName: 'Username'),
         EHColumnConf('domainUsername', EHStringColumnType(),
-            columnHeaderName: 'AD Username'),
+            columnHeaderName: 'Domain Username'),
         EHColumnConf(
             'authType',
             EHStringColumnType(
@@ -47,17 +48,19 @@ class UserListController extends EHPanelController {
         EHColumnConf('enabled', EHBoolColumnType(),
             columnHeaderName: 'Enabled'),
         EHColumnConf('accountLocked', EHBoolColumnType(),
-            columnHeaderName: 'Locked'),
+            columnHeaderName: 'Account Locked'),
         EHColumnConf('credentialsExpired', EHBoolColumnType(),
-            columnHeaderName: 'Expired'),
+            columnHeaderName: 'Credentials Expired'),
         EHColumnConf('addWho', EHStringColumnType(),
             columnHeaderName: 'Add Who'),
-        EHColumnConf('addDate', EHDateColumnType(),
+        EHColumnConf('addDate',
+            EHDateColumnType(dateFormat: CommonConstant.defaultDateTimeFormat),
             columnHeaderName: 'Add Date'),
 
         EHColumnConf('editWho', EHStringColumnType(),
             columnHeaderName: 'Edit Who'),
-        EHColumnConf('editDate', EHDateColumnType(),
+        EHColumnConf('editDate',
+            EHDateColumnType(dateFormat: CommonConstant.defaultDateTimeFormat),
             columnHeaderName: 'Edit Date'),
         // EHColumnConf('isConfirmed', EHBoolColumnType(), columnWidth: 110),
       ],

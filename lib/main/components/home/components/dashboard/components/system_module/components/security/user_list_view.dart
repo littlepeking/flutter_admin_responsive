@@ -1,11 +1,16 @@
+import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_edit_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_edit_view.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/get.dart';
 import 'user_list_controller.dart';
 
 class UserList extends EHPanel<UserListController> {
@@ -31,17 +36,14 @@ class UserList extends EHPanel<UserListController> {
         EHButton(
             controller: EHButtonController(
           onPressed: () async {
-            EHToastMessageHelper.showInfoMessage(controller
-                .userDataGridController.dataGridSource
-                .getSelectedRows()
-                .toString());
+            Get.find<SystemModuleController>().tabViewController.addTab(
+                    EHTab<UserEditController>(
+                        'Edit User', UserEditController(null),
+                        (EHController controller) {
+                  return UserEdit(controller: controller);
+                }, closable: true));
           },
           child: Text('Add'.tr),
-        )),
-        EHButton(
-            controller: EHButtonController(
-          onPressed: () async {},
-          child: Text('Edit'.tr),
         )),
         EHButton(
             controller: EHButtonController(

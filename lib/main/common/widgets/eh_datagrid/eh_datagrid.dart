@@ -1,6 +1,7 @@
 ///Package imports
 import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
@@ -35,9 +36,11 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
   EHDataGrid({Key? key, controller}) : super(key: key, controller: controller);
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: controller.fixedHeight ?? double.infinity,
-        child: _buildLayoutBuilder());
+    return Responsive.isMobile(Get.context!)
+        ? Container(
+            height: controller.fixedHeight ?? double.infinity,
+            child: _buildLayoutBuilder())
+        : Expanded(child: _buildLayoutBuilder());
   }
 
   List<GridColumn> getGridColumns() {
