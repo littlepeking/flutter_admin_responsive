@@ -40,7 +40,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
         ? Container(
             height: controller.fixedHeight ?? double.infinity,
             child: _buildLayoutBuilder())
-        : Expanded(child: _buildLayoutBuilder());
+        : _buildLayoutBuilder();
   }
 
   List<GridColumn> getGridColumns() {
