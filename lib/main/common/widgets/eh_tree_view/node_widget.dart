@@ -13,21 +13,13 @@ import 'primitives/tree_node.dart';
 /// Widget that displays one [TreeNode] and its children.
 class NodeWidget extends StatefulWidget {
   final TreeNode treeNode;
-  final double? indent;
-  final double? iconSize;
   final TreeController state;
-  final double paddingSize;
-  final double? nodeMaxSize;
 
-  const NodeWidget(
-      {Key? key,
-      required this.treeNode,
-      this.indent,
-      required this.state,
-      this.paddingSize = 0,
-      this.nodeMaxSize = 30,
-      this.iconSize})
-      : super(key: key);
+  const NodeWidget({
+    Key? key,
+    required this.treeNode,
+    required this.state,
+  }) : super(key: key);
 
   @override
   _NodeWidgetState createState() => _NodeWidgetState();
@@ -56,16 +48,27 @@ class _NodeWidgetState extends State<NodeWidget> {
         : () => setState(
             () => widget.state.toggleNodeExpanded(widget.treeNode.key!));
 
+    List<NodeWidget> children = [];
+
+    if (widget.treeNode.children != null) {
+      for (var node in widget.treeNode.children!) {
+        children.add(NodeWidget(
+          treeNode: node,
+          state: widget.state,
+        ));
+      }
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
             SizedBox(
-              height: 30,
+              height: widget.state.nodeMaxSize,
               child: IconButton(
-                padding: EdgeInsets.all(widget.paddingSize),
-                iconSize: widget.iconSize ?? widget.nodeMaxSize,
+                padding: EdgeInsets.all(widget.state.paddingSize),
+                iconSize: widget.state.iconSize,
                 icon: Icon(icon),
                 onPressed: onIconPressed,
               ),
@@ -75,9 +78,8 @@ class _NodeWidgetState extends State<NodeWidget> {
         ),
         if (_isExpanded && !_isLeaf)
           Padding(
-            padding: EdgeInsets.only(left: widget.indent!),
-            child: buildNodes(widget.treeNode.children!, widget.indent,
-                widget.state, widget.iconSize, widget.nodeMaxSize),
+            padding: EdgeInsets.only(left: widget.state.indent),
+            child: Column(children: children),
           )
       ],
     );

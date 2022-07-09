@@ -2,7 +2,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/primitives
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
-import '../../base/eh_edit_widget_controller.dart';
+import '../../../base/eh_edit_widget_controller.dart';
 
 class EHTreeNode extends TreeNode {
   EHTreeNode(
@@ -30,15 +30,4 @@ class EHTreeNode extends TreeNode {
                 ),
               ],
             ));
-}
-
-class EHTreeController extends EHEditableWidgetController {
-  EHTreeController({required this.treeData});
-
-  List<Map> treeData;
-
-  @override
-  Future<bool> validateWidget() async {
-    return true;
-  }
 }

@@ -1,4 +1,4 @@
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/primitives/eh_tree_node.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/primitives/tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/tree_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
@@ -29,7 +29,7 @@ class SideMenuController extends GetxController {
       case SystemModule.tms:
         return Get.find<TmsPanelController>().sideMenuTreeController;
       case SystemModule.system:
-        return Get.find<SystemModuleController>().sideMenuTreeController;
+        return Get.find<SystemModuleController>().getsideMenuTreeController;
       case SystemModule.notification:
         return Get.find<TaskPanelController>().sideMenuTreeController;
       default:
@@ -37,29 +37,28 @@ class SideMenuController extends GetxController {
     }
   }
 
-  static List<EHTreeNode> getMenu(SystemModule module) {
-    switch (module) {
-      case SystemModule.wms:
-        return Get.find<WmsPanelController>().menu;
-      case SystemModule.tms:
-        return Get.find<TmsPanelController>().menu;
-      case SystemModule.system:
-        return Get.find<SystemModuleController>().menu;
-      case SystemModule.notification:
-        return Get.find<TaskPanelController>().menu;
-      default:
-        throw Exception('no suitable menu found for' + module.toString());
-    }
-  }
+  // static List<dynamic> getMenu(SystemModule module) {
+  //   switch (module) {
+  //     case SystemModule.wms:
+  //       return Get.find<WmsPanelController>().menu;
+  //     case SystemModule.tms:
+  //       return Get.find<TmsPanelController>().menu;
+  //     case SystemModule.system:
+  //       return Get.find<SystemModuleController>().menuData;
+  //     case SystemModule.notification:
+  //       return Get.find<TaskPanelController>().menu;
+  //     default:
+  //       throw Exception('no suitable menu found for' + module.toString());
+  //   }
+  // }
 
   static TreeView getSideBarTreeView() {
+    TreeController controller =
+        getSideMenuController(GlobalDataController.instance.system.value);
+
     return TreeView(
         key: GlobalKey(
             debugLabel: GlobalDataController.instance.system.value.name),
-        iconSize: 20,
-        indent: 10,
-        treeController:
-            getSideMenuController(GlobalDataController.instance.system.value),
-        nodes: getMenu(GlobalDataController.instance.system.value));
+        treeController: controller);
   }
 }
