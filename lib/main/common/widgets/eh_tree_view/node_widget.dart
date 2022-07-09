@@ -1,24 +1,18 @@
-// Copyright 2020 the Dart project authors.
-//
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file or at
-// https://developers.google.com/open-source/licenses/bsd
-
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/tree_node_data.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import 'builder.dart';
-import 'primitives/tree_controller.dart';
-import 'primitives/tree_node.dart';
+import 'tree_controller.dart';
 
-/// Widget that displays one [TreeNode] and its children.
+/// Widget that displays one [EHTreeNodeData] and its children.
 class NodeWidget extends StatefulWidget {
-  final TreeNode treeNode;
-  final TreeController state;
+  final EHTreeNodeData treeNode;
+  final TreeController controller;
 
   const NodeWidget({
     Key? key,
     required this.treeNode,
-    required this.state,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -32,7 +26,7 @@ class _NodeWidgetState extends State<NodeWidget> {
   }
 
   bool get _isExpanded {
-    return widget.state.isNodeExpanded(widget.treeNode.key!);
+    return widget.controller.isNodeExpanded(widget.treeNode);
   }
 
   @override
@@ -46,7 +40,7 @@ class _NodeWidgetState extends State<NodeWidget> {
     var onIconPressed = _isLeaf
         ? null
         : () => setState(
-            () => widget.state.toggleNodeExpanded(widget.treeNode.key!));
+            () => widget.controller.toggleNodeExpanded(widget.treeNode));
 
     List<NodeWidget> children = [];
 
@@ -54,7 +48,7 @@ class _NodeWidgetState extends State<NodeWidget> {
       for (var node in widget.treeNode.children!) {
         children.add(NodeWidget(
           treeNode: node,
-          state: widget.state,
+          controller: widget.controller,
         ));
       }
     }
@@ -65,23 +59,50 @@ class _NodeWidgetState extends State<NodeWidget> {
         Row(
           children: [
             SizedBox(
-              height: widget.state.nodeMaxSize,
+              height: widget.controller.nodeMaxSize,
               child: IconButton(
-                padding: EdgeInsets.all(widget.state.paddingSize),
-                iconSize: widget.state.iconSize,
+                padding: EdgeInsets.all(widget.controller.paddingSize),
+                iconSize: widget.controller.iconSize,
                 icon: Icon(icon),
                 onPressed: onIconPressed,
               ),
             ),
-            widget.treeNode.content,
+            Row(
+              children: [
+                if (widget.controller.showCheckBox)
+                  Checkbox(
+                      tristate: true,
+                      value: widget.treeNode.isChecked,
+                      onChanged: (val) {
+                        setState(() {
+                          widget.treeNode.isChecked = getNextCheckStatus(val);
+                        });
+                      }),
+                SizedBox(width: 2),
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    child: Text(widget.treeNode.displayName.tr),
+                    onTap: widget.treeNode.onTap,
+                  ),
+                ),
+              ],
+            )
           ],
         ),
         if (_isExpanded && !_isLeaf)
           Padding(
-            padding: EdgeInsets.only(left: widget.state.indent),
+            padding: EdgeInsets.only(left: widget.controller.indent),
             child: Column(children: children),
           )
       ],
     );
+  }
+
+  bool getNextCheckStatus(bool? val) {
+    if (val == null)
+      return false;
+    else
+      return val;
   }
 }

@@ -1,29 +1,19 @@
-// Copyright 2020 the Dart project authors.
-//
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file or at
-// https://developers.google.com/open-source/licenses/bsd
-
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/primitives/eh_tree_node.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/primitives/tree_node_data.dart';
 import 'package:flutter/material.dart';
 
-import 'builder.dart';
-import 'primitives/tree_controller.dart';
-import 'primitives/tree_node.dart';
+import 'node_widget.dart';
+import 'tree_controller.dart';
 
 /// Tree view with collapsible and expandable nodes.
-class TreeView extends StatefulWidget {
+class EHTreeView extends StatefulWidget {
   final TreeController treeController;
 
-  TreeView({Key? key, List<TreeNode>? nodes, required this.treeController})
-      : super(key: key);
+  EHTreeView({Key? key, required this.treeController}) : super(key: key);
 
   @override
-  _TreeViewState createState() => _TreeViewState();
+  _EHTreeViewState createState() => _EHTreeViewState();
 }
 
-class _TreeViewState extends State<TreeView> {
+class _EHTreeViewState extends State<EHTreeView> {
   late TreeController _controller;
 
   @override
@@ -34,6 +24,22 @@ class _TreeViewState extends State<TreeView> {
 
   @override
   Widget build(BuildContext context) {
-    return buildNodes(_controller);
+    return buildNodes();
+  }
+
+  Widget buildNodes() {
+    if (_controller.treeNodeDataList == null)
+      return SizedBox();
+    else
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (var node in _controller.treeNodeDataList!)
+            NodeWidget(
+              treeNode: node,
+              controller: _controller,
+            )
+        ],
+      );
   }
 }

@@ -12,13 +12,19 @@ class EHTreeNodeData {
 
   bool? isChecked;
 
+  bool isExpanded;
+
   List<EHTreeNodeData>? children;
+
+  VoidCallback? onTap;
 
   EHTreeNodeData(
       {this.key,
       required this.displayName,
       this.icon,
+      this.isExpanded = false,
       this.isChecked,
+      this.onTap,
       this.children = const [],
       this.data = const {}});
 }

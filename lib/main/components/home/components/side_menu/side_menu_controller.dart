@@ -1,5 +1,4 @@
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/primitives/eh_tree_node.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/primitives/tree_controller.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/tree_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/taskPanel/task_panel_controller.dart';
@@ -29,7 +28,7 @@ class SideMenuController extends GetxController {
       case SystemModule.tms:
         return Get.find<TmsPanelController>().sideMenuTreeController;
       case SystemModule.system:
-        return Get.find<SystemModuleController>().getsideMenuTreeController;
+        return Get.find<SystemModuleController>().sideMenuTreeController;
       case SystemModule.notification:
         return Get.find<TaskPanelController>().sideMenuTreeController;
       default:
@@ -52,11 +51,11 @@ class SideMenuController extends GetxController {
   //   }
   // }
 
-  static TreeView getSideBarTreeView() {
+  static EHTreeView getSideBarTreeView() {
     TreeController controller =
         getSideMenuController(GlobalDataController.instance.system.value);
 
-    return TreeView(
+    return EHTreeView(
         key: GlobalKey(
             debugLabel: GlobalDataController.instance.system.value.name),
         treeController: controller);
