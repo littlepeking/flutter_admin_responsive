@@ -51,7 +51,7 @@ getFunctionButtons() {
         // if (System.wms != GlobalDataController.instance.system.value) {
         GlobalDataController.instance.system.value = SystemModule.wms;
         EHNavigator.navigateTo(
-          "/wmsPanel",
+          "/wmsModule",
           navigatorKey: NavigationKeys.dashBoardNavKey,
         );
         // }
@@ -64,7 +64,7 @@ getFunctionButtons() {
         if (SystemModule.tms != GlobalDataController.instance.system.value) {
           GlobalDataController.instance.system.value = SystemModule.tms;
           EHNavigator.navigateTo(
-            "/tmsPanel",
+            "/tmsModule",
             navigatorKey: NavigationKeys.dashBoardNavKey,
           );
         }

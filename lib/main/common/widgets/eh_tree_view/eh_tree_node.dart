@@ -1,12 +1,16 @@
-import 'package:flutter/widgets.dart';
-import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/primitives/tree_node.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+
+import '../../base/eh_edit_widget_controller.dart';
 
 class EHTreeNode extends TreeNode {
   EHTreeNode(
       {Key? key,
       List<EHTreeNode>? children,
-      required String menuName,
+      required String displayName,
+      bool showCheckBox = false,
+      bool? checked,
       GestureTapCallback? onTap,
       IconData? icon})
       : super(
@@ -14,15 +18,27 @@ class EHTreeNode extends TreeNode {
             children: children,
             content: Row(
               children: [
+                if (showCheckBox) Checkbox(value: true, onChanged: (val) {}),
                 if (icon != null) Icon(icon),
-                SizedBox(width: 5),
+                SizedBox(width: 2),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
-                    child: Text(menuName.tr),
+                    child: Text(displayName.tr),
                     onTap: onTap,
                   ),
                 ),
               ],
             ));
+}
+
+class EHTreeController extends EHEditableWidgetController {
+  EHTreeController({required this.treeData});
+
+  List<Map> treeData;
+
+  @override
+  Future<bool> validateWidget() async {
+    return true;
+  }
 }

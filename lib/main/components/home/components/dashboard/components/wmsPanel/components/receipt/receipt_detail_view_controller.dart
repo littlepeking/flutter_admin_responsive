@@ -391,8 +391,8 @@ class CustomWidget extends EHValidationWidget {
   final Rx<ReceiptModel>? rxModel;
 
   @override
-  bool validate() {
-    return false;
+  Future<bool> validate() async {
+    return Future.value(false);
   }
 
   @override

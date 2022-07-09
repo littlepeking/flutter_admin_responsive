@@ -14,8 +14,7 @@ typedef Future<bool> EHEditableWidgetOnValidate<
 abstract class EHEditableWidgetController<T extends EHModel>
     extends EHController {
   EHEditableWidgetController(
-      {this.id,
-      this.model,
+      {this.model,
       this.bindingFieldName,
       this.width,
       bool mustInput = false,
@@ -36,8 +35,6 @@ abstract class EHEditableWidgetController<T extends EHModel>
     this.errorBucket =
         (errorBucket == null ? EHController.globalErrorBucket : errorBucket);
   }
-
-  String? id;
 
   Function? notifyChanged;
 
@@ -97,7 +94,7 @@ abstract class EHEditableWidgetController<T extends EHModel>
 
   Map<Key?, RxString>? errorBucket;
 
-  validateWidget();
+  Future<bool> validateWidget();
 
   bool checkMustInput(Key key, text, {String emptyValue = ''}) {
     if (mustInput) {

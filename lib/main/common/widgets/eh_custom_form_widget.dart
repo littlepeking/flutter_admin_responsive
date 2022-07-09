@@ -34,14 +34,14 @@ class EHCustomFormWidgetController<T extends EHModel>
   Widget Function(Key? key, FocusNode? focusNode, Rx<T>? rxModel) widgetBuilder;
 
   @override
-  validateWidget() {
+  validateWidget() async {
     if (_child is EHValidationWidget) {
-      return (_child as EHValidationWidget).validate();
+      return await (_child as EHValidationWidget).validate();
     } else
-      return true;
+      return Future.value(true);
   }
 }
 
 abstract class EHValidationWidget extends StatelessWidget {
-  bool validate();
+  Future<bool> validate();
 }

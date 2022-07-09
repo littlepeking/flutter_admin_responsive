@@ -31,7 +31,7 @@ class EHFormDividerController extends EHEditableWidgetController {
   EHFormDividerController({double width = 0.0}) : super(width: width);
 
   @override
-  validateWidget() {
-    return true;
+  validateWidget() async {
+    return Future.value(true);
   }
 }

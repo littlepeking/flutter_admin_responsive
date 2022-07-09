@@ -3,12 +3,12 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dar
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/primitives/tree_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_list_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_list_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/examples/components/TestComponent/TestController.dart';
 import 'package:eh_flutter_framework/main/components/home/components/examples/components/TestComponent/test2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 
 class SystemModuleController extends EHController {
   EHTabsViewController tabViewController =
@@ -17,12 +17,12 @@ class SystemModuleController extends EHController {
   TreeController sideMenuTreeController =
       new TreeController(allNodesExpanded: false);
 
-  List<EHTreeNode> get menu => [
+  List<EHTreeNode> get menuOrigin => [
         EHTreeNode(
-          menuName: "Security",
+          displayName: "Security",
           children: [
             EHTreeNode(
-                menuName: "User",
+                displayName: "User",
                 icon: Icons.note_alt,
                 onTap: () {
                   tabViewController.addTab(EHTab<UserListController>(
@@ -35,7 +35,7 @@ class SystemModuleController extends EHController {
                   // FocusManager.instance.primaryFocus?.unfocus();
                 }),
             EHTreeNode(
-                menuName: "Role",
+                displayName: "Role",
                 icon: Icons.summarize,
                 onTap: () {
                   tabViewController.addTab(EHTab<TestController>(
@@ -43,6 +43,24 @@ class SystemModuleController extends EHController {
                     return Test2(controller: controller);
                   }, closable: true));
                 }),
+          ],
+        ),
+      ];
+
+  List<EHTreeNode> get menu => [
+        EHTreeNode(
+          showCheckBox: true,
+          displayName: "Security",
+          children: [
+            EHTreeNode(
+              showCheckBox: true,
+              displayName: "User",
+              icon: Icons.note_alt,
+            ),
+            EHTreeNode(
+              displayName: "Role",
+              icon: Icons.summarize,
+            ),
           ],
         ),
       ];

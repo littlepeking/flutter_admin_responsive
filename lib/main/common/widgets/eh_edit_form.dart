@@ -169,7 +169,7 @@ class EHEditFormController<T extends EHModel> extends EHController {
   //EHModel? model;
   Rx<T>? rxModel;
 
-  void Function(T)? onChanged;
+  void Function(T model)? onChanged;
 
   //Create dependentObjects to let Obx know EHEditForm also need monitor these dependent Objects.
   //only need be used when need dynamically update EHEditableWidgetController's attributes other than model.
@@ -181,18 +181,5 @@ class EHEditFormController<T extends EHModel> extends EHController {
       isValid &= await widgetsControllers[i].validateWidget();
     }
     return isValid;
-  }
-
-  EHEditableWidgetController findWidgetControllerById(String id) {
-    Iterable it = widgetsControllers.where((c) => c.id == id);
-
-    if (it.length == 1) {
-      return it.first;
-    } else if (it.length == 0) {
-      throw EHException('Widget Id $id is not found in current EHEditForm');
-    } else {
-      throw EHException(
-          'More than one Widget Id $id are found in current EHEditForm, but it should be unique.');
-    }
   }
 }

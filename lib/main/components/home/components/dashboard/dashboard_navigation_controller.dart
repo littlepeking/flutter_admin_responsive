@@ -18,9 +18,9 @@ class DashBoardNavigationController extends GetxController {
   // ignore: body_might_complete_normally_nullable
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case "/wmsPanel":
+      case "/wmsModule":
         return EHNavigator.getPageRoute(settings, WmsPanelWidget());
-      case "/tmsPanel":
+      case "/tmsModule":
         return EHNavigator.getPageRoute(settings, TmsPanelWidget());
       case "/systemModule":
         return EHNavigator.getPageRoute(settings, SystemModuleWidget());
