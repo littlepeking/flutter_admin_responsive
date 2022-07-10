@@ -9,9 +9,9 @@ import 'eh_tab.dart';
 import 'eh_tabs_header_mobile.dart';
 
 enum EHTabsViewExpandMode {
-  Growable, // Tab高度取决于子tab的内容高度。如mobile中子tab的每个功能希望高度跟随控件自身的高度自动增长。该种情况最外层的tab应使用ExpandMode.Scrollable。
+  None, // Tab高度取决于子tab的内容高度。如mobile中子tab的每个功能希望高度跟随控件自身的高度自动增长。该种情况最外层的tab应使用ExpandMode.Scrollable。
   Flexible, //Tab高度取决于屏幕剩余的高度，如果子tab过高会显示溢出。用于web端希望tab自动伸缩，但子tab没有设置高度，想跟随tab高度自动变化的情况，如EHGrid。
-  Scrollable //Tab高度取决于屏幕剩余的高度，如果子tab过高会自动显示滚动条。如mobile中希望整个页面都可以滚动，但要求子tab的高度可以计算得出，如果有子tab需要使用ExpandMode.Growable，否则flutter会报错，因为算不出高度。例如：如果该模式下子Tab有使用EHGrid需要设置具体的高度。
+  Scrollable //Tab高度取决于屏幕剩余的高度，如果子tab过高会自动显示滚动条。如mobile中希望整个页面都可以滚动，但要求子tab的高度可以计算得出，如果有子tab需要使用ExpandMode.None，否则flutter会报错，因为算不出高度。例如：如果该模式下子Tab有使用EHGrid需要设置具体的高度。
 }
 
 class EHTabsView extends StatelessWidget {
@@ -60,7 +60,7 @@ class EHTabsView extends StatelessWidget {
             child: getTabWidget(tab),
           );
 
-        case EHTabsViewExpandMode.Growable:
+        case EHTabsViewExpandMode.None:
           return getTabWidget(tab);
         case EHTabsViewExpandMode.Flexible:
           //ADD COLUMN element because indexedStack cannot have flexible child directly.
@@ -117,7 +117,7 @@ class EHTabsView extends StatelessWidget {
           getHeader(useBottomList ?? false),
         ]),
         Obx(
-          () => expandMode != EHTabsViewExpandMode.Growable
+          () => expandMode != EHTabsViewExpandMode.None
               ? Expanded(
                   child: renderTabBody(),
                 )

@@ -31,9 +31,7 @@ class SystemModuleController extends EHController {
                         'User List', UserListController(),
                         (EHController controller) {
                       return UserList(controller: controller);
-                    },
-                        closable: true,
-                        expandMode: EHTabsViewExpandMode.Growable));
+                    }, closable: true, expandMode: EHTabsViewExpandMode.None));
                     // FocusManager.instance.primaryFocus?.unfocus();
                   }),
               EHTreeNode(

@@ -23,11 +23,11 @@ class UserEdit extends EHPanel<UserEditController> {
         //       ?
         EHTabsView(
             useBottomList: false,
-            expandMode: EHTabsViewExpandMode.Growable,
+            expandMode: EHTabsViewExpandMode.None,
             controller: controller.headerTabsViewController),
         EHTabsView(
             useBottomList: false,
-            expandMode: EHTabsViewExpandMode.Growable,
+            expandMode: EHTabsViewExpandMode.None,
             controller: controller.detailTabsViewController),
       ]);
     } else {

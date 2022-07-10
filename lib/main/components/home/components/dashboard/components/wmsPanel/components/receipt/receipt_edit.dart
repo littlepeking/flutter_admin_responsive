@@ -29,11 +29,11 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
         //       ?
         EHTabsView(
             useBottomList: false,
-            expandMode: EHTabsViewExpandMode.Growable,
+            expandMode: EHTabsViewExpandMode.None,
             controller: controller.receiptHeaderTabsViewController),
         EHTabsView(
             useBottomList: false,
-            expandMode: EHTabsViewExpandMode.Growable,
+            expandMode: EHTabsViewExpandMode.None,
             controller: controller.receiptDetailTabsViewController),
       ]);
     } else {
