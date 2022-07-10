@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'node_widget.dart';
-import 'tree_controller.dart';
+import 'eh_node_widget.dart';
+import 'eh_tree_controller.dart';
 
 /// Tree view with collapsible and expandable nodes.
 class EHTreeView extends StatefulWidget {
-  final TreeController treeController;
+  final EHTreeController treeController;
 
   EHTreeView({Key? key, required this.treeController}) : super(key: key);
 
@@ -14,7 +14,7 @@ class EHTreeView extends StatefulWidget {
 }
 
 class _EHTreeViewState extends State<EHTreeView> {
-  late TreeController _controller;
+  late EHTreeController _controller;
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _EHTreeViewState extends State<EHTreeView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           for (var node in _controller.treeNodeDataList!)
-            NodeWidget(
+            EHNodeWidget(
               treeNode: node,
               controller: _controller,
             )

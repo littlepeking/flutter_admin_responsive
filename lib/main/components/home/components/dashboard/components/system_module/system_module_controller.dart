@@ -2,8 +2,8 @@ import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/tree_controller.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/tree_node_data.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node_data.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_list_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_list_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/examples/components/TestComponent/TestController.dart';
@@ -14,7 +14,7 @@ class SystemModuleController extends EHController {
   EHTabsViewController tabViewController =
       EHTabsViewController(showScrollArrow: true);
 
-  TreeController get sideMenuTreeController => TreeController(
+  EHTreeController get sideMenuTreeController => EHTreeController(
           showCheckBox: true,
           allNodesExpanded: false,
           treeNodeDataList: [

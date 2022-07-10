@@ -1,25 +1,25 @@
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/tree_node_data.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'tree_controller.dart';
+import 'eh_tree_controller.dart';
 
 /// Widget that displays one [EHTreeNodeData] and its children.
-class NodeWidget extends StatefulWidget {
+class EHNodeWidget extends StatefulWidget {
   final EHTreeNodeData treeNode;
-  final TreeController controller;
+  final EHTreeController controller;
 
-  const NodeWidget({
+  const EHNodeWidget({
     Key? key,
     required this.treeNode,
     required this.controller,
   }) : super(key: key);
 
   @override
-  _NodeWidgetState createState() => _NodeWidgetState();
+  _EHNodeWidgetState createState() => _EHNodeWidgetState();
 }
 
-class _NodeWidgetState extends State<NodeWidget> {
+class _EHNodeWidgetState extends State<EHNodeWidget> {
   bool get _isLeaf {
     return widget.treeNode.children == null ||
         widget.treeNode.children!.isEmpty;
@@ -42,11 +42,11 @@ class _NodeWidgetState extends State<NodeWidget> {
         : () => setState(
             () => widget.controller.toggleNodeExpanded(widget.treeNode));
 
-    List<NodeWidget> children = [];
+    List<EHNodeWidget> children = [];
 
     if (widget.treeNode.children != null) {
       for (var node in widget.treeNode.children!) {
-        children.add(NodeWidget(
+        children.add(EHNodeWidget(
           treeNode: node,
           controller: widget.controller,
         ));
@@ -75,7 +75,9 @@ class _NodeWidgetState extends State<NodeWidget> {
                       value: widget.treeNode.isChecked,
                       onChanged: (val) {
                         setState(() {
-                          widget.treeNode.isChecked = getNextCheckStatus(val);
+                          widget.controller.checkNode(widget.treeNode, val);
+                          widget.controller.reCalculateAllCheckStatus();
+                          print('dfdf');
                         });
                       }),
                 SizedBox(width: 2),
@@ -97,12 +99,5 @@ class _NodeWidgetState extends State<NodeWidget> {
           )
       ],
     );
-  }
-
-  bool getNextCheckStatus(bool? val) {
-    if (val == null)
-      return false;
-    else
-      return val;
   }
 }
