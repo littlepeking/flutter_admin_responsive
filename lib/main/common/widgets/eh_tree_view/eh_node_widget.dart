@@ -1,12 +1,12 @@
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node_data.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'eh_tree_controller.dart';
 
-/// Widget that displays one [EHTreeNodeData] and its children.
-class EHNodeWidget extends StatefulWidget {
-  final EHTreeNodeData treeNode;
+/// Widget that displays one [EHTreeNode] and its children.
+class EHNodeWidget extends StatelessWidget {
+  final EHTreeNode treeNode;
   final EHTreeController controller;
 
   const EHNodeWidget({
@@ -15,18 +15,12 @@ class EHNodeWidget extends StatefulWidget {
     required this.controller,
   }) : super(key: key);
 
-  @override
-  _EHNodeWidgetState createState() => _EHNodeWidgetState();
-}
-
-class _EHNodeWidgetState extends State<EHNodeWidget> {
   bool get _isLeaf {
-    return widget.treeNode.children == null ||
-        widget.treeNode.children!.isEmpty;
+    return treeNode.children == null || treeNode.children!.isEmpty;
   }
 
   bool get _isExpanded {
-    return widget.controller.isNodeExpanded(widget.treeNode);
+    return controller.isNodeExpanded(treeNode);
   }
 
   @override
@@ -37,18 +31,16 @@ class _EHNodeWidgetState extends State<EHNodeWidget> {
             ? Icons.expand_more
             : Icons.chevron_right;
 
-    var onIconPressed = _isLeaf
-        ? null
-        : () => setState(
-            () => widget.controller.toggleNodeExpanded(widget.treeNode));
+    var onIconPressed =
+        _isLeaf ? null : () => controller.toggleNodeExpanded(treeNode);
 
     List<EHNodeWidget> children = [];
 
-    if (widget.treeNode.children != null) {
-      for (var node in widget.treeNode.children!) {
+    if (treeNode.children != null) {
+      for (var node in treeNode.children!) {
         children.add(EHNodeWidget(
           treeNode: node,
-          controller: widget.controller,
+          controller: controller,
         ));
       }
     }
@@ -59,33 +51,31 @@ class _EHNodeWidgetState extends State<EHNodeWidget> {
         Row(
           children: [
             SizedBox(
-              height: widget.controller.nodeMaxSize,
+              height: controller.nodeMaxSize,
               child: IconButton(
-                padding: EdgeInsets.all(widget.controller.paddingSize),
-                iconSize: widget.controller.iconSize,
+                padding: EdgeInsets.all(controller.paddingSize),
+                iconSize: controller.iconSize,
                 icon: Icon(icon),
                 onPressed: onIconPressed,
               ),
             ),
             Row(
               children: [
-                if (widget.controller.showCheckBox)
+                if (controller.showCheckBox)
                   Checkbox(
                       tristate: true,
-                      value: widget.treeNode.isChecked,
+                      value: treeNode.isChecked,
                       onChanged: (val) {
-                        setState(() {
-                          widget.controller.checkNode(widget.treeNode, val);
-                          widget.controller.reCalculateAllCheckStatus();
-                          print('dfdf');
-                        });
+                        controller.checkNode(treeNode, val);
+                        controller.reCalculateAllCheckStatus();
                       }),
+                if (treeNode.icon != null) Icon(treeNode.icon),
                 SizedBox(width: 2),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
-                    child: Text(widget.treeNode.displayName.tr),
-                    onTap: widget.treeNode.onTap,
+                    child: Text(treeNode.displayName.tr),
+                    onTap: treeNode.onTap,
                   ),
                 ),
               ],
@@ -94,7 +84,7 @@ class _EHNodeWidgetState extends State<EHNodeWidget> {
         ),
         if (_isExpanded && !_isLeaf)
           Padding(
-            padding: EdgeInsets.only(left: widget.controller.indent),
+            padding: EdgeInsets.only(left: controller.indent),
             child: Column(children: children),
           )
       ],

@@ -2,7 +2,7 @@ import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node_data.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:eh_flutter_framework/main/components/home/components/examples/components/TestComponent/TestController.dart';
 import 'package:eh_flutter_framework/main/components/home/components/examples/components/TestComponent/test2.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class WmsPanelController extends EHController {
   EHTreeController sideMenuTreeController =
       new EHTreeController(allNodesExpanded: false);
 
-  List<EHTreeNodeData> get menu => [
+  List<EHTreeNode> get menu => [
         // EHTreeNode(
         //   icon: Icons.login,
         //   displayName: "Inbound",

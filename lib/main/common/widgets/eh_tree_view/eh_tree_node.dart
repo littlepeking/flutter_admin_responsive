@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// One node data of a tree.
-class EHTreeNodeData {
+class EHTreeNode {
   Key? key;
 
   IconData? icon;
@@ -12,18 +12,18 @@ class EHTreeNodeData {
 
   bool? isChecked;
 
-  bool isExpanded;
+  bool? isExpanded;
 
-  List<EHTreeNodeData>? children;
+  List<EHTreeNode>? children;
 
   VoidCallback? onTap;
 
-  EHTreeNodeData(
+  EHTreeNode(
       {this.key,
       required this.displayName,
       this.icon,
-      this.isExpanded = false,
-      this.isChecked,
+      this.isExpanded,
+      this.isChecked = false,
       this.onTap,
       this.children = const [],
       this.data = const {}});

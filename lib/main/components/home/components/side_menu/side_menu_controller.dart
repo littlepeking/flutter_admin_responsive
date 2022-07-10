@@ -58,6 +58,6 @@ class SideMenuController extends GetxController {
     return EHTreeView(
         key: GlobalKey(
             debugLabel: GlobalDataController.instance.system.value.name),
-        treeController: controller);
+        controller: controller);
   }
 }

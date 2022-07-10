@@ -1,10 +1,11 @@
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node_data.dart';
-import 'package:get/get_connect/http/src/http/io/file_decoder_io.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 /// A controller for a tree state.
 ///
 /// Allows to modify the state of the tree.
-class EHTreeController {
+class EHTreeController extends EHController {
   /// Horizontal indent between levels.
   final double indent;
 
@@ -19,7 +20,7 @@ class EHTreeController {
 
   /// Tree controller to manage the tree state.
   bool _allNodesExpanded;
-  List<EHTreeNodeData>? treeNodeDataList;
+  RxList<EHTreeNode>? treeNodeDataList;
 
   EHTreeController(
       {this.indent = 10,
@@ -33,12 +34,13 @@ class EHTreeController {
 
   bool get allNodesExpanded => _allNodesExpanded;
 
-  bool isNodeExpanded(EHTreeNodeData treeNode) {
-    return treeNode.isExpanded;
+  bool isNodeExpanded(EHTreeNode treeNode) {
+    return treeNode.isExpanded ?? _allNodesExpanded;
   }
 
-  void toggleNodeExpanded(EHTreeNodeData treeNode) {
+  void toggleNodeExpanded(EHTreeNode treeNode) {
     treeNode.isExpanded = !isNodeExpanded(treeNode);
+    treeNodeDataList!.refresh();
   }
 
   // void expandAll() {
@@ -51,15 +53,17 @@ class EHTreeController {
   //   _expanded.clear();
   // }
 
-  void expandNode(EHTreeNodeData treeNode) {
+  void expandNode(EHTreeNode treeNode) {
     treeNode.isExpanded = true;
+    treeNodeDataList!.refresh();
   }
 
-  void collapseNode(EHTreeNodeData treeNode) {
+  void collapseNode(EHTreeNode treeNode) {
     treeNode.isExpanded = false;
+    treeNodeDataList!.refresh();
   }
 
-  void checkNode(EHTreeNodeData treeNode, bool? val) {
+  void checkNode(EHTreeNode treeNode, bool? val) {
     treeNode.isChecked = getNextCheckStatus(val);
 
     if (treeNode.children != null && treeNode.children!.length > 0) {
@@ -74,9 +78,10 @@ class EHTreeController {
       treeNodeDataList!.forEach((node) {
         recursivelyCalculateCheckStatus(node);
       });
+    treeNodeDataList!.refresh();
   }
 
-  bool? recursivelyCalculateCheckStatus(EHTreeNodeData node) {
+  bool? recursivelyCalculateCheckStatus(EHTreeNode node) {
     if (node.children == null || node.children!.length == 0) {
       return node.isChecked;
     } else {
