@@ -67,8 +67,14 @@ class EHRestService extends GetxController {
         // bus.emit("401");
         if (error.response?.data!['details'] == 'Bad credentials') {
           EHToastMessageHelper.showLoginErrorMessage('Bad credentials'.tr);
-        } else if (error.response?.data!['details'] == 'Session timeout') {
-          EHToastMessageHelper.showInfoMessage('Session timeout'.tr);
+        } else if (error.response?.data!['details'] ==
+            'user login is expired.') {
+          EHToastMessageHelper.showLoginErrorMessage(
+              error.response!.data!['details'].toString().tr);
+          EHNavigator.navigateTo("/login");
+        } else if (error.response?.data!['details']) {
+          EHToastMessageHelper.showLoginErrorMessage(
+              error.response!.data!['details'].toString().tr);
           EHNavigator.navigateTo("/login");
         } else {
           EHToastMessageHelper.showInfoMessage('Unauthorized'.tr);
