@@ -1,0 +1,72 @@
+import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_view.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/organization_tree_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_edit_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_edit_view.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
+  OrganizationTreeView({Key? key, controller})
+      : super(key: key, controller: controller);
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      buildToolbar(context),
+      PageStorage(
+        bucket: controller.pageStorageBucket,
+        child: Expanded(
+          child: EHTreeView(
+            controller: controller.orgTreeController,
+          ),
+        ),
+      )
+    ]);
+  }
+
+  buildToolbar(BuildContext context) {
+    return EHToolBar(
+      children: [
+        EHButton(
+            controller: EHButtonController(
+          onPressed: () async {
+            Get.find<SystemModuleController>().tabViewController.addTab(
+                    EHTab<UserEditController>(
+                        'Edit User', UserEditController(null),
+                        (EHController controller) {
+                  return UserEdit(controller: controller);
+                }, closable: true));
+          },
+          child: Text('Add'.tr),
+        )),
+        EHButton(
+            controller: EHButtonController(
+          child: Text('Delete'.tr),
+          onPressed: () async {},
+        )),
+        Container(
+          // width: 90,
+          child: EHDropdown(
+              controller: EHDropDownController(
+            key: GlobalKey(),
+            focusNode: FocusNode(),
+            isMenu: true,
+            dropDownWidth: 150,
+            label: 'Actions',
+            items: {
+              'exportToExcel': 'Export To Excel',
+            },
+            onChanged: (value) {},
+          )),
+        )
+      ],
+    );
+  }
+}
