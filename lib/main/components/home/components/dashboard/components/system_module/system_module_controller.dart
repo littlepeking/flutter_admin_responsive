@@ -4,6 +4,8 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_vi
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/organization_tree_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/organization_tree_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_list_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_list_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/examples/components/TestComponent/TestController.dart';
@@ -16,9 +18,25 @@ class SystemModuleController extends EHController {
       EHTabsViewController(showScrollArrow: true);
 
   EHTreeController get sideMenuTreeController => EHTreeController(
-      showCheckBox: true,
+      showCheckBox: false,
       allNodesExpanded: true,
       treeNodeDataList: [
+        EHTreeNode(
+            displayName: "Master Data",
+            icon: Icons.admin_panel_settings,
+            children: [
+              EHTreeNode(
+                  displayName: "Organization",
+                  isChecked: true,
+                  onTap: () {
+                    tabViewController.addTab(EHTab<OrganizationTreeController>(
+                        'Organization', OrganizationTreeController(),
+                        (EHController controller) {
+                      return OrganizationTreeView(controller: controller);
+                    }, closable: true, expandMode: EHTabsViewExpandMode.None));
+                    // FocusManager.instance.primaryFocus?.unfocus();
+                  }),
+            ]),
         EHTreeNode(
             displayName: "Security",
             icon: Icons.admin_panel_settings,

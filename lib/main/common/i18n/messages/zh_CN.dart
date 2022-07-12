@@ -89,6 +89,9 @@ Map<String, String> zhCNMessages = {
   'Add': '添加',
   'Edit': '编辑',
   'Delete': '删除',
+  //Master Data
+  'Master Data': '主数据',
+  'Organization': '组织',
   //Security Management
   'Security': '安全',
   'User': '用户',

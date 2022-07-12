@@ -21,15 +21,17 @@ class EHTreeView extends EHStatelessWidget<EHTreeController> {
     if (controller.treeNodeDataList == null)
       return SizedBox();
     else
-      return Obx(() => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              for (var node in controller.treeNodeDataList!)
-                EHNodeWidget(
-                  treeNode: node,
-                  controller: controller,
-                )
-            ],
+      return Obx(() => SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (var node in controller.treeNodeDataList!)
+                  EHNodeWidget(
+                    treeNode: node,
+                    controller: controller,
+                  )
+              ],
+            ),
           ));
   }
 }

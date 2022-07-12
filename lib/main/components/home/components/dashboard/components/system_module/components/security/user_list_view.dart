@@ -21,10 +21,8 @@ class UserList extends EHPanel<UserListController> {
       buildToolbar(context),
       PageStorage(
         bucket: controller.pageStorageBucket,
-        child: Expanded(
-          child: EHDataGrid(
-            controller: controller.userDataGridController,
-          ),
+        child: EHDataGrid(
+          controller: controller.userDataGridController,
         ),
       )
     ]);

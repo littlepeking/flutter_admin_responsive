@@ -13,6 +13,7 @@ class EHDataGridController extends EHController {
   double headerRowHeight = 57.0;
   double? fixedHeight;
   bool showCheckbox;
+  bool expandInMobile;
 
   ValueChanged<Map>? onRowSelected;
 
@@ -23,6 +24,7 @@ class EHDataGridController extends EHController {
       {double? fixedHeight,
       required EHDataGridSource dataGridSource,
       this.showCheckbox = false,
+      this.expandInMobile = false,
       ValueChanged<Map>? onRowSelected}) {
     this.fixedHeight = fixedHeight == null
         ? Responsive.isMobile(Get.context!)
