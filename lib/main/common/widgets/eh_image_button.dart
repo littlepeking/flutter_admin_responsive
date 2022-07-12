@@ -1,17 +1,22 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../constants.dart';
 
 class EHImageButton<T> extends StatelessWidget {
   final Icon icon;
+  final double? iconSize;
   final String text;
   final ValueChanged<T?> onPressed;
   final T? data;
+  final double? padding;
 
   const EHImageButton(
       {Key? key,
+      this.padding = 2,
       required this.icon,
+      this.iconSize,
       required this.text,
       this.data,
       required this.onPressed})
@@ -21,6 +26,9 @@ class EHImageButton<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return (Responsive.isMobile(context))
         ? IconButton(
+            iconSize: iconSize ?? 24,
+            padding: EdgeInsets.all(
+                padding ?? (Responsive.isMobile(Get.context!) ? 2 : 8)),
             onPressed: () => onPressed(data),
             icon: icon,
             tooltip: this.text.tr,

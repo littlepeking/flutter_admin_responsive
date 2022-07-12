@@ -1,5 +1,6 @@
 Map<String, String> zhCNMessages = {
   'Sign-In': '登录',
+  'Logout': '退出',
   'user login is expired.': '用户会话已过期',
   'Bad credentials': '用户名密码错误',
   'username and password cannot be empty': '用户名密码不能为空',

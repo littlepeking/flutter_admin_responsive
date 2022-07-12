@@ -13,6 +13,12 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var menuItems = [
+      if (Responsive.isMobile(context))
+        Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: getFunctionBtnBar())
+      else
+        SizedBox(height: 20),
       SizedBox(
         height: 10,
       ),
@@ -29,15 +35,16 @@ class SideMenu extends StatelessWidget {
       ),
       if (Responsive.isMobile(context))
         Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: getFunctionButtons())
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: getSystemBtnBar()),
     ];
 
     return Drawer(
         child: ListView(children: [
       Container(
-        height: !Responsive.isDesktop(context) ? 145 : 100,
+        height: Responsive.isMobile(context) ? 170 : 100,
         child: DrawerHeader(
+          padding: EdgeInsets.zero,
           child: Center(
               child: Column(
             children: menuItems,

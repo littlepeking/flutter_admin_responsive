@@ -18,10 +18,10 @@ class EHNavigator {
         opaque: false, builder: (BuildContext context) => NextScreen()));
     */
 
-    if (Responsive.isMobile(Get.context!) ||
-        Responsive.isTablet(Get.context!)) {
-      Get.back();
-    }
+    // if (Responsive.isMobile(Get.context!) ||
+    //     Responsive.isTablet(Get.context!)) {
+    //   Get.back();
+    // }
     //return Get.toNamed(routeName, id: 1);
     //Get.toNamed(routeName,        id: navigatorKey.hashCode); //do not use GET since it can only accept id instead of globalkey
   }

@@ -37,13 +37,15 @@ List<Widget> getHeaderButtons(BuildContext context) {
 
     // EHImageButton(text: 'quit'.tr, icon: Icon(Icons.logout), onPressed: () {})
   ];
-  buttons.addAll(getFunctionButtons());
+  buttons.addAll(getSystemBtnBar());
+  buttons.addAll(getFunctionBtnBar());
 
   return buttons;
 }
 
-getFunctionButtons() {
+getSystemBtnBar() {
   return [
+    //SizedBox(width: 10),
     EHImageButton(
       text: 'WMS',
       icon: Icon(Icons.cabin),
@@ -57,6 +59,7 @@ getFunctionButtons() {
         // }
       },
     ),
+    SizedBox(width: 15),
     EHImageButton(
       text: 'TMS',
       icon: Icon(Icons.local_shipping),
@@ -70,6 +73,7 @@ getFunctionButtons() {
         }
       },
     ),
+    SizedBox(width: 15),
     EHImageButton(
       text: 'System',
       icon: Icon(Icons.monitor),
@@ -83,9 +87,17 @@ getFunctionButtons() {
         }
       },
     ),
+  ];
+}
+
+getFunctionBtnBar() {
+  return [
     EHImageButton(
       text: 'Notification',
-      icon: Icon(Icons.notifications),
+      icon: Icon(
+        Icons.notifications,
+        color: Color.fromARGB(255, 122, 122, 122),
+      ),
       onPressed: (data) {
         if (SystemModule.notification !=
             GlobalDataController.instance.system.value) {
@@ -101,7 +113,10 @@ getFunctionButtons() {
     SizedBox(width: 0),
     EHImageButton(
         text: 'changeTheme',
-        icon: Icon(Icons.ac_unit_sharp),
+        icon: Icon(
+          Icons.ac_unit_sharp,
+          color: Color.fromARGB(255, 122, 122, 122),
+        ),
         onPressed: (data) {
           Get.changeThemeMode(
               Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
@@ -113,7 +128,10 @@ getFunctionButtons() {
     SizedBox(width: 0),
     EHImageButton(
         text: 'changeLocale',
-        icon: Icon(Icons.language),
+        icon: Icon(
+          Icons.language,
+          color: Color.fromARGB(255, 122, 122, 122),
+        ),
         onPressed: (data) {
           var enLocale = Locale('en', 'US');
           var cnLocale = Locale('zh', 'CN');
@@ -122,6 +140,16 @@ getFunctionButtons() {
           } else {
             Get.updateLocale(enLocale);
           }
+        }),
+    SizedBox(width: 0),
+    EHImageButton(
+        text: 'Logout'.tr,
+        icon: Icon(
+          Icons.exit_to_app,
+          color: Colors.grey,
+        ),
+        onPressed: (data) {
+          EHNavigator.navigateTo("/login");
         }),
     SizedBox(width: 0)
   ];
