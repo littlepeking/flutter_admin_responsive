@@ -197,7 +197,7 @@ class EHPopupController extends EHEditableWidgetController {
   EHPopupController(
       {Key? key,
       EHModel? model,
-      String? bindingFieldName,
+      String? bindingFieldName, // column name of data model for binding
       double? width,
       bool autoFocus = false,
       //focusNode必须手工在controller中实例化并赋值给控件的focusNode属性,否则光标焦点跳转会有问题。
@@ -210,7 +210,8 @@ class EHPopupController extends EHEditableWidgetController {
       bool mustInput = false,
       this.onChanged,
       EHEditableWidgetOnValidate? onValidate,
-      String? codeColumnName,
+      String?
+          codeColumnName, // column name of popup grid data source and after user select a row, it will bring back the code column value to model.bindingFieldName.
       required EHDataGridSource dataSource,
       Map<Key?, RxString>? errorBucket})
       : super(
