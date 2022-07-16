@@ -33,7 +33,7 @@ class SystemModuleController extends EHController {
                         'Organization', OrganizationTreeController(),
                         (EHController controller) {
                       return OrganizationTreeView(controller: controller);
-                    }, closable: true, expandMode: EHTabsViewExpandMode.None));
+                    }, closable: true));
                     // FocusManager.instance.primaryFocus?.unfocus();
                   }),
             ]),
