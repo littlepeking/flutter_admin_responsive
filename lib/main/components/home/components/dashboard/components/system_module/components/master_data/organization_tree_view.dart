@@ -48,16 +48,10 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
         bucket: controller.pageStorageBucket,
         child: Expanded(
           child: Container(
-            decoration: BoxDecoration(boxShadow: [
-              const BoxShadow(
-                color: Colors.grey,
-              ),
-              const BoxShadow(
-                color: Colors.white,
-                spreadRadius: -1.0,
-                blurRadius: .0,
-              ),
-            ]),
+            decoration: BoxDecoration(
+                border: Border(
+                    top: BorderSide(
+                        color: Theme.of(Get.context!).primaryColor))),
             child: SplitView(
               children: [
                 EHTreeView(
@@ -70,7 +64,7 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
                       controller: controller.receiptDetailTabsViewController),
                 ),
               ],
-              gripSize: 4,
+              gripSize: 3,
               viewMode: SplitViewMode.Horizontal,
               indicator: SplitIndicator(viewMode: SplitViewMode.Horizontal),
               activeIndicator: SplitIndicator(
