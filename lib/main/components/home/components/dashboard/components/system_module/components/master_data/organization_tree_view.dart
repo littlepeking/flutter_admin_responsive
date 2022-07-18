@@ -6,6 +6,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dar
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_view.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/models/organization_model.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/organization_tree_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_edit_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_edit_view.dart';
@@ -57,12 +58,17 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
                 EHTreeView(
                   controller: controller.orgTreeController,
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 5, top: 5),
-                  child: EHTabsView(
-                      expandMode: EHTabsViewExpandMode.Scrollable,
-                      controller: controller.receiptDetailTabsViewController),
-                ),
+                Obx(() => controller.model.value != null
+                    ? Padding(
+                        padding: EdgeInsets.only(left: 5, top: 5),
+                        child: EHTabsView(
+                            expandMode: EHTabsViewExpandMode.Scrollable,
+                            controller:
+                                controller.receiptDetailTabsViewController),
+                      )
+                    : SizedBox(
+                        child: Text('Please create or select a organization'),
+                      )),
               ],
               gripSize: 3,
               viewMode: SplitViewMode.Horizontal,
@@ -88,12 +94,8 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
         EHButton(
             controller: EHButtonController(
           onPressed: () async {
-            Get.find<SystemModuleController>().tabViewController.addTab(
-                    EHTab<UserEditController>(
-                        'Edit User', UserEditController(null),
-                        (EHController controller) {
-                  return UserEdit(controller: controller);
-                }, closable: true));
+            this.controller.model.value = OrganizationModel();
+            this.controller.isOrgDetailOpened.value = true;
           },
           child: Text('Add'.tr),
         )),

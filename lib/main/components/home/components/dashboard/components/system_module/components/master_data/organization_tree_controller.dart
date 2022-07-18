@@ -4,6 +4,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dar
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/models/organization_model.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_detail_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_detail_view_controller.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,10 @@ class OrganizationTreeController extends EHPanelController {
   PageStorageBucket pageStorageBucket = PageStorageBucket();
 
   late EHTreeController orgTreeController;
+
+  Rx<OrganizationModel?> model = Rxn<OrganizationModel>();
+
+  RxBool isOrgDetailOpened = false.obs;
 
   RxDouble splitterWeights = 0.2.obs;
 
