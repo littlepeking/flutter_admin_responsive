@@ -1,16 +1,12 @@
-import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/models/organization_model.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/organization_tree_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_edit_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_edit_view.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:split_view/split_view.dart';
@@ -43,6 +39,10 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
     //   ],
     // );
 
+    SplitViewMode splitViewMode = Responsive.isMobile(Get.context!)
+        ? SplitViewMode.Vertical
+        : SplitViewMode.Horizontal;
+
     return Column(children: [
       buildToolbar(context),
       PageStorage(
@@ -71,10 +71,10 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
                       )),
               ],
               gripSize: 3,
-              viewMode: SplitViewMode.Horizontal,
-              indicator: SplitIndicator(viewMode: SplitViewMode.Horizontal),
+              viewMode: splitViewMode,
+              indicator: SplitIndicator(viewMode: splitViewMode),
               activeIndicator: SplitIndicator(
-                viewMode: SplitViewMode.Horizontal,
+                viewMode: splitViewMode,
                 isActive: true,
               ),
               controller: SplitViewController(
