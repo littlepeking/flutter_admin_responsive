@@ -115,7 +115,8 @@ Map<String, String> zhCNMessages = {
   'checkBox': '选择框',
   'Receiving ASN': '接收ASN',
   'Close ASN': '关闭ASN',
-  'Print SKU Label': '打印物料标签'
+  'Print SKU Label': '打印物料标签',
 
   ///
+  'Please create or select a organization before edit': '请新建或者选择一个组织以打开编辑页面'
 };

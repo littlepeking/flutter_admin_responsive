@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:core';
 
 import 'package:eh_flutter_framework/main/common/base/eh_model_converters.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_version_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../../../../../../common/base/eh_model.dart';
 import '../../../../../../../../../common/utils/eh_refactor_helper.dart';
 
 part 'user_model.g.dart';
@@ -12,7 +12,7 @@ part 'user_model.g.dart';
 @JsonSerializable()
 @EHMethodExecutor
 @EHDateTime2TimeStampConverter
-class UserModel extends EHModel {
+class UserModel extends EHVersionModel {
   String? username;
   String? authType;
   String? domainUsername;
@@ -26,6 +26,7 @@ class UserModel extends EHModel {
       DateTime? editDate,
       String? addWho,
       String? editWho,
+      int? version,
       this.username,
       this.authType,
       this.enabled = true,
@@ -36,7 +37,8 @@ class UserModel extends EHModel {
             addDate: addDate,
             editDate: editDate,
             addWho: addWho,
-            editWho: editWho);
+            editWho: editWho,
+            version: version);
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

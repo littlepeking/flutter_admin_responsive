@@ -66,8 +66,17 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
                             controller:
                                 controller.receiptDetailTabsViewController),
                       )
-                    : SizedBox(
-                        child: Text('Please create or select a organization'),
+                    : Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.tips_and_updates_outlined),
+                            SizedBox(width: 10),
+                            Text(
+                                'Please create or select a organization before edit'
+                                    .tr),
+                          ],
+                        ),
                       )),
               ],
               gripSize: 3,

@@ -2,9 +2,8 @@ import 'dart:convert';
 import 'dart:core';
 
 import 'package:eh_flutter_framework/main/common/base/eh_model_converters.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_version_model.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../../../../../../../../common/base/eh_model.dart';
 import '../../../../../../../../../common/utils/eh_refactor_helper.dart';
 
 part 'organization_model.g.dart';
@@ -12,7 +11,7 @@ part 'organization_model.g.dart';
 @JsonSerializable()
 @EHMethodExecutor
 @EHDateTime2TimeStampConverter
-class OrganizationModel extends EHModel {
+class OrganizationModel extends EHVersionModel {
   String? id;
   String? name;
   String? parentId;
@@ -33,12 +32,14 @@ class OrganizationModel extends EHModel {
     DateTime? editDate,
     String? addWho,
     String? editWho,
+    int? version,
   }) : super(
             id: id,
             addDate: addDate,
             editDate: editDate,
             addWho: addWho,
-            editWho: editWho);
+            editWho: editWho,
+            version: version);
 
   factory OrganizationModel.fromJson(Map<String, dynamic> json) =>
       _$OrganizationModelFromJson(json);
