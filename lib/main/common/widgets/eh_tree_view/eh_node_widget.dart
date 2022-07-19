@@ -85,7 +85,9 @@ class EHNodeWidget extends StatelessWidget {
         if (_isExpanded && !_isLeaf)
           Padding(
             padding: EdgeInsets.only(left: controller.indent),
-            child: Column(children: children),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: children),
           )
       ],
     );
