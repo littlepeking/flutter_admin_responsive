@@ -74,8 +74,23 @@ class EHNodeWidget extends StatelessWidget {
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
-                    child: Text(treeNode.displayName.tr),
-                    onTap: treeNode.onTap,
+                    child: Container(
+                        color: treeNode == controller.selectedTreeNode
+                            ? Theme.of(Get.context!)
+                                .textSelectionTheme
+                                .selectionColor
+                            : null,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 2),
+                          child: Text(treeNode.displayName.tr),
+                        )),
+                    onTap: () {
+                      controller.selectedTreeNode = treeNode;
+                      if (treeNode.onTap != null) treeNode.onTap!();
+
+                      controller.treeNodeDataList!.refresh();
+                    },
                   ),
                 ),
               ],

@@ -38,7 +38,9 @@ class EhTheme {
         errorBorder: _buildBorder(Colors.red),
         disabledBorder: _buildBorder(Colors.grey[800]!),
       ),
-      textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.white));
+      textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Colors.white,
+          selectionColor: Color.fromARGB(255, 95, 95, 95)));
 
   static ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
@@ -74,7 +76,9 @@ class EhTheme {
         // errorBorder: _buildBorder(Colors.red),
         disabledBorder: _buildBorder(Colors.grey[400]!),
       ),
-      textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.grey));
+      textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Colors.grey,
+          selectionColor: Color.fromARGB(255, 200, 199, 199)));
 
   static _buildBorder(Color color) {
     return OutlineInputBorder(
