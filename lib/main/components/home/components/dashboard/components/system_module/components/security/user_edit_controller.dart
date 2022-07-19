@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_string_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
@@ -64,14 +65,26 @@ class UserEditController extends EHPanelController {
       EHTab('Assigned Roles', userRoleDataGridController, (EHController c) {
         return PageStorage(
             bucket: pageStorageBucket,
-            child: Column(
-              children: [
-                buildUserRoleToolbar(),
-                EHDataGrid(
-                  controller: c,
-                )
-              ],
-            ));
+            child: Responsive.isMobile(Get.context!)
+                ? Column(
+                    children: [
+                      buildUserRoleToolbar(),
+                      EHDataGrid(
+                        controller: c,
+                      )
+                    ],
+                  )
+                : Column(
+                    children: [
+                      buildUserRoleToolbar(),
+                      //need add expanded, bc ehgrid has child element 'column' which is already expanded in non-mobile mode, so we need tell ehgrid expanded in parent column as well. otherwise, exception will be thrown.
+                      Expanded(
+                        child: EHDataGrid(
+                          controller: c,
+                        ),
+                      )
+                    ],
+                  ));
       }),
       // EHTab('Summary Info', controller, (controller) => Center()),
       // EHTab('Other', controller, (controller) => EditingDataGrid()),

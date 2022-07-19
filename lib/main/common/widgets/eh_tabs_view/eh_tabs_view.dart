@@ -67,7 +67,7 @@ class EHTabsView extends StatelessWidget {
           //see https://stackoverflow.com/questions/54905388/incorrect-use-of-parent-data-widget-expanded-widgets-must-be-placed-inside-flex
           return Column(
             children: [
-              Flexible(
+              Expanded(
                 child: getTabWidget(tab),
               ),
             ],
