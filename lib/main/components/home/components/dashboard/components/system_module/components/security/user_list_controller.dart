@@ -19,7 +19,7 @@ class UserListController extends EHPanelController {
   UserListController() : super(null) {
     userDataGridController = EHDataGridController(
         showCheckbox: true,
-        expandInMobile: true,
+        disableFixedHeight: true,
         onRowSelected: (data) =>
             EHToastMessageHelper.showInfoMessage(data.toString()),
         dataGridSource: getServiceDataGridSource());

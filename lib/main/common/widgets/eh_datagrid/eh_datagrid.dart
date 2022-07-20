@@ -36,11 +36,13 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
   EHDataGrid({Key? key, controller}) : super(key: key, controller: controller);
   @override
   Widget build(BuildContext context) {
-    return Responsive.isMobile(Get.context!) && !controller.expandInMobile
+    return Responsive.isMobile(Get.context!) && !controller.disableFixedHeight
         ? Container(
             height: controller.fixedHeight ?? double.infinity,
             child: _buildLayoutBuilder())
-        : _buildLayoutBuilder();
+        : controller.wrapWithExpanded
+            ? Expanded(child: _buildLayoutBuilder())
+            : _buildLayoutBuilder();
   }
 
   List<GridColumn> getGridColumns() {

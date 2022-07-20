@@ -75,14 +75,19 @@ class EHNodeWidget extends StatelessWidget {
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     child: Container(
-                        color: treeNode == controller.selectedTreeNode
-                            ? Theme.of(Get.context!)
-                                .textSelectionTheme
-                                .selectionColor
+                        decoration: controller.displaySelectedItems
+                            ? BoxDecoration(
+                                color: treeNode == controller.selectedTreeNode
+                                    ? Theme.of(Get.context!)
+                                        .textSelectionTheme
+                                        .selectionColor
+                                    : null,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)))
                             : null,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 5, vertical: 2),
+                              horizontal: 10, vertical: 2),
                           child: Text(treeNode.displayName.tr),
                         )),
                     onTap: () {

@@ -29,6 +29,7 @@ class OrganizationTreeController extends EHPanelController {
     receiptDetailInfoController = ReceiptDetailViewController(this);
 
     orgTreeController = EHTreeController(
+        displaySelectedItems: true,
         allNodesExpanded: true,
         treeNodeDataList: <EHTreeNode>[
           EHTreeNode(displayName: 'Headquanter', children: [

@@ -56,6 +56,7 @@ class UserEditController extends EHPanelController {
     ]);
 
     userRoleDataGridController = EHDataGridController(
+        wrapWithExpanded: !Responsive.isMobile(Get.context!),
         showCheckbox: true,
         onRowSelected: (data) =>
             EHToastMessageHelper.showInfoMessage(data.toString()),
@@ -65,26 +66,15 @@ class UserEditController extends EHPanelController {
       EHTab('Assigned Roles', userRoleDataGridController, (EHController c) {
         return PageStorage(
             bucket: pageStorageBucket,
-            child: Responsive.isMobile(Get.context!)
-                ? Column(
-                    children: [
-                      buildUserRoleToolbar(),
-                      EHDataGrid(
-                        controller: c,
-                      )
-                    ],
-                  )
-                : Column(
-                    children: [
-                      buildUserRoleToolbar(),
-                      //need add expanded, bc ehgrid has child element 'column' which is already expanded in non-mobile mode, so we need tell ehgrid expanded in parent column as well. otherwise, exception will be thrown.
-                      Expanded(
-                        child: EHDataGrid(
-                          controller: c,
-                        ),
-                      )
-                    ],
-                  ));
+            child: Column(
+              children: [
+                buildUserRoleToolbar(),
+                //need add expanded, bc ehgrid has child element 'column' which is already expanded in non-mobile mode, so we need tell ehgrid expanded in parent column as well. otherwise, exception will be thrown.
+                EHDataGrid(
+                  controller: c,
+                )
+              ],
+            ));
       }),
       // EHTab('Summary Info', controller, (controller) => Center()),
       // EHTab('Other', controller, (controller) => EditingDataGrid()),
