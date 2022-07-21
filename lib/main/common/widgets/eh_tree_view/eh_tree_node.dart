@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 /// One node data of a tree.
 class EHTreeNode {
   Key? key;
+
+  String? id;
 
   IconData? icon;
 
@@ -23,6 +24,7 @@ class EHTreeNode {
 
   EHTreeNode(
       {this.key,
+      this.id,
       required this.displayName,
       this.icon,
       this.isExpanded,

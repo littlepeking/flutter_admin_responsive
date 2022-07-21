@@ -54,7 +54,7 @@ getSystemBtnBar() {
     //SizedBox(width: 10),
     EHImageButton(
       text: 'WMS',
-      icon: Icon(Icons.cabin),
+      icon: Icon(Icons.warehouse),
       onPressed: (data) {
         // if (System.wms != GlobalDataController.instance.system.value) {
         GlobalDataController.instance.system.value = SystemModule.wms;

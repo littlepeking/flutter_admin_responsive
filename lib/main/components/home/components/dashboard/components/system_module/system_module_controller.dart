@@ -23,7 +23,9 @@ class SystemModuleController extends EHController {
       allNodesExpanded: true,
       treeNodeDataList: [
         EHTreeNode(
-            displayName: "Master Data",
+            displayName: "Master Data", icon: Icons.museum, children: []),
+        EHTreeNode(
+            displayName: "Security",
             icon: Icons.admin_panel_settings,
             children: [
               EHTreeNode(
@@ -39,11 +41,6 @@ class SystemModuleController extends EHController {
                         expandMode: EHTabsViewExpandMode.Flexible));
                     // FocusManager.instance.primaryFocus?.unfocus();
                   }),
-            ]),
-        EHTreeNode(
-            displayName: "Security",
-            icon: Icons.admin_panel_settings,
-            children: [
               EHTreeNode(
                   displayName: "User",
                   isChecked: true,

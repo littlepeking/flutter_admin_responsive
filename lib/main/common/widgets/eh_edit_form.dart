@@ -117,7 +117,8 @@ class EHEditForm<T extends EHModel>
         return EHCustomFormWidget<T>(
             controller: controller as EHCustomFormWidgetController<T>);
       } else {
-        throw EHException('not implement yet');
+        throw EHException(
+            'not implement yet for control: ' + controller.toString());
       }
     });
   }

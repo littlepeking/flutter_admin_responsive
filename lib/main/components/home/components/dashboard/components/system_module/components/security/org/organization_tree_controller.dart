@@ -1,16 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
-import 'package:eh_flutter_framework/main/common/base/eh_org_model.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
 import 'package:eh_flutter_framework/main/common/services/common/eh_rest_service.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_detail_view.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_detail_view_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_detail_view.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_detail_view_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 import 'package:get/get_rx/get_rx.dart';
 
 import 'organization_model.dart';
@@ -20,15 +18,15 @@ class OrganizationTreeController extends EHPanelController {
 
   late EHTreeController orgTreeController;
 
-  Rx<OrganizationModel?> model = Rxn<OrganizationModel>();
-
   RxBool isOrgDetailOpened = false.obs;
 
   RxDouble splitterWeights = 0.2.obs;
 
-  late EHTabsViewController receiptDetailTabsViewController;
+  Rx<OrganizationModel?> model = Rxn<OrganizationModel>();
 
-  late ReceiptDetailViewController receiptDetailInfoController;
+  late EHTabsViewController detailTabsViewController;
+
+  late OrganizationDetailViewController organizationDetailViewController;
 
   Future<void> loadOrgTreeData() async {
     Response<Map<String, dynamic>> response =
@@ -53,25 +51,26 @@ class OrganizationTreeController extends EHPanelController {
           .toList();
     }
 
-    if (children != null && children.length > 0) {
-      print(children);
-    }
+    OrganizationModel orgModel = OrganizationModel.fromJson(data);
 
     return EHTreeNode(
+        id: data['id'],
         displayName: data['name'],
-        data: EHOrgModel.fromJson(data),
-        children: children);
+        data: orgModel,
+        children: children,
+        onTap: () {
+          model.value = orgModel;
+          model.refresh();
+        });
   }
 
   OrganizationTreeController() : super(null) {
-    receiptDetailInfoController = ReceiptDetailViewController(this);
+    organizationDetailViewController = OrganizationDetailViewController(this);
 
     orgTreeController = EHTreeController(
         displaySelectedItems: true,
         allNodesExpanded: true,
-        treeNodeDataList: <EHTreeNode>[
-          EHTreeNode(displayName: 'All Organizations', children: [])
-        ].obs);
+        treeNodeDataList: <EHTreeNode>[].obs);
 
     // orgTreeController = EHTreeController(
     //     displaySelectedItems: true,
@@ -114,11 +113,11 @@ class OrganizationTreeController extends EHPanelController {
     //       ]),
     //     ].obs);
 
-    receiptDetailTabsViewController = EHTabsViewController(tabs: [
-      EHTab('Detail Info', receiptDetailInfoController, (EHController c) {
+    detailTabsViewController = EHTabsViewController(tabs: [
+      EHTab('Detail Info', organizationDetailViewController, (EHController c) {
         return PageStorage(
             bucket: pageStorageBucket,
-            child: ReceiptDetailView(
+            child: OrganizationDetailView(
               controller: c,
             ));
       }),

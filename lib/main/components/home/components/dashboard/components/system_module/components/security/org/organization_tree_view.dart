@@ -1,10 +1,12 @@
 import 'package:eh_flutter_framework/main/common/base/StatefulWrapper.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
+import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_tree_controller.dart';
 import 'package:flutter/material.dart';
@@ -47,17 +49,24 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
         : SplitViewMode.Horizontal;
 
     return StatefulWrapper(
-      onInit: () => controller.loadOrgTreeData(),
+      onInit: () {
+        if (controller.orgTreeController.treeNodeDataList.length == 0) {
+          controller.orgTreeController.treeNodeDataList.add(EHTreeNode(
+              displayName: 'All Organizations', children: [], icon: Icons.lan));
+          controller.loadOrgTreeData();
+        }
+      },
       child: Column(children: [
         buildToolbar(context),
+        SizedBox(
+          height: 5,
+        ),
         PageStorage(
           bucket: controller.pageStorageBucket,
           child: Expanded(
             child: Container(
               decoration: BoxDecoration(
-                  border: Border(
-                      top: BorderSide(
-                          color: Theme.of(Get.context!).primaryColor))),
+                  border: Border(top: BorderSide(color: Colors.grey))),
               child: SplitView(
                 children: [
                   EHTreeView(
@@ -68,8 +77,7 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
                           padding: EdgeInsets.only(left: 5, top: 5),
                           child: EHTabsView(
                               expandMode: EHTabsViewExpandMode.Scrollable,
-                              controller:
-                                  controller.receiptDetailTabsViewController),
+                              controller: controller.detailTabsViewController),
                         )
                       : Center(
                           child: Row(
@@ -114,26 +122,17 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
           },
           child: Text('Add'.tr),
         )),
+        Obx(() => EHButton(
+                controller: EHButtonController(
+              enabled: controller.model.value != null,
+              child: Text('Save'.tr),
+              onPressed: () async {},
+            ))),
         EHButton(
             controller: EHButtonController(
           child: Text('Delete'.tr),
           onPressed: () async {},
         )),
-        Container(
-          // width: 90,
-          child: EHDropdown(
-              controller: EHDropDownController(
-            key: GlobalKey(),
-            focusNode: FocusNode(),
-            isMenu: true,
-            dropDownWidth: 150,
-            label: 'Actions',
-            items: {
-              'exportToExcel': 'Export To Excel',
-            },
-            onChanged: (value) {},
-          )),
-        )
       ],
     );
   }

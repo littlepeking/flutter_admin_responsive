@@ -110,6 +110,12 @@ Map<String, String> zhCNMessages = {
   'Role Name': '角色',
   'Description': '描述',
   'All Organizations': '所有组织',
+  'Organization Name': '组织名称',
+  'Parent Organization': '父级组织',
+  'Address1': '地址1',
+  'Address2': '地址2',
+  'Contact1': '联系人1',
+  'Contact2': '联系人2',
   ////
   ///test i18 data
   'popUp': '弹出框',

@@ -13,7 +13,7 @@ class EHButton extends EHStatelessWidget<EHButtonController> {
       child: SizedBox(
         height: 28,
         child: ElevatedButton(
-          onPressed: controller.onPressed,
+          onPressed: controller.enabled ? controller.onPressed : null,
           child: controller.child,
         ),
       ),
@@ -32,7 +32,8 @@ class EHButtonController extends EHEditableWidgetController {
   Widget child;
 
   EHButtonController({
+    bool enabled = true,
     this.onPressed,
     required this.child,
-  });
+  }) : super(enabled: enabled);
 }

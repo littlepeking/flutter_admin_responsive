@@ -308,7 +308,7 @@ class ReceiptDetailViewController extends EHPanelController {
                           child: Obx(() => Center(
                                 child: Text(
                                   'Custom widget example2:' +
-                                      (rxModel!.value.receiptKey ?? ''),
+                                      (rxModel!.value!.receiptKey ?? ''),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18,
@@ -388,7 +388,7 @@ class CustomWidget extends EHValidationWidget {
 
   final FocusNode? focusNode;
   final Key? key;
-  final Rx<ReceiptModel>? rxModel;
+  final Rx<ReceiptModel?>? rxModel;
 
   @override
   Future<bool> validate() async {
@@ -400,6 +400,6 @@ class CustomWidget extends EHValidationWidget {
     return Obx(() => Container(
         margin: EdgeInsets.only(left: 100),
         child: Text(
-            'Custom widget example1:' + (rxModel!.value.receiptKey ?? ''))));
+            'Custom widget example1:' + (rxModel!.value?.receiptKey ?? ''))));
   }
 }
