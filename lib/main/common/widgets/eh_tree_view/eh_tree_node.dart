@@ -9,7 +9,7 @@ class EHTreeNode {
 
   String displayName;
 
-  Map data;
+  dynamic data;
 
   bool? isChecked;
 

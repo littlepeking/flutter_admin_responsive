@@ -14,8 +14,10 @@ class SystemModuleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemModuleController systemModuleController =
-        Get.put(SystemModuleController(), permanent: true);
+    SystemModuleController systemModuleController = Get.put(
+      SystemModuleController(),
+      permanent: true,
+    );
 
     // wmsPanelController.reset();
 

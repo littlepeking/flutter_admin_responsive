@@ -86,7 +86,7 @@ Map<String, String> zhCNMessages = {
   'Add Date': '添加日期',
   'Edit Date': '修改日期',
 
-  'Add': '添加',
+  'Add': '新建',
   'Edit': '编辑',
   'Delete': '删除',
   //Master Data
@@ -109,6 +109,7 @@ Map<String, String> zhCNMessages = {
   'Delete Role': '删除角色',
   'Role Name': '角色',
   'Description': '描述',
+  'All Organizations': '所有组织',
   ////
   ///test i18 data
   'popUp': '弹出框',

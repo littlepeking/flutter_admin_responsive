@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_org_model.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
+import 'package:eh_flutter_framework/main/common/services/common/eh_rest_service.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
@@ -8,7 +11,8 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_detail_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_detail_view_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
+import 'package:get/get_rx/get_rx.dart';
 
 class OrganizationTreeController extends EHPanelController {
   PageStorageBucket pageStorageBucket = PageStorageBucket();
@@ -25,6 +29,39 @@ class OrganizationTreeController extends EHPanelController {
 
   late ReceiptDetailViewController receiptDetailInfoController;
 
+  Future<void> loadOrgTreeData() async {
+    Response<Map<String, dynamic>> response =
+        await EHRestService().getByServiceName<Map<String, dynamic>>(
+      serviceName: '/security/org',
+      actionName: '/buildTree',
+    );
+
+    if (response.data != null) {
+      EHTreeNode node = convertMap2TreeData(response.data!);
+      orgTreeController.treeNodeDataList![0].children!.add(node);
+      orgTreeController.treeNodeDataList!.refresh();
+    }
+  }
+
+  EHTreeNode convertMap2TreeData(Map<String, dynamic> data) {
+    List<EHTreeNode>? children;
+
+    if (data['children'] != null) {
+      children = data['children']
+          .map<EHTreeNode>((c) => convertMap2TreeData(c))
+          .toList();
+    }
+
+    if (children != null && children.length > 0) {
+      print(children);
+    }
+
+    return EHTreeNode(
+        displayName: data['name'],
+        data: EHOrgModel.fromJson(data),
+        children: children);
+  }
+
   OrganizationTreeController() : super(null) {
     receiptDetailInfoController = ReceiptDetailViewController(this);
 
@@ -32,42 +69,49 @@ class OrganizationTreeController extends EHPanelController {
         displaySelectedItems: true,
         allNodesExpanded: true,
         treeNodeDataList: <EHTreeNode>[
-          EHTreeNode(displayName: 'Headquanter', children: [
-            EHTreeNode(displayName: 'subBranch01', children: [
-              EHTreeNode(displayName: 'Headquanter', children: [
-                EHTreeNode(displayName: 'subBranch01', children: []),
-                EHTreeNode(displayName: 'subBranch01', children: [])
-              ])
-            ]),
-            EHTreeNode(displayName: 'subBranch01', children: [
-              EHTreeNode(displayName: 'Headquanter', children: [
-                EHTreeNode(displayName: 'subBranch01', children: [
-                  EHTreeNode(displayName: 'Headquanter', children: [
-                    EHTreeNode(displayName: 'subBranch01', children: []),
-                    EHTreeNode(displayName: 'subBranch01', children: [])
-                  ])
-                ]),
-                EHTreeNode(displayName: 'subBranch01', children: [
-                  EHTreeNode(displayName: 'Headquanter', children: [
-                    EHTreeNode(displayName: 'subBranch01', children: []),
-                    EHTreeNode(displayName: 'subBranch01', children: [
-                      EHTreeNode(displayName: 'Headquanter', children: [
-                        EHTreeNode(displayName: 'subBranch01', children: []),
-                        EHTreeNode(displayName: 'subBranch01', children: [
-                          EHTreeNode(displayName: 'Headquanter', children: [
-                            EHTreeNode(
-                                displayName: 'subBranch01', children: []),
-                            EHTreeNode(displayName: 'subBranch01', children: [])
-                          ])
-                        ])
-                      ])
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ]),
+          EHTreeNode(displayName: 'All Organizations', children: [])
         ].obs);
+
+    // orgTreeController = EHTreeController(
+    //     displaySelectedItems: true,
+    //     allNodesExpanded: true,
+    //     treeNodeDataList: <EHTreeNode>[
+    //       EHTreeNode(displayName: 'Headquanter', children: [
+    //         EHTreeNode(displayName: 'subBranch01', children: [
+    //           EHTreeNode(displayName: 'Headquanter', children: [
+    //             EHTreeNode(displayName: 'subBranch01', children: []),
+    //             EHTreeNode(displayName: 'subBranch01', children: [])
+    //           ])
+    //         ]),
+    //         EHTreeNode(displayName: 'subBranch01', children: [
+    //           EHTreeNode(displayName: 'Headquanter', children: [
+    //             EHTreeNode(displayName: 'subBranch01', children: [
+    //               EHTreeNode(displayName: 'Headquanter', children: [
+    //                 EHTreeNode(displayName: 'subBranch01', children: []),
+    //                 EHTreeNode(displayName: 'subBranch01', children: [])
+    //               ])
+    //             ]),
+    //             EHTreeNode(displayName: 'subBranch01', children: [
+    //               EHTreeNode(displayName: 'Headquanter', children: [
+    //                 EHTreeNode(displayName: 'subBranch01', children: []),
+    //                 EHTreeNode(displayName: 'subBranch01', children: [
+    //                   EHTreeNode(displayName: 'Headquanter', children: [
+    //                     EHTreeNode(displayName: 'subBranch01', children: []),
+    //                     EHTreeNode(displayName: 'subBranch01', children: [
+    //                       EHTreeNode(displayName: 'Headquanter', children: [
+    //                         EHTreeNode(
+    //                             displayName: 'subBranch01', children: []),
+    //                         EHTreeNode(displayName: 'subBranch01', children: [])
+    //                       ])
+    //                     ])
+    //                   ])
+    //                 ])
+    //               ])
+    //             ])
+    //           ])
+    //         ])
+    //       ]),
+    //     ].obs);
 
     receiptDetailTabsViewController = EHTabsViewController(tabs: [
       EHTab('Detail Info', receiptDetailInfoController, (EHController c) {

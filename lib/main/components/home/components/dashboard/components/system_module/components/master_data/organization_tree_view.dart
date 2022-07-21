@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/base/StatefulWrapper.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
@@ -14,6 +15,7 @@ import 'package:split_view/split_view.dart';
 class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
   OrganizationTreeView({Key? key, controller})
       : super(key: key, controller: controller);
+
   @override
   Widget build(BuildContext context) {
     // return Column(
@@ -43,58 +45,61 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
         ? SplitViewMode.Vertical
         : SplitViewMode.Horizontal;
 
-    return Column(children: [
-      buildToolbar(context),
-      PageStorage(
-        bucket: controller.pageStorageBucket,
-        child: Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border(
-                    top: BorderSide(
-                        color: Theme.of(Get.context!).primaryColor))),
-            child: SplitView(
-              children: [
-                EHTreeView(
-                  controller: controller.orgTreeController,
-                ),
-                Obx(() => controller.model.value != null
-                    ? Padding(
-                        padding: EdgeInsets.only(left: 5, top: 5),
-                        child: EHTabsView(
-                            expandMode: EHTabsViewExpandMode.Scrollable,
-                            controller:
-                                controller.receiptDetailTabsViewController),
-                      )
-                    : Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.tips_and_updates_outlined),
-                            SizedBox(width: 10),
-                            Text(
-                                'Please create or select a organization before edit'
-                                    .tr),
-                          ],
-                        ),
-                      )),
-              ],
-              gripSize: 3,
-              viewMode: splitViewMode,
-              indicator: SplitIndicator(viewMode: splitViewMode),
-              activeIndicator: SplitIndicator(
+    return StatefulWrapper(
+      onInit: () => controller.loadOrgTreeData(),
+      child: Column(children: [
+        buildToolbar(context),
+        PageStorage(
+          bucket: controller.pageStorageBucket,
+          child: Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border(
+                      top: BorderSide(
+                          color: Theme.of(Get.context!).primaryColor))),
+              child: SplitView(
+                children: [
+                  EHTreeView(
+                    controller: controller.orgTreeController,
+                  ),
+                  Obx(() => controller.model.value != null
+                      ? Padding(
+                          padding: EdgeInsets.only(left: 5, top: 5),
+                          child: EHTabsView(
+                              expandMode: EHTabsViewExpandMode.Scrollable,
+                              controller:
+                                  controller.receiptDetailTabsViewController),
+                        )
+                      : Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.tips_and_updates_outlined),
+                              SizedBox(width: 10),
+                              Text(
+                                  'Please create or select a organization before edit'
+                                      .tr),
+                            ],
+                          ),
+                        )),
+                ],
+                gripSize: 3,
                 viewMode: splitViewMode,
-                isActive: true,
+                indicator: SplitIndicator(viewMode: splitViewMode),
+                activeIndicator: SplitIndicator(
+                  viewMode: splitViewMode,
+                  isActive: true,
+                ),
+                controller: SplitViewController(
+                    limits: [WeightLimit(max: 0.9), WeightLimit(max: 0.9)],
+                    weights: [controller.splitterWeights.value]),
+                onWeightChanged: (w) => null,
               ),
-              controller: SplitViewController(
-                  limits: [WeightLimit(max: 0.9), WeightLimit(max: 0.9)],
-                  weights: [controller.splitterWeights.value]),
-              onWeightChanged: (w) => null,
             ),
           ),
-        ),
-      )
-    ]);
+        )
+      ]),
+    );
   }
 
   buildToolbar(BuildContext context) {

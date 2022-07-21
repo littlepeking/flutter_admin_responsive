@@ -69,7 +69,7 @@ class UserEditController extends EHPanelController {
             child: Column(
               children: [
                 buildUserRoleToolbar(),
-                //need add expanded, bc ehgrid has child element 'column' which is already expanded in non-mobile mode, so we need tell ehgrid expanded in parent column as well. otherwise, exception will be thrown.
+                //need wrapWithExpanded, bc ehgrid has child element 'column' which is already expanded in non-mobile mode, so we need tell ehgrid expanded in parent column as well. otherwise, exception will be thrown.
                 EHDataGrid(
                   controller: c,
                 )
