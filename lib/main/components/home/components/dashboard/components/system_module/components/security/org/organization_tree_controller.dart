@@ -7,12 +7,13 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dar
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/models/organization_model.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_detail_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/receipt_detail_view_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 import 'package:get/get_rx/get_rx.dart';
+
+import 'organization_model.dart';
 
 class OrganizationTreeController extends EHPanelController {
   PageStorageBucket pageStorageBucket = PageStorageBucket();

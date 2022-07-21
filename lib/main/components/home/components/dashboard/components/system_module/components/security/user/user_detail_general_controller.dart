@@ -1,13 +1,13 @@
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/models/user_model.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_edit_controller.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../../../common/widgets/eh_dropdown.dart';
+import 'user_edit_controller.dart';
+import 'user_model.dart';
 
 class UserDetailGeneralController extends EHPanelController {
   // ignore: avoid_init_to_null

@@ -1,16 +1,15 @@
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_edit_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_edit_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'user_edit_controller.dart';
+import 'user_edit_view.dart';
 import 'user_list_controller.dart';
 
 class UserList extends EHPanel<UserListController> {

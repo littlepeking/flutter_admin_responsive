@@ -6,11 +6,12 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_view.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/models/organization_model.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/organization_tree_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_tree_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:split_view/split_view.dart';
+
+import 'organization_model.dart';
 
 class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
   OrganizationTreeView({Key? key, controller})

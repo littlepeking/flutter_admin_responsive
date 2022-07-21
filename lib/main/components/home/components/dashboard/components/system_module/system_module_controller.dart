@@ -4,14 +4,15 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_vi
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/organization_tree_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/master_data/organization_tree_view.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_list_view.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user_list_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_tree_view.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user/user_list_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user/user_list_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/examples/components/TestComponent/TestController.dart';
 import 'package:eh_flutter_framework/main/components/home/components/examples/components/TestComponent/test2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/get_rx.dart';
+
+import 'components/security/org/organization_tree_controller.dart';
 
 class SystemModuleController extends EHController {
   EHTabsViewController tabViewController =

@@ -1,5 +1,5 @@
 import 'package:eh_flutter_framework/main/common/services/common/eh_base_model_service.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/models/user_model.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user/user_model.dart';
 
 import '../common/service_name.dart';
 
