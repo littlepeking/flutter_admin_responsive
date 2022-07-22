@@ -61,7 +61,8 @@ class EHRestService extends GetxController {
       // await Future.delayed(Duration(seconds: 2));
       //if (loadingIndicator.isOpen) loadingIndicator.hide();
       if (error.response?.statusCode == 404) {
-        EHToastMessageHelper.showInfoMessage('request url cannot found'.tr);
+        EHToastMessageHelper.showInfoMessage('request url cannot found'.tr,
+            type: EHToastMsgType.Error);
         //return handler.next(error);
       } else if (error.response?.statusCode == 401) {
         // bus.emit("401");
@@ -83,7 +84,8 @@ class EHRestService extends GetxController {
         if (error.type == DioErrorType.connectTimeout ||
             error.type == DioErrorType.receiveTimeout ||
             error.type == DioErrorType.sendTimeout) {
-          EHToastMessageHelper.showInfoMessage('Network connect error.'.tr);
+          EHToastMessageHelper.showInfoMessage('Network connect error.'.tr,
+              type: EHToastMsgType.Error);
         } else {
           //comment this part as all other exception should be handled by developer and if it doesn't, dioError will be finally catched by main.dart
           // var errData = error.response?.data;

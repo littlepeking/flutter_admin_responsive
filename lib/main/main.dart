@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'dart:convert';
 import 'package:eh_flutter_framework/main/common/i18n/customSfLocalization.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:flutter/material.dart';
@@ -51,16 +52,23 @@ main() {
       fallbackLocale: Locale('en', 'US'),
     )); // starting point of app
   }, (error, stackTrace) {
-    print('Triggers asynchrounous error, like dioError');
+    print('Hi, Asynchrounous error encoutered, like dioError');
     if (error is DioError) {
       DioError dioError = error;
-      if (dioError.response != null &&
-          dioError.response!.data != null &&
-          dioError.response!.data!['details'] != null) {
-        EHToastMessageHelper.showInfoMessage(
-            dioError.response!.data!['details'].toString().tr);
-      } else {
-        EHToastMessageHelper.showInfoMessage((error).error);
+      if (dioError.response != null && dioError.response!.data != null) {
+        Map data = dioError.response!.data is Map
+            ? dioError.response!.data
+            : json.decode(dioError.response!.data!);
+        //TODO: FORM VALIDATION ERROR
+        if (data['type']
+            .toString()
+            .startsWith('https://zalando.github.io/problem/')) {
+          EHToastMessageHelper.showInfoMessage(data['details'],
+              title: data['title'], type: EHToastMsgType.Error);
+        } else {
+          EHToastMessageHelper.showInfoMessage(data['error'],
+              type: EHToastMsgType.Error);
+        }
       }
     }
     print("--------------------------------\n");

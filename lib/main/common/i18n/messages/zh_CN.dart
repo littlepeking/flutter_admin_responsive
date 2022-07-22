@@ -89,6 +89,8 @@ Map<String, String> zhCNMessages = {
   'Add': '新建',
   'Edit': '编辑',
   'Delete': '删除',
+
+  'Saved successfully.': '保存成功',
   //Master Data
   'Master Data': '主数据',
   'Organization': '组织',
@@ -112,6 +114,7 @@ Map<String, String> zhCNMessages = {
   'All Organizations': '所有组织',
   'Organization Name': '组织名称',
   'Parent Organization': '父级组织',
+  'Organization Code': '组织代码',
   'Address1': '地址1',
   'Address2': '地址2',
   'Contact1': '联系人1',

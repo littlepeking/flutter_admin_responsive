@@ -8,6 +8,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_vi
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_view.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_services.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_tree_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,9 +52,7 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
     return StatefulWrapper(
       onInit: () {
         if (controller.orgTreeController.treeNodeDataList.length == 0) {
-          controller.orgTreeController.treeNodeDataList.add(EHTreeNode(
-              displayName: 'All Organizations', children: [], icon: Icons.lan));
-          controller.loadOrgTreeData();
+          controller.reloadOrgTreeData();
         }
       },
       child: Column(children: [
@@ -123,11 +122,10 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
           child: Text('Add'.tr),
         )),
         Obx(() => EHButton(
-                controller: EHButtonController(
-              enabled: controller.model.value != null,
-              child: Text('Save'.tr),
-              onPressed: () async {},
-            ))),
+            controller: EHButtonController(
+                enabled: controller.model.value != null,
+                child: Text('Save'.tr),
+                onPressed: this.controller.saveOrgDetailView))),
         EHButton(
             controller: EHButtonController(
           child: Text('Delete'.tr),

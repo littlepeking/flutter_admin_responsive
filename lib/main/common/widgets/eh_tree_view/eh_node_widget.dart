@@ -94,7 +94,7 @@ class EHNodeWidget extends StatelessWidget {
                       controller.selectedTreeNode = treeNode;
                       if (treeNode.onTap != null) treeNode.onTap!();
 
-                      controller.treeNodeDataList!.refresh();
+                      controller.treeNodeDataList.refresh();
                     },
                   ),
                 ),

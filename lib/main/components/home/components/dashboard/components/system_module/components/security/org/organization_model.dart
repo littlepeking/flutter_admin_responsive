@@ -12,8 +12,8 @@ part 'organization_model.g.dart';
 @EHMethodExecutor
 @EHDateTime2TimeStampConverter
 class OrganizationModel extends EHVersionModel {
-  String? id;
   String? name;
+  String? code;
   String? parentId;
   String? address1;
   String? address2;
@@ -22,6 +22,7 @@ class OrganizationModel extends EHVersionModel {
 
   OrganizationModel({
     String? id,
+    this.code,
     this.name,
     this.parentId,
     this.address1,

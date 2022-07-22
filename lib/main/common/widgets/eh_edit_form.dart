@@ -183,4 +183,10 @@ class EHEditFormController<T extends EHModel> extends EHController {
     }
     return isValid;
   }
+
+  reset() {
+    if (widgetsControllers.length > 0) {
+      widgetsControllers.forEach((e) => e.resetWidget());
+    }
+  }
 }

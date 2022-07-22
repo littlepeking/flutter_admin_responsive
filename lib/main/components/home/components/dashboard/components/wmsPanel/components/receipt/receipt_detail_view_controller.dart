@@ -308,7 +308,7 @@ class ReceiptDetailViewController extends EHPanelController {
                           child: Obx(() => Center(
                                 child: Text(
                                   'Custom widget example2:' +
-                                      (rxModel!.value!.receiptKey ?? ''),
+                                      (rxModel!.value.receiptKey ?? ''),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18,

@@ -131,4 +131,9 @@ abstract class EHEditableWidgetController<T extends EHModel>
     //   });
     // }
   }
+
+  void resetWidget() {
+    EHController.clearError(errorBucket!, key!);
+    EHController.clearDisplayValue(key!);
+  }
 }

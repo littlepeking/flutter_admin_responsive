@@ -45,7 +45,7 @@ class EHTreeController extends EHController {
 
   void toggleNodeExpanded(EHTreeNode treeNode) {
     treeNode.isExpanded = !isNodeExpanded(treeNode);
-    treeNodeDataList!.refresh();
+    treeNodeDataList.refresh();
   }
 
   // void expandAll() {
@@ -60,12 +60,12 @@ class EHTreeController extends EHController {
 
   void expandNode(EHTreeNode treeNode) {
     treeNode.isExpanded = true;
-    treeNodeDataList!.refresh();
+    treeNodeDataList.refresh();
   }
 
   void collapseNode(EHTreeNode treeNode) {
     treeNode.isExpanded = false;
-    treeNodeDataList!.refresh();
+    treeNodeDataList.refresh();
   }
 
   void checkNode(EHTreeNode treeNode, bool? val) {
@@ -79,11 +79,11 @@ class EHTreeController extends EHController {
   }
 
   void reCalculateAllCheckStatus() {
-    if (treeNodeDataList != null && treeNodeDataList!.length > 0)
-      treeNodeDataList!.forEach((node) {
+    if (treeNodeDataList != null && treeNodeDataList.length > 0)
+      treeNodeDataList.forEach((node) {
         recursivelyCalculateCheckStatus(node);
       });
-    treeNodeDataList!.refresh();
+    treeNodeDataList.refresh();
   }
 
   bool? recursivelyCalculateCheckStatus(EHTreeNode node) {

@@ -37,4 +37,12 @@ class EHController extends GetxController {
 
     return errorBucket[key]!.value;
   }
+
+  static clearError(Map<Key?, RxString> errorBucket, Key key) {
+    setWidgetError(errorBucket, key, '');
+  }
+
+  static clearDisplayValue(Key key) {
+    setWidgetDisplayValue(key, '');
+  }
 }

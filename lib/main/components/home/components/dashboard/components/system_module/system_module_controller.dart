@@ -31,9 +31,10 @@ class SystemModuleController extends EHController {
               EHTreeNode(
                   displayName: "Organization",
                   isChecked: true,
-                  onTap: () {
+                  onTap: () async {
                     tabViewController.addTab(EHTab<OrganizationTreeController>(
-                        'Organization', OrganizationTreeController(),
+                        'Organization',
+                        await OrganizationTreeController.create(),
                         (EHController controller) {
                       return OrganizationTreeView(controller: controller);
                     },

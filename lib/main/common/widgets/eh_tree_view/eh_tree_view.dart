@@ -1,4 +1,3 @@
-import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +29,7 @@ class EHTreeView extends EHStatelessWidget<EHTreeController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  for (var node in controller.treeNodeDataList!)
+                  for (var node in controller.treeNodeDataList)
                     EHNodeWidget(
                       treeNode: node,
                       controller: controller,

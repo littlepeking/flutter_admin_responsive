@@ -265,7 +265,8 @@ class EHDatePickerController extends EHEditableWidgetController {
     TimeOfDay? time;
 
     if (selectedDate == null) {
-      EHToastMessageHelper.showInfoMessage('Please select a date firstly'.tr);
+      EHToastMessageHelper.showInfoMessage('Please select a date firstly'.tr,
+          type: EHToastMsgType.Error);
       return null;
     }
 
