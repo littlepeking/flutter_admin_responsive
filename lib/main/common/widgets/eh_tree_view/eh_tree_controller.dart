@@ -24,7 +24,7 @@ class EHTreeController extends EHController {
   bool _allNodesExpanded;
   RxList<EHTreeNode> treeNodeDataList;
 
-  EHTreeNode? selectedTreeNode;
+  Rx<EHTreeNode?> selectedTreeNode = Rxn();
 
   EHTreeController(
       {this.indent = 10,

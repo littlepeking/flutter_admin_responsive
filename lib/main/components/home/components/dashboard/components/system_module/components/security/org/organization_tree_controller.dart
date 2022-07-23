@@ -20,8 +20,6 @@ class OrganizationTreeController extends EHPanelController {
 
   late EHTreeController orgTreeController;
 
-  RxBool isOrgDetailOpened = false.obs;
-
   RxDouble splitterWeights = 0.2.obs;
 
   Rx<OrganizationModel?> model = Rxn<OrganizationModel>();
@@ -30,7 +28,7 @@ class OrganizationTreeController extends EHPanelController {
 
   late OrganizationDetailViewController organizationDetailViewController;
 
-  Future<void> reloadOrgTreeData() async {
+  Future<void> reloadOrgTreeData({String? overrideTreeNodeId}) async {
     orgTreeController.treeNodeDataList.clear();
 
     EHTreeNode rootNode = EHTreeNode(
@@ -46,25 +44,35 @@ class OrganizationTreeController extends EHPanelController {
     orgTreeController.treeNodeDataList.add(rootNode);
 
     String selectTreeNodeId = '';
-    if (orgTreeController.selectedTreeNode != null) {
-      selectTreeNodeId = orgTreeController.selectedTreeNode!.id!;
-      orgTreeController.selectedTreeNode = null;
+
+    //calculate selectedTreeNodeId: override node id take precedence and then selected Tree node id and then root node.
+    if (overrideTreeNodeId != null) {
+      selectTreeNodeId = overrideTreeNodeId;
+      orgTreeController.selectedTreeNode.value = null;
+    } else {
+      if (orgTreeController.selectedTreeNode.value != null) {
+        selectTreeNodeId = orgTreeController.selectedTreeNode.value!.id!;
+        orgTreeController.selectedTreeNode.value = null;
+      }
     }
 
-    Response<Map<String, dynamic>> response =
-        await EHRestService().getByServiceName<Map<String, dynamic>>(
+    Response<List> response = await EHRestService().getByServiceName<List>(
       serviceName: '/security/org',
       actionName: '/buildTree',
     );
 
     if (response.data != null) {
-      EHTreeNode node = convertMap2TreeData(response.data!, selectTreeNodeId);
-      orgTreeController.treeNodeDataList[0].children!.add(node);
+      response.data!.forEach((map) {
+        EHTreeNode node = convertMap2TreeData(map, selectTreeNodeId);
+        rootNode.children!.add(node);
+        node.parentTreeNode = rootNode;
+      });
+
       orgTreeController.treeNodeDataList.refresh();
     }
 
-    if (orgTreeController.selectedTreeNode == null) {
-      orgTreeController.selectedTreeNode = rootNode;
+    if (orgTreeController.selectedTreeNode.value == null) {
+      orgTreeController.selectedTreeNode.value = rootNode;
     }
   }
 
@@ -94,7 +102,12 @@ class OrganizationTreeController extends EHPanelController {
           model.refresh();
         });
 
-    if (node.isSelected) orgTreeController.selectedTreeNode = node;
+    if (node.children != null) {
+      print(node.children.toString());
+      node.children!.forEach((c) => c.parentTreeNode = node);
+    }
+
+    if (node.isSelected) orgTreeController.selectedTreeNode.value = node;
 
     return node;
   }
@@ -176,8 +189,22 @@ class OrganizationTreeController extends EHPanelController {
         .validate()) {
       model.value = await OrganizationServices.save(model.value!);
       model.refresh();
+
       EHToastMessageHelper.showInfoMessage('Saved successfully.');
-      reloadOrgTreeData();
+      reloadOrgTreeData(overrideTreeNodeId: model.value!.id!);
+
+      organizationDetailViewController.initData();
     }
+  }
+
+  void deleteSelectedOrg() async {
+    await OrganizationServices.deleteOrgById(
+        orgTreeController.selectedTreeNode.value!.id);
+    EHToastMessageHelper.showInfoMessage('Delete successfully.');
+    reloadOrgTreeData(
+        overrideTreeNodeId:
+            orgTreeController.selectedTreeNode.value!.parentTreeNode!.id);
+
+    organizationDetailViewController.initData();
   }
 }

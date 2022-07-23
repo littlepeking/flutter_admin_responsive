@@ -6,6 +6,8 @@ class EHTreeNode {
 
   String? id;
 
+  EHTreeNode? parentTreeNode;
+
   IconData? icon;
 
   String displayName;
@@ -25,6 +27,7 @@ class EHTreeNode {
   EHTreeNode(
       {this.key,
       this.id,
+      this.parentTreeNode,
       required this.displayName,
       this.icon,
       this.isExpanded,

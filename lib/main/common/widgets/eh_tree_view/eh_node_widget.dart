@@ -77,7 +77,8 @@ class EHNodeWidget extends StatelessWidget {
                     child: Container(
                         decoration: controller.displaySelectedItems
                             ? BoxDecoration(
-                                color: treeNode == controller.selectedTreeNode
+                                color: treeNode ==
+                                        controller.selectedTreeNode.value
                                     ? Theme.of(Get.context!)
                                         .textSelectionTheme
                                         .selectionColor
@@ -91,7 +92,7 @@ class EHNodeWidget extends StatelessWidget {
                           child: Text(treeNode.displayName.tr),
                         )),
                     onTap: () {
-                      controller.selectedTreeNode = treeNode;
+                      controller.selectedTreeNode.value = treeNode;
                       if (treeNode.onTap != null) treeNode.onTap!();
 
                       controller.treeNodeDataList.refresh();

@@ -17,4 +17,9 @@ class OrganizationServices {
 
     return OrganizationModel.fromJson(response.data!);
   }
+
+  static Future<void> deleteOrgById(String? id) async {
+    await EHRestService().deleteByServiceName(
+        serviceName: '/security/org/' + id.toString(), actionName: '');
+  }
 }

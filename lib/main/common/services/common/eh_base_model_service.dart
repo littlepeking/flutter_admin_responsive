@@ -19,7 +19,7 @@ abstract class EHBaseModelService<T extends EHModel> extends GetxController {
   }
 
   Future<List<T>> queryModels({
-    String actionName = 'queryModels',
+    String actionName = 'query',
     required List<String> ids,
   }) async {
     Response<List<T>> response = await EHRestService()
@@ -43,7 +43,7 @@ abstract class EHBaseModelService<T extends EHModel> extends GetxController {
   }
 
   Future<T> createOrUpdateModel({
-    String actionName = 'saveModel',
+    String actionName = 'save',
     required T model,
   }) async {
     Response<T> response = await EHRestService().postByServiceName<T>(
@@ -61,7 +61,7 @@ abstract class EHBaseModelService<T extends EHModel> extends GetxController {
   }
 
   Future<void> deleteModels({
-    String actionName = 'deleteModel',
+    String actionName = 'delete',
     required List<String> ids,
   }) async {
     await EHRestService().postByServiceName(

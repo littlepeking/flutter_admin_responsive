@@ -14,6 +14,7 @@ import 'organization_services.dart';
 
 class OrganizationDetailViewController extends EHPanelController {
   RxString ddlType = '0'.obs;
+  RxMap<String, String> orgItems = Map<String, String>().obs;
 
   //Here we need set controller to null expliciltly, otherwise OrganizationDetailViewController constructor will cannot assign init value to getWidgetControllerFormController
   // ignore: avoid_init_to_null
@@ -31,7 +32,7 @@ class OrganizationDetailViewController extends EHPanelController {
     OrganizationDetailViewController self =
         OrganizationDetailViewController._create(parent);
 
-    Map<String, String> orgItems = await self.getOrgDDLDataSource();
+    self.orgItems.value = await getOrgDDLDataSource();
 
     self.getWidgetControllerFormController = () {
       Rx<OrganizationModel> rxModel = Rx<OrganizationModel>(
@@ -42,7 +43,7 @@ class OrganizationDetailViewController extends EHPanelController {
               widgetFocusNodes:
                   self.orgDetailViewFormController?.widgetFocusNodes,
               widgetKeys: self.orgDetailViewFormController?.widgetKeys,
-              dependentObxValues: [self.ddlType.value],
+              dependentObxValues: [self.ddlType.value, self.orgItems.value],
               rxModel: rxModel,
               widgetControllerBuilders: [
                 () => EHTextFieldController(
@@ -62,7 +63,7 @@ class OrganizationDetailViewController extends EHPanelController {
                     label: 'Parent Organization',
                     enabled: false,
                     bindingFieldName: 'parentId',
-                    items: orgItems,
+                    items: self.orgItems.value,
                     onChanged: (value) {}),
                 () => EHFormDividerController(width: 1),
                 () => EHTextFieldController(
@@ -115,12 +116,17 @@ class OrganizationDetailViewController extends EHPanelController {
     return self;
   }
 
-  Future<Map<String, String>> getOrgDDLDataSource() async {
+  static Future<Map<String, String>> getOrgDDLDataSource() async {
     List<OrganizationModel> list = await OrganizationServices.getOrgList();
     list.add(OrganizationModel(id: '', name: 'All Organizations'));
 
     return Map<String, String>.fromIterable(list,
         key: (e) => (e as OrganizationModel).id!,
         value: (e) => (e as OrganizationModel).name!);
+  }
+
+  void initData() async {
+    //need reload org ddl after org saved
+    orgItems.value = await getOrgDDLDataSource();
   }
 }

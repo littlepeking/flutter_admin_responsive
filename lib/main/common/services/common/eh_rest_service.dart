@@ -72,11 +72,11 @@ class EHRestService extends GetxController {
             'user login is expired.') {
           EHToastMessageHelper.showLoginErrorMessage(
               error.response!.data!['details'].toString().tr);
-          EHNavigator.navigateTo("/login");
+          EHNavigator.logout();
         } else if (error.response?.data!['details']) {
           EHToastMessageHelper.showLoginErrorMessage(
               error.response!.data!['details'].toString().tr);
-          EHNavigator.navigateTo("/login");
+          EHNavigator.logout();
         } else {
           EHToastMessageHelper.showInfoMessage('Unauthorized'.tr);
         }
@@ -135,6 +135,13 @@ class EHRestService extends GetxController {
     return _dio.get<T>(path, queryParameters: params, options: options);
   }
 
+  Future<Response<T>> delete<T>(
+      {required String path,
+      required Map<String, dynamic>? params,
+      required Options? options}) {
+    return _dio.delete<T>(path, queryParameters: params, options: options);
+  }
+
   Future<Response<T>> post<T>({
     required String path,
     body,
@@ -157,6 +164,16 @@ class EHRestService extends GetxController {
     Options? options,
   }) {
     return _dio.get<T>(serviceName + '/' + actionName,
+        queryParameters: params, options: options);
+  }
+
+  Future<Response<T>> deleteByServiceName<T>({
+    required String serviceName,
+    required String actionName,
+    Map<String, dynamic>? params,
+    Options? options,
+  }) {
+    return _dio.delete<T>(serviceName + '/' + actionName,
         queryParameters: params, options: options);
   }
 

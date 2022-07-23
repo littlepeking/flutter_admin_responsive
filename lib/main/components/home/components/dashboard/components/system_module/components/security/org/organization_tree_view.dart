@@ -111,27 +111,45 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
   }
 
   buildToolbar(BuildContext context) {
-    return EHToolBar(
-      children: [
-        EHButton(
-            controller: EHButtonController(
-          onPressed: () async {
-            this.controller.model.value = OrganizationModel();
-            this.controller.isOrgDetailOpened.value = true;
-          },
-          child: Text('Add'.tr),
-        )),
-        Obx(() => EHButton(
-            controller: EHButtonController(
-                enabled: controller.model.value != null,
-                child: Text('Save'.tr),
-                onPressed: this.controller.saveOrgDetailView))),
-        EHButton(
-            controller: EHButtonController(
-          child: Text('Delete'.tr),
-          onPressed: () async {},
-        )),
-      ],
-    );
+    isNodeCanDelete() {
+      return this.controller.orgTreeController.selectedTreeNode.value != null &&
+          this.controller.orgTreeController.selectedTreeNode.value!.id != '';
+    }
+
+    return Obx(() => EHToolBar(
+          children: [
+            EHButton(
+                controller: EHButtonController(
+              onPressed: () async {
+                this.controller.model.value = OrganizationModel(
+                    parentId: this
+                        .controller
+                        .orgTreeController
+                        .selectedTreeNode
+                        .value!
+                        .id);
+                this
+                    .controller
+                    .organizationDetailViewController
+                    .orgDetailViewFormController!
+                    .reset();
+              },
+              child: Text('Add'.tr),
+            )),
+            EHButton(
+                controller: EHButtonController(
+                    enabled: controller.model.value != null,
+                    child: Text('Save'.tr),
+                    onPressed: this.controller.saveOrgDetailView)),
+            EHButton(
+                controller: EHButtonController(
+              enabled: isNodeCanDelete(),
+              child: Text('Delete'.tr),
+              onPressed: () async {
+                controller.deleteSelectedOrg();
+              },
+            )),
+          ],
+        ));
   }
 }

@@ -155,26 +155,10 @@ getFunctionBtnBar() {
           color: Colors.grey,
         ),
         onPressed: (data) {
-          preLogout();
-          EHNavigator.navigateTo("/login");
+          EHNavigator.logout();
         }),
     SizedBox(width: 0)
   ];
-}
-
-void preLogout() {
-  if (Get.isRegistered<SystemModuleController>())
-    resetTab(Get.find<SystemModuleController>().tabViewController);
-  if (Get.isRegistered<WmsPanelController>())
-    resetTab(Get.find<WmsPanelController>().tabViewController);
-  if (Get.isRegistered<TmsPanelController>())
-    resetTab(Get.find<TmsPanelController>().tabViewController);
-  if (Get.isRegistered<TaskPanelController>())
-    resetTab(Get.find<TaskPanelController>().tabViewController);
-}
-
-void resetTab(EHTabsViewController? c) {
-  if (c != null) c.reset();
 }
 
 class SearchField extends StatelessWidget {
