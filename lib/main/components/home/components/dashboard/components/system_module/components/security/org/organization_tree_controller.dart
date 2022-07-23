@@ -36,6 +36,7 @@ class OrganizationTreeController extends EHPanelController {
         displayName: 'All Organizations',
         children: [],
         icon: Icons.lan,
+        data: null,
         onTap: () {
           model.value = null;
           model.refresh();
@@ -74,6 +75,10 @@ class OrganizationTreeController extends EHPanelController {
     if (orgTreeController.selectedTreeNode.value == null) {
       orgTreeController.selectedTreeNode.value = rootNode;
     }
+    //need set model data to the selected org, so need reset orgDetailViewFormController to make sure displayValue and error are all cleared.
+    if (organizationDetailViewController.orgDetailViewFormController != null)
+      organizationDetailViewController.orgDetailViewFormController!.reset();
+    model.value = orgTreeController.selectedTreeNode.value!.data;
   }
 
   EHTreeNode convertMap2TreeData(

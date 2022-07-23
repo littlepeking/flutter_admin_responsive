@@ -128,11 +128,16 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
                         .selectedTreeNode
                         .value!
                         .id);
-                this
-                    .controller
-                    .organizationDetailViewController
-                    .orgDetailViewFormController!
-                    .reset();
+                if (this
+                        .controller
+                        .organizationDetailViewController
+                        .orgDetailViewFormController !=
+                    null)
+                  this
+                      .controller
+                      .organizationDetailViewController
+                      .orgDetailViewFormController!
+                      .reset();
               },
               child: Text('Add'.tr),
             )),
