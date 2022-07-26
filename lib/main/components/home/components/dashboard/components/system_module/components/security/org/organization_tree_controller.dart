@@ -10,7 +10,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_no
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_detail_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_detail_view_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get.dart' hide Response;
 
 import 'organization_model.dart';
 import 'organization_services.dart';

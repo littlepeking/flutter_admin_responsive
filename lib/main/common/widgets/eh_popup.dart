@@ -47,7 +47,7 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                         onFocusChange: (hasFocus) async {
                           if (!hasFocus) {
                             if (!controller.isValidated) {
-                              await doValidateAndUpdateModel(false);
+                              await controller.doValidateAndUpdateModel(false);
                             }
                             controller.isValidated = false;
                           }
@@ -64,7 +64,7 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                               border: new OutlineInputBorder(),
                             ),
                             onEditingComplete: () async {
-                              await doValidateAndUpdateModel(true);
+                              await controller.doValidateAndUpdateModel(true);
                               controller.isValidated = true;
                             },
                             controller: controller._textEditingController,
@@ -143,19 +143,6 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
             ],
           ),
         ));
-  }
-
-  doValidateAndUpdateModel(bool goNextFocusIfValid) async {
-    if (await controller._validate()) {
-      if (controller.getInitValue() != controller.validatedResult) {
-        controller.setModelValue(controller.validatedResult);
-        if (controller.onChanged != null)
-          controller.onChanged!(
-              controller.validatedResult, controller.validatedRow);
-      }
-
-      if (goNextFocusIfValid) controller.focusNode!.nextFocus();
-    }
   }
 }
 
@@ -333,6 +320,19 @@ class EHPopupController extends EHEditableWidgetController {
 
   @override
   Future<bool> validateWidget() async {
-    return _validate();
+    return doValidateAndUpdateModel(false);
+  }
+
+  doValidateAndUpdateModel(bool goNextFocusIfValid) async {
+    if (await _validate()) {
+      if (getInitValue() != validatedResult) {
+        setModelValue(validatedResult);
+        if (onChanged != null) onChanged!(validatedResult, validatedRow);
+      }
+
+      clearWidgetInfo();
+
+      if (goNextFocusIfValid) focusNode!.nextFocus();
+    }
   }
 }

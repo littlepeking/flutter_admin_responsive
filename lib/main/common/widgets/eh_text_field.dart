@@ -66,7 +66,7 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                         onFocusChange: (hasFocus) async {
                           if (!hasFocus) {
                             if (!controller.isValidated) {
-                              await doValidateAndUpdateModel(false);
+                              await controller.doValidateAndUpdateModel(false);
                             }
                             controller.isValidated = false;
                           }
@@ -115,7 +115,8 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                           //   print(v);
                           // },
                           onEditingComplete: () async {
-                            bool isValid = await doValidateAndUpdateModel(true);
+                            bool isValid =
+                                await controller.doValidateAndUpdateModel(true);
                             controller.isValidated = true;
 
                             if (isValid && controller.onEditingComplete != null)
@@ -145,41 +146,6 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
             ],
           ),
         ));
-  }
-
-  //return value: if valid
-  Future<bool> doValidateAndUpdateModel(bool goNextFocusIfValid) async {
-    if (await controller._validate()) {
-      EHController.setWidgetDisplayValue(controller.key!, '');
-
-      Object? newValue;
-      if (controller.type == EHTextInputType.Int) {
-        newValue = controller.displayValue == ''
-            ? null
-            : int.parse(controller.displayValue);
-      } else if (controller.type == EHTextInputType.Double) {
-        newValue = controller.displayValue == ''
-            ? null
-            : double.parse(controller.displayValue);
-      } else {
-        newValue = controller.displayValue;
-      }
-
-      String newValueStr = newValue == null ? '' : newValue.toString();
-
-      if (controller.getInitValue() != newValueStr) {
-        controller.setModelValue(newValue);
-        if (controller.onChanged != null)
-          controller.onChanged!(controller.displayValue);
-      }
-
-      if (goNextFocusIfValid && controller.goNextAfterComplete)
-        controller.focusNode!.nextFocus();
-
-      return true;
-    } else {
-      return false;
-    }
   }
 }
 
@@ -314,7 +280,37 @@ class EHTextFieldController extends EHEditableWidgetController {
 
   @override
   Future<bool> validateWidget() async {
-    return await _validate();
+    //Need update model here to make sure validated display data sync to the data model to resolve android and ios issue that model data cannot be updated after change form data and click 'save' button directly.
+    return await doValidateAndUpdateModel(false);
+  }
+
+  //return value: if valid
+  Future<bool> doValidateAndUpdateModel(bool goNextFocusIfValid) async {
+    if (await _validate()) {
+      Object? newValue;
+      if (type == EHTextInputType.Int) {
+        newValue = displayValue == '' ? null : int.parse(displayValue);
+      } else if (type == EHTextInputType.Double) {
+        newValue = displayValue == '' ? null : double.parse(displayValue);
+      } else {
+        newValue = displayValue;
+      }
+
+      String newValueStr = newValue == null ? '' : newValue.toString();
+
+      if (getInitValue() != newValueStr) {
+        setModelValue(newValue);
+        if (onChanged != null) onChanged!(displayValue);
+      }
+
+      clearWidgetInfo();
+
+      if (goNextFocusIfValid && goNextAfterComplete) focusNode!.nextFocus();
+
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
