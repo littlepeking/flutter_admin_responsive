@@ -13,12 +13,12 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var menuItems = [
-      if (Responsive.isMobile(context))
-        Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: getFunctionBtnBar())
-      else
-        SizedBox(height: 20),
+      // if (Responsive.isMobile(context))
+      //   Row(
+      //       mainAxisAlignment: MainAxisAlignment.end,
+      //       children: getFunctionBtnBar())
+      // else
+      SizedBox(height: 20),
       SizedBox(
         height: 10,
       ),
@@ -40,20 +40,33 @@ class SideMenu extends StatelessWidget {
     ];
 
     return Drawer(
-        child: ListView(children: [
-      Container(
-        height: Responsive.isMobile(context) ? 170 : 100,
-        child: DrawerHeader(
-          padding: EdgeInsets.zero,
-          child: Center(
-              child: Column(
-            children: menuItems,
-          )),
-          // child: Image.asset("assets/images/Home.png"),
-        ),
+        child: Scaffold(
+      body: Column(
+        children: [
+          Container(
+            height: Responsive.isMobile(context) ? 135 : 100,
+            child: DrawerHeader(
+              padding: EdgeInsets.zero,
+              child: Center(
+                  child: Column(
+                children: menuItems,
+              )),
+              // child: Image.asset("assets/images/Home.png"),
+            ),
+          ),
+          Obx(() => SideMenuController.getSideBarTreeView()),
+        ],
       ),
-      Obx(() => SideMenuController.getSideBarTreeView()),
-    ]));
+      // bottomNavigationBar: Padding(
+      //   padding: const EdgeInsets.all(8.0),
+      //   child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.end,
+      //       children: getFunctionBtnBar()),
+      // ),
+
+      persistentFooterButtons:
+          Responsive.isMobile(Get.context!) ? getFunctionBtnBar() : [],
+    ));
   }
 }
 

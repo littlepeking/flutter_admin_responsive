@@ -102,7 +102,7 @@ getFunctionBtnBar() {
       text: 'Notification',
       icon: Icon(
         Icons.notifications,
-        color: Color.fromARGB(255, 122, 122, 122),
+        // color: Color.fromARGB(255, 67, 67, 67),
       ),
       onPressed: (data) {
         if (SystemModule.notification !=
@@ -116,12 +116,11 @@ getFunctionBtnBar() {
         }
       },
     ),
-    SizedBox(width: 0),
     EHImageButton(
         text: 'changeTheme',
         icon: Icon(
           Icons.ac_unit_sharp,
-          color: Color.fromARGB(255, 122, 122, 122),
+          //   color: Color.fromARGB(255, 67, 67, 67),
         ),
         onPressed: (data) {
           Get.changeThemeMode(
@@ -131,12 +130,11 @@ getFunctionBtnBar() {
           //     !Get.isDarkMode;
           //  print(ThemeController.instance.isDarkMode);
         }),
-    SizedBox(width: 0),
     EHImageButton(
         text: 'changeLocale',
         icon: Icon(
           Icons.language,
-          color: Color.fromARGB(255, 122, 122, 122),
+          //   color: Color.fromARGB(255, 67, 67, 67),
         ),
         onPressed: (data) {
           var enLocale = Locale('en', 'US');
@@ -147,17 +145,15 @@ getFunctionBtnBar() {
             Get.updateLocale(enLocale);
           }
         }),
-    SizedBox(width: 0),
     EHImageButton(
         text: 'Logout'.tr,
         icon: Icon(
           Icons.exit_to_app,
-          color: Colors.grey,
+          //  color: Color.fromARGB(255, 67, 67, 67),
         ),
         onPressed: (data) {
           EHNavigator.logout();
         }),
-    SizedBox(width: 0)
   ];
 }
 
