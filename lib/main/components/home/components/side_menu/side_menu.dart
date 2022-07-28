@@ -39,10 +39,7 @@ class SideMenu extends StatelessWidget {
             children: getSystemBtnBar()),
     ];
 
-    return Drawer(
-        child: Scaffold(
-      body: Column(
-        children: [
+    getDrawerContent() => [
           Container(
             height: Responsive.isMobile(context) ? 135 : 100,
             child: DrawerHeader(
@@ -55,18 +52,23 @@ class SideMenu extends StatelessWidget {
             ),
           ),
           Obx(() => SideMenuController.getSideBarTreeView()),
-        ],
-      ),
+        ];
+
+    return Drawer(
+      child: Responsive.isMobile(Get.context!)
+          ? Scaffold(
+              body: Column(children: getDrawerContent()),
+              persistentFooterButtons:
+                  Responsive.isMobile(Get.context!) ? getFunctionBtnBar() : [],
+            )
+          : ListView(children: getDrawerContent()),
       // bottomNavigationBar: Padding(
       //   padding: const EdgeInsets.all(8.0),
       //   child: Row(
       //       mainAxisAlignment: MainAxisAlignment.end,
       //       children: getFunctionBtnBar()),
       // ),
-
-      persistentFooterButtons:
-          Responsive.isMobile(Get.context!) ? getFunctionBtnBar() : [],
-    ));
+    );
   }
 }
 
