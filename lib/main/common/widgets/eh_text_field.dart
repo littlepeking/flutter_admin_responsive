@@ -100,27 +100,22 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                           //   }
                           // },
 
-                          // onChanged: (v) {
-                          //   if (controller.mustInput) {
-                          //     if (EHUtilHelper.isEmpty(v)) {
-                          //       controller.errorBucket![key] =
-                          //           'This field cannot be empty'.tr;
-                          //     } else {
-                          //       controller.errorBucket![key] = '';
-                          //     }
-                          //   }
-                          //   controller.onChanged!(v);
-                          // },
+                          onChanged: (v) async {
+                            //
+                            if (controller.onChanged != null) {
+                              if (await controller
+                                  .doValidateAndUpdateModel(false)) {
+                                controller.onChanged!(v);
+                              }
+                            }
+                          },
                           // onSubmitted: (v) {
-                          //   print(v);
+                          //   //  print(v);
                           // },
                           onEditingComplete: () async {
-                            bool isValid =
-                                await controller.doValidateAndUpdateModel(true);
+                            await controller.doValidateAndUpdateModel(true);
                             controller.isValidated = true;
 
-                            if (isValid && controller.onEditingComplete != null)
-                              controller.onEditingComplete!();
                             //controller.focusNode.unfocus();
                           },
                         ),
@@ -173,9 +168,9 @@ class EHTextFieldController extends EHEditableWidgetController {
   //   return _bindingValue;
   // }
 
-  ValueChanged<String>? onChanged;
+  ValueChanged<String>? onEditingComplete;
 
-  final VoidCallback? onEditingComplete;
+  ValueChanged<String>? onChanged;
 
   Widget? afterWidget;
 
@@ -206,8 +201,8 @@ class EHTextFieldController extends EHEditableWidgetController {
       this.type = EHTextInputType.Text,
       EHModel? model,
       String? bindingFieldName,
-      this.onChanged,
       this.onEditingComplete,
+      this.onChanged, //Please only use 'onChanged' when we input a character and immediately need calculate some related values to avoid unnecessary performance cost. normally use onEditingComplete instead.
       EHEditableWidgetOnValidate? onValidate,
       Map<Key?, RxString>? errorBucket,
       this.afterWidget,
@@ -300,7 +295,7 @@ class EHTextFieldController extends EHEditableWidgetController {
 
       if (getInitValue() != newValueStr) {
         setModelValue(newValue);
-        if (onChanged != null) onChanged!(displayValue);
+        if (onEditingComplete != null) onEditingComplete!(displayValue);
       }
 
       clearWidgetInfo();

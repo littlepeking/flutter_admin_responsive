@@ -30,7 +30,7 @@ class UserDetailGeneralController extends EHPanelController {
                   //autoFocus: true,
                   bindingFieldName: 'username',
                   mustInput: true,
-                  onChanged: (value) {}),
+                  onEditingComplete: (value) {}),
               () => EHDropDownController(
                   label: 'Auth Type',
                   mustInput: true,
@@ -44,7 +44,7 @@ class UserDetailGeneralController extends EHPanelController {
                   label: 'Domain Username',
                   bindingFieldName: 'domainUsername',
                   mustInput: false,
-                  onChanged: (value) {}),
+                  onEditingComplete: (value) {}),
               () => EHCheckBoxController(
                   label: 'Enabled',
                   bindingFieldName: 'enabled',
@@ -63,14 +63,14 @@ class UserDetailGeneralController extends EHPanelController {
                   //autoFocus: true,
                   bindingFieldName: 'addWho',
                   mustInput: false,
-                  onChanged: (value) {}),
+                  onEditingComplete: (value) {}),
               () => EHDatePickerController(
                     enabled: false,
                     showTimePicker: true,
                     label: 'Add Date',
                     bindingFieldName: 'addDate',
                     mustInput: false,
-                    onChanged: (value) => {},
+                    onEditingComplete: (value) => {},
                   ),
               () => EHTextFieldController(
                   enabled: false,
@@ -78,14 +78,14 @@ class UserDetailGeneralController extends EHPanelController {
                   //autoFocus: true,
                   bindingFieldName: 'editWho',
                   mustInput: false,
-                  onChanged: (value) {}),
+                  onEditingComplete: (value) {}),
               () => EHDatePickerController(
                     enabled: false,
                     showTimePicker: true,
                     label: 'Edit Date',
                     bindingFieldName: 'editDate',
                     mustInput: false,
-                    onChanged: (value) => {},
+                    onEditingComplete: (value) => {},
                   ),
             ]);
   }

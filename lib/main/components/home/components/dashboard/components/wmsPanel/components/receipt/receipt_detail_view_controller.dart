@@ -50,7 +50,7 @@ class ReceiptDetailViewController extends EHPanelController {
           //enabled: false,
           focusNode: datePickerFn1,
           bindingValue: receiptModel.value.dateTime,
-          onChanged: (value) => receiptModel.update((model) {
+          onEditingComplete: (value) => receiptModel.update((model) {
                 model!.dateTime = value;
               }),
           label: 'date');
@@ -69,7 +69,7 @@ class ReceiptDetailViewController extends EHPanelController {
                 label: '测试1',
                 bindingValue: receiptModel.value.receiptKey ?? '',
                 mustInput: true,
-                onChanged: (value) => receiptModel.update((model) {
+                onEditingComplete: (value) => receiptModel.update((model) {
                       model!.receiptKey = value;
                     })),
           ),
@@ -84,7 +84,7 @@ class ReceiptDetailViewController extends EHPanelController {
                 bindingValue: receiptModel.value.receiptKey,
                 mustInput: true,
                 //  autoFocus: true,
-                onChanged: (code, row) {
+                onEditingComplete: (code, row) {
                   //  controller.popUpFn!.requestFocus();
                   receiptModel.update((model) {
                     model!.receiptKey = code;
@@ -99,7 +99,7 @@ class ReceiptDetailViewController extends EHPanelController {
               //enabled: false,
               focusNode: focusNode,
               bindingValue: receiptModel.value.dateTime,
-              onChanged: (value) => receiptModel.update((model) {
+              onEditingComplete: (value) => receiptModel.update((model) {
                     model!.dateTime = value;
                   }),
               label: 'date')),
@@ -117,7 +117,10 @@ class ReceiptDetailViewController extends EHPanelController {
                   //autoFocus: true,
                   bindingFieldName: 'receiptKey',
                   mustInput: true,
-                  onChanged: (value) {}),
+                  onChanged: (v) => {
+                        print(v)
+                      }, // onChanged 仅在需要输入字母时马上触发控件时才使用，避免不必要的性能损耗，一般功能请使用onEditingComplete。
+                  onEditingComplete: (value) {}),
               () => EHDropDownController(
                   label: '下拉框',
                   mustInput: true,
@@ -134,14 +137,14 @@ class ReceiptDetailViewController extends EHPanelController {
                   //autoFocus: true,
                   bindingFieldName: 'num1',
                   //   mustInput: true,
-                  onChanged: (value) {}),
+                  onEditingComplete: (value) {}),
               () => EHTextFieldController(
                   label: '浮点数',
                   type: EHTextInputType.Double,
                   //autoFocus: true,
                   bindingFieldName: 'num2',
                   mustInput: true,
-                  onChanged: (value) {
+                  onEditingComplete: (value) {
                     print('text = onChange triggered');
                   }),
               () => EHDropDownController(
@@ -211,7 +214,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   codeColumnName: 'receiptKey',
                   dataSource: popUpDataSource,
                   mustInput: true,
-                  onChanged: (code, row) {
+                  onEditingComplete: (code, row) {
                     print('pop = onChange triggered');
                     if (row != null)
                       receiptModel.value.receiptKey =
@@ -233,7 +236,7 @@ class ReceiptDetailViewController extends EHPanelController {
                     label: 'date',
                     bindingFieldName: 'dateTime',
                     mustInput: true,
-                    onChanged: (value) => {},
+                    onEditingComplete: (value) => {},
                     onValidate: (controller) async {
                       var c = controller as EHDatePickerController;
                       print(c.parsedDate);
@@ -252,14 +255,14 @@ class ReceiptDetailViewController extends EHPanelController {
                     label: 'date',
                     bindingFieldName: 'dateTime',
                     mustInput: true,
-                    onChanged: (value) => {},
+                    onEditingComplete: (value) => {},
                   ),
               () => EHDatePickerController(
                     label: 'time',
                     bindingFieldName: 'dateTime2',
                     mustInput: true,
                     showTimePicker: true,
-                    onChanged: (value) =>
+                    onEditingComplete: (value) =>
                         {print('datepicker = onChange triggered')},
                   ),
               () => EHDatePickerController(
@@ -268,7 +271,7 @@ class ReceiptDetailViewController extends EHPanelController {
                     bindingFieldName: 'dateTime2',
                     mustInput: true,
                     showTimePicker: true,
-                    onChanged: (value) => {},
+                    onEditingComplete: (value) => {},
                   ),
               () => EHCheckBoxController(
                   label: 'checkBox',
@@ -285,7 +288,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   bindingFieldName: 'receiptKey',
                   mustInput: true,
                   maxLines: 3,
-                  onChanged: (value) {}),
+                  onEditingComplete: (value) {}),
               () => EHTextFieldController(
                   label: '文本框',
                   //autoFocus: true,
@@ -293,7 +296,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   bindingFieldName: 'receiptKey',
                   mustInput: true,
                   maxLines: 3,
-                  onChanged: (value) {}),
+                  onEditingComplete: (value) {}),
               () => EHFormDividerController(width: 1),
               () => EHCustomFormWidgetController<ReceiptModel>(
                     widgetBuilder: (key, focusNode, rxModel) =>

@@ -103,9 +103,8 @@ class EHDatePickerController extends EHEditableWidgetController {
       bool mustInput = false,
       this.showTimePicker = false,
       String? dateFormat,
-      ValueChanged<DateTime?>? onChanged,
+      ValueChanged<DateTime?>? onEditingComplete,
       EHEditableWidgetOnValidate? onValidate,
-      final VoidCallback? onEditingComplete,
       Map<Key?, RxString>? errorBucket,
       bool showErrorInfo = true,
       bool showLabel = true,
@@ -147,8 +146,8 @@ class EHDatePickerController extends EHEditableWidgetController {
           //     getBindingStringValue(selectedDateTime);
           if (!EHUtilHelper.dateEquals(getInitValue(), selectedDateTime)) {
             setModelValue(selectedDateTime);
-            if (onChanged != null) {
-              onChanged(selectedDateTime);
+            if (onEditingComplete != null) {
+              onEditingComplete(selectedDateTime);
             }
           }
 
@@ -178,18 +177,17 @@ class EHDatePickerController extends EHEditableWidgetController {
           //Call by TextField to prevent focus change.
           return await _validate();
         },
-        onChanged: (text) {
+        onEditingComplete: (text) {
           //EHController.globalDisplayValueBucket.remove(textFieldKey!);
 
           if (!EHUtilHelper.dateEquals(getInitValue(), parsedDate)) {
             setModelValue(parsedDate);
-            if (onChanged != null) onChanged(parsedDate);
+            if (onEditingComplete != null) onEditingComplete(parsedDate);
           }
 
           // focusNode!.requestFocus();
           // focusNode.nextFocus();
         },
-        onEditingComplete: onEditingComplete,
         afterWidget: ExcludeFocus(
             child: SizedBox(
           width: 24,

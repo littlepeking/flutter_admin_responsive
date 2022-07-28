@@ -156,24 +156,24 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
       }
 
       return Obx(() => EHDatePicker(
-          controller: EHDatePickerController(
-              key: controller.dataGridSource.getFilterKey(columnConfig),
-              showErrorInfo: false,
-              showLabel: false,
-              setToStartTime: true,
-              bindingValue: bindValue,
-              focusNode:
-                  controller.dataGridSource.getFilterFocusNode(columnConfig),
-              goNextAfterComplete: false,
-              onChanged: (value) {
-                getColumnFilter(columnConfig.columnName).text =
-                    !EHUtilHelper.isEmpty(value)
-                        ? DateFormat(_dateFormat).format(value!)
-                        : '';
-                controller.dataGridSource.columnFilters.refresh();
-              },
-              onEditingComplete: () =>
-                  filterGridData(controller, columnConfig))));
+              controller: EHDatePickerController(
+            key: controller.dataGridSource.getFilterKey(columnConfig),
+            showErrorInfo: false,
+            showLabel: false,
+            setToStartTime: true,
+            bindingValue: bindValue,
+            focusNode:
+                controller.dataGridSource.getFilterFocusNode(columnConfig),
+            goNextAfterComplete: false,
+            onEditingComplete: (value) {
+              getColumnFilter(columnConfig.columnName).text =
+                  !EHUtilHelper.isEmpty(value)
+                      ? DateFormat(_dateFormat).format(value!)
+                      : '';
+              controller.dataGridSource.columnFilters.refresh();
+              filterGridData(controller, columnConfig);
+            },
+          )));
     }
 
     if (columnConfig.columnType.widgetType == EHWidgetType.Text) {

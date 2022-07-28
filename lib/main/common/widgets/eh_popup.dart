@@ -101,8 +101,9 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                           controller.setModelValue(
                                               row[controller.codeColumnName]
                                                   .toString());
-                                          if (controller.onChanged != null)
-                                            controller.onChanged!(
+                                          if (controller.onEditingComplete !=
+                                              null)
+                                            controller.onEditingComplete!(
                                                 row[controller.codeColumnName]
                                                     .toString(),
                                                 row);
@@ -172,7 +173,7 @@ class EHPopupController extends EHEditableWidgetController {
     return _textEditingController.text;
   }
 
-  void Function(String? code, Map? row)? onChanged;
+  void Function(String? code, Map? row)? onEditingComplete;
 
   // EHDataGridSource getDateSource(EHDataGridSource dataGridSource) {
   //   // throw Exception(
@@ -195,7 +196,7 @@ class EHPopupController extends EHEditableWidgetController {
       String? bindingValue = '',
       bool enabled = true,
       bool mustInput = false,
-      this.onChanged,
+      this.onEditingComplete,
       EHEditableWidgetOnValidate? onValidate,
       String?
           codeColumnName, // column name of popup grid data source and after user select a row, it will bring back the code column value to model.bindingFieldName.
@@ -327,7 +328,8 @@ class EHPopupController extends EHEditableWidgetController {
     if (await _validate()) {
       if (getInitValue() != validatedResult) {
         setModelValue(validatedResult);
-        if (onChanged != null) onChanged!(validatedResult, validatedRow);
+        if (onEditingComplete != null)
+          onEditingComplete!(validatedResult, validatedRow);
       }
 
       clearWidgetInfo();

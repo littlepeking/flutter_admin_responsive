@@ -61,7 +61,7 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                       '',
                                   mustInput: true,
                                   //  autoFocus: true,
-                                  onChanged: (value) {
+                                  onEditingComplete: (value) {
                                     if (controller
                                             .receiptModel.value.receiptKey !=
                                         value)
@@ -82,7 +82,7 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                       controller.receiptModel.value.receiptKey,
                                   mustInput: true,
                                   //  autoFocus: true,
-                                  onChanged: (code, row) {
+                                  onEditingComplete: (code, row) {
                                     //  controller.popUpFn!.requestFocus();
                                     controller.receiptModel.update((model) {
                                       model!.receiptKey = code;
@@ -121,7 +121,7 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                 focusNode: controller.datePickerFn2,
                                 bindingValue:
                                     controller.receiptModel.value.dateTime2,
-                                onChanged: (value) =>
+                                onEditingComplete: (value) =>
                                     controller.receiptModel.update((model) {
                                       model!.dateTime2 = value;
                                     }),
@@ -191,7 +191,7 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                           .receiptModel.value.receiptKey ??
                                       '',
                                   mustInput: true,
-                                  onChanged: (value) =>
+                                  onEditingComplete: (value) =>
                                       controller.receiptModel.update((model) {
                                         model!.receiptKey = value;
                                       })),

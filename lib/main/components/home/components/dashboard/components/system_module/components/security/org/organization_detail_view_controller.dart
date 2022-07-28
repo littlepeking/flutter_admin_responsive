@@ -52,13 +52,13 @@ class OrganizationDetailViewController extends EHPanelController {
                     bindingFieldName: 'code',
                     mustInput: true,
                     enabled: rxModel.value.id == null,
-                    onChanged: (value) {}),
+                    onEditingComplete: (value) {}),
                 () => EHTextFieldController(
                     label: 'Organization Name',
                     //autoFocus: true,
                     bindingFieldName: 'name',
                     mustInput: true,
-                    onChanged: (value) {}),
+                    onEditingComplete: (value) {}),
                 () => EHDropDownController(
                     label: 'Parent Organization',
                     enabled: false,
@@ -72,14 +72,14 @@ class OrganizationDetailViewController extends EHPanelController {
                     width: 300,
                     bindingFieldName: 'address1',
                     maxLines: 5,
-                    onChanged: (value) {}),
+                    onEditingComplete: (value) {}),
                 () => EHTextFieldController(
                     label: 'Address2',
                     //autoFocus: true,
                     width: 300,
                     bindingFieldName: 'address2',
                     maxLines: 5,
-                    onChanged: (value) {}),
+                    onEditingComplete: (value) {}),
                 () => EHFormDividerController(width: 1),
                 () => EHTextFieldController(
                     label: 'Contact1',
@@ -87,21 +87,21 @@ class OrganizationDetailViewController extends EHPanelController {
                     width: 300,
                     bindingFieldName: 'contact1',
                     maxLines: 3,
-                    onChanged: (value) {}),
+                    onEditingComplete: (value) {}),
                 () => EHTextFieldController(
                     label: 'Contact2',
                     //autoFocus: true,
                     width: 300,
                     bindingFieldName: 'contact2',
                     maxLines: 3,
-                    onChanged: (value) {}),
+                    onEditingComplete: (value) {}),
                 () => EHFormDividerController(width: 1),
                 () => EHDatePickerController(
                       label: 'Add Date',
                       enabled: false,
                       bindingFieldName: 'addDate',
                       showTimePicker: true,
-                      onChanged: (value) =>
+                      onEditingComplete: (value) =>
                           {print('datepicker = onChange triggered')},
                     ),
                 () => EHDatePickerController(
@@ -109,7 +109,7 @@ class OrganizationDetailViewController extends EHPanelController {
                       label: 'Edit Date',
                       bindingFieldName: 'editDate',
                       showTimePicker: true,
-                      onChanged: (value) => {},
+                      onEditingComplete: (value) => {},
                     ),
               ]);
     };
