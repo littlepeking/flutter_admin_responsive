@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' hide Response, FormData;
@@ -36,24 +37,27 @@ class EHRestService extends GetxController {
             RequestInterceptorHandler handler) async {
       //DISABLE SPINNER since it will prevent cursor move to selected widget after unfocused from popup which triggering a rest service call.
       //if (!loadingIndicator.isOpen) loadingIndicator.showIndicator();
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String jwtToken = prefs.get("Authorization") == null ||
-              prefs.get("Authorization") == "null"
+      String? authorization = await EHContextHelper.getString("Authorization");
+      String jwtToken = authorization == null || authorization == "null"
           ? ''
           // ? 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqZXNzaWNhIiwiYXV0aG9yaXRpZXMiOiJSRUNFSVBUVVNFUiIsImlhdCI6MTY1MDkzNjEwMn0.KK1Cl9R9n340beRkuOpT4fhsOR2GKxG0mw4UxQvn-MRVYnVF5vBto-A3w9bNYzyLl8Q15z4HdU2qhQATVUfUFg' //TEST JWT TOKEN
-          : prefs.get("Authorization").toString();
-      requestOptions.headers.addAll({"Authorization": jwtToken});
+          : authorization;
+      requestOptions.headers.addAll({
+        "Authorization": jwtToken,
+        "Accept-Language":
+            Get.locale!.languageCode + '-' + Get.locale!.countryCode!
+      });
       return handler.next(requestOptions);
     }, onResponse:
         (Response response, ResponseInterceptorHandler handler) async {
       //await Future.delayed(Duration(seconds: 2));
       //if (loadingIndicator.isOpen) loadingIndicator.hide();
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String jwtToken = prefs.get("Authorization").toString();
+      String? authorization = await EHContextHelper.getString("Authorization");
       // if the value is the same as the header, continue with the request
-      if (response.headers.value("Authorization") != jwtToken) {
+      if (authorization != null &&
+          response.headers.value("Authorization") != authorization) {
         //Renew token here...
-        prefs.setString("Authorization", jwtToken);
+        EHContextHelper.setString("Authorization", authorization);
       }
 
       return handler.next(response);
@@ -73,7 +77,7 @@ class EHRestService extends GetxController {
           EHToastMessageHelper.showLoginErrorMessage(
               error.response!.data!['details'].toString().tr);
           EHNavigator.logout();
-        } else if (error.response?.data!['details']) {
+        } else if (error.response?.data!['details'] != null) {
           EHToastMessageHelper.showLoginErrorMessage(
               error.response!.data!['details'].toString().tr);
           EHNavigator.logout();
@@ -161,9 +165,10 @@ class EHRestService extends GetxController {
     required String serviceName,
     required String actionName,
     Map<String, dynamic>? params,
+    String pathSuffix = '',
     Options? options,
   }) {
-    return _dio.get<T>(serviceName + '/' + actionName,
+    return _dio.get<T>(serviceName + '/' + actionName + pathSuffix,
         queryParameters: params, options: options);
   }
 

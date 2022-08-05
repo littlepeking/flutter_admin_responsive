@@ -72,6 +72,7 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                           }
                         },
                         child: TextField(
+                          obscureText: controller.hideText,
                           keyboardType: keyboardType,
                           inputFormatters: inputFormatters,
                           autofocus: controller.autoFocus,
@@ -188,8 +189,11 @@ class EHTextFieldController extends EHEditableWidgetController {
 
   bool goNextAfterComplete;
 
+  bool hideText;
+
   EHTextFieldController(
       {this.key,
+      this.hideText = false,
       double? width,
       this.maxLines = 1,
       bool autoFocus = false,

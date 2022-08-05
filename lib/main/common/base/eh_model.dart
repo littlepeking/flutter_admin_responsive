@@ -9,6 +9,8 @@ abstract class EHModel {
 
   toJson();
 
+  fromJson(Map<String, dynamic> json);
+
   EHModel({
     this.id,
     this.addDate,

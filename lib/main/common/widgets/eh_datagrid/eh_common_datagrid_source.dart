@@ -16,5 +16,5 @@ class EHCommonDataGridSource extends EHServiceDataGridSource {
             columnFilters: columnFilters,
             columnsConfig: columnsConfig,
             loadDataAtInit: loadDataAtInit,
-            extraParams: {'dataSourceCode': dataSourceCode});
+            params: {'dataSourceCode': dataSourceCode});
 }

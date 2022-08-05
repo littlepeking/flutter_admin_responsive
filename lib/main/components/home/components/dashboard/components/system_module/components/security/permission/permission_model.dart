@@ -1,39 +1,37 @@
 import 'dart:convert';
-import 'dart:core';
 
 import 'package:eh_flutter_framework/main/common/base/eh_model_converters.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_version_model.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_refactor_helper.dart';
 import 'package:json_annotation/json_annotation.dart';
-import '../../../../../../../../../common/utils/eh_refactor_helper.dart';
 
-part 'organization_model.g.dart';
+part 'permission_model.g.dart';
 
 @JsonSerializable()
 @EHMethodExecutor
 @EHDateTime2TimeStampConverter
-class OrganizationModel extends EHVersionModel {
-  String? name;
-  String? code;
-  String? parentId;
-  String? address1;
-  String? address2;
-  String? contact1;
-  String? contact2;
+@EHList2StringConverter
+class PermissionModel extends EHVersionModel {
+  String type;
+  String parentId;
+  String authority;
+  String displayName;
+  bool? checkStatus;
+  List<PermissionModel>? children;
 
-  OrganizationModel({
+  PermissionModel({
     String? id,
-    this.code,
-    this.name,
-    this.parentId,
-    this.address1,
-    this.address2,
-    this.contact1,
-    this.contact2,
     DateTime? addDate,
     DateTime? editDate,
     String? addWho,
     String? editWho,
     int? version,
+    required this.type,
+    required this.parentId,
+    required this.authority,
+    required this.displayName,
+    this.checkStatus,
+    this.children,
   }) : super(
             id: id,
             addDate: addDate,
@@ -41,16 +39,15 @@ class OrganizationModel extends EHVersionModel {
             addWho: addWho,
             editWho: editWho,
             version: version);
-
-  factory OrganizationModel.fromJson(Map<String, dynamic> json) =>
-      _$OrganizationModelFromJson(json);
+  factory PermissionModel.fromJson(Map<String, dynamic> json) =>
+      _$PermissionModelFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$OrganizationModelToJson(this);
+  Map<String, dynamic> toJson() => _$PermissionModelToJson(this);
 
   @override
   fromJson(Map<String, dynamic> json) {
-    return OrganizationModel.fromJson(json);
+    return PermissionModel.fromJson(json);
   }
 
   String toJsonStr() => jsonEncode(toJson());

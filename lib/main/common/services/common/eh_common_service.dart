@@ -9,7 +9,7 @@ class EHCommonService {
   static Future<Map<String, dynamic>> queryByPage({
     required String serviceName,
     String actionName = 'queryByPage',
-    Map<String, Object?>? extraParams = const {},
+    Map<String, Object?>? params = const {},
     List<EHDataGridFilterData> filters = const [],
     Map<String, String> orderBy = const {},
     int pageIndex = -1,
@@ -24,7 +24,7 @@ class EHCommonService {
           'orderBy': orderBy,
           'pageIndex': pageIndex,
           'pageSize': pageSize,
-          'extraParams': extraParams,
+          'extraParams': params,
         });
 
     return response.data!;

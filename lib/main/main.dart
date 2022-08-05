@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_exception.dart';
 import 'dart:convert';
 import 'package:eh_flutter_framework/main/common/i18n/customSfLocalization.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
@@ -70,6 +71,9 @@ main() {
               type: EHToastMsgType.Error);
         }
       }
+    } else if (error is EHException) {
+      EHToastMessageHelper.showInfoMessage(error.message,
+          type: EHToastMsgType.Error);
     }
     print("--------------------------------\n");
     print("Error FROM OUT_SIDE FRAMEWORK ");

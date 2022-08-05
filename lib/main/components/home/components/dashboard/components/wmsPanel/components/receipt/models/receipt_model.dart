@@ -51,5 +51,10 @@ class ReceiptModel extends EHModel {
   @override
   Map<String, dynamic> toJson() => _$ReceiptModelToJson(this);
 
+  @override
+  fromJson(Map<String, dynamic> json) {
+    return ReceiptModel.fromJson(json);
+  }
+
   String toJsonStr() => jsonEncode(toJson());
 }

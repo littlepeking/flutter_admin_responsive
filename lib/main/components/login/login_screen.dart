@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/services/common/eh_rest_service.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' hide Response;
@@ -164,11 +167,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                           'password': passwordController.text
                                         });
 
-                                    SharedPreferences sharedPreferences =
-                                        await SharedPreferences.getInstance();
-
-                                    sharedPreferences.setString("Authorization",
+                                    await EHContextHelper.setString(
+                                        "Authorization",
                                         response.headers['Authorization']![0]);
+
+                                    await EHContextHelper.setString(
+                                        'userInfo', jsonEncode(response.data!));
+
+                                    UserModel user =
+                                        await EHContextHelper.getUserInfo();
 
                                     HapticFeedback.lightImpact();
                                     Get.offAllNamed('/');
