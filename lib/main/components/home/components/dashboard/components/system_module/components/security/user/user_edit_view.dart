@@ -19,21 +19,21 @@ class UserEdit extends EHPanel<UserEditController> {
   @override
   Widget build(BuildContext context) {
     return Responsive.isMobile(context)
-        ? Column(children: [
-            buildToolbar(context),
-            // KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
-            //   return !isKeyboardVisible && !Responsive.isExtraSmall(context)
-            //       ?
-            EHTabsView(
-                useBottomList: false,
-                expandMode: EHTabsViewExpandMode.None,
-                controller: controller.headerTabsViewController),
-            if (controller.model.value.id != null)
+        ? Obx(() => Column(children: [
+              buildToolbar(context),
+              // KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
+              //   return !isKeyboardVisible && !Responsive.isExtraSmall(context)
+              //       ?
               EHTabsView(
                   useBottomList: false,
                   expandMode: EHTabsViewExpandMode.None,
-                  controller: controller.detailTabsViewController),
-          ])
+                  controller: controller.headerTabsViewController),
+              if (controller.model.value.id != null)
+                EHTabsView(
+                    useBottomList: false,
+                    expandMode: EHTabsViewExpandMode.None,
+                    controller: controller.detailTabsViewController),
+            ]))
         : Column(
             children: [
               buildToolbar(context),
