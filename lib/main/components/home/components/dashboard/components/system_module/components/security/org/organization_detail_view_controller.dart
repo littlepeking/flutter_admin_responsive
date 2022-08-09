@@ -128,7 +128,7 @@ class OrganizationDetailViewController extends EHPanelController {
         value: (e) => (e as OrganizationModel).name!);
   }
 
-  void initData() async {
+  Future<void> initData() async {
     //need reload org ddl after org saved
     orgItems.value = await getOrgDDLDataSource();
   }

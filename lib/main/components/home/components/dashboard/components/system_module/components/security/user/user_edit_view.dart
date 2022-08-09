@@ -2,6 +2,7 @@ import 'package:eh_flutter_framework/main/common/base/eh_exception.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
 import 'package:eh_flutter_framework/main/common/services/security/user_service.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_service_datagrid_source.dart';
@@ -12,7 +13,6 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'user_edit_controller.dart';
-import 'package:split_view/split_view.dart';
 
 class UserEdit extends EHPanel<UserEditController> {
   UserEdit({Key? key, controller}) : super(key: key, controller: controller);
@@ -38,7 +38,7 @@ class UserEdit extends EHPanel<UserEditController> {
             children: [
               buildToolbar(context),
               Expanded(
-                  child: Obx(() => EHMasterDetailSplitter(
+                  child: Obx(() => EHMasterDetailSplitView(
                       controller: EHMasterDetailSplitterController(
                           splitterWeights: 0.4,
                           masterPanel: EHTabsView(
@@ -61,8 +61,8 @@ class UserEdit extends EHPanel<UserEditController> {
                 .validate()) {
               String modelStr = controller.model.value.toJsonStr();
               print(modelStr);
-              if (controller.model.value.password !=
-                  controller.model.value.rePassword)
+              if (EHUtilHelper.nvl(controller.model.value.password, '') !=
+                  EHUtilHelper.nvl(controller.model.value.rePassword, ''))
                 throw EHException("Password does not match.");
 
               bool isCreateNewUser = controller.model.value.id == null;
@@ -75,8 +75,8 @@ class UserEdit extends EHPanel<UserEditController> {
                     .setParam('userId', controller.model.value.id);
               }
 
-              controller.model.value.password = null;
-              controller.model.value.rePassword = null;
+              controller.model.value.password = "";
+              controller.model.value.rePassword = "";
 
               //controller.receiptDetailInfoController.receiptModel.value = model;
 

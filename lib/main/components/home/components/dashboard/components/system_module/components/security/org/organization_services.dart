@@ -22,4 +22,11 @@ class OrganizationServices {
     await EHRestService().deleteByServiceName(
         serviceName: '/security/org/' + id.toString(), actionName: '');
   }
+
+  static Future<Response<List>> buildTree() async {
+    return await EHRestService().getByServiceName<List>(
+      serviceName: '/security/org',
+      actionName: '/buildTree',
+    );
+  }
 }
