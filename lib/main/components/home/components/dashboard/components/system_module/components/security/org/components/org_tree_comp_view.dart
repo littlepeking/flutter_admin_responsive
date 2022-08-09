@@ -3,12 +3,10 @@ import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_view.dart';
 import 'package:flutter/material.dart';
 
-import 'org_tree_component_controller.dart';
+import 'org_tree_comp_controller.dart';
 
-class OrganizationTreeComponentView
-    extends EHStatelessWidget<OrganizationTreeComponentController> {
-  OrganizationTreeComponentView(
-      {Key? key, required OrganizationTreeComponentController controller})
+class OrgTreeCompView extends EHStatelessWidget<OrgTreeCompController> {
+  OrgTreeCompView({Key? key, required OrgTreeCompController controller})
       : super(controller: controller);
 
   @override

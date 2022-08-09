@@ -7,7 +7,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dar
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/components/org_tree_component_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/components/org_tree_comp_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_detail_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_detail_view_controller.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ import 'organization_services.dart';
 class OrganizationTreeController extends EHPanelController {
   PageStorageBucket pageStorageBucket = PageStorageBucket();
 
-  late OrganizationTreeComponentController organizationTreeComponentController;
+  late OrgTreeCompController orgTreeCompController;
 
   Rx<OrganizationModel?> model = Rxn<OrganizationModel>();
 
@@ -37,9 +37,8 @@ class OrganizationTreeController extends EHPanelController {
     self.organizationDetailViewController =
         await OrganizationDetailViewController.create(self);
 
-    self.organizationTreeComponentController =
-        await OrganizationTreeComponentController.create(self,
-            onTap: (selectedOrgModel) {
+    self.orgTreeCompController =
+        await OrgTreeCompController.create(self, onTap: (selectedOrgModel) {
       if (self.model.value != null &&
           self.organizationDetailViewController.orgDetailViewFormController !=
               null)
@@ -73,7 +72,7 @@ class OrganizationTreeController extends EHPanelController {
       model.refresh();
 
       EHToastMessageHelper.showInfoMessage('Saved successfully.');
-      await organizationTreeComponentController.reloadOrgTreeData(
+      await orgTreeCompController.reloadOrgTreeData(
           overrideSelectedTreeNodeId: model.value!.id!);
 
       await organizationDetailViewController.initData();
@@ -81,9 +80,9 @@ class OrganizationTreeController extends EHPanelController {
   }
 
   Future<void> deleteSelectedOrg() async {
-    await OrganizationServices.deleteOrgById(organizationTreeComponentController
-        .orgTreeController.selectedTreeNode.value!.id);
-    await organizationTreeComponentController.reloadOrgTreeData(
+    await OrganizationServices.deleteOrgById(
+        orgTreeCompController.orgTreeController.selectedTreeNode.value!.id);
+    await orgTreeCompController.reloadOrgTreeData(
         overrideSelectedTreeNodeId: '');
 
     model.value = null;

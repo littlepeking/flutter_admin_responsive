@@ -1,10 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
-import 'package:eh_flutter_framework/main/common/services/common/eh_rest_service.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +10,7 @@ import '../organization_services.dart';
 
 typedef OrgTreeNodeOnTap = void Function(OrganizationModel? model);
 
-class OrganizationTreeComponentController extends EHPanelController {
+class OrgTreeCompController extends EHPanelController {
   late EHTreeController orgTreeController;
 
   late OrgTreeNodeOnTap onTap;
@@ -98,16 +93,13 @@ class OrganizationTreeComponentController extends EHPanelController {
     return node;
   }
 
-  OrganizationTreeComponentController._create(EHPanelController parent)
-      : super(parent);
+  OrgTreeCompController._create(EHPanelController parent) : super(parent);
 
   //since dart does not support asyc constructor, so we have to create a static function to create instance through a private constructor '_create' (we also need this private constructor to call super constructor) and then mark this static function as async.
   //https://stackoverflow.com/questions/38933801/calling-an-async-method-from-component-constructor-in-dart
-  static Future<OrganizationTreeComponentController> create(
-      EHPanelController parent,
+  static Future<OrgTreeCompController> create(EHPanelController parent,
       {OrgTreeNodeOnTap? onTap}) async {
-    OrganizationTreeComponentController self =
-        OrganizationTreeComponentController._create(parent);
+    OrgTreeCompController self = OrgTreeCompController._create(parent);
 
     self.onTap = onTap ?? ((model) => {});
 
