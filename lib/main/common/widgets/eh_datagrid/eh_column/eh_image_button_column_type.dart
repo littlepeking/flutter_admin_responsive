@@ -7,9 +7,10 @@ class EHImageButtonColumnType extends EHColumnType<Map> {
 
   EHImageButtonColumnType(
       {this.icon = Icons.exit_to_app,
-      alignment: Alignment.topRight,
+      Alignment alignment: Alignment.topRight,
+      bool hasFilter = false,
       this.onPressed})
-      : super(alignment: alignment);
+      : super(alignment: alignment, hasFilter: hasFilter);
 
   @override
   getWidget(Map value, int rowIndex, String columnName, List<Map> dataList) {

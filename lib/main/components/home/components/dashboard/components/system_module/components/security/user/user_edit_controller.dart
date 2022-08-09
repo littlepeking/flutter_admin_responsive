@@ -4,6 +4,7 @@ import 'package:eh_flutter_framework/main/common/services/security/user_service.
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_string_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
@@ -137,8 +138,10 @@ class UserEditController extends EHPanelController {
         columnsConfig: [
           EHColumnConf('roleName', EHStringColumnType(),
               columnHeaderName: 'Role Name'),
-          EHColumnConf('description', EHStringColumnType(),
+          EHColumnConf('display_name', EHStringColumnType(),
               columnHeaderName: 'Description'),
+          EHColumnConf('__delete', EHImageButtonColumnType(),
+              columnHeaderName: 'Delete'),
         ],
         params: {
           'userId': model.value.id

@@ -3,10 +3,10 @@
 import 'package:eh_flutter_framework/main/common/constants/common_constant.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_double_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_int_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_string_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
@@ -86,15 +86,19 @@ class EHDataGridSource extends DataGridSource {
   /// Instance of DataGridRow.
   List<DataGridRow> _dataGridRows = <DataGridRow>[];
 
+  EHColumnConf getColumnConfig(columnName) =>
+      columnsConfig.where((config) => config.columnName == columnName).first;
+
   List<EHDataGridFilterData> get filters {
     List<EHDataGridFilterData> filterData = <EHDataGridFilterData>[];
     columnFilters.forEach((e) {
-      if (!e.columnName.contains('__')) {
+      //if (!e.columnName.contains('__'))
+      {
         Object? filterValue;
-        EHColumnConf columnConfig = columnsConfig
-            .where((config) => config.columnName == e.columnName)
-            .first;
-        if (columnConfig.columnType is EHIntColumnType) {
+        EHColumnConf columnConfig = getColumnConfig(e.columnName);
+        if (columnConfig.columnType is EHImageButtonColumnType) {
+          //ignore EHImageButtonColumnType
+        } else if (columnConfig.columnType is EHIntColumnType) {
           filterValue = EHUtilHelper.isEmpty(e.text) ? null : int.parse(e.text);
           filterData.add(EHDataGridFilterData(
               columnName: e.columnName, type: 'int', value: filterValue));
@@ -141,12 +145,9 @@ class EHDataGridSource extends DataGridSource {
 
     columnFilters.forEach((element) {
       EHDataGridColumnSortType orderByVal = element.sort;
-      if (orderByVal != EHDataGridColumnSortType.None)
-        _orderBy.putIfAbsent(
-            element.columnName,
-            () => orderByVal
-                .toString()
-                .substring(orderByVal.toString().indexOf('.') + 1));
+      if (orderByVal != EHDataGridColumnSortType.None &&
+          getColumnConfig(element.columnName).columnType.hasFilter)
+        _orderBy.putIfAbsent(element.columnName, () => orderByVal.name);
     });
 
     return _orderBy;
@@ -293,7 +294,8 @@ class EHDataGridSource extends DataGridSource {
     List<EHDataGridFilterData> filters = this
         .filters
         .where((f) =>
-            !f.columnName.contains('__') && !EHUtilHelper.isEmpty(f.value))
+            getColumnConfig(f.columnName).columnType.hasFilter &&
+            !EHUtilHelper.isEmpty(f.value))
         .toList();
 
     Map<String, dynamic> resData = await getData(

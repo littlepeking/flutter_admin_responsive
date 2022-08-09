@@ -2,7 +2,6 @@
 import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_double_column_type.dart';
@@ -66,51 +65,56 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
             minimumWidth: 100,
             width: columnConfig.width.value,
             columnName: columnConfig.columnName,
-            label: columnConfig.columnType is EHImageButtonColumnType
-                ? SizedBox()
-                : Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    alignment: Alignment.centerRight,
-                    child: Column(children: [
-                      GestureDetector(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                  columnConfig.columnHeaderName != null
-                                      ? columnConfig.columnHeaderName!.tr
-                                      : columnConfig.columnName.tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: new TextStyle().copyWith(
-                                      fontSize: Theme.of(Get.context!)
-                                          .textTheme
-                                          .bodyText1!
-                                          .fontSize,
-                                      fontWeight: FontWeight.bold)),
-                              Obx(
-                                () => Icon(
-                                  getColumnFilter(columnConfig.columnName)
-                                              .sort ==
-                                          EHDataGridColumnSortType.Desc
-                                      ? Icons.arrow_downward
-                                      : getColumnFilter(columnConfig.columnName)
-                                                  .sort ==
-                                              EHDataGridColumnSortType.Asc
-                                          ? Icons.arrow_upward
-                                          : null,
-                                  size: 15,
-                                ),
-                              )
-                            ],
-                          ),
-                          onTap: () => sortColumn(columnConfig)),
-                      //   Divider(),
-                      SizedBox(
-                        height: 5,
+            label: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                alignment: Alignment.centerRight,
+                child: Column(children: [
+                  GestureDetector(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                              columnConfig.columnHeaderName != null
+                                  ? columnConfig.columnHeaderName!.tr
+                                  : columnConfig.columnName.tr,
+                              overflow: TextOverflow.ellipsis,
+                              style: new TextStyle().copyWith(
+                                  fontSize: Theme.of(Get.context!)
+                                      .textTheme
+                                      .bodyText1!
+                                      .fontSize,
+                                  fontWeight: FontWeight.bold)),
+                          if (columnConfig.columnType.hasFilter)
+                            Obx(
+                              () => Icon(
+                                getColumnFilter(columnConfig.columnName).sort ==
+                                        EHDataGridColumnSortType.Desc
+                                    ? Icons.arrow_downward
+                                    : getColumnFilter(columnConfig.columnName)
+                                                .sort ==
+                                            EHDataGridColumnSortType.Asc
+                                        ? Icons.arrow_upward
+                                        : null,
+                                size: 15,
+                              ),
+                            )
+                        ],
                       ),
-                      Container(
-                          height: 25, child: buildFilterWidget(columnConfig)),
-                    ])));
+                      onTap: () {
+                        if (columnConfig.columnType.hasFilter)
+                          sortColumn(columnConfig);
+                      }),
+                  //   Divider(),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  columnConfig.columnType.hasFilter
+                      ? Container(
+                          height: 25, child: buildFilterWidget(columnConfig))
+                      : SizedBox(
+                          height: 25,
+                        ),
+                ])));
       },
     ).toList();
 
@@ -243,7 +247,10 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
 
   int getColumnIndex(EHColumnConf columnConfig) {
     return controller.dataGridSource.columnsConfig
-        .where((c) => !c.columnName.contains('__'))
+        .where((c) => controller.dataGridSource
+            .getColumnConfig(c.columnName)
+            .columnType
+            .hasFilter)
         .toList()
         .indexOf(columnConfig);
   }

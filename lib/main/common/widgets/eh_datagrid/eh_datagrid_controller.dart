@@ -2,7 +2,7 @@ import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'eh_column/eh_Image_button_column_type.dart';
+import 'eh_column/eh_image_button_column_type.dart';
 import 'eh_datagrid_column_config.dart';
 import 'eh_datagrid_source.dart';
 
@@ -41,7 +41,8 @@ class EHDataGridController extends EHController {
       dataGridSource.columnsConfig.insert(
           0,
           EHColumnConf(
-              '__select', EHImageButtonColumnType(onPressed: onRowSelected)));
+              '__select', EHImageButtonColumnType(onPressed: onRowSelected),
+              columnHeaderName: '', columnWidth: 36));
 
     this.dataGridSource = dataGridSource;
   }

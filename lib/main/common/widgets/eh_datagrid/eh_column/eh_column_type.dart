@@ -7,11 +7,13 @@ abstract class EHColumnType<T> {
   Map<String, String>? items;
   Alignment alignment;
   double padding;
+  bool hasFilter;
   EHColumnType(
       {this.widgetType = EHWidgetType.Text,
       this.items = const {'': ''},
       this.padding = defaultPadding,
-      this.alignment = Alignment.topLeft});
+      this.alignment = Alignment.topLeft,
+      this.hasFilter = true});
 
   getWidget(T value, int rowIndex, String columnName, List<Map> dataList);
 }

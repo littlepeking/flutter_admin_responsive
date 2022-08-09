@@ -1,4 +1,4 @@
-import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_Image_button_column_type.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_image_button_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_constants.dart';
 import 'package:get/get.dart';
@@ -16,14 +16,12 @@ class EHColumnConf {
 
   EHGridColHideType hideType;
 
-  EHColumnConf(this.columnName, this.columnType,
-      {double? columnWidth,
-      this.columnHeaderName,
-      this.sortColumnName,
-      this.hideType = EHGridColHideType.None})
-      : width = (columnType is EHImageButtonColumnType)
-            ? 36.0.obs
-            : columnWidth == null
-                ? 150.0.obs
-                : columnWidth.obs;
+  EHColumnConf(
+    this.columnName,
+    this.columnType, {
+    double? columnWidth,
+    this.columnHeaderName,
+    this.sortColumnName,
+    this.hideType = EHGridColHideType.None,
+  }) : width = columnWidth == null ? 150.0.obs : columnWidth.obs;
 }
