@@ -67,9 +67,9 @@ class UserEditController extends EHPanelController {
 
     self.userRoleDataGridController = EHDataGridController(
         wrapWithExpanded: !Responsive.isMobile(Get.context!),
-        showCheckbox: true,
-        onRowSelected: (data) =>
-            EHToastMessageHelper.showInfoMessage(data.toString()),
+        showCheckbox: false,
+        // onRowSelected: (data) =>
+        //     EHToastMessageHelper.showInfoMessage(data.toString()),
         dataGridSource: self.getRolesDataGridSource());
 
     self.detailTabsViewController = EHTabsViewController(tabs: [
@@ -110,21 +110,21 @@ class UserEditController extends EHPanelController {
           },
           child: Text('Add Role'.tr),
         )),
-        EHButton(
-            controller: EHButtonController(
-          onPressed: () async {
-            await userGeneralInfoController.editFormController!.validate();
-            String modelStr = model.value.toJsonStr();
-            print(modelStr);
+        // EHButton(
+        //     controller: EHButtonController(
+        //   onPressed: () async {
+        //     await userGeneralInfoController.editFormController!.validate();
+        //     String modelStr = model.value.toJsonStr();
+        //     print(modelStr);
 
-            //controller.receiptDetailInfoController.receiptModel.value = model;
+        //     //controller.receiptDetailInfoController.receiptModel.value = model;
 
-            model.refresh();
+        //     model.refresh();
 
-            EHToastMessageHelper.showInfoMessage(modelStr);
-          },
-          child: Text('Revoke Roles'.tr),
-        )),
+        //     EHToastMessageHelper.showInfoMessage(modelStr);
+        //   },
+        //   child: Text('Revoke Roles'.tr),
+        // )),
       ],
     );
   }
@@ -140,7 +140,13 @@ class UserEditController extends EHPanelController {
               columnHeaderName: 'Role Name'),
           EHColumnConf('display_name', EHStringColumnType(),
               columnHeaderName: 'Description'),
-          EHColumnConf('__delete', EHImageButtonColumnType(),
+          EHColumnConf(
+              '__delete',
+              EHImageButtonColumnType(
+                  icon: Icons.delete,
+                  onPressed: (Map rowData) {
+                    print(rowData.toString());
+                  }),
               columnHeaderName: 'Delete'),
         ],
         params: {

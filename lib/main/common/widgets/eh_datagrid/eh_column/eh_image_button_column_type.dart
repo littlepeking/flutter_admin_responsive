@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 class EHImageButtonColumnType extends EHColumnType<Map> {
   IconData icon;
+  String? label;
   final ValueChanged<Map>? onPressed;
 
   EHImageButtonColumnType(
       {this.icon = Icons.exit_to_app,
+      this.label,
       Alignment alignment: Alignment.topRight,
       bool hasFilter = false,
       this.onPressed})
@@ -24,7 +26,11 @@ class EHImageButtonColumnType extends EHColumnType<Map> {
                 onPressed == null ? () => {} : onPressed!(dataList[rowIndex]),
             child: Container(
                 child: Row(
-              children: [Icon(icon, size: 20)],
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, size: 20),
+                if (this.label != null) Text(this.label!)
+              ],
             )),
           )),
     );
