@@ -108,7 +108,7 @@ class UserEditController extends EHPanelController {
 
             EHToastMessageHelper.showInfoMessage(modelStr);
           },
-          child: Text('Add Role'.tr),
+          child: Text('Assign Roles'.tr),
         )),
         // EHButton(
         //     controller: EHButtonController(
@@ -136,9 +136,12 @@ class UserEditController extends EHPanelController {
         // loadDataAtInit: false,
         columnFilters: [],
         columnsConfig: [
+          EHColumnConf('name', EHStringColumnType(),
+              fullQuanifiedName: 'org.name', columnHeaderName: 'Organization'),
           EHColumnConf('roleName', EHStringColumnType(),
-              columnHeaderName: 'Role Name'),
-          EHColumnConf('display_name', EHStringColumnType(),
+              fullQuanifiedName: 'r.roleName', columnHeaderName: 'Role Name'),
+          EHColumnConf('displayName', EHStringColumnType(),
+              fullQuanifiedName: 'r.displayName',
               columnHeaderName: 'Description'),
           EHColumnConf(
               '__delete',

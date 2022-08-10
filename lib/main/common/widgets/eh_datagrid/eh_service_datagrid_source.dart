@@ -27,6 +27,23 @@ class EHServiceDataGridSource extends EHDataGridSource {
               int pageIndex,
               int pageSize,
             ) async {
+              filters.forEach((e) {
+                EHColumnConf columnConfig = columnsConfig
+                    .where((config) => config.columnName == e.columnName)
+                    .first;
+                e.columnName = columnConfig.fullQuanifiedName ?? e.columnName;
+              });
+
+              orderBy.forEach((key, value) {
+                EHColumnConf columnConfig = columnsConfig
+                    .where((config) => config.columnName == key)
+                    .first;
+                if (columnConfig.fullQuanifiedName != null) {
+                  orderBy[columnConfig.fullQuanifiedName!] = value;
+                  orderBy.remove(key);
+                }
+              });
+
               return await EHCommonService.queryByPage(
                   serviceName: serviceName,
                   actionName: actionName,

@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_constants.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_selectable_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../eh_text.dart';
@@ -32,7 +33,7 @@ class EHStringColumnType extends EHColumnType<String> {
       return Container(
         padding: EdgeInsets.all(this.padding),
         alignment: alignment,
-        child: EHText(
+        child: EHSelectableText(
           text: value ?? '',
         ),
       );

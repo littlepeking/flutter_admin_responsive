@@ -110,7 +110,7 @@ Map<String, String> zhCNMessages = {
   'Assigned Roles': '已分配的角色',
   'Edit User': '编辑用户',
   'User List': '用户列表',
-  'Add Role': '添加角色',
+  'Assign Roles': '授予角色',
   'Revoke Roles': '移除角色',
   'Role Name': '角色',
   'Description': '描述',
