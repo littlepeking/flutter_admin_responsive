@@ -108,9 +108,11 @@ Map<String, String> zhCNMessages = {
   'New Password': '新密码',
   'Verify New Password': '重复新密码',
   'Assigned Roles': '已分配的角色',
+  'Assign': '授予',
   'Edit User': '编辑用户',
   'User List': '用户列表',
-  'Assign Roles': '授予角色',
+  'Assign Role': '授予角色',
+  'Roles List': '角色列表',
   'Revoke Roles': '移除角色',
   'Role Name': '角色',
   'Description': '描述',
@@ -125,6 +127,8 @@ Map<String, String> zhCNMessages = {
   'Password does not match.': '密码不匹配',
   'First Name': '名字',
   'Last Name': '姓',
+  'User role authorization': '用户角色授权',
+  'Please select an organization': '请先选择一个组织',
   ////
   ///test i18 data
   'popUp': '弹出框',

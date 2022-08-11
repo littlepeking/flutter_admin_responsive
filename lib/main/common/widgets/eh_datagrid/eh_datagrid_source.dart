@@ -28,12 +28,15 @@ class EHDataGridSource extends DataGridSource {
   EHDataGridSource(
       {this.pageIndex = -1,
       List<EHFilterInfo>? columnFilters,
+      this.params = const {},
       required this.columnsConfig,
       required this.getData,
       this.loadDataAtInit = true}) {
     this.columnFilters =
         columnFilters != null ? columnFilters.obs : <EHFilterInfo>[].obs;
   }
+
+  Map<String, Object?> params;
 
   bool loadDataAtInit;
 
@@ -61,6 +64,7 @@ class EHDataGridSource extends DataGridSource {
   var selectable;
 
   late Future<Map<String, dynamic>> Function(
+    Map<String, Object?> params,
     List<EHDataGridFilterData> filters,
     Map<String, String> orderBy,
     int pageIndex,
@@ -298,8 +302,8 @@ class EHDataGridSource extends DataGridSource {
             !EHUtilHelper.isEmpty(f.value))
         .toList();
 
-    Map<String, dynamic> resData = await getData(
-        filters, this.orderBy, this.pageIndex ?? 0, this.pageSize!.value);
+    Map<String, dynamic> resData = await getData(this.params, this.filters,
+        this.orderBy, this.pageIndex ?? 0, this.pageSize!.value);
 
     //_dataList = resData['records'] as List<Map<String, dynamic>>;
 
@@ -344,5 +348,13 @@ class EHDataGridSource extends DataGridSource {
   /// Update DataSource
   void updateDataSource() {
     notifyListeners();
+  }
+
+  setParams(Map<String, Object?> params) {
+    this.params = params;
+  }
+
+  setParam(String paramName, dynamic paramValue) {
+    this.params[paramName] = paramValue;
   }
 }

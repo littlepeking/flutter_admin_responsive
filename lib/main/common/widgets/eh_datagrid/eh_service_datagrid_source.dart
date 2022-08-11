@@ -6,22 +6,22 @@ import '../../services/common/eh_common_service_names.dart';
 import 'eh_datagrid_source.dart';
 
 class EHServiceDataGridSource extends EHDataGridSource {
-  Map<String, Object?> params;
-
   EHServiceDataGridSource(
       {String serviceName = EHCommonServiceNames.EHCommonService,
       String actionName = 'queryByPage',
       required List<EHColumnConf> columnsConfig,
       List<EHFilterInfo> columnFilters = const [],
       int? pageIndex,
-      this.params = const {},
+      Map<String, Object?> params = const {},
       bool? loadDataAtInit})
       : super(
             pageIndex: pageIndex,
             columnFilters: columnFilters,
+            params: params,
             columnsConfig: columnsConfig,
             loadDataAtInit: loadDataAtInit = true,
             getData: (
+              Map<String, Object?> params,
               List<EHDataGridFilterData> filters,
               Map<String, String> orderBy,
               int pageIndex,
@@ -53,12 +53,4 @@ class EHServiceDataGridSource extends EHDataGridSource {
                   pageSize: pageSize,
                   params: params);
             });
-
-  setParams(Map<String, Object?> params) {
-    this.params = params;
-  }
-
-  setParam(String paramName, dynamic paramValue) {
-    this.params[paramName] = paramValue;
-  }
 }

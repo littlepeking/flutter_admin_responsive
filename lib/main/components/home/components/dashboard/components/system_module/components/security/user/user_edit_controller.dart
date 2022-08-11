@@ -1,6 +1,7 @@
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
 import 'package:eh_flutter_framework/main/common/services/security/user_service.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_dialog.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
@@ -14,6 +15,8 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/components/org_role_component.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/components/org_role_component_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -107,8 +110,28 @@ class UserEditController extends EHPanelController {
             model.refresh();
 
             EHToastMessageHelper.showInfoMessage(modelStr);
+
+            EHDialog.showPopupDialog(
+                OrgRoleComponent(
+                    controller: await OrgRoleComponentController.create(this,
+                        extraColumns: [
+                      EHColumnConf(
+                          'assignRole',
+                          EHImageButtonColumnType(
+                              icon: null,
+                              label: 'Assign',
+                              onPressed: (dataRow) {
+                                EHToastMessageHelper.showInfoMessage('Role ' +
+                                    dataRow['displayName'] +
+                                    'successfully assigned to user ' +
+                                    model.value.username!);
+                              }),
+                          columnHeaderName: 'Assign Role')
+                    ])),
+                title: 'User role authorization'.tr);
           },
-          child: Text('Assign Roles'.tr),
+          //TO DO: deep reclusively defined text cannot be translate dynamically, need reopen the page as a workaround.
+          child: Text('Assign Role'.tr),
         )),
         // EHButton(
         //     controller: EHButtonController(

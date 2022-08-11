@@ -269,6 +269,7 @@ class EHPopupController extends EHEditableWidgetController {
       getFilter(filters, codeColumnName).value = displayText;
 
       Map<String, dynamic> pageData = await _dataGridSource.getData(
+        {},
         filters,
         {},
         0,

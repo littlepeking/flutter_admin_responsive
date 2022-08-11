@@ -6,7 +6,8 @@ class EhTheme {
 
   static ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
-      //    primaryColor: Colors.amber,
+      primaryColor: Colors.white,
+      backgroundColor: Colors.black,
       textTheme: TextTheme(
         bodyText1: TextStyle(fontSize: 13),
         bodyText2: TextStyle(fontSize: 13),
@@ -45,6 +46,7 @@ class EhTheme {
   static ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.grey,
+      backgroundColor: Colors.white,
       textTheme: TextTheme(
         bodyText1: TextStyle(fontSize: 13),
         bodyText2: TextStyle(fontSize: 13),

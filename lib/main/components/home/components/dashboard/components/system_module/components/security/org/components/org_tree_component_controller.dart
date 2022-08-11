@@ -10,7 +10,7 @@ import '../organization_services.dart';
 
 typedef OrgTreeNodeOnTap = void Function(OrganizationModel? model);
 
-class OrgTreeCompController extends EHPanelController {
+class OrgTreeComponentController extends EHPanelController {
   late EHTreeController orgTreeController;
 
   late OrgTreeNodeOnTap onTap;
@@ -93,13 +93,14 @@ class OrgTreeCompController extends EHPanelController {
     return node;
   }
 
-  OrgTreeCompController._create(EHPanelController parent) : super(parent);
+  OrgTreeComponentController._create(EHPanelController parent) : super(parent);
 
   //since dart does not support asyc constructor, so we have to create a static function to create instance through a private constructor '_create' (we also need this private constructor to call super constructor) and then mark this static function as async.
   //https://stackoverflow.com/questions/38933801/calling-an-async-method-from-component-constructor-in-dart
-  static Future<OrgTreeCompController> create(EHPanelController parent,
+  static Future<OrgTreeComponentController> create(EHPanelController parent,
       {OrgTreeNodeOnTap? onTap}) async {
-    OrgTreeCompController self = OrgTreeCompController._create(parent);
+    OrgTreeComponentController self =
+        OrgTreeComponentController._create(parent);
 
     self.onTap = onTap ?? ((model) => {});
 

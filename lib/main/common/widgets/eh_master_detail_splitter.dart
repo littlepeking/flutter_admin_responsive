@@ -12,24 +12,33 @@ class EHMasterDetailSplitView
 
   @override
   Widget build(BuildContext context) {
-    return controller.showDetail
-        ? SplitView(
-            children: [controller.masterPanel, controller.detailPanel],
-            gripSize: controller.handleWidth,
-            viewMode: controller.viewMode,
-            indicator: SplitIndicator(viewMode: controller.viewMode),
-            activeIndicator: SplitIndicator(
+    return controller.showDetail || controller.placeHolderWidget != null
+        ? Padding(
+            padding: controller.padding,
+            child: SplitView(
+              children: [
+                controller.masterPanel,
+                if (controller.showDetail) controller.detailPanel,
+                if (!controller.showDetail &&
+                    controller.placeHolderWidget != null)
+                  controller.placeHolderWidget!
+              ],
+              gripSize: controller.handleWidth,
               viewMode: controller.viewMode,
-              isActive: true,
+              indicator: SplitIndicator(viewMode: controller.viewMode),
+              activeIndicator: SplitIndicator(
+                viewMode: controller.viewMode,
+                isActive: true,
+              ),
+              controller: SplitViewController(limits: [
+                WeightLimit(max: controller.maxWeight),
+                WeightLimit(max: controller.maxWeight)
+              ], weights: [
+                controller.splitterWeights
+              ]),
+              // onWeightChanged: (w) =>
+              //     controller.splitterWeights.value = w.first ?? 0.5,
             ),
-            controller: SplitViewController(limits: [
-              WeightLimit(max: controller.maxWeight),
-              WeightLimit(max: controller.maxWeight)
-            ], weights: [
-              controller.splitterWeights
-            ]),
-            // onWeightChanged: (w) =>
-            //     controller.splitterWeights.value = w.first ?? 0.5,
           )
         : Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,20 +50,24 @@ class EHMasterDetailSplitView
 class EHMasterDetailSplitterController extends EHController {
   late double splitterWeights = 0.5;
   late double maxWeight = 0.5;
+  EdgeInsets padding;
   bool showDetail;
   Widget masterPanel;
   Widget detailPanel;
   SplitViewMode viewMode;
   double handleWidth;
-  EHMasterDetailSplitterController({
-    this.viewMode = SplitViewMode.Vertical,
-    this.handleWidth = 2,
-    required this.showDetail,
-    double splitterWeights = 0.5,
-    double maxWeight = 0.7,
-    required this.masterPanel,
-    required this.detailPanel,
-  }) {
+  Widget? placeHolderWidget;
+
+  EHMasterDetailSplitterController(
+      {this.viewMode = SplitViewMode.Vertical,
+      this.handleWidth = 2,
+      this.padding = const EdgeInsets.all(2),
+      required this.showDetail,
+      double splitterWeights = 0.5,
+      double maxWeight = 0.8,
+      required this.masterPanel,
+      required this.detailPanel,
+      this.placeHolderWidget}) {
     this.splitterWeights = splitterWeights;
     this.maxWeight = maxWeight;
   }

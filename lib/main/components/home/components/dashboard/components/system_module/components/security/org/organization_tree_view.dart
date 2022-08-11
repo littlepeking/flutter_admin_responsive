@@ -5,7 +5,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_master_detail_splitter.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/components/org_tree_comp_view.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/components/org_tree_component.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_tree_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,7 +47,7 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
                       splitterWeights: 0.3,
                       maxWeight: 0.8,
                       viewMode: splitViewMode,
-                      masterPanel: OrgTreeCompView(
+                      masterPanel: OrgTreeComponent(
                         controller: controller.orgTreeCompController,
                       ),
                       detailPanel: Padding(

@@ -70,8 +70,7 @@ class UserEdit extends EHPanel<UserEditController> {
                   .createOrUpdateRxModel(model: controller.model);
 
               if (isCreateNewUser) {
-                (controller.userRoleDataGridController.dataGridSource
-                        as EHServiceDataGridSource)
+                controller.userRoleDataGridController.dataGridSource
                     .setParam('userId', controller.model.value.id);
               }
 
