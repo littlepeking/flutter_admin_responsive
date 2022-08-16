@@ -29,8 +29,8 @@ class PermissionServices {
         data: ids);
   }
 
-  static Future<Response<List>> buildTree() async {
-    return await EHRestService().getByServiceName<List>(
+  static Future<Response<List<Map<String, dynamic>>>> buildTree() async {
+    return await EHRestService().getByServiceName<List<Map<String, dynamic>>>(
       serviceName: SecurityServiceNames.PermissionService,
       actionName: '/buildTree',
     );

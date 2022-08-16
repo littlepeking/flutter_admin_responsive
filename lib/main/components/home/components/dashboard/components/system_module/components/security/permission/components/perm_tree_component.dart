@@ -11,19 +11,8 @@ class PermTreeComponent extends EHStatelessWidget<PermTreeComponentController> {
 
   @override
   Widget build(BuildContext context) {
-    return StatefulWrapper(
-      onInit: () async {
-        //Here use StatefulWrapper to make sure tree node is only loaded in first time and will no need to load in the widget next rebuild as stateless widget might rebuild at any time, which is out of our control.
-        //if need refresh the tree then we can add a 'refresh' button.
-        // if (controller.orgTreeController.treeNodeDataList.length == 0) {
-        //   await controller.reloadOrgTreeData();
-        // }
-
-        await controller.reloadPermTreeData();
-      },
-      child: EHTreeView(
-        controller: controller.permTreeController,
-      ),
+    return EHTreeView(
+      controller: controller.permTreeController,
     );
   }
 }

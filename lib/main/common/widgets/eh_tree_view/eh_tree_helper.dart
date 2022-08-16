@@ -3,14 +3,54 @@ import 'package:flutter/material.dart';
 import 'eh_tree_controller.dart';
 import 'eh_tree_node.dart';
 
-class EHTreeHelper {
-  static Future<T?> loadTreeNodesFromMap<T extends EHModel>(
-      List<Map<String, dynamic>>? treeNodeList,
+class EHTreeUtilHelper {
+  static T? loadTreeNodesFromMap<T extends EHModel>(
+      List? treeNodeList,
       EHTreeController treeController,
-      T fromJson2Model(e),
+      T fromJson2Model(Map<String, dynamic> json),
       {ValueChanged<T?>? onNodeClick,
       String? overrideSelectedTreeNodeId,
-      EHTreeNode? rootNode}) {
+      EHTreeNode? rootNode,
+      String childrenDataField = 'children',
+      String idDataField = 'id',
+      String nameDataField = 'name'}) {
+    EHTreeNode _convertMap2TreeData<T extends EHModel>(
+        EHTreeController treeController,
+        Map<String, dynamic> data,
+        T fromJson(Map<String, dynamic> json),
+        String selectedNodeId,
+        ValueChanged<T?> onNodeClick) {
+      List<EHTreeNode>? children;
+
+      if (data[childrenDataField] != null) {
+        children = data[childrenDataField]
+            .map<EHTreeNode>((c) => _convertMap2TreeData(
+                treeController, c, fromJson, selectedNodeId, onNodeClick))
+            .toList();
+      }
+
+      T model = fromJson(data);
+
+      EHTreeNode node = EHTreeNode(
+          id: data[idDataField],
+          displayName: data[nameDataField],
+          data: model,
+          children: children,
+          isSelected: data[idDataField] == selectedNodeId,
+          onTap: () {
+            onNodeClick(model);
+          });
+
+      if (node.children != null) {
+        print(node.children.toString());
+        node.children!.forEach((c) => c.parentTreeNode = node);
+      }
+
+      if (node.isSelected) treeController.selectedTreeNode.value = node;
+
+      return node;
+    }
+
     treeController.treeNodeDataList.clear();
 
     onNodeClick = onNodeClick ?? (T? t) => {};
@@ -50,43 +90,8 @@ class EHTreeHelper {
         treeController.selectedTreeNode.value!.id == '') {
       treeController.selectedTreeNode.value = rootNode;
     }
-    return treeController.selectedTreeNode.value!.data;
-  }
-
-  static EHTreeNode _convertMap2TreeData<T extends EHModel>(
-      EHTreeController treeController,
-      Map<String, dynamic> data,
-      T fromJson(dynamic e),
-      String selectedNodeId,
-      ValueChanged<T?> onNodeClick) {
-    List<EHTreeNode>? children;
-
-    if (data['children'] != null) {
-      children = data['children']
-          .map<EHTreeNode>((c) => _convertMap2TreeData(
-              treeController, c, fromJson, selectedNodeId, onNodeClick))
-          .toList();
-    }
-
-    T model = fromJson(data);
-
-    EHTreeNode node = EHTreeNode(
-        id: data['id'],
-        displayName: data['name'],
-        data: model,
-        children: children,
-        isSelected: data['id'] == selectedNodeId,
-        onTap: () {
-          onNodeClick(model);
-        });
-
-    if (node.children != null) {
-      print(node.children.toString());
-      node.children!.forEach((c) => c.parentTreeNode = node);
-    }
-
-    if (node.isSelected) treeController.selectedTreeNode.value = node;
-
-    return node;
+    return treeController.selectedTreeNode.value == null
+        ? null
+        : treeController.selectedTreeNode.value!.data;
   }
 }

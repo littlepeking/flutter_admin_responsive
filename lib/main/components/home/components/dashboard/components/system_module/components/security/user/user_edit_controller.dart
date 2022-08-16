@@ -126,7 +126,8 @@ class UserEditController extends EHPanelController {
                           onPressed: (dataRow) async {
                             Response userModelResponse = await EHRestService()
                                 .postByServiceName(
-                                    serviceName: WMSServiceNames.RoleService,
+                                    serviceName:
+                                        SecurityServiceNames.RoleService,
                                     actionName: 'assignToUser',
                                     body: {
                                   'userId':
@@ -175,7 +176,7 @@ class UserEditController extends EHPanelController {
 
   getRolesDataGridSource() {
     EHServiceDataGridSource dataGridSource = EHServiceDataGridSource(
-        serviceName: WMSServiceNames.RoleService,
+        serviceName: SecurityServiceNames.RoleService,
         actionName: 'queryUserRoleByPage',
         // loadDataAtInit: false,
         columnFilters: [],
@@ -193,7 +194,7 @@ class UserEditController extends EHPanelController {
                   icon: Icons.delete,
                   onPressed: (Map rowData) async {
                     await EHRestService().postByServiceName(
-                        serviceName: WMSServiceNames.RoleService,
+                        serviceName: SecurityServiceNames.RoleService,
                         actionName: 'revokeFromUser',
                         body: {
                           'userId': (await EHContextHelper.getUserInfo()).id!,

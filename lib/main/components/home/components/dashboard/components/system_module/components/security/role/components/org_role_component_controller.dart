@@ -39,7 +39,7 @@ class OrgRoleComponentController extends EHPanelController {
 
     getOrgRolesDataGridSource() {
       EHServiceDataGridSource dataGridSource =
-          EHServiceDataGridSource(serviceName: WMSServiceNames.RoleService,
+          EHServiceDataGridSource(serviceName: SecurityServiceNames.RoleService,
               // loadDataAtInit: false,
               columnFilters: [], columnsConfig: [
         EHColumnConf('orgId', EHStringColumnType(),

@@ -11,5 +11,5 @@ class UserService extends EHBaseModelService<UserModel> {
   factory UserService() => _singleton;
 
   @override
-  String get serviceName => WMSServiceNames.UserService;
+  String get serviceName => SecurityServiceNames.UserService;
 }

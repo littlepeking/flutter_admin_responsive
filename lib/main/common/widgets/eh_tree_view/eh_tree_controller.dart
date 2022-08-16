@@ -18,7 +18,7 @@ class EHTreeController extends EHController {
 
   final bool showCheckBox;
 
-  final bool displaySelectedItems;
+  final bool isNodeSelectable;
 
   /// Tree controller to manage the tree state.
   bool _allNodesExpanded;
@@ -33,7 +33,7 @@ class EHTreeController extends EHController {
       this.paddingSize = 6,
       this.showCheckBox = false,
       required this.treeNodeDataList,
-      this.displaySelectedItems = false,
+      this.isNodeSelectable = false,
       allNodesExpanded = true})
       : _allNodesExpanded = allNodesExpanded;
 

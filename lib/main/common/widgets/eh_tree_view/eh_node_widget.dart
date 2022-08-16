@@ -75,7 +75,7 @@ class EHNodeWidget extends StatelessWidget {
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     child: Container(
-                        decoration: controller.displaySelectedItems
+                        decoration: controller.isNodeSelectable
                             ? BoxDecoration(
                                 color: treeNode ==
                                         controller.selectedTreeNode.value

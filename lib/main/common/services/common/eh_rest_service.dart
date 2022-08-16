@@ -174,12 +174,16 @@ class EHRestService extends GetxController {
 
   Future<Response<T>> deleteByServiceName<T>({
     required String serviceName,
-    required String actionName,
+    String? actionName,
+    dynamic data,
     Map<String, dynamic>? params,
     Options? options,
   }) {
-    return _dio.delete<T>(serviceName + '/' + actionName,
-        queryParameters: params, options: options);
+    return _dio.delete<T>(
+        actionName == null ? serviceName : serviceName + '/' + actionName,
+        data: data,
+        queryParameters: params,
+        options: options);
   }
 
   Future<Response<T>> postByServiceName<T>({
