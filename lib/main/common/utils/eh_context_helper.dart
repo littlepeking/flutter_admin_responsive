@@ -6,7 +6,7 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EHContextHelper {
-  static getUserInfo() async {
+  static Future<UserModel> getUserInfo() async {
     String? contextString = await getString("userInfo");
 
     Map<String, dynamic> userInfoMap = jsonDecode(contextString ?? '{}');

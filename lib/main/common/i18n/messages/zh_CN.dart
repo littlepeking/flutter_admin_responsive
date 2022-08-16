@@ -111,8 +111,8 @@ Map<String, String> zhCNMessages = {
   'Assign': '授予',
   'Edit User': '编辑用户',
   'User List': '用户列表',
-  'Assign Role': '授予角色',
-  'Roles List': '角色列表',
+  'Assign Role': '角色授予',
+  'Role List': '角色列表',
   'Revoke Roles': '移除角色',
   'Role Name': '角色',
   'Description': '描述',
@@ -138,5 +138,9 @@ Map<String, String> zhCNMessages = {
   'Print SKU Label': '打印物料标签',
 
   ///
-  'Please create or select a organization before edit': '请新建或者选择一个组织以打开编辑页面'
+  'Please create or select a organization before edit': '请新建或者选择一个组织以打开编辑页面',
+  'Role @displayName assigned to user @username successfully':
+      '角色 @displayName 成功授予用户 @username',
+  'Role @displayName revoked from user @username successfully':
+      '角色 @displayName 已成功从用户 @username 收回'
 };

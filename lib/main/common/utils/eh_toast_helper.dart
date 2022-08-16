@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,19 @@ class EHToastMessageHelper {
       EHToastMsgType type = EHToastMsgType.Successful}) {
     Get.snackbar(title.tr, message.tr,
         maxWidth: 500,
-        barBlur: 5.0,
+        barBlur: 20.0,
+        boxShadows: [
+          BoxShadow(
+              color: ThemeController.instance.isDarkMode.value
+                  ? Color.fromARGB(255, 81, 80, 80)
+                  : Colors.grey,
+              offset: Offset(2, 2),
+              spreadRadius: 2,
+              blurRadius: 8)
+        ],
+        backgroundColor: ThemeController.instance.isDarkMode.value
+            ? Color.fromARGB(255, 68, 68, 68)
+            : Colors.white,
         //backgroundColor: Colors.grey,
         margin: EdgeInsets.all(10),
         icon: Icon(Icons.info,
@@ -21,10 +34,10 @@ class EHToastMessageHelper {
                     : Colors.red),
         // forwardAnimationCurve: Curves.easeOutBack,
         //colorText: Colors.black,
-        shouldIconPulse: false,
+        shouldIconPulse: true,
 
         // backgroundColor: Colors.yellow,
-        duration: Duration(milliseconds: 2000),
+        duration: Duration(milliseconds: 3000),
         titleText: Text(
           title.tr,
           style: Theme.of(Get.context!).textTheme.bodyText1,
@@ -32,7 +45,8 @@ class EHToastMessageHelper {
         messageText: Text(
           message.tr,
           style: Theme.of(Get.context!).textTheme.bodyText1,
-        ));
+        ),
+        isDismissible: true);
   }
 
   static showLoginErrorMessage(String message,

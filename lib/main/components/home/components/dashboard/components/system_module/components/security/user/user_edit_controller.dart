@@ -1,6 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
+import 'package:eh_flutter_framework/main/common/services/common/eh_rest_service.dart';
+import 'package:eh_flutter_framework/main/common/services/common/service_name.dart';
 import 'package:eh_flutter_framework/main/common/services/security/user_service.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_dialog.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
@@ -17,8 +21,9 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_vi
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/components/org_role_component.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/components/org_role_component_controller.dart';
+import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Response;
 
 import 'user_detail_general_view.dart';
 import 'user_detail_general_controller.dart';
@@ -109,29 +114,45 @@ class UserEditController extends EHPanelController {
 
             model.refresh();
 
-            EHToastMessageHelper.showInfoMessage(modelStr);
-
             EHDialog.showPopupDialog(
                 OrgRoleComponent(
-                    controller: await OrgRoleComponentController.create(this,
-                        extraColumns: [
-                      EHColumnConf(
-                          'assignRole',
-                          EHImageButtonColumnType(
-                              icon: null,
-                              label: 'Assign',
-                              onPressed: (dataRow) {
-                                EHToastMessageHelper.showInfoMessage('Role ' +
-                                    dataRow['displayName'] +
-                                    'successfully assigned to user ' +
-                                    model.value.username!);
-                              }),
-                          columnHeaderName: 'Assign Role')
-                    ])),
+                    controller: await OrgRoleComponentController
+                        .create(this, extraColumns: [
+                  EHColumnConf(
+                      'assignRole',
+                      EHImageButtonColumnType(
+                          icon: null,
+                          label: 'Assign',
+                          onPressed: (dataRow) async {
+                            Response userModelResponse = await EHRestService()
+                                .postByServiceName(
+                                    serviceName: WMSServiceNames.RoleService,
+                                    actionName: 'assignToUser',
+                                    body: {
+                                  'userId':
+                                      (await EHContextHelper.getUserInfo()).id!,
+                                  'roleIds': [dataRow['id']]
+                                });
+                            UserModel userModelValue =
+                                model.value.fromJson(userModelResponse.data!);
+                            model.value = userModelValue;
+
+                            userRoleDataGridController.dataGridSource
+                                .handleRefresh();
+
+                            EHToastMessageHelper.showInfoMessage(
+                                'Role @displayName assigned to user @username successfully'
+                                    .trParams({
+                              'displayName': dataRow['displayName'],
+                              'username': model.value.username!
+                            }));
+                          }),
+                      columnHeaderName: 'Assign Role')
+                ])),
                 title: 'User role authorization'.tr);
           },
           //TO DO: deep reclusively defined text cannot be translate dynamically, need reopen the page as a workaround.
-          child: Text('Assign Role'.tr),
+          child: Obx(() => Text(GlobalDataController.tr('Assign Role'))),
         )),
         // EHButton(
         //     controller: EHButtonController(
@@ -154,7 +175,7 @@ class UserEditController extends EHPanelController {
 
   getRolesDataGridSource() {
     EHServiceDataGridSource dataGridSource = EHServiceDataGridSource(
-        serviceName: '/security/role',
+        serviceName: WMSServiceNames.RoleService,
         actionName: 'queryUserRoleByPage',
         // loadDataAtInit: false,
         columnFilters: [],
@@ -170,8 +191,23 @@ class UserEditController extends EHPanelController {
               '__delete',
               EHImageButtonColumnType(
                   icon: Icons.delete,
-                  onPressed: (Map rowData) {
-                    print(rowData.toString());
+                  onPressed: (Map rowData) async {
+                    await EHRestService().postByServiceName(
+                        serviceName: WMSServiceNames.RoleService,
+                        actionName: 'revokeFromUser',
+                        body: {
+                          'userId': (await EHContextHelper.getUserInfo()).id!,
+                          'roleIds': [rowData['id']]
+                        });
+
+                    userRoleDataGridController.dataGridSource.handleRefresh();
+
+                    EHToastMessageHelper.showInfoMessage(
+                        'Role @displayName revoked from user @username successfully'
+                            .trParams({
+                      'displayName': rowData['displayName'],
+                      'username': model.value.username!
+                    }));
                   }),
               columnHeaderName: 'Delete'),
         ],

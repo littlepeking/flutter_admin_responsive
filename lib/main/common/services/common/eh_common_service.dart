@@ -24,7 +24,7 @@ class EHCommonService {
           'orderBy': orderBy,
           'pageIndex': pageIndex,
           'pageSize': pageSize,
-          'extraParams': params,
+          'params': params,
         });
 
     return response.data!;
@@ -34,7 +34,7 @@ class EHCommonService {
     String serviceName = EHCommonServiceNames.EHCommonService,
     String actionName = 'queryByListName',
     required String listName,
-    Map<String, Object?>? extraParams = const {},
+    Map<String, Object?>? params = const {},
   }) async {
     Response<List<Map<String, dynamic>>> response = await EHRestService()
         .postByServiceName<List<Map<String, dynamic>>>(
@@ -42,7 +42,7 @@ class EHCommonService {
             actionName: actionName,
             body: {
           'listName': listName,
-          'extraParams': extraParams,
+          'params': params,
         });
 
     return response.data ?? [];

@@ -1,8 +1,10 @@
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
+import 'package:eh_flutter_framework/main/common/services/common/service_name.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_string_column_type.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_column_config.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_service_datagrid_source.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
@@ -36,25 +38,22 @@ class OrgRoleComponentController extends EHPanelController {
     });
 
     getOrgRolesDataGridSource() {
-      EHServiceDataGridSource dataGridSource = EHServiceDataGridSource(
-          serviceName: '/security/role',
-          actionName: 'queryUserRoleByPage',
-          // loadDataAtInit: false,
-          columnFilters: [],
-          columnsConfig: [
-            EHColumnConf('name', EHStringColumnType(),
-                fullQuanifiedName: 'org.name',
-                columnHeaderName: 'Organization'),
-            EHColumnConf('roleName', EHStringColumnType(),
-                fullQuanifiedName: 'r.roleName', columnHeaderName: 'Role Name'),
-            EHColumnConf('displayName', EHStringColumnType(),
-                fullQuanifiedName: 'r.displayName',
-                columnHeaderName: 'Description'),
-            ...extraColumns
-          ],
-          params: {
-            'userId': '1515880093879160833'
-          });
+      EHServiceDataGridSource dataGridSource =
+          EHServiceDataGridSource(serviceName: WMSServiceNames.RoleService,
+              // loadDataAtInit: false,
+              columnFilters: [], columnsConfig: [
+        EHColumnConf('orgId', EHStringColumnType(),
+            fullQuanifiedName: 'orgId',
+            columnHeaderName: 'Organization',
+            hideType: EHGridColHideType.hide),
+        EHColumnConf('roleName', EHStringColumnType(),
+            fullQuanifiedName: 'roleName', columnHeaderName: 'Role Name'),
+        EHColumnConf('displayName', EHStringColumnType(),
+            fullQuanifiedName: 'displayName', columnHeaderName: 'Description'),
+        ...extraColumns
+      ], params: {
+        'orgId': ''
+      });
       return dataGridSource;
     }
 
@@ -66,7 +65,7 @@ class OrgRoleComponentController extends EHPanelController {
         dataGridSource: getOrgRolesDataGridSource());
 
     self.detailTabsViewController = EHTabsViewController(tabs: [
-      EHTab('Roles List', self.orgRoleDataGridController, (EHController c) {
+      EHTab('Role List', self.orgRoleDataGridController, (EHController c) {
         return EHDataGrid(controller: c);
       }),
     ]);
