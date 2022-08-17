@@ -36,7 +36,9 @@ class OrganizationDetailViewController extends EHPanelController {
 
     self.getWidgetControllerFormController = () {
       Rx<OrganizationModel> rxModel = Rx<OrganizationModel>(
-          (self.parentController as OrganizationTreeController).model.value!);
+          (self.parentController as OrganizationTreeController)
+              .orgModel
+              .value!);
 
       return self.orgDetailViewFormController =
           EHEditFormController<OrganizationModel>(
@@ -119,7 +121,7 @@ class OrganizationDetailViewController extends EHPanelController {
   static Future<Map<String, String>> getOrgDDLDataSource() async {
     List<OrganizationModel> list = await OrganizationServices.getOrgList();
     list.add(OrganizationModel(
-      id: '',
+      id: '0',
       name: 'All Organizations',
     ));
 

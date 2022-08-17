@@ -5,6 +5,9 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 /// A controller for a tree state.
 ///
 /// Allows to modify the state of the tree.
+///
+typedef bool isNodeMatch(EHTreeNode node);
+
 class EHTreeController extends EHController {
   /// Horizontal indent between levels.
   final double indent;
@@ -131,5 +134,24 @@ class EHTreeController extends EHController {
       return false;
     else
       return val;
+  }
+
+  List<EHTreeNode> getAllFilteredNodes(isNodeMatch filter) {
+    List<EHTreeNode> res = [];
+    treeNodeDataList.forEach((node) {
+      res.addAll(_filterNode(node, filter));
+    });
+
+    return res;
+  }
+
+  List<EHTreeNode> _filterNode(EHTreeNode node, isNodeMatch isNodeMatch) {
+    List<EHTreeNode> res = [];
+    if (node.children == null || node.children!.length == 0) {
+      if (isNodeMatch(node)) res.add(node);
+    } else {
+      node.children!.forEach((e) => res.addAll(_filterNode(e, isNodeMatch)));
+    }
+    return res;
   }
 }

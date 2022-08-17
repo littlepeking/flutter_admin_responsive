@@ -56,7 +56,7 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
                             expandMode: EHTabsViewExpandMode.Scrollable,
                             controller: controller.detailTabsViewController),
                       ),
-                      showDetail: controller.model.value != null),
+                      showDetail: controller.orgModel.value != null),
                 );
               })),
         ),
@@ -66,22 +66,8 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
   }
 
   buildToolbar(BuildContext context) {
-    isNodeCanDelete() {
-      return this
-                  .controller
-                  .orgTreeCompController
-                  .orgTreeController
-                  .selectedTreeNode
-                  .value !=
-              null &&
-          this
-                  .controller
-                  .orgTreeCompController
-                  .orgTreeController
-                  .selectedTreeNode
-                  .value!
-                  .id !=
-              '';
+    isRootNode() {
+      return controller.orgModel.value == null;
     }
 
     return Obx(() => EHToolBar(
@@ -89,7 +75,7 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
             EHButton(
                 controller: EHButtonController(
               onPressed: () async {
-                this.controller.model.value = OrganizationModel(
+                this.controller.orgModel.value = OrganizationModel(
                     parentId: this
                         .controller
                         .orgTreeCompController
@@ -112,13 +98,13 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
             )),
             EHButton(
                 controller: EHButtonController(
-                    enabled: controller.model.value != null,
+                    enabled: !isRootNode(),
                     child: Text('Save'.tr),
                     onPressed: () async =>
                         await this.controller.saveOrgDetailView())),
             EHButton(
                 controller: EHButtonController(
-              enabled: isNodeCanDelete(),
+              enabled: !isRootNode(),
               child: Text('Delete'.tr),
               onPressed: () async {
                 await controller.deleteSelectedOrg();

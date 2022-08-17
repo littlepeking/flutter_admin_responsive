@@ -100,6 +100,10 @@ class EHTabsViewController extends GetxController {
     }
   }
 
+  EHTab get selectedTab {
+    return tabsConfig[selectedIndex.value];
+  }
+
   reset() {
     tabsConfig = <EHTab>[].obs;
     selectedIndex = 0.obs;

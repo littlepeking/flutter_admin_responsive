@@ -109,7 +109,7 @@ class EHTabHeader extends StatelessWidget {
                                                                 .isDarkMode
                                                                 .isTrue
                                                             ? Colors.white70
-                                                            : Colors.black54,
+                                                            : Colors.black87,
                                                     fontWeight:
                                                         controller.selectedIndex
                                                                         .value ==

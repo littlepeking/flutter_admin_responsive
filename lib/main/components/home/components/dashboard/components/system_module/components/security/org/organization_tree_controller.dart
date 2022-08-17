@@ -10,7 +10,10 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_no
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/components/org_tree_component_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_detail_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_detail_view_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/components/perm_tree_component.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/components/perm_tree_component_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 import 'package:get/get.dart' hide Response;
 
 import 'organization_model.dart';
@@ -21,11 +24,13 @@ class OrganizationTreeController extends EHPanelController {
 
   late OrgTreeComponentController orgTreeCompController;
 
-  Rx<OrganizationModel?> model = Rxn<OrganizationModel>();
+  Rx<OrganizationModel?> orgModel = Rxn<OrganizationModel>();
 
   late EHTabsViewController detailTabsViewController;
 
   late OrganizationDetailViewController organizationDetailViewController;
+
+  late PermTreeComponentController permTreeComponentController;
 
   OrganizationTreeController._create(EHPanelController? parent) : super(parent);
 
@@ -37,17 +42,27 @@ class OrganizationTreeController extends EHPanelController {
     self.organizationDetailViewController =
         await OrganizationDetailViewController.create(self);
 
+    self.organizationDetailViewController =
+        await OrganizationDetailViewController.create(self);
+
     self.orgTreeCompController = await OrgTreeComponentController.create(self,
         onTap: (selectedOrgModel) {
-      if (self.model.value != null &&
+      if (self.orgModel.value != null &&
           self.organizationDetailViewController.orgDetailViewFormController !=
               null)
         self.organizationDetailViewController.orgDetailViewFormController!
             .reset();
 
-      self.model.value = selectedOrgModel;
-      self.model.refresh();
+      self.orgModel.value = selectedOrgModel;
+      self.orgModel.refresh();
+
+      if (selectedOrgModel != null)
+        self.permTreeComponentController
+            .reloadPermTreeData(orgId: selectedOrgModel.id!);
     });
+
+    self.permTreeComponentController =
+        await PermTreeComponentController.create(self, showCheckBox: true);
 
     self.detailTabsViewController = EHTabsViewController(tabs: [
       EHTab('Detail Info', self.organizationDetailViewController,
@@ -58,7 +73,12 @@ class OrganizationTreeController extends EHPanelController {
               controller: c,
             ));
       }),
-      // EHTab('Summary Info', controller, (controller) => Center()),
+      EHTab(
+          'Permissions',
+          self.permTreeComponentController,
+          (controller) => PermTreeComponent(
+                controller: self.permTreeComponentController,
+              )),
       // EHTab('Other', controller, (controller) => EditingDataGrid()),
     ]);
 
@@ -66,17 +86,22 @@ class OrganizationTreeController extends EHPanelController {
   }
 
   Future<void> saveOrgDetailView() async {
-    if (await organizationDetailViewController.orgDetailViewFormController!
-        .validate()) {
-      model.value = await OrganizationServices.save(model.value!);
-      model.refresh();
+    if (detailTabsViewController.selectedTab.tabName == 'Detail Info') {
+      if (await organizationDetailViewController.orgDetailViewFormController!
+          .validate()) {
+        orgModel.value = await OrganizationServices.save(orgModel.value!);
+        orgModel.refresh();
+        await orgTreeCompController.reloadOrgTreeData(
+            overrideSelectedTreeNodeId: orgModel.value!.id!);
 
-      EHToastMessageHelper.showInfoMessage('Saved successfully.');
-      await orgTreeCompController.reloadOrgTreeData(
-          overrideSelectedTreeNodeId: model.value!.id!);
-
-      await organizationDetailViewController.initData();
+        await organizationDetailViewController.initData();
+      }
+    } else if (detailTabsViewController.selectedTab.tabName == 'Permissions') {
+      await permTreeComponentController.updateOrgPermissions(
+          orgId: orgModel.value!.id!);
     }
+
+    EHToastMessageHelper.showInfoMessage('Saved successfully.');
   }
 
   Future<void> deleteSelectedOrg() async {
@@ -85,7 +110,7 @@ class OrganizationTreeController extends EHPanelController {
     await orgTreeCompController.reloadOrgTreeData(
         overrideSelectedTreeNodeId: '');
 
-    model.value = null;
+    orgModel.value = null;
 
     await organizationDetailViewController.initData();
     EHToastMessageHelper.showInfoMessage('Delete successfully.');

@@ -12,38 +12,37 @@ class EHMasterDetailSplitView
 
   @override
   Widget build(BuildContext context) {
-    return controller.showDetail || controller.placeHolderWidget != null
-        ? Padding(
-            padding: controller.padding,
-            child: SplitView(
-              children: [
-                controller.masterPanel,
-                if (controller.showDetail) controller.detailPanel,
-                if (!controller.showDetail &&
-                    controller.placeHolderWidget != null)
-                  controller.placeHolderWidget!
-              ],
-              gripSize: controller.handleWidth,
-              viewMode: controller.viewMode,
-              indicator: SplitIndicator(viewMode: controller.viewMode),
-              activeIndicator: SplitIndicator(
+    return Padding(
+        padding: controller.padding,
+        child: controller.showDetail || controller.placeHolderWidget != null
+            ? SplitView(
+                children: [
+                  controller.masterPanel,
+                  if (controller.showDetail) controller.detailPanel,
+                  if (!controller.showDetail &&
+                      controller.placeHolderWidget != null)
+                    controller.placeHolderWidget!
+                ],
+                gripSize: controller.handleWidth,
                 viewMode: controller.viewMode,
-                isActive: true,
-              ),
-              controller: SplitViewController(limits: [
-                WeightLimit(max: controller.maxWeight),
-                WeightLimit(max: controller.maxWeight)
-              ], weights: [
-                controller.splitterWeights
-              ]),
-              // onWeightChanged: (w) =>
-              //     controller.splitterWeights.value = w.first ?? 0.5,
-            ),
-          )
-        : Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Expanded(child: controller.masterPanel)],
-          );
+                indicator: SplitIndicator(viewMode: controller.viewMode),
+                activeIndicator: SplitIndicator(
+                  viewMode: controller.viewMode,
+                  isActive: true,
+                ),
+                controller: SplitViewController(limits: [
+                  WeightLimit(max: controller.maxWeight),
+                  WeightLimit(max: controller.maxWeight)
+                ], weights: [
+                  controller.splitterWeights
+                ]),
+                // onWeightChanged: (w) =>
+                //     controller.splitterWeights.value = w.first ?? 0.5,
+              )
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [Expanded(child: controller.masterPanel)],
+              ));
   }
 }
 

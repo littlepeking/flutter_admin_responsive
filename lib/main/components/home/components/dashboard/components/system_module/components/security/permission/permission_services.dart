@@ -29,10 +29,22 @@ class PermissionServices {
         data: ids);
   }
 
-  static Future<Response<List<Map<String, dynamic>>>> buildTree() async {
-    return await EHRestService().getByServiceName<List<Map<String, dynamic>>>(
-      serviceName: SecurityServiceNames.PermissionService,
-      actionName: '/buildTree',
-    );
+  static Future<List> buildTreeByOrgId(String orgId) async {
+    Response<List> response = await EHRestService().getByServiceName<List>(
+        serviceName: SecurityServiceNames.PermissionService,
+        actionName: '/buildTreeByOrgId',
+        params: {'orgId': orgId});
+
+    return response.data!;
+  }
+
+  static Future<List> updateOrgPermissions(
+      String orgId, List<String> permissionIds) async {
+    Response response = await EHRestService().postByServiceName(
+        serviceName: SecurityServiceNames.PermissionService,
+        actionName: 'updateOrgPermissions',
+        body: {'orgId': orgId, 'permissionIds': permissionIds});
+
+    return response.data;
   }
 }

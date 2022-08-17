@@ -143,5 +143,5 @@ Map<String, String> zhCNMessages = {
       '角色 @displayName 成功授予用户 @username',
   'Role @displayName revoked from user @username successfully':
       '角色 @displayName 已成功从用户 @username 收回',
-  'Organization Permission Tree': '公司权限树'
+  'Permissions': '功能权限'
 };

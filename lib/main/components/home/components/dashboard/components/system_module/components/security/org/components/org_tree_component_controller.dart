@@ -21,7 +21,7 @@ class OrgTreeComponentController extends EHPanelController {
   Future<OrganizationModel?> reloadOrgTreeData(
       {String? overrideSelectedTreeNodeId}) async {
     EHTreeNode rootNode = EHTreeNode(
-        id: '',
+        id: '0',
         displayName: 'All Organizations',
         children: [],
         icon: Icons.lan,
@@ -34,7 +34,8 @@ class OrgTreeComponentController extends EHPanelController {
         response.data, orgTreeController, OrganizationModel.fromJson,
         overrideSelectedTreeNodeId: overrideSelectedTreeNodeId,
         onNodeClick: (orgModel) => onTap(orgModel),
-        rootNode: rootNode);
+        rootNode: rootNode,
+        displayNameField: 'name');
   }
 
   //since dart does not support asyc constructor, so we have to create a static function to create instance through a private constructor '_create' (we also need this private constructor to call super constructor) and then mark this static function as async.

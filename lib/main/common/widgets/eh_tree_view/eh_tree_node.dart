@@ -35,5 +35,5 @@ class EHTreeNode {
       this.onTap,
       this.children = const [],
       this.isSelected = false,
-      this.data = const {}});
+      this.data});
 }

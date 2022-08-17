@@ -11,9 +11,10 @@ class EHTreeUtilHelper {
       {ValueChanged<T?>? onNodeClick,
       String? overrideSelectedTreeNodeId,
       EHTreeNode? rootNode,
-      String childrenDataField = 'children',
-      String idDataField = 'id',
-      String nameDataField = 'name'}) {
+      String childrenField = 'children',
+      String idField = 'id',
+      String displayNameField = 'displayName',
+      String checkStatusField = 'checkStatus'}) {
     EHTreeNode _convertMap2TreeData<T extends EHModel>(
         EHTreeController treeController,
         Map<String, dynamic> data,
@@ -22,8 +23,8 @@ class EHTreeUtilHelper {
         ValueChanged<T?> onNodeClick) {
       List<EHTreeNode>? children;
 
-      if (data[childrenDataField] != null) {
-        children = data[childrenDataField]
+      if (data[childrenField] != null) {
+        children = data[childrenField]
             .map<EHTreeNode>((c) => _convertMap2TreeData(
                 treeController, c, fromJson, selectedNodeId, onNodeClick))
             .toList();
@@ -32,11 +33,12 @@ class EHTreeUtilHelper {
       T model = fromJson(data);
 
       EHTreeNode node = EHTreeNode(
-          id: data[idDataField],
-          displayName: data[nameDataField],
+          id: data[idField],
+          displayName: data[displayNameField],
           data: model,
           children: children,
-          isSelected: data[idDataField] == selectedNodeId,
+          isChecked: data[checkStatusField],
+          isSelected: data[idField] == selectedNodeId,
           onTap: () {
             onNodeClick(model);
           });
@@ -82,8 +84,6 @@ class EHTreeUtilHelper {
           node.parentTreeNode = null;
         }
       });
-
-      treeController.treeNodeDataList.refresh();
     }
 
     if (treeController.selectedTreeNode.value == null ||
