@@ -14,6 +14,8 @@ class EHTab<T extends EHController> {
 
   bool isDeleted = false;
 
+  bool isHide;
+
   final EHTabsViewExpandMode? expandMode;
 
   Widget? tabWidget;
@@ -24,6 +26,7 @@ class EHTab<T extends EHController> {
   EHTab(this.tabName, this.tabController, this.getTabWidgetFunc,
       {this.tabTranslateParams,
       this.closable = false,
+      this.isHide = false,
       this.showInBottomList = true,
       this.expandMode});
 }

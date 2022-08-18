@@ -54,11 +54,7 @@ class OrganizationTreeController extends EHPanelController {
             .reset();
 
       self.orgModel.value = selectedOrgModel;
-      self.orgModel.refresh();
-
-      if (selectedOrgModel != null)
-        self.permTreeComponentController
-            .reloadPermTreeData(orgId: selectedOrgModel.id!);
+      self.refreshOrgDetailData();
     });
 
     self.permTreeComponentController =
@@ -73,16 +69,36 @@ class OrganizationTreeController extends EHPanelController {
               controller: c,
             ));
       }),
+
       EHTab(
-          'Permissions',
-          self.permTreeComponentController,
-          (controller) => PermTreeComponent(
-                controller: self.permTreeComponentController,
-              )),
+        'Permissions',
+        self.permTreeComponentController,
+        (controller) => PermTreeComponent(
+          controller: self.permTreeComponentController,
+        ),
+      ),
       // EHTab('Other', controller, (controller) => EditingDataGrid()),
     ]);
 
     return self;
+  }
+
+  refreshOrgDetailData() async {
+    orgModel.refresh();
+    if (orgModel.value != null && orgModel.value!.id != null) {
+      await permTreeComponentController.reloadPermTreeData(
+          orgId: orgModel.value!.id!);
+      await organizationDetailViewController.initData();
+      organizationDetailViewController.orgDetailViewFormController!.reset();
+
+      if (detailTabsViewController.tabsConfig[1].isHide)
+        detailTabsViewController.tabsConfig[1].isHide = false;
+    } else {
+      detailTabsViewController.selectedIndex.value = 0;
+      if (!detailTabsViewController.tabsConfig[1].isHide)
+        detailTabsViewController.tabsConfig[1].isHide = true;
+    }
+    detailTabsViewController.tabsConfig.refresh();
   }
 
   Future<void> saveOrgDetailView() async {
@@ -90,11 +106,10 @@ class OrganizationTreeController extends EHPanelController {
       if (await organizationDetailViewController.orgDetailViewFormController!
           .validate()) {
         orgModel.value = await OrganizationServices.save(orgModel.value!);
-        orgModel.refresh();
+
         await orgTreeCompController.reloadOrgTreeData(
             overrideSelectedTreeNodeId: orgModel.value!.id!);
-
-        await organizationDetailViewController.initData();
+        await refreshOrgDetailData();
       }
     } else if (detailTabsViewController.selectedTab.tabName == 'Permissions') {
       await permTreeComponentController.updateOrgPermissions(

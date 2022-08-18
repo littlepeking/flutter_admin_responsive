@@ -56,97 +56,108 @@ class EHTabHeader extends StatelessWidget {
                               width: 0,
                             );
                           else
-                            return Row(
-                              children: [
-                                Container(
-                                    decoration: BoxDecoration(
-                                        border: Border(
-                                      top: BorderSide(
-                                          width: 1.0 *
-                                              (controller.selectedIndex.value ==
-                                                      index
-                                                  ? 3
-                                                  : 1),
-                                          color: ThemeController
-                                                  .instance.isDarkMode.value
-                                              ? Colors.grey.shade600
-                                              : Colors.black),
-                                      left: BorderSide(
-                                          width: 1.0,
-                                          color: Colors.grey.shade600),
-                                      right: BorderSide(
-                                          width: 1.0,
-                                          color: Colors.grey.shade600),
-                                      bottom: BorderSide.none,
-                                    )),
-                                    alignment: Alignment.center,
-                                    child: MouseRegion(
-                                      cursor: SystemMouseCursors.click,
-                                      child: GestureDetector(
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                '   ' +
-                                                    controller.tabsConfig[index]
-                                                        .tabName
-                                                        .trParams(
-                                                            translatedTabParams) +
-                                                    '   ',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: controller
-                                                                .selectedIndex
+                            return Obx(() => Visibility(
+                                  visible: !controller.tabsConfig[index].isHide,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                          decoration: BoxDecoration(
+                                              border: Border(
+                                            top: BorderSide(
+                                                width: 1.0 *
+                                                    (controller.selectedIndex
                                                                 .value ==
                                                             index
-                                                        ? ThemeController
-                                                                .instance
-                                                                .isDarkMode
-                                                                .isTrue
-                                                            ? Colors.white
-                                                            : Colors.black
-                                                        : ThemeController
-                                                                .instance
-                                                                .isDarkMode
-                                                                .isTrue
-                                                            ? Colors.white70
-                                                            : Colors.black87,
-                                                    fontWeight:
-                                                        controller.selectedIndex
-                                                                        .value ==
-                                                                    index &&
-                                                                ThemeController
-                                                                    .instance
-                                                                    .isDarkMode
-                                                                    .isFalse
-                                                            ? FontWeight.bold
-                                                            : FontWeight
-                                                                .normal),
-                                              ),
-                                              if (controller
-                                                  .tabsConfig[index].closable)
-                                                InkWell(
-                                                    child: Icon(
-                                                      Icons.close,
-                                                      size: 15,
+                                                        ? 3
+                                                        : 1),
+                                                color: ThemeController.instance
+                                                        .isDarkMode.value
+                                                    ? Colors.grey.shade600
+                                                    : Colors.black),
+                                            left: BorderSide(
+                                                width: 1.0,
+                                                color: Colors.grey.shade600),
+                                            right: BorderSide(
+                                                width: 1.0,
+                                                color: Colors.grey.shade600),
+                                            bottom: BorderSide.none,
+                                          )),
+                                          alignment: Alignment.center,
+                                          child: MouseRegion(
+                                            cursor: SystemMouseCursors.click,
+                                            child: GestureDetector(
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      '   ' +
+                                                          controller
+                                                              .tabsConfig[index]
+                                                              .tabName
+                                                              .trParams(
+                                                                  translatedTabParams) +
+                                                          '   ',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: controller
+                                                                      .selectedIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? ThemeController
+                                                                      .instance
+                                                                      .isDarkMode
+                                                                      .isTrue
+                                                                  ? Colors.white
+                                                                  : Colors.black
+                                                              : ThemeController
+                                                                      .instance
+                                                                      .isDarkMode
+                                                                      .isTrue
+                                                                  ? Colors
+                                                                      .white70
+                                                                  : Colors
+                                                                      .black87,
+                                                          fontWeight: controller
+                                                                          .selectedIndex
+                                                                          .value ==
+                                                                      index &&
+                                                                  ThemeController
+                                                                      .instance
+                                                                      .isDarkMode
+                                                                      .isFalse
+                                                              ? FontWeight.bold
+                                                              : FontWeight
+                                                                  .normal),
                                                     ),
-                                                    onTap: () => controller
-                                                        .removeTab(index)),
-                                              SizedBox(width: 5)
-                                            ],
-                                          ),
-                                          onTap: () {
-                                            controller.selectedIndex.value =
-                                                index;
-                                          }),
-                                    )),
-                                Container(
-                                  width: 3,
-                                  // decoration: BoxDecoration(
-                                  //     border: Border(
-                                  //         bottom: BorderSide(color: Colors.grey))),
-                                )
-                              ],
-                            );
+                                                    if (controller
+                                                        .tabsConfig[index]
+                                                        .closable)
+                                                      InkWell(
+                                                          child: Icon(
+                                                            Icons.close,
+                                                            size: 15,
+                                                          ),
+                                                          onTap: () =>
+                                                              controller
+                                                                  .removeTab(
+                                                                      index)),
+                                                    SizedBox(width: 5)
+                                                  ],
+                                                ),
+                                                onTap: () {
+                                                  controller.selectedIndex
+                                                      .value = index;
+                                                }),
+                                          )),
+                                      Container(
+                                        width: 3,
+                                        // decoration: BoxDecoration(
+                                        //     border: Border(
+                                        //         bottom: BorderSide(color: Colors.grey))),
+                                      )
+                                    ],
+                                  ),
+                                ));
                         });
                       },
                       itemScrollController: controller.itemScrollController,
