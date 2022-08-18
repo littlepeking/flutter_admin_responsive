@@ -30,11 +30,9 @@ class OrgRoleComponentController extends EHPanelController {
 
     self.orgTreeComponentController = await OrgTreeComponentController.create(
         self, onTap: (selectedOrgModel) {
-      if (selectedOrgModel != null) {
-        self.orgRoleDataGridController.dataGridSource
-            .setParam('orgId', selectedOrgModel.id);
-        self.orgRoleDataGridController.dataGridSource.handleRefresh();
-      }
+      String orgId = selectedOrgModel != null ? selectedOrgModel.id! : "0";
+      self.orgRoleDataGridController.dataGridSource.setParam('orgId', orgId);
+      self.orgRoleDataGridController.dataGridSource.handleRefresh();
     });
 
     getOrgRolesDataGridSource() {
@@ -52,7 +50,7 @@ class OrgRoleComponentController extends EHPanelController {
             fullQuanifiedName: 'displayName', columnHeaderName: 'Description'),
         ...extraColumns
       ], params: {
-        'orgId': ''
+        'orgId': '0'
       });
       return dataGridSource;
     }
