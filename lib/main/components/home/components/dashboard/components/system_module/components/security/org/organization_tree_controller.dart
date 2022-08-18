@@ -128,6 +128,6 @@ class OrganizationTreeController extends EHPanelController {
     orgModel.value = null;
 
     await organizationDetailViewController.initData();
-    EHToastMessageHelper.showInfoMessage('Delete successfully.');
+    EHToastMessageHelper.showInfoMessage('Deleted successfully.');
   }
 }

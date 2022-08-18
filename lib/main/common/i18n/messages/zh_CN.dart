@@ -91,6 +91,7 @@ Map<String, String> zhCNMessages = {
   'Delete': '删除',
 
   'Saved successfully.': '保存成功',
+  'Deleted successfully.': '删除成功',
   //Master Data
   'Master Data': '主数据',
   'Organization': '组织',
