@@ -41,8 +41,7 @@ class OrgRoleComponent extends EHPanel<OrgRoleComponentController> {
                           .orgTreeComponentController
                           .orgTreeController
                           .selectedTreeNode
-                          .value!
-                          .id),
+                          .value),
                       placeHolderWidget: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

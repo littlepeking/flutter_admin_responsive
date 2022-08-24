@@ -12,6 +12,8 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_vi
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/components/org_tree_component_controller.dart';
 import 'package:flutter/material.dart';
 
+import '../../org/organization_services.dart';
+
 class OrgRoleComponentController extends EHPanelController {
   PageStorageBucket pageStorageBucket = PageStorageBucket();
 
@@ -34,6 +36,9 @@ class OrgRoleComponentController extends EHPanelController {
       self.orgRoleDataGridController.dataGridSource.setParam('orgId', orgId);
       self.orgRoleDataGridController.dataGridSource.handleRefresh();
     });
+
+    List treeMapData = await OrganizationServices.buildTree();
+    await self.orgTreeComponentController.reloadOrgTreeData(treeMapData);
 
     getOrgRolesDataGridSource() {
       EHServiceDataGridSource dataGridSource =

@@ -53,7 +53,8 @@ class OrgTreeComponentController extends EHPanelController {
         allNodesExpanded: true,
         treeNodeDataList: <EHTreeNode>[].obs);
 
-    //await self.reloadOrgTreeData();
+    // List treeMapData = await OrganizationServices.buildTree();
+    // await self.reloadOrgTreeData(treeMapData);
 
     return self;
   }
