@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/base/eh_exception.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/scrollable_positioned_list/lib/item_positions_listener.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
@@ -53,6 +54,16 @@ class EHTabsViewController extends GetxController {
     }
   }
 
+  EHTab getTab(String tabName) {
+    Iterable<EHTab> iterator =
+        tabsConfig.where((tab) => tab.tabName == tabName);
+
+    if (iterator.isNotEmpty)
+      return iterator.first;
+    else
+      throw EHException('no tab named \'' + tabName + '\'');
+  }
+
   removeTab(int index) {
     // tabsData[index] = new TabData(
     //     tabsData[index].tabName,
@@ -102,6 +113,10 @@ class EHTabsViewController extends GetxController {
 
   EHTab get selectedTab {
     return tabsConfig[selectedIndex.value];
+  }
+
+  set selectedTab(tab) {
+    selectedIndex.value = tabsConfig.indexOf(tab);
   }
 
   reset() {

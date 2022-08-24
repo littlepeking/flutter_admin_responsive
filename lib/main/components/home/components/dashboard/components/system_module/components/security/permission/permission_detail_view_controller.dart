@@ -1,0 +1,101 @@
+import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_form_divider.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+
+import 'permission_model.dart';
+import 'permission_tree_controller.dart';
+
+class PermissionDetailViewController extends EHPanelController {
+  //Here we need set controller to null expliciltly, otherwise DetailViewController constructor will cannot assign init value to getWidgetControllerFormController
+  // ignore: avoid_init_to_null
+  late EHEditFormController? detailViewFormController = null;
+
+  Function? getWidgetControllerFormController;
+
+  PermissionDetailViewController._create(EHPanelController parent)
+      : super(parent);
+
+  //since dart does not support asyc constructor, so we have to create a static function to create instance through a private constructor '_create' (we also need this private constructor to call super constructor) and then mark this static function as async.
+  //https://stackoverflow.com/questions/38933801/calling-an-async-method-from-component-constructor-in-dart
+  static Future<PermissionDetailViewController> create(
+      EHPanelController parent) async {
+    PermissionDetailViewController self =
+        PermissionDetailViewController._create(parent);
+
+    self.getWidgetControllerFormController = () {
+      Rx<PermissionModel> rxModel = Rx<PermissionModel>(
+          (self.parentController as PermissionTreeController)
+              .permissionModel
+              .value!);
+
+      return self.detailViewFormController =
+          EHEditFormController<PermissionModel>(
+              widgetFocusNodes: self.detailViewFormController?.widgetFocusNodes,
+              widgetKeys: self.detailViewFormController?.widgetKeys,
+              dependentObxValues: [],
+              rxModel: rxModel,
+              widgetControllerBuilders: [
+                () => EHTextFieldController(
+                    label: 'Display Name',
+                    //autoFocus: true,
+                    bindingFieldName: 'displayName',
+                    mustInput: true,
+                    onEditingComplete: (value) {}),
+                () => EHDropDownController(
+                      label: 'Type',
+                      mustInput: true,
+                      width: 300,
+                      bindingFieldName: 'type',
+                      items: {'P': 'Permission', 'D': 'Directory'},
+                      enabled: rxModel.value.id == null,
+                      onChanged: (val) {
+                        if (val == 'D') rxModel.value.authority = '';
+                      },
+                    ),
+                () => EHTextFieldController(
+                    label: 'Authority Code',
+                    //autoFocus: true,
+                    bindingFieldName: 'authority',
+                    mustInput: rxModel.value.type == 'P',
+                    enabled:
+                        rxModel.value.type == 'P' && rxModel.value.id == null,
+                    onEditingComplete: (value) {}),
+                () => EHFormDividerController(width: 1),
+                () => EHTextFieldController(
+                    enabled: false,
+                    label: 'Add Who',
+                    //autoFocus: true,
+                    bindingFieldName: 'addWho',
+                    mustInput: false,
+                    onEditingComplete: (value) {}),
+                () => EHDatePickerController(
+                      label: 'Add Date',
+                      enabled: false,
+                      bindingFieldName: 'addDate',
+                      showTimePicker: true,
+                      onEditingComplete: (value) =>
+                          {print('datepicker = onChange triggered')},
+                    ),
+                () => EHTextFieldController(
+                    enabled: false,
+                    label: 'Edit Who',
+                    //autoFocus: true,
+                    bindingFieldName: 'editWho',
+                    mustInput: false,
+                    onEditingComplete: (value) {}),
+                () => EHDatePickerController(
+                      enabled: false,
+                      label: 'Edit Date',
+                      bindingFieldName: 'editDate',
+                      showTimePicker: true,
+                      onEditingComplete: (value) => {},
+                    ),
+              ]);
+    };
+    return self;
+  }
+}

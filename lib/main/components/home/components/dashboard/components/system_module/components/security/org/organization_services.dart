@@ -29,10 +29,21 @@ class OrganizationServices {
         actionName: '');
   }
 
-  static Future<Response<List>> buildTree() async {
-    return await EHRestService().getByServiceName<List>(
+  static Future<List> buildTree() async {
+    Response response = await EHRestService().getByServiceName<List>(
       serviceName: SecurityServiceNames.OrganizationService,
       actionName: '/buildTree',
     );
+
+    return response.data;
+  }
+
+  static Future<List> buildTreeByPermId(String permissionId) async {
+    Response response = await EHRestService().getByServiceName<List>(
+        serviceName: SecurityServiceNames.OrganizationService,
+        actionName: '/buildTreeByPermId',
+        params: {'permId': permissionId});
+
+    return response.data;
   }
 }

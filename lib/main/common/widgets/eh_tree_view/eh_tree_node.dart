@@ -16,6 +16,8 @@ class EHTreeNode {
 
   bool? isChecked;
 
+  bool hideCheckBox;
+
   bool isSelected;
 
   bool? isExpanded;
@@ -32,6 +34,7 @@ class EHTreeNode {
       this.icon,
       this.isExpanded,
       this.isChecked = false,
+      this.hideCheckBox = false,
       this.onTap,
       this.children = const [],
       this.isSelected = false,

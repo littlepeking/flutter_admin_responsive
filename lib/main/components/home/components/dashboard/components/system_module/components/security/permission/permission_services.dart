@@ -22,7 +22,7 @@ class PermissionServices {
     return PermissionModel.fromJson(response.data!);
   }
 
-  static Future<void> deleteById(List<String> ids) async {
+  static Future<void> deleteByIds(List<String> ids) async {
     await EHRestService().deleteByServiceName(
         serviceName: SecurityServiceNames.PermissionService,
         actionName: '',
@@ -38,12 +38,31 @@ class PermissionServices {
     return response.data!;
   }
 
+  static Future<List> buildTree() async {
+    Response<List> response = await EHRestService().getByServiceName<List>(
+        serviceName: SecurityServiceNames.PermissionService,
+        actionName: '/buildTree',
+        params: {});
+
+    return response.data!;
+  }
+
   static Future<List> updateOrgPermissions(
       String orgId, List<String> permissionIds) async {
     Response response = await EHRestService().postByServiceName(
         serviceName: SecurityServiceNames.PermissionService,
         actionName: 'updateOrgPermissions',
         body: {'orgId': orgId, 'permissionIds': permissionIds});
+
+    return response.data;
+  }
+
+  static Future<List> updatePermissionOrgs(
+      String permissionId, List<String> orgIds) async {
+    Response response = await EHRestService().postByServiceName(
+        serviceName: SecurityServiceNames.PermissionService,
+        actionName: 'updatePermissionOrgs',
+        body: {'permissionId': permissionId, 'orgIds': orgIds});
 
     return response.data;
   }

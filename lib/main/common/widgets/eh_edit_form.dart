@@ -90,9 +90,12 @@ class EHEditForm<T extends EHModel>
     int index =
         formController.widgetControllerBuilders!.indexOf(controllerBuilder);
 
-    EHEditableWidgetController controller = controllerBuilder();
-    formController.widgetsControllers.add(controller);
     return Obx(() {
+      EHEditableWidgetController controller = controllerBuilder();
+      if (formController.widgetsControllers.length - 1 >= index)
+        formController.widgetsControllers[index] = controller;
+      else
+        formController.widgetsControllers.add(controller);
       controller.key = formController.widgetKeys![index];
       controller.focusNode = formController.widgetFocusNodes![index];
       controller.model = formController.rxModel!.value;

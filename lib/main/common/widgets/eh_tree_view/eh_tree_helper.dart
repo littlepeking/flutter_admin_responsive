@@ -5,28 +5,31 @@ import 'eh_tree_node.dart';
 
 class EHTreeUtilHelper {
   static T? loadTreeNodesFromMap<T extends EHModel>(
-      List? treeNodeList,
-      EHTreeController treeController,
-      T fromJson2Model(Map<String, dynamic> json),
-      {ValueChanged<T?>? onNodeClick,
-      String? overrideSelectedTreeNodeId,
-      EHTreeNode? rootNode,
-      String childrenField = 'children',
-      String idField = 'id',
-      String displayNameField = 'displayName',
-      String checkStatusField = 'checkStatus'}) {
+    List? treeNodeList,
+    EHTreeController treeController,
+    T fromJson2Model(Map<String, dynamic> json), {
+    String? overrideSelectedTreeNodeId,
+    EHTreeNode? rootNode,
+    String childrenField = 'children',
+    String idField = 'id',
+    String displayNameField = 'displayName',
+    String checkStatusField = 'checkStatus',
+    ValueChanged<T?>? onNodeClick,
+    ValueChanged<EHTreeNode>? treeNodePostProcessor,
+  }) {
     EHTreeNode _convertMap2TreeData<T extends EHModel>(
         EHTreeController treeController,
         Map<String, dynamic> data,
         T fromJson(Map<String, dynamic> json),
         String selectedNodeId,
-        ValueChanged<T?> onNodeClick) {
+        ValueChanged<T?> onNodeClick,
+        ValueChanged<EHTreeNode>? treeNodePostProcessor) {
       List<EHTreeNode>? children;
 
       if (data[childrenField] != null) {
         children = data[childrenField]
-            .map<EHTreeNode>((c) => _convertMap2TreeData(
-                treeController, c, fromJson, selectedNodeId, onNodeClick))
+            .map<EHTreeNode>((c) => _convertMap2TreeData(treeController, c,
+                fromJson, selectedNodeId, onNodeClick, treeNodePostProcessor))
             .toList();
       }
 
@@ -49,6 +52,8 @@ class EHTreeUtilHelper {
       }
 
       if (node.isSelected) treeController.selectedTreeNode.value = node;
+
+      if (treeNodePostProcessor != null) treeNodePostProcessor(node);
 
       return node;
     }
@@ -74,8 +79,13 @@ class EHTreeUtilHelper {
 
     if (treeNodeList != null) {
       treeNodeList.forEach((map) {
-        EHTreeNode node = _convertMap2TreeData(treeController, map,
-            fromJson2Model, selectTreeNodeId, onNodeClick!);
+        EHTreeNode node = _convertMap2TreeData(
+            treeController,
+            map,
+            fromJson2Model,
+            selectTreeNodeId,
+            onNodeClick!,
+            treeNodePostProcessor);
         if (rootNode != null) {
           rootNode.children!.add(node);
           node.parentTreeNode = rootNode;

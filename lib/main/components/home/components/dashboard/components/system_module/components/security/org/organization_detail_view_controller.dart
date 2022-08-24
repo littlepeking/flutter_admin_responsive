@@ -98,6 +98,13 @@ class OrganizationDetailViewController extends EHPanelController {
                     maxLines: 3,
                     onEditingComplete: (value) {}),
                 () => EHFormDividerController(width: 1),
+                () => EHTextFieldController(
+                    enabled: false,
+                    label: 'Add Who',
+                    //autoFocus: true,
+                    bindingFieldName: 'addWho',
+                    mustInput: false,
+                    onEditingComplete: (value) {}),
                 () => EHDatePickerController(
                       label: 'Add Date',
                       enabled: false,
@@ -106,6 +113,13 @@ class OrganizationDetailViewController extends EHPanelController {
                       onEditingComplete: (value) =>
                           {print('datepicker = onChange triggered')},
                     ),
+                () => EHTextFieldController(
+                    enabled: false,
+                    label: 'Edit Who',
+                    //autoFocus: true,
+                    bindingFieldName: 'editWho',
+                    mustInput: false,
+                    onEditingComplete: (value) {}),
                 () => EHDatePickerController(
                       enabled: false,
                       label: 'Edit Date',

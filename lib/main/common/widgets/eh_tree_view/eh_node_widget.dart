@@ -61,7 +61,7 @@ class EHNodeWidget extends StatelessWidget {
             ),
             Row(
               children: [
-                if (controller.showCheckBox)
+                if (controller.showCheckBox && !treeNode.hideCheckBox)
                   Checkbox(
                       tristate: true,
                       value: treeNode.isChecked,

@@ -18,7 +18,7 @@ class OrgTreeComponentController extends EHPanelController {
 
   OrgTreeComponentController._create(EHPanelController parent) : super(parent);
 
-  Future<OrganizationModel?> reloadOrgTreeData(
+  Future<OrganizationModel?> reloadOrgTreeData(List data,
       {String? overrideSelectedTreeNodeId}) async {
     EHTreeNode rootNode = EHTreeNode(
         id: '0',
@@ -26,12 +26,11 @@ class OrgTreeComponentController extends EHPanelController {
         children: [],
         icon: Icons.lan,
         data: null,
+        hideCheckBox: true,
         onTap: () => onTap(null));
 
-    Response<List> response = await OrganizationServices.buildTree();
-
     return EHTreeUtilHelper.loadTreeNodesFromMap<OrganizationModel>(
-        response.data, orgTreeController, OrganizationModel.fromJson,
+        data, orgTreeController, OrganizationModel.fromJson,
         overrideSelectedTreeNodeId: overrideSelectedTreeNodeId,
         onNodeClick: (orgModel) => onTap(orgModel),
         rootNode: rootNode,
@@ -49,11 +48,12 @@ class OrgTreeComponentController extends EHPanelController {
 
     self.orgTreeController = EHTreeController(
         showCheckBox: showCheckBox,
+        allowCascadeCheck: false,
         isNodeSelectable: true,
         allNodesExpanded: true,
         treeNodeDataList: <EHTreeNode>[].obs);
 
-    await self.reloadOrgTreeData();
+    //await self.reloadOrgTreeData();
 
     return self;
   }

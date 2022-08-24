@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 import 'package:get/get.dart' hide Response;
 
+import '../permission/permission_model.dart';
+import '../permission/permission_services.dart';
 import 'organization_model.dart';
 import 'organization_services.dart';
 
@@ -42,9 +44,6 @@ class OrganizationTreeController extends EHPanelController {
     self.organizationDetailViewController =
         await OrganizationDetailViewController.create(self);
 
-    self.organizationDetailViewController =
-        await OrganizationDetailViewController.create(self);
-
     self.orgTreeCompController = await OrgTreeComponentController.create(self,
         onTap: (selectedOrgModel) {
       if (self.orgModel.value != null &&
@@ -56,6 +55,8 @@ class OrganizationTreeController extends EHPanelController {
       self.orgModel.value = selectedOrgModel;
       self.refreshOrgDetailData();
     });
+
+    await self.refreshOrgTreeData();
 
     self.permTreeComponentController =
         await PermTreeComponentController.create(self, showCheckBox: true);
@@ -83,13 +84,23 @@ class OrganizationTreeController extends EHPanelController {
     return self;
   }
 
+  refreshOrgTreeData({String? overrideSelectedTreeNodeId}) async {
+    List treeMapData = await OrganizationServices.buildTree();
+
+    await orgTreeCompController.reloadOrgTreeData(treeMapData,
+        overrideSelectedTreeNodeId: overrideSelectedTreeNodeId);
+  }
+
+  refreshPermissionTreeData(String orgId) async {
+    List treeMapData = await PermissionServices.buildTreeByOrgId(orgId);
+    await permTreeComponentController.reloadPermTreeData(treeMapData);
+  }
+
   refreshOrgDetailData() async {
     orgModel.refresh();
     if (orgModel.value != null && orgModel.value!.id != null) {
-      await permTreeComponentController.reloadPermTreeData(
-          orgId: orgModel.value!.id!);
+      await refreshPermissionTreeData(orgModel.value!.id!);
       await organizationDetailViewController.initData();
-      organizationDetailViewController.orgDetailViewFormController!.reset();
 
       if (detailTabsViewController.tabsConfig[1].isHide)
         detailTabsViewController.tabsConfig[1].isHide = false;
@@ -98,22 +109,22 @@ class OrganizationTreeController extends EHPanelController {
       if (!detailTabsViewController.tabsConfig[1].isHide)
         detailTabsViewController.tabsConfig[1].isHide = true;
     }
+    organizationDetailViewController.orgDetailViewFormController?.reset();
     detailTabsViewController.tabsConfig.refresh();
   }
 
   Future<void> saveOrgDetailView() async {
-    if (detailTabsViewController.selectedTab.tabName == 'Detail Info') {
-      if (await organizationDetailViewController.orgDetailViewFormController!
-          .validate()) {
-        orgModel.value = await OrganizationServices.save(orgModel.value!);
+    if (await organizationDetailViewController.orgDetailViewFormController!
+        .validate()) {
+      bool isNew = orgModel.value!.id == null;
+      orgModel.value = await OrganizationServices.save(orgModel.value!);
 
-        await orgTreeCompController.reloadOrgTreeData(
-            overrideSelectedTreeNodeId: orgModel.value!.id!);
-        await refreshOrgDetailData();
+      if (!isNew) {
+        await updateOrgPermissions(orgId: orgModel.value!.id!);
       }
-    } else if (detailTabsViewController.selectedTab.tabName == 'Permissions') {
-      await permTreeComponentController.updateOrgPermissions(
-          orgId: orgModel.value!.id!);
+
+      await refreshOrgTreeData(overrideSelectedTreeNodeId: orgModel.value!.id!);
+      await refreshOrgDetailData();
     }
 
     EHToastMessageHelper.showInfoMessage('Saved successfully.');
@@ -122,12 +133,26 @@ class OrganizationTreeController extends EHPanelController {
   Future<void> deleteSelectedOrg() async {
     await OrganizationServices.deleteOrgById(
         orgTreeCompController.orgTreeController.selectedTreeNode.value!.id);
-    await orgTreeCompController.reloadOrgTreeData(
-        overrideSelectedTreeNodeId: '');
+    await refreshOrgTreeData(overrideSelectedTreeNodeId: '');
 
     orgModel.value = null;
 
     await organizationDetailViewController.initData();
     EHToastMessageHelper.showInfoMessage('Deleted successfully.');
+  }
+
+  Future<List> updateOrgPermissions({required String orgId}) async {
+    List<EHTreeNode> treeNodeList = permTreeComponentController
+        .permTreeController
+        .getAllFilteredNodes((node) =>
+            (node.data as PermissionModel).type == 'P' &&
+            node.isChecked == true);
+
+    List<String> permissionIds = treeNodeList.map((e) => e.id!).toList();
+
+    List treeMapData =
+        await PermissionServices.updateOrgPermissions(orgId, permissionIds);
+
+    return treeMapData;
   }
 }

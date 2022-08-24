@@ -2,6 +2,7 @@ import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 
@@ -35,30 +36,28 @@ class PermTreeComponentController extends EHPanelController {
     return self;
   }
 
-  Future<PermissionModel?> reloadPermTreeData(
-      {required String orgId, String? overrideSelectedTreeNodeId}) async {
-    List treeMapData = await PermissionServices.buildTreeByOrgId(orgId);
+  // Future<PermissionModel?> reloadPermTreeData(
+  //     {required String orgId, String? overrideSelectedTreeNodeId}) async {
+  //   List treeMapData = await PermissionServices.buildTreeByOrgId(orgId);
 
+  //   return EHTreeUtilHelper.loadTreeNodesFromMap<PermissionModel>(
+  //     treeMapData,
+  //     permTreeController,
+  //     PermissionModel.fromJson,
+  //     overrideSelectedTreeNodeId: overrideSelectedTreeNodeId,
+  //     onNodeClick: (orgModel) => onTapNode(orgModel),
+  //   );
+  // }
+
+  Future<PermissionModel?> reloadPermTreeData(List data,
+      {String? overrideSelectedTreeNodeId}) async {
     return EHTreeUtilHelper.loadTreeNodesFromMap<PermissionModel>(
-      treeMapData,
-      permTreeController,
-      PermissionModel.fromJson,
-      overrideSelectedTreeNodeId: overrideSelectedTreeNodeId,
-      onNodeClick: (orgModel) => onTapNode(orgModel),
-    );
-  }
-
-  Future<List> updateOrgPermissions({required String orgId}) async {
-    List<EHTreeNode> treeNodeList = permTreeController.getAllFilteredNodes(
-        (node) =>
-            (node.data as PermissionModel).type == 'P' &&
-            node.isChecked == true);
-
-    List<String> permissionIds = treeNodeList.map((e) => e.id!).toList();
-
-    List treeMapData =
-        await PermissionServices.updateOrgPermissions(orgId, permissionIds);
-
-    return treeMapData;
+        data, permTreeController, PermissionModel.fromJson,
+        overrideSelectedTreeNodeId: overrideSelectedTreeNodeId,
+        onNodeClick: (orgModel) => onTapNode(orgModel),
+        treeNodePostProcessor: (node) => node.icon =
+            (node.data as PermissionModel).type == 'D'
+                ? Icons.folder_outlined
+                : null);
   }
 }

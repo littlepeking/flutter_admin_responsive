@@ -21,6 +21,8 @@ class EHTreeController extends EHController {
 
   final bool showCheckBox;
 
+  final bool allowCascadeCheck;
+
   final bool isNodeSelectable;
 
   /// Tree controller to manage the tree state.
@@ -35,6 +37,7 @@ class EHTreeController extends EHController {
       this.nodeMaxSize,
       this.paddingSize = 6,
       this.showCheckBox = false,
+      this.allowCascadeCheck = true,
       required this.treeNodeDataList,
       this.isNodeSelectable = false,
       allNodesExpanded = true})
@@ -74,19 +77,24 @@ class EHTreeController extends EHController {
   void checkNode(EHTreeNode treeNode, bool? val) {
     treeNode.isChecked = getNextCheckStatus(val);
 
-    if (treeNode.children != null && treeNode.children!.length > 0) {
-      treeNode.children!.forEach((e) {
-        checkNode(e, treeNode.isChecked);
-      });
+    if (allowCascadeCheck) {
+      if (treeNode.children != null && treeNode.children!.length > 0) {
+        treeNode.children!.forEach((e) {
+          checkNode(e, treeNode.isChecked);
+        });
+      }
     }
+    treeNodeDataList.refresh();
   }
 
   void reCalculateAllCheckStatus() {
-    if (treeNodeDataList != null && treeNodeDataList.length > 0)
-      treeNodeDataList.forEach((node) {
-        recursivelyCalculateCheckStatus(node);
-      });
-    treeNodeDataList.refresh();
+    if (allowCascadeCheck) {
+      if (treeNodeDataList.length > 0)
+        treeNodeDataList.forEach((node) {
+          recursivelyCalculateCheckStatus(node);
+        });
+      treeNodeDataList.refresh();
+    }
   }
 
   bool? recursivelyCalculateCheckStatus(EHTreeNode node) {
@@ -147,11 +155,10 @@ class EHTreeController extends EHController {
 
   List<EHTreeNode> _filterNode(EHTreeNode node, isNodeMatch isNodeMatch) {
     List<EHTreeNode> res = [];
-    if (node.children == null || node.children!.length == 0) {
-      if (isNodeMatch(node)) res.add(node);
-    } else {
+    if (node.children != null && node.children!.length > 0) {
       node.children!.forEach((e) => res.addAll(_filterNode(e, isNodeMatch)));
     }
+    if (isNodeMatch(node)) res.add(node);
     return res;
   }
 }

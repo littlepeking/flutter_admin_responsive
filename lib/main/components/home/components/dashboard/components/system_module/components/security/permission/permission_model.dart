@@ -12,10 +12,10 @@ part 'permission_model.g.dart';
 @EHDateTime2TimeStampConverter
 @EHList2StringConverter
 class PermissionModel extends EHVersionModel {
-  String type;
+  String? type;
   String parentId;
-  String authority;
-  String displayName;
+  String? authority;
+  String? displayName;
   bool? checkStatus;
   List<PermissionModel>? children;
 
@@ -26,10 +26,10 @@ class PermissionModel extends EHVersionModel {
     String? addWho,
     String? editWho,
     int? version,
-    required this.type,
+    this.type,
     required this.parentId,
-    required this.authority,
-    required this.displayName,
+    this.authority,
+    this.displayName,
     this.checkStatus,
     this.children,
   }) : super(

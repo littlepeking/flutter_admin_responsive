@@ -90,6 +90,12 @@ Map<String, String> zhCNMessages = {
   'Edit': '编辑',
   'Delete': '删除',
 
+  'Display Name': '显示名称',
+  'Code': '代码',
+  'Type': '类型',
+
+  'Directory': '目录',
+
   'Saved successfully.': '保存成功',
   'Deleted successfully.': '删除成功',
   //Master Data
@@ -99,6 +105,8 @@ Map<String, String> zhCNMessages = {
   'Security': '安全',
   'User': '用户',
   'Role': '角色',
+  'Permission': '权限',
+  'Authority Code': '权限代码',
   'userid': '用户ID',
   'Domain Username': '域用户名',
   'Auth Type': '认证类型',
@@ -117,6 +125,7 @@ Map<String, String> zhCNMessages = {
   'Revoke Roles': '移除角色',
   'Role Name': '角色',
   'Description': '描述',
+  'Organizations': '组织',
   'All Organizations': '所有组织',
   'Organization Name': '组织名称',
   'Parent Organization': '父级组织',
