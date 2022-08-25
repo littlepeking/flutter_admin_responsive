@@ -67,52 +67,46 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
   }
 
   buildToolbar(BuildContext context) {
-    isRootNode() {
-      return controller.orgModel.value == null;
-    }
-
-    return Obx(() => EHToolBar(
-          children: [
-            EHButton(
-                controller: EHButtonController(
-              onPressed: () async {
-                this.controller.orgModel.value = OrganizationModel(
-                    parentId: this
-                        .controller
-                        .orgTreeCompController
-                        .orgTreeController
-                        .selectedTreeNode
-                        .value!
-                        .id);
-                if (this
-                        .controller
-                        .organizationDetailViewController
-                        .orgDetailViewFormController !=
-                    null)
-                  this
-                      .controller
-                      .organizationDetailViewController
-                      .orgDetailViewFormController!
-                      .reset();
-                controller.refreshOrgDetailData();
-              },
-              child: Text('Add'.tr),
-            )),
-            EHButton(
-                controller: EHButtonController(
-                    enabled: !isRootNode(),
-                    child: Text('Save'.tr),
-                    onPressed: () async =>
-                        await this.controller.saveOrgDetailView())),
-            EHButton(
-                controller: EHButtonController(
-              enabled: !isRootNode(),
-              child: Text('Delete'.tr),
-              onPressed: () async {
-                await controller.deleteSelectedOrg();
-              },
-            )),
-          ],
-        ));
+    return EHToolBar(
+      children: [
+        EHButton(
+            controller: EHButtonController(
+          onPressed: () async {
+            this.controller.orgModel.value = OrganizationModel(
+                parentId: this
+                    .controller
+                    .orgTreeCompController
+                    .orgTreeController
+                    .selectedTreeNode
+                    .value!
+                    .id);
+            if (this
+                    .controller
+                    .organizationDetailViewController
+                    .orgDetailViewFormController !=
+                null)
+              this
+                  .controller
+                  .organizationDetailViewController
+                  .orgDetailViewFormController!
+                  .reset();
+            controller.refreshOrgDetailData();
+          },
+          child: Text('Add'.tr),
+        )),
+        EHButton(
+            controller: EHButtonController(
+                child: Text('Save'.tr),
+                onPressed: () async =>
+                    await this.controller.saveOrgDetailView())),
+        EHButton(
+            controller: EHButtonController(
+          child: Text('Delete'.tr),
+          onPressed: () async {
+            await controller.deleteSelectedOrg();
+          },
+        )),
+      ],
+    );
   }
 }
