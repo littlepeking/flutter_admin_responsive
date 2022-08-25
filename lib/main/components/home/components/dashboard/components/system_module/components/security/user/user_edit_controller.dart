@@ -116,40 +116,39 @@ class UserEditController extends EHPanelController {
 
             EHDialog.showPopupDialog(
                 OrgRoleComponent(
-                    controller: await OrgRoleComponentController
-                        .create(this, extraColumns: [
-                  EHColumnConf(
-                      'assignRole',
-                      EHImageButtonColumnType(
-                          icon: null,
-                          label: 'Assign',
-                          onPressed: (dataRow) async {
-                            Response userModelResponse = await EHRestService()
-                                .postByServiceName(
-                                    serviceName:
-                                        SecurityServiceNames.RoleService,
-                                    actionName: 'assignToUser',
-                                    body: {
-                                  'userId':
-                                      (await EHContextHelper.getUserInfo()).id!,
-                                  'roleIds': [dataRow['id']]
-                                });
-                            UserModel userModelValue =
-                                model.value.fromJson(userModelResponse.data!);
-                            model.value = userModelValue;
+                    controller: await OrgRoleComponentController.create(this,
+                        extraColumns: [
+                      EHColumnConf(
+                          'assignRole',
+                          EHImageButtonColumnType(
+                              icon: null,
+                              label: 'Assign',
+                              onPressed: (dataRow) async {
+                                Response userModelResponse =
+                                    await EHRestService().postByServiceName(
+                                        serviceName:
+                                            SecurityServiceNames.RoleService,
+                                        actionName: 'assignToUser',
+                                        body: {
+                                      'userId': model.value.id,
+                                      'roleIds': [dataRow['id']]
+                                    });
+                                UserModel userModelValue = model.value
+                                    .fromJson(userModelResponse.data!);
+                                model.value = userModelValue;
 
-                            userRoleDataGridController.dataGridSource
-                                .handleRefresh();
+                                userRoleDataGridController.dataGridSource
+                                    .handleRefresh();
 
-                            EHToastMessageHelper.showInfoMessage(
-                                'Role @displayName assigned to user @username successfully'
-                                    .trParams({
-                              'displayName': dataRow['displayName'],
-                              'username': model.value.username!
-                            }));
-                          }),
-                      columnHeaderName: 'Assign Role')
-                ])),
+                                EHToastMessageHelper.showInfoMessage(
+                                    'Role @displayName assigned to user @username successfully'
+                                        .trParams({
+                                  'displayName': dataRow['displayName'],
+                                  'username': model.value.username!
+                                }));
+                              }),
+                          columnHeaderName: 'Assign Role')
+                    ])),
                 title: 'User role authorization'.tr);
           },
           //TO DO: deep reclusively defined text cannot be translate dynamically, need reopen the page as a workaround.
