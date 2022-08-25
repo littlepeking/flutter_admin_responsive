@@ -44,7 +44,7 @@ class UserEdit extends EHPanel<UserEditController> {
                           masterPanel: EHTabsView(
                               controller: controller.headerTabsViewController),
                           detailPanel: EHTabsView(
-                              expandMode: EHTabsViewExpandMode.Flexible,
+                              expandMode: EHTabsViewExpandMode.Expand,
                               controller: controller.detailTabsViewController),
                           showDetail: controller.model.value.id != null)))),
             ],

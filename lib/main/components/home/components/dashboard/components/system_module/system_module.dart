@@ -54,8 +54,8 @@ class SystemModuleWidget extends StatelessWidget {
                   showSideBorder: false,
                   useBottomList: Responsive.isMobile(context),
                   expandMode: Responsive.isMobile(context)
-                      ? EHTabsViewExpandMode.Scrollable
-                      : EHTabsViewExpandMode.Flexible,
+                      ? EHTabsViewExpandMode.Scroll
+                      : EHTabsViewExpandMode.Expand,
                   key: PageStorageKey('SystemModuleTabView'),
                   preTabHeaderWidget: Responsive.isMobile(context)
                       ? IconButton(

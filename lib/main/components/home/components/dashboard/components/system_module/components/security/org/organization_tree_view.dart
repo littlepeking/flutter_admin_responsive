@@ -1,4 +1,3 @@
-import 'package:eh_flutter_framework/main/common/base/StatefulWrapper.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
@@ -7,7 +6,6 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_vi
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/components/org_tree_component.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_tree_controller.dart';
-import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:split_view/split_view.dart';
@@ -54,7 +52,7 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
                       detailPanel: Padding(
                         padding: EdgeInsets.only(left: 5, top: 5),
                         child: EHTabsView(
-                            expandMode: EHTabsViewExpandMode.Scrollable,
+                            expandMode: EHTabsViewExpandMode.Scroll,
                             controller: controller.detailTabsViewController),
                       ),
                       showDetail: controller.orgModel.value != null),

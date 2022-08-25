@@ -52,7 +52,7 @@ class PermissionTreeView extends EHPanel<PermissionTreeController> {
                       detailPanel: Padding(
                         padding: EdgeInsets.only(left: 5, top: 5),
                         child: EHTabsView(
-                            expandMode: EHTabsViewExpandMode.Scrollable,
+                            expandMode: EHTabsViewExpandMode.Scroll,
                             controller: controller.detailTabsViewController),
                       ),
                       showDetail: controller.permissionModel.value != null),

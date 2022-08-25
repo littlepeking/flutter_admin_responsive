@@ -41,7 +41,7 @@ class SystemModuleController extends EHController {
                       return OrganizationTreeView(controller: controller);
                     },
                         closable: true,
-                        expandMode: EHTabsViewExpandMode.Flexible));
+                        expandMode: EHTabsViewExpandMode.Expand));
                     // FocusManager.instance.primaryFocus?.unfocus();
                   }),
               EHTreeNode(
@@ -71,7 +71,9 @@ class SystemModuleController extends EHController {
                         'Permission', await PermissionTreeController.create(),
                         (EHController controller) {
                       return PermissionTreeView(controller: controller);
-                    }, closable: true));
+                    },
+                        closable: true,
+                        expandMode: EHTabsViewExpandMode.Expand));
                   },
                   children: [])
             ]),

@@ -44,7 +44,7 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
             child: SplitView(
               children: [
                 EHTabsView(
-                    expandMode: EHTabsViewExpandMode.Flexible,
+                    expandMode: EHTabsViewExpandMode.Expand,
                     controller: controller.receiptHeaderTabsViewController),
                 EHTabsView(
                     controller: controller.receiptDetailTabsViewController),

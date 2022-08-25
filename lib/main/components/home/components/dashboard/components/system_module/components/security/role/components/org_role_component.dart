@@ -35,7 +35,7 @@ class OrgRoleComponent extends EHPanel<OrgRoleComponentController> {
                       masterPanel: OrgTreeComponent(
                           controller: controller.orgTreeComponentController),
                       detailPanel: EHTabsView(
-                          expandMode: EHTabsViewExpandMode.Flexible,
+                          expandMode: EHTabsViewExpandMode.Expand,
                           controller: controller.detailTabsViewController),
                       showDetail: !EHUtilHelper.isEmpty(controller
                           .orgTreeComponentController
