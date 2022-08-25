@@ -16,6 +16,12 @@ Map<String, String> zhCNMessages = {
   'changeLocale': '切换语言',
   'changeTheme': '切换主题',
   'Notification': '通知',
+  'SYSTEM': '系统',
+  'SECURITY': '安全',
+  'ORGANIZATION': '组织',
+  'USER': '用户',
+  'ROLE': '角色',
+  'PERMISSION': '权限',
   'Inbound': '入库',
   'Outbound': '出库',
   'Inventory': '库存',
@@ -126,7 +132,7 @@ Map<String, String> zhCNMessages = {
   'Role Name': '角色',
   'Description': '描述',
   'Organizations': '组织',
-  'All Organizations': '所有组织',
+  'All Organizations (System Level)': '所有组织(系统级)',
   'Organization Name': '组织名称',
   'Parent Organization': '父级组织',
   'Organization Code': '组织代码',
@@ -146,6 +152,8 @@ Map<String, String> zhCNMessages = {
   'Receiving ASN': '接收ASN',
   'Close ASN': '关闭ASN',
   'Print SKU Label': '打印物料标签',
+
+  'Internal server error, please contact admin': '内部服务器错误，请联系管理员',
 
   ///
   'Please create or select a organization before edit': '请新建或者选择一个组织以打开编辑页面',

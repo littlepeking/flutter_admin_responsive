@@ -134,11 +134,6 @@ class OrganizationDetailViewController extends EHPanelController {
 
   static Future<Map<String, String>> getOrgDDLDataSource() async {
     List<OrganizationModel> list = await OrganizationServices.getOrgList();
-    list.add(OrganizationModel(
-      id: '0',
-      name: 'All Organizations',
-    ));
-
     return Map<String, String>.fromIterable(list,
         key: (e) => (e as OrganizationModel).id!,
         value: (e) => (e as OrganizationModel).name!);

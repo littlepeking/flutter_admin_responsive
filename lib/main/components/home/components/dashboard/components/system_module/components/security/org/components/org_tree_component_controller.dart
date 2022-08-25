@@ -20,20 +20,20 @@ class OrgTreeComponentController extends EHPanelController {
 
   Future<OrganizationModel?> reloadOrgTreeData(List data,
       {String? overrideSelectedTreeNodeId}) async {
-    EHTreeNode rootNode = EHTreeNode(
-        id: '0',
-        displayName: 'All Organizations',
-        children: [],
-        icon: Icons.lan,
-        data: null,
-        hideCheckBox: true,
-        onTap: () => onTap(null));
+    // EHTreeNode rootNode = EHTreeNode(
+    //     id: '0',
+    //     displayName: 'All Organizations',
+    //     children: [],
+    //     icon: Icons.lan,
+    //     data: null,
+    //     hideCheckBox: true,
+    //     onTap: () => onTap(null));
 
     return EHTreeUtilHelper.loadTreeNodesFromMap<OrganizationModel>(
         data, orgTreeController, OrganizationModel.fromJson,
         overrideSelectedTreeNodeId: overrideSelectedTreeNodeId,
         onNodeClick: (orgModel) => onTap(orgModel),
-        rootNode: rootNode,
+        rootNode: null,
         displayNameField: 'name');
   }
 

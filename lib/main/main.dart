@@ -61,9 +61,14 @@ main() {
             ? dioError.response!.data
             : json.decode(dioError.response!.data!);
         //TODO: FORM VALIDATION ERROR
-        if (data['type']
-            .toString()
-            .startsWith('https://zalando.github.io/problem/')) {
+        if (data['status'] != null && data['status'] == 500) {
+          EHToastMessageHelper.showInfoMessage(
+              'Internal server error, please contact admin',
+              type: EHToastMsgType.Error);
+        } else if (data['type'] != null &&
+            data['type']
+                .toString()
+                .startsWith('https://zalando.github.io/problem/')) {
           EHToastMessageHelper.showInfoMessage(data['details'],
               title: data['title'], type: EHToastMsgType.Error);
         } else {
