@@ -66,8 +66,9 @@ class PermissionTreeView extends EHPanel<PermissionTreeController> {
   }
 
   buildToolbar(BuildContext context) {
-    isRootNode() {
-      return controller.permissionModel.value == null;
+    isTreeNodeEditable() {
+      return controller.permissionModel.value != null &&
+          controller.permissionModel.value!.id != "0";
     }
 
     return Obx(() => EHToolBar(
@@ -99,13 +100,13 @@ class PermissionTreeView extends EHPanel<PermissionTreeController> {
             )),
             EHButton(
                 controller: EHButtonController(
-                    enabled: !isRootNode(),
+                    enabled: isTreeNodeEditable(),
                     child: Text('Save'.tr),
                     onPressed: () async =>
                         await this.controller.savePermDetailView())),
             EHButton(
                 controller: EHButtonController(
-              enabled: !isRootNode(),
+              enabled: isTreeNodeEditable(),
               child: Text('Delete'.tr),
               onPressed: () async {
                 await controller.deleteSelectedPerm();
