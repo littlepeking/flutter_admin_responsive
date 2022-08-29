@@ -196,7 +196,7 @@ class UserEditController extends EHPanelController {
                         serviceName: SecurityServiceNames.RoleService,
                         actionName: 'revokeFromUser',
                         body: {
-                          'userId': (await EHContextHelper.getUserInfo()).id!,
+                          'userId': model.value.id,
                           'roleIds': [rowData['id']]
                         });
 
