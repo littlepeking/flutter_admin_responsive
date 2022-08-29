@@ -31,7 +31,7 @@ class OrgRoleComponent extends EHPanel<OrgRoleComponentController> {
                       viewMode: Responsive.isMobile(Get.context!)
                           ? SplitViewMode.Vertical
                           : SplitViewMode.Horizontal,
-                      splitterWeights: 0.2,
+                      splitterWeights: 0.3,
                       masterPanel: OrgTreeComponent(
                           controller: controller.orgTreeComponentController),
                       detailPanel: EHTabsView(

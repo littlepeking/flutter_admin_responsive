@@ -7,6 +7,8 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_no
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_tree_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/permission_tree_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/permission_tree_view.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/org_role_list_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/org_role_list_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user/user_list_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user/user_list_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/examples/components/TestComponent/TestController.dart';
@@ -57,11 +59,12 @@ class SystemModuleController extends EHController {
                   }),
               EHTreeNode(
                   displayName: "Role",
-                  onTap: () {
-                    tabViewController.addTab(EHTab<TestController>(
-                        'Role', TestController(), (EHController controller) {
-                      return Test2(controller: controller);
-                    }, closable: true));
+                  onTap: () async {
+                    tabViewController.addTab(EHTab<OrgRoleListController>(
+                        'Role', await OrgRoleListController.create(),
+                        (EHController controller) {
+                      return OrgRoleListView(controller: controller);
+                    }, closable: true, expandMode: EHTabsViewExpandMode.None));
                   },
                   children: []),
               EHTreeNode(
