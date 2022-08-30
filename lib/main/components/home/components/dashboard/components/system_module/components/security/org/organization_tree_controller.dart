@@ -17,9 +17,9 @@ import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 import 'package:get/get.dart' hide Response;
 
 import '../permission/permission_model.dart';
-import '../permission/permission_services.dart';
+import '../permission/permission_service.dart';
 import 'organization_model.dart';
-import 'organization_services.dart';
+import 'organization_service.dart';
 
 class OrganizationTreeController extends EHPanelController {
   PageStorageBucket pageStorageBucket = PageStorageBucket();
@@ -85,14 +85,14 @@ class OrganizationTreeController extends EHPanelController {
   }
 
   refreshOrgTreeData({String? overrideSelectedTreeNodeId}) async {
-    List treeMapData = await OrganizationServices.buildTree();
+    List treeMapData = await OrganizationService().buildTree();
 
     await orgTreeCompController.reloadOrgTreeData(treeMapData,
         overrideSelectedTreeNodeId: overrideSelectedTreeNodeId);
   }
 
   refreshPermissionTreeData(String orgId) async {
-    List treeMapData = await PermissionServices.buildTreeByOrgId(orgId);
+    List treeMapData = await PermissionService().buildTreeByOrgId(orgId);
     await permTreeComponentController.reloadPermTreeData(treeMapData);
   }
 
@@ -117,7 +117,7 @@ class OrganizationTreeController extends EHPanelController {
     if (await organizationDetailViewController.orgDetailViewFormController!
         .validate()) {
       bool isNew = orgModel.value!.id == null;
-      orgModel.value = await OrganizationServices.save(orgModel.value!);
+      orgModel.value = await OrganizationService().save(orgModel.value!);
 
       if (!isNew) {
         await updateOrgPermissions(orgId: orgModel.value!.id!);
@@ -131,7 +131,7 @@ class OrganizationTreeController extends EHPanelController {
   }
 
   Future<void> deleteSelectedOrg() async {
-    await OrganizationServices.deleteOrgById(
+    await OrganizationService().deleteOrgById(
         orgTreeCompController.orgTreeController.selectedTreeNode.value!.id);
     await refreshOrgTreeData(overrideSelectedTreeNodeId: '');
 
@@ -151,7 +151,7 @@ class OrganizationTreeController extends EHPanelController {
     List<String> permissionIds = treeNodeList.map((e) => e.id!).toList();
 
     List treeMapData =
-        await PermissionServices.updateOrgPermissions(orgId, permissionIds);
+        await PermissionService().updateOrgPermissions(orgId, permissionIds);
 
     return treeMapData;
   }

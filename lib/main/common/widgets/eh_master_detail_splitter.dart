@@ -3,7 +3,6 @@ import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:split_view/split_view.dart';
 
-/// Tree view with collapsible and expandable nodes.
 class EHMasterDetailSplitView
     extends EHStatelessWidget<EHMasterDetailSplitterController> {
   EHMasterDetailSplitView(

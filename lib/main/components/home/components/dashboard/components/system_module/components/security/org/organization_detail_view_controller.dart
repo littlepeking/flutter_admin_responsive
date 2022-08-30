@@ -10,7 +10,7 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_tree_controller.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
-import 'organization_services.dart';
+import 'organization_service.dart';
 
 class OrganizationDetailViewController extends EHPanelController {
   RxString ddlType = '0'.obs;
@@ -133,7 +133,7 @@ class OrganizationDetailViewController extends EHPanelController {
   }
 
   static Future<Map<String, String>> getOrgDDLDataSource() async {
-    List<OrganizationModel> list = await OrganizationServices.getOrgList();
+    List<OrganizationModel> list = await OrganizationService().getOrgList();
     return Map<String, String>.fromIterable(list,
         key: (e) => (e as OrganizationModel).id!,
         value: (e) => (e as OrganizationModel).name!);

@@ -13,9 +13,9 @@ part 'role_model.g.dart';
 @EHDateTime2TimeStampConverter
 @EHList2StringConverter
 class RoleModel extends EHVersionModel {
-  String orgId;
-  String roleName;
-  String displayName;
+  String? orgId;
+  String? roleName;
+  String? displayName;
 
   List<PermissionModel> permissions;
 
@@ -26,9 +26,9 @@ class RoleModel extends EHVersionModel {
       String? addWho,
       String? editWho,
       int? version,
-      required this.orgId,
-      required this.roleName,
-      required this.displayName,
+      this.orgId,
+      this.roleName,
+      this.displayName,
       this.permissions = const []})
       : super(
             id: id,

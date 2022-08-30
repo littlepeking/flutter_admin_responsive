@@ -1,4 +1,16 @@
 Map<String, String> zhCNMessages = {
+  ////
+  ///test i18 data
+  'popUp': '弹出框',
+  'checkBox': '选择框',
+  'Receiving ASN': '接收ASN',
+  'Close ASN': '关闭ASN',
+  'Print SKU Label': '打印物料标签',
+
+  'Internal server error, please contact admin': '内部服务器错误，请联系管理员',
+
+  ///
+
   'Sign-In': '登录',
   'Logout': '退出',
   'user login is expired.': '用户会话已过期',
@@ -145,21 +157,14 @@ Map<String, String> zhCNMessages = {
   'Last Name': '姓',
   'User role authorization': '用户角色授权',
   'Please select an organization': '请先选择一个组织',
-  ////
-  ///test i18 data
-  'popUp': '弹出框',
-  'checkBox': '选择框',
-  'Receiving ASN': '接收ASN',
-  'Close ASN': '关闭ASN',
-  'Print SKU Label': '打印物料标签',
 
-  'Internal server error, please contact admin': '内部服务器错误，请联系管理员',
-
-  ///
   'Please create or select a organization before edit': '请新建或者选择一个组织以打开编辑页面',
   'Role @displayName assigned to user @username successfully':
       '角色 @displayName 成功授予用户 @username',
   'Role @displayName revoked from user @username successfully':
       '角色 @displayName 已成功从用户 @username 收回',
+  'Role @displayName delete successfully': '角色 @displayName 删除成功',
+  'Delete Role': '删除角色',
+
   'Permissions': '功能权限'
 };

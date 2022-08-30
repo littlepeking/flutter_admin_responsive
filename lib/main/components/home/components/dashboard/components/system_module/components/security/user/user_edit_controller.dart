@@ -3,8 +3,6 @@ import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
 import 'package:eh_flutter_framework/main/common/services/common/eh_rest_service.dart';
 import 'package:eh_flutter_framework/main/common/services/common/service_name.dart';
-import 'package:eh_flutter_framework/main/common/services/security/user_service.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_dialog.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
@@ -28,6 +26,7 @@ import 'package:get/get.dart' hide Response;
 import 'user_detail_general_view.dart';
 import 'user_detail_general_controller.dart';
 import 'user_model.dart';
+import 'user_service.dart';
 
 class UserEditController extends EHPanelController {
   PageStorageBucket pageStorageBucket = PageStorageBucket();
@@ -74,8 +73,9 @@ class UserEditController extends EHPanelController {
     ]);
 
     self.userRoleDataGridController = EHDataGridController(
-        wrapWithExpanded: !Responsive.isMobile(Get.context!),
+        wrapWithExpanded: true,
         showCheckbox: false,
+        // disableFixedHeight: true,//disable this if want page become scrollable in mobile mode
         // onRowSelected: (data) =>
         //     EHToastMessageHelper.showInfoMessage(data.toString()),
         dataGridSource: self.getRolesDataGridSource());

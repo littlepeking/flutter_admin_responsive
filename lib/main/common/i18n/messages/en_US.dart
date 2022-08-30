@@ -5,7 +5,7 @@ Map<String, String> enUSMessages = {
   'changeTheme': 'Switch Theme',
   'Notification': 'Notifications',
   'Inbound': 'Inbound',
-  'Outbound': 'Oubound',
+  'Outbound': 'Outbound',
   'Inventory': 'Inventory',
   'Configuration': 'Configuration',
   'SystemManagement': 'System Management',

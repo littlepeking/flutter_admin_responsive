@@ -11,6 +11,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_service_datagrid_source.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user/user_edit_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user/user_edit_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
@@ -31,7 +32,7 @@ class UserListController extends EHPanelController {
             .addTab(EHTab<UserEditController>('Edit User',
                 await UserEditController.create(params: {'id': data['id']}),
                 (EHController controller) {
-              return UserEdit(controller: controller);
+              return UserEditView(controller: controller);
             }, closable: true)),
         dataGridSource: getUserListDataGridSource());
   }

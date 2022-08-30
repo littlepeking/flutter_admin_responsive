@@ -6,7 +6,7 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 
-import '../permission_services.dart';
+import '../permission_service.dart';
 import '../permission_model.dart';
 
 class PermTreeComponentController extends EHPanelController {

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 
 import '../organization_model.dart';
-import '../organization_services.dart';
+import '../organization_service.dart';
 
 typedef OrgTreeNodeOnTap = void Function(OrganizationModel? model);
 

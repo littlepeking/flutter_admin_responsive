@@ -11,11 +11,11 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 
-import '../org/organization_services.dart';
+import '../org/organization_service.dart';
 import 'permission_detail_view.dart';
 import 'permission_detail_view_controller.dart';
 import 'permission_model.dart';
-import 'permission_services.dart';
+import 'permission_service.dart';
 
 class PermissionTreeController extends EHPanelController {
   PageStorageBucket pageStorageBucket = PageStorageBucket();
@@ -79,7 +79,7 @@ class PermissionTreeController extends EHPanelController {
   }
 
   refreshPermTreeData({String? overrideSelectedTreeNodeId}) async {
-    List treeMapData = await PermissionServices.buildTree();
+    List treeMapData = await PermissionService().buildTree();
 
     await permTreeCompController.reloadPermTreeData(treeMapData,
         overrideSelectedTreeNodeId: overrideSelectedTreeNodeId);
@@ -87,7 +87,7 @@ class PermissionTreeController extends EHPanelController {
 
   refreshOrgTreeData(String permissionId) async {
     List treeMapData =
-        await OrganizationServices.buildTreeByPermId(permissionId);
+        await OrganizationService().buildTreeByPermId(permissionId);
     await orgTreeComponentController.reloadOrgTreeData(treeMapData);
   }
 
@@ -117,7 +117,7 @@ class PermissionTreeController extends EHPanelController {
     if (await permissionDetailViewController.detailViewFormController!
         .validate()) {
       permissionModel.value =
-          await PermissionServices.save(permissionModel.value!);
+          await PermissionService().save(permissionModel.value!);
 
       await updatePermissionOrgIds(permissionId: permissionModel.value!.id!);
 
@@ -130,7 +130,7 @@ class PermissionTreeController extends EHPanelController {
   }
 
   Future<void> deleteSelectedPerm() async {
-    await PermissionServices.deleteByIds([
+    await PermissionService().deleteByIds([
       permTreeCompController.permTreeController.selectedTreeNode.value!.id!
     ]);
     await refreshPermTreeData(overrideSelectedTreeNodeId: '0');
@@ -147,7 +147,7 @@ class PermissionTreeController extends EHPanelController {
     List<String> orgIds = treeNodeList.map((e) => e.id!).toList();
 
     List treeMapData =
-        await PermissionServices.updatePermissionOrgs(permissionId, orgIds);
+        await PermissionService().updatePermissionOrgs(permissionId, orgIds);
 
     return treeMapData;
   }
