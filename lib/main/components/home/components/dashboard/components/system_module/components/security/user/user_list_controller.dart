@@ -33,7 +33,7 @@ class UserListController extends EHPanelController {
                 await UserEditController.create(params: {'id': data['id']}),
                 (EHController controller) {
               return UserEditView(controller: controller);
-            }, closable: true)),
+            }, closable: true, expandMode: EHTabsViewExpandMode.Expand)),
         dataGridSource: getUserListDataGridSource());
   }
 

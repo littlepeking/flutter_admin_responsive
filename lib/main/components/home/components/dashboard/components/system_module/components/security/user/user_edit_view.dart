@@ -19,41 +19,40 @@ class UserEditView extends EHPanel<UserEditController> {
   @override
   Widget build(BuildContext context) {
     return
-        // If want to make the page use full screen scroll in mobile mode, please enable following code and also make userRoleDataGridController.disableFixedHeight = false
+        // If want to make the page use full screen scroll in mobile mode, please enable following code and also make userRoleDataGridController.disableFixedHeight = false and make root tab expandMode = scroll.
 
-        Responsive.isMobile(context)
-            ? Obx(() => Column(children: [
-                  buildToolbar(context),
-                  // KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
-                  //   return !isKeyboardVisible && !Responsive.isExtraSmall(context)
-                  //       ?
-                  EHTabsView(
-                      useBottomList: false,
-                      expandMode: EHTabsViewExpandMode.None,
-                      controller: controller.headerTabsViewController),
-                  if (controller.model.value.id != null)
-                    EHTabsView(
-                        useBottomList: false,
-                        expandMode: EHTabsViewExpandMode.None,
+        // Responsive.isMobile(context)
+        //     ? Obx(() => Column(children: [
+        //           buildToolbar(context),
+        //           // KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
+        //           //   return !isKeyboardVisible && !Responsive.isExtraSmall(context)
+        //           //       ?
+        //           EHTabsView(
+        //               useBottomList: false,
+        //               expandMode: EHTabsViewExpandMode.None,
+        //               controller: controller.headerTabsViewController),
+        //           if (controller.model.value.id != null)
+        //             EHTabsView(
+        //                 useBottomList: false,
+        //                 expandMode: EHTabsViewExpandMode.None,
+        //                 controller: controller.detailTabsViewController),
+        //         ]))
+        //     :
+        Column(
+      children: [
+        buildToolbar(context),
+        Expanded(
+            child: Obx(() => EHMasterDetailSplitView(
+                controller: EHMasterDetailSplitterController(
+                    splitterWeights: 0.4,
+                    masterPanel: EHTabsView(
+                        controller: controller.headerTabsViewController),
+                    detailPanel: EHTabsView(
+                        expandMode: EHTabsViewExpandMode.Expand,
                         controller: controller.detailTabsViewController),
-                ]))
-            : Column(
-                children: [
-                  buildToolbar(context),
-                  Expanded(
-                      child: Obx(() => EHMasterDetailSplitView(
-                          controller: EHMasterDetailSplitterController(
-                              splitterWeights: 0.4,
-                              masterPanel: EHTabsView(
-                                  controller:
-                                      controller.headerTabsViewController),
-                              detailPanel: EHTabsView(
-                                  expandMode: EHTabsViewExpandMode.Expand,
-                                  controller:
-                                      controller.detailTabsViewController),
-                              showDetail: controller.model.value.id != null)))),
-                ],
-              );
+                    showDetail: controller.model.value.id != null)))),
+      ],
+    );
   }
 
   buildToolbar(BuildContext context) {

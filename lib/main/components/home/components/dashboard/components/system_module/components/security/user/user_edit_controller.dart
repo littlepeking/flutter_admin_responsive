@@ -75,7 +75,8 @@ class UserEditController extends EHPanelController {
     self.userRoleDataGridController = EHDataGridController(
         wrapWithExpanded: true,
         showCheckbox: false,
-        // disableFixedHeight: true,//disable this if want page become scrollable in mobile mode
+        disableFixedHeight:
+            true, //disable this if want page become scrollable in mobile mode
         // onRowSelected: (data) =>
         //     EHToastMessageHelper.showInfoMessage(data.toString()),
         dataGridSource: self.getRolesDataGridSource());
