@@ -4,6 +4,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
 import 'package:flutter/material.dart';
@@ -39,8 +40,8 @@ class UserList extends EHPanel<UserListController> {
                     EHTab<UserEditController>(
                         'Edit User', await UserEditController.create(),
                         (EHController controller) {
-                  return UserEdit(controller: controller);
-                }, closable: true));
+                  return UserEditView(controller: controller);
+                }, closable: true, expandMode: EHTabsViewExpandMode.Expand));
           },
           child: Text('Add'.tr),
         )),
