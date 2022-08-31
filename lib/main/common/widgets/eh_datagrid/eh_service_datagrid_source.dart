@@ -40,7 +40,8 @@ class EHServiceDataGridSource extends EHDataGridSource {
                 EHColumnConf columnConfig = columnsConfig
                     .where((config) => config.columnName == key)
                     .first;
-                if (columnConfig.fullQuanifiedName != null) {
+                if (columnConfig.fullQuanifiedName != null &&
+                    columnConfig.fullQuanifiedName != columnConfig.columnName) {
                   key2Add = columnConfig.fullQuanifiedName!;
                   key2Remove = key;
                 }
