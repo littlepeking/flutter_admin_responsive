@@ -232,4 +232,19 @@ class CustomSfLocalization extends SfLocalizations {
 
   @override
   String get weeknumberLabel => throw UnimplementedError();
+
+  @override
+  String get pdfHyperlinkContentLabel => throw UnimplementedError();
+
+  @override
+  String get pdfHyperlinkDialogCancelLabel => throw UnimplementedError();
+
+  @override
+  String get pdfHyperlinkDialogOpenLabel => throw UnimplementedError();
+
+  @override
+  String get pdfHyperlinkLabel => throw UnimplementedError();
+
+  @override
+  String get series => throw UnimplementedError();
 }
