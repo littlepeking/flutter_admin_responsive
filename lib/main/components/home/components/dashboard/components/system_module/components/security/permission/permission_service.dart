@@ -43,6 +43,15 @@ class PermissionService extends EHBaseModelService<PermissionModel> {
     return response.data!;
   }
 
+  Future<List> buildTreeByRoleId(String roleId) async {
+    Response<List> response = await EHRestService().getByServiceName<List>(
+        serviceName: serviceName,
+        actionName: '/buildTreeByRoleId',
+        params: {'roleId': roleId});
+
+    return response.data!;
+  }
+
   Future<List> buildTree() async {
     Response<List> response = await EHRestService().getByServiceName<List>(
         serviceName: serviceName, actionName: '/buildTree', params: {});
@@ -56,6 +65,16 @@ class PermissionService extends EHBaseModelService<PermissionModel> {
         serviceName: serviceName,
         actionName: 'updateOrgPermissions',
         body: {'orgId': orgId, 'permissionIds': permissionIds});
+
+    return response.data;
+  }
+
+  Future<List> updateRolePermissions(
+      String roleId, List<String> permissionIds) async {
+    Response response = await EHRestService().postByServiceName(
+        serviceName: serviceName,
+        actionName: 'updateRolePermissions',
+        body: {'roleId': roleId, 'permissionIds': permissionIds});
 
     return response.data;
   }

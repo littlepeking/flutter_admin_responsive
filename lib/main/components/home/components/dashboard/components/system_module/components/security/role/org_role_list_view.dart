@@ -1,9 +1,13 @@
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_model.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/components/org_role_component.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/role_edit_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
@@ -36,19 +40,29 @@ class OrgRoleListView extends EHPanel<OrgRoleListController> {
         EHButton(
             controller: EHButtonController(
           onPressed: () async {
-            Get.find<SystemModuleController>().tabViewController.addTab(
-                    EHTab<RoleEditController>(
-                        'Edit User', await RoleEditController.create(),
-                        (EHController controller) {
-                  return RoleEditView(controller: controller);
-                }, closable: true));
+            EHTreeNode? selectedTreeNode = controller
+                .orgRoleComponentController
+                .orgTreeComponentController
+                .orgTreeController
+                .selectedTreeNode
+                .value;
+
+            if (selectedTreeNode != null) {
+              Get.find<SystemModuleController>()
+                  .tabViewController
+                  .addTab(EHTab<RoleEditController>(
+                      'Edit Role',
+                      await RoleEditController.create(params: {
+                        'orgId': (selectedTreeNode.data as OrganizationModel).id
+                      }), (EHController controller) {
+                    return RoleEditView(controller: controller);
+                  }, closable: true, expandMode: EHTabsViewExpandMode.Expand));
+            } else {
+              EHToastMessageHelper.showInfoMessage(
+                  'Please select an organization before add a role');
+            }
           },
           child: Text('Add'.tr),
-        )),
-        EHButton(
-            controller: EHButtonController(
-          child: Text('Delete'.tr),
-          onPressed: () async {},
         )),
         Container(
           // width: 90,

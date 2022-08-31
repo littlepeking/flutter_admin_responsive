@@ -4,6 +4,11 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/components/perm_tree_component.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/components/perm_tree_component_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/permission_model.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/permission_service.dart';
 import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
@@ -20,24 +25,21 @@ class RoleEditController extends EHPanelController {
 
   late EHTabsViewController headerTabsViewController;
 
-  late EHTabsViewController detailTabsViewController;
-
   late RoleDetailGeneralController roleGeneralInfoController;
 
-  FocusNode fnButton = FocusNode();
+  late PermTreeComponentController permTreeCompController;
 
   RoleEditController._create(Map<String, dynamic> params)
       : super(null, params: params);
 
   static Future<RoleEditController> create(
-      {Map<String, dynamic> params = const {}}) async {
+      {required Map<String, dynamic> params}) async {
     RoleEditController self = RoleEditController._create(params);
 
-    self.model = self.params.isEmpty
-        ? RoleModel().obs
-        : (RoleModel.fromJson(
-                await RoleService().findById(id: self.params['id'].toString())))
-            .obs;
+    self.permTreeCompController =
+        await PermTreeComponentController.create(self, showCheckBox: true);
+
+    self.model = RoleModel(orgId: params['orgId'], id: params['id']).obs;
 
     self.roleGeneralInfoController = RoleDetailGeneralController(self, params);
 
@@ -49,16 +51,46 @@ class RoleEditController extends EHPanelController {
               controller: c,
             ));
       }),
-      // EHTab('Summary Info', controller, (controller) => Center()),
-      // EHTab('Other', controller, (controller) => EditingDataGrid()),
+      EHTab('Permissions', self.permTreeCompController, (EHController c) {
+        return PageStorage(
+            bucket: self.pageStorageBucket,
+            child: PermTreeComponent(
+              controller: c,
+            ));
+      }),
     ]);
 
-    self.detailTabsViewController = EHTabsViewController(tabs: [
-      // EHTab('Summary Info', controller, (controller) => Center()),
-      // EHTab('Other', controller, (controller) => EditingDataGrid()),
-    ]);
+    await self.reloadData();
 
     return self;
+  }
+
+  reloadData() async {
+    if (model.value.id != null) {
+      model.value = (RoleModel.fromJson(
+          await RoleService().findById(id: model.value.id!)));
+      List permData =
+          await PermissionService().buildTreeByRoleId(this.model.value.id!);
+      permTreeCompController.reloadPermTreeData(permData);
+      headerTabsViewController.getTab('Permissions').isHide = false;
+    } else {
+      headerTabsViewController.getTab('Permissions').isHide = true;
+    }
+    headerTabsViewController.tabsConfig.refresh();
+  }
+
+  Future<List> updateRolePermissions({required String roleId}) async {
+    List<EHTreeNode> treeNodeList = permTreeCompController.permTreeController
+        .getAllFilteredNodes((node) =>
+            (node.data as PermissionModel).type == 'P' &&
+            node.isChecked == true);
+
+    List<String> permissionIds = treeNodeList.map((e) => e.id!).toList();
+
+    List treeMapData =
+        await PermissionService().updateRolePermissions(roleId, permissionIds);
+
+    return treeMapData;
   }
 
   buildUserRoleToolbar() {

@@ -27,7 +27,8 @@ class OrgRoleComponentController extends EHPanelController {
   OrgRoleComponentController._create(EHPanelController parent) : super(parent);
 
   static Future<OrgRoleComponentController> create(EHPanelController parent,
-      {List<EHColumnConf> extraColumns = const []}) async {
+      {ValueChanged<Map>? onRowSelected,
+      List<EHColumnConf> extraColumns = const []}) async {
     OrgRoleComponentController self =
         OrgRoleComponentController._create(parent);
 
@@ -63,7 +64,7 @@ class OrgRoleComponentController extends EHPanelController {
 
     self.orgRoleDataGridController = EHDataGridController(
         wrapWithExpanded: false,
-        showCheckbox: false,
+        onRowSelected: onRowSelected,
         disableFixedHeight: true,
         // onRowSelected: (data) =>
         //     EHToastMessageHelper.showInfoMessage(data.toString()),

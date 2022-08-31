@@ -102,12 +102,11 @@ class OrganizationTreeController extends EHPanelController {
       await refreshPermissionTreeData(orgModel.value!.id!);
       await organizationDetailViewController.initData();
 
-      if (detailTabsViewController.tabsConfig[1].isHide)
-        detailTabsViewController.tabsConfig[1].isHide = false;
+      detailTabsViewController.getTab('Permissions').isHide = false;
     } else {
-      detailTabsViewController.selectedIndex.value = 0;
-      if (!detailTabsViewController.tabsConfig[1].isHide)
-        detailTabsViewController.tabsConfig[1].isHide = true;
+      detailTabsViewController.selectedTab =
+          detailTabsViewController.getTab('Detail Info');
+      detailTabsViewController.getTab('Permissions').isHide = true;
     }
     organizationDetailViewController.orgDetailViewFormController?.reset();
     detailTabsViewController.tabsConfig.refresh();

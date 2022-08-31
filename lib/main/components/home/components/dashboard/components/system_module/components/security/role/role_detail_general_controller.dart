@@ -27,10 +27,10 @@ class RoleDetailGeneralController extends EHPanelController {
             rxModel: userModel,
             widgetControllerBuilders: [
               () => EHTextFieldController(
-                  label: 'roleName',
+                  label: 'Role Name',
                   //autoFocus: true,
                   bindingFieldName: 'roleName',
-                  enabled: userModel.value.id == null,
+                  //enabled: userModel.value.id == null,
                   mustInput: true,
                   onEditingComplete: (value) {}),
               () => EHTextFieldController(

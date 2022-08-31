@@ -81,12 +81,8 @@ class UserEditView extends EHPanel<UserEditController> {
               controller.model.value.password = "";
               controller.model.value.rePassword = "";
 
-              //controller.receiptDetailInfoController.receiptModel.value = model;
-
-              //controller.receiptDetailInfoController.receiptModel.value = model;
-              //controller.model.refresh();
-
-              EHToastMessageHelper.showInfoMessage(modelStr);
+              EHToastMessageHelper.showInfoMessage('User @username saved'
+                  .trParams({'username': controller.model.value.username!}));
             }
           },
           child: Text('Save'.tr),

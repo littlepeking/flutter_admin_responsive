@@ -123,6 +123,7 @@ Map<String, String> zhCNMessages = {
   'Security': '安全',
   'User': '用户',
   'Role': '角色',
+  'Role Name': '角色名称',
   'Permission': '权限',
   'Authority Code': '权限代码',
   'userid': '用户ID',
@@ -137,11 +138,11 @@ Map<String, String> zhCNMessages = {
   'Assigned Roles': '已分配的角色',
   'Assign': '授予',
   'Edit User': '编辑用户',
+  'Edit Role': '编辑角色',
   'User List': '用户列表',
   'Assign Role': '角色授予',
   'Role List': '角色列表',
   'Revoke Roles': '移除角色',
-  'Role Name': '角色',
   'Description': '描述',
   'Organizations': '组织',
   'All Organizations (System Level)': '所有组织(系统级)',
@@ -159,11 +160,14 @@ Map<String, String> zhCNMessages = {
   'Please select an organization': '请先选择一个组织',
 
   'Please create or select a organization before edit': '请新建或者选择一个组织以打开编辑页面',
+  'User @username saved': '用户 @username 保存成功',
   'Role @displayName assigned to user @username successfully':
       '角色 @displayName 成功授予用户 @username',
   'Role @displayName revoked from user @username successfully':
       '角色 @displayName 已成功从用户 @username 收回',
+  'Role @displayName saved': '角色 @displayName 保存成功',
   'Role @displayName delete successfully': '角色 @displayName 删除成功',
+  'Please select an organization before add a role': '请在创建角色前先选择一个组织',
   'Delete Role': '删除角色',
 
   'Permissions': '功能权限'

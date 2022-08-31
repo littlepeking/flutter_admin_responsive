@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'perm_tree_component_controller.dart';
 
 class PermTreeComponent extends EHStatelessWidget<PermTreeComponentController> {
-  PermTreeComponent({Key? key, required PermTreeComponentController controller})
+  PermTreeComponent({Key? key, required controller})
       : super(controller: controller);
 
   @override

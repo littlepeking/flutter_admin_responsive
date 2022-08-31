@@ -34,15 +34,22 @@ class EHServiceDataGridSource extends EHDataGridSource {
                 e.columnName = columnConfig.fullQuanifiedName ?? e.columnName;
               });
 
+              String? key2Remove;
+              String? key2Add;
               orderBy.forEach((key, value) {
                 EHColumnConf columnConfig = columnsConfig
                     .where((config) => config.columnName == key)
                     .first;
                 if (columnConfig.fullQuanifiedName != null) {
-                  orderBy[columnConfig.fullQuanifiedName!] = value;
-                  orderBy.remove(key);
+                  key2Add = columnConfig.fullQuanifiedName!;
+                  key2Remove = key;
                 }
               });
+
+              if (key2Remove != null) {
+                orderBy[key2Add!] = orderBy[key2Remove!]!;
+                orderBy.remove(key2Remove);
+              }
 
               return await EHCommonService.queryByPage(
                   serviceName: serviceName,
