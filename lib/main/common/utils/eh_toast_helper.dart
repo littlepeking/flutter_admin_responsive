@@ -13,7 +13,9 @@ class EHToastMessageHelper {
     final ThemeCustomAttributes themeCustomAttributes =
         Theme.of(Get.context!).extension<ThemeCustomAttributes>()!;
 
-    Get.snackbar(title.tr, message.tr,
+    late SnackbarController snackbarController;
+
+    snackbarController = Get.snackbar(title.tr, message.tr,
         maxWidth: 500,
         barBlur: 20.0,
         boxShadows: [
@@ -42,6 +44,7 @@ class EHToastMessageHelper {
 
         // backgroundColor: Colors.yellow,
         duration: Duration(milliseconds: 3000),
+        animationDuration: Duration(milliseconds: 500),
         titleText: Text(
           title.tr,
           style: Theme.of(Get.context!).textTheme.bodyText1,
@@ -58,7 +61,7 @@ class EHToastMessageHelper {
                 fontWeight: FontWeight.bold,
                 color: themeCustomAttributes.textColor),
           ),
-          onPressed: () => Get.closeCurrentSnackbar(),
+          onPressed: () => snackbarController.close(),
         ));
   }
 

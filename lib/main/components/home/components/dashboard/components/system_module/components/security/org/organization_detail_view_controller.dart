@@ -6,6 +6,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_form_divider.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/common/common_data_sources.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_model.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_tree_controller.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -32,7 +33,7 @@ class OrganizationDetailViewController extends EHPanelController {
     OrganizationDetailViewController self =
         OrganizationDetailViewController._create(parent);
 
-    self.orgItems.value = await getOrgDDLDataSource();
+    self.initData();
 
     self.getWidgetControllerFormController = () {
       Rx<OrganizationModel> rxModel = Rx<OrganizationModel>(
@@ -65,7 +66,7 @@ class OrganizationDetailViewController extends EHPanelController {
                     label: 'Parent Organization',
                     enabled: false,
                     bindingFieldName: 'parentId',
-                    items: self.orgItems.value,
+                    items: self.orgItems,
                     onChanged: (value) {}),
                 () => EHFormDividerController(width: 1),
                 () => EHTextFieldController(
@@ -132,15 +133,8 @@ class OrganizationDetailViewController extends EHPanelController {
     return self;
   }
 
-  static Future<Map<String, String>> getOrgDDLDataSource() async {
-    List<OrganizationModel> list = await OrganizationService().getOrgList();
-    return Map<String, String>.fromIterable(list,
-        key: (e) => (e as OrganizationModel).id!,
-        value: (e) => (e as OrganizationModel).name!);
-  }
-
   Future<void> initData() async {
     //need reload org ddl after org saved
-    orgItems.value = await getOrgDDLDataSource();
+    orgItems.value = await CommonDataSources.getOrgDDLDataSource();
   }
 }

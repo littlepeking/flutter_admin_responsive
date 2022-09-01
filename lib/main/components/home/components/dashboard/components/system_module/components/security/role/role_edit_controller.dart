@@ -41,7 +41,8 @@ class RoleEditController extends EHPanelController {
 
     self.model = RoleModel(orgId: params['orgId'], id: params['id']).obs;
 
-    self.roleGeneralInfoController = RoleDetailGeneralController(self, params);
+    self.roleGeneralInfoController =
+        await RoleDetailGeneralController.create(self, params);
 
     self.headerTabsViewController = EHTabsViewController(tabs: [
       EHTab('General Info', self.roleGeneralInfoController, (EHController c) {

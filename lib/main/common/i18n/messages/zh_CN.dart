@@ -169,6 +169,6 @@ Map<String, String> zhCNMessages = {
   'Role @displayName delete successfully': '角色 @displayName 删除成功',
   'Please select an organization before add a role': '请在创建角色前先选择一个组织',
   'Delete Role': '删除角色',
-
+  'Selected users deleted': '选中的用户删除成功',
   'Permissions': '功能权限'
 };
