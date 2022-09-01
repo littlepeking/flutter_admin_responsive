@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/theme_custom_attributes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +10,9 @@ class EHToastMessageHelper {
   static showInfoMessage(String message,
       {String title = 'Message Infomation',
       EHToastMsgType type = EHToastMsgType.Successful}) {
+    final ThemeCustomAttributes themeCustomAttributes =
+        Theme.of(Get.context!).extension<ThemeCustomAttributes>()!;
+
     Get.snackbar(title.tr, message.tr,
         maxWidth: 500,
         barBlur: 20.0,
@@ -46,7 +50,16 @@ class EHToastMessageHelper {
           message.tr,
           style: Theme.of(Get.context!).textTheme.bodyText1,
         ),
-        isDismissible: true);
+        isDismissible: true,
+        mainButton: TextButton(
+          child: Text(
+            'Close'.tr,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: themeCustomAttributes.textColor),
+          ),
+          onPressed: () => Get.closeCurrentSnackbar(),
+        ));
   }
 
   static showLoginErrorMessage(String message,

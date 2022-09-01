@@ -57,7 +57,9 @@ class SideMenu extends StatelessWidget {
     return Drawer(
       child: Responsive.isMobile(Get.context!)
           ? Scaffold(
-              body: Column(children: getDrawerContent()),
+              body: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: getDrawerContent()),
               persistentFooterButtons:
                   Responsive.isMobile(Get.context!) ? getFunctionBtnBar() : [],
             )

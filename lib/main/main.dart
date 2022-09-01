@@ -15,6 +15,8 @@ import 'package:eh_flutter_framework/main/controllers/global_data_controller.dar
 import 'package:eh_flutter_framework/main/routes/page_config.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'common/utils/theme_custom_attributes.dart';
+
 main() {
   // disable WidgetsFlutterBinding.ensureInitialized() as it will prevent runZonedGuarded.onerror be triggered.
   // WidgetsFlutterBinding.ensureInitialized();
@@ -33,8 +35,10 @@ main() {
         // ... other locales the app supports
       ],
       debugShowCheckedModeBanner: false,
-      theme: EhTheme.lightTheme,
-      darkTheme: EhTheme.darkTheme,
+      theme: EhTheme.lightTheme.copyWith(
+          extensions: <ThemeExtension<dynamic>>[ThemeCustomAttributes.light]),
+      darkTheme: EhTheme.darkTheme.copyWith(
+          extensions: <ThemeExtension<dynamic>>[ThemeCustomAttributes.dark]),
       // AS WidgetsFlutterBinding.ensureInitialized() is disabled, commment following code as it will not work.
       themeMode:
           ThemeController.defaultIsDarkMode ? ThemeMode.dark : ThemeMode.light,
