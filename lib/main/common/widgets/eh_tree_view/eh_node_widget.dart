@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,10 +39,11 @@ class EHNodeWidget extends StatelessWidget {
 
     if (treeNode.children != null) {
       for (var node in treeNode.children!) {
-        children.add(EHNodeWidget(
-          treeNode: node,
-          controller: controller,
-        ));
+        if (EHContextHelper.hasAnyPermission(node.permissionCodes))
+          children.add(EHNodeWidget(
+            treeNode: node,
+            controller: controller,
+          ));
       }
     }
 

@@ -174,6 +174,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     await EHContextHelper.setString(
                                         'userInfo', jsonEncode(response.data!));
 
+                                    await EHContextHelper.refreshPermissions();
+
                                     UserModel user =
                                         await EHContextHelper.getUserInfo();
 

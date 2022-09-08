@@ -33,6 +33,34 @@ class EHContextHelper {
     return user;
   }
 
+  static Set<String>? _permissions;
+
+  static Future<Set<String>> getCurrentUserPermissions() async {
+    if (_permissions == null) refreshPermissions();
+
+    return Future.value(_permissions);
+  }
+
+  static bool hasAnyPermission(Set<String> permissionCodes) {
+    return _permissions == null
+        ? false
+        : permissionCodes.length == 0
+            ? true
+            : _permissions!.intersection(permissionCodes).length > 0;
+  }
+
+  static refreshPermissions() async {
+    _permissions = Set();
+
+    UserModel userModel = await getUserInfo();
+
+    userModel.roles.forEach((r) {
+      r.permissions.forEach((p) {
+        _permissions!.add(p.authority!);
+      });
+    });
+  }
+
   static setString(String key, String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 

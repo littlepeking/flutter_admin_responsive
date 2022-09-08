@@ -33,6 +33,7 @@ class SystemModuleController extends EHController {
             icon: Icons.admin_panel_settings,
             children: [
               EHTreeNode(
+                  permissionCodes: {'SECURITY_PERMISSION'},
                   displayName: "Organization",
                   isChecked: true,
                   onTap: () async {
@@ -47,6 +48,7 @@ class SystemModuleController extends EHController {
                     // FocusManager.instance.primaryFocus?.unfocus();
                   }),
               EHTreeNode(
+                  // permissionCodes: {'SECURITY_USER'},
                   displayName: "User",
                   isChecked: true,
                   onTap: () {
@@ -58,6 +60,7 @@ class SystemModuleController extends EHController {
                     // FocusManager.instance.primaryFocus?.unfocus();
                   }),
               EHTreeNode(
+                  permissionCodes: {'SECURITY_ROLE'},
                   displayName: "Role",
                   onTap: () async {
                     tabViewController.addTab(EHTab<OrgRoleListController>(
@@ -68,6 +71,7 @@ class SystemModuleController extends EHController {
                   },
                   children: []),
               EHTreeNode(
+                  permissionCodes: {'SECURITY_PERMISSION'},
                   displayName: "Permission",
                   onTap: () async {
                     tabViewController.addTab(EHTab<PermissionTreeController>(
