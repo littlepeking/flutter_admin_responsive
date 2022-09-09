@@ -11,7 +11,7 @@ List<GetPage<dynamic>>? pageConfig = [
     //transition: Transition.,
     // transitionDuration: const Duration(milliseconds: 250),
     binding: BindingsBuilder(() {
-      Get.lazyPut<SideMenuController>(() => SideMenuController());
+      Get.lazyPut<SideMenuController>(() => SideMenuController(null));
     }),
   ),
   GetPage(

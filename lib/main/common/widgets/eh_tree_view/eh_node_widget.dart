@@ -9,12 +9,9 @@ import 'eh_tree_controller.dart';
 class EHNodeWidget extends StatelessWidget {
   final EHTreeNode treeNode;
   final EHTreeController controller;
-
-  const EHNodeWidget({
-    Key? key,
-    required this.treeNode,
-    required this.controller,
-  }) : super(key: key);
+  const EHNodeWidget(
+      {Key? key, required this.treeNode, required this.controller})
+      : super(key: key);
 
   bool get _isLeaf {
     return treeNode.children == null || treeNode.children!.isEmpty;
@@ -96,6 +93,9 @@ class EHNodeWidget extends StatelessWidget {
                     onTap: () {
                       controller.selectedTreeNode.value = treeNode;
                       if (treeNode.onTap != null) treeNode.onTap!();
+
+                      if (controller.onTreeNodeTap != null)
+                        controller.onTreeNodeTap!(treeNode);
 
                       controller.treeNodeDataList.refresh();
                     },

@@ -1,5 +1,8 @@
+import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
+import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_view.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_model.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/taskPanel/task_panel_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/tmsPanel/tms_panel_controller.dart';
@@ -8,10 +11,15 @@ import 'package:eh_flutter_framework/main/controllers/global_data_controller.dar
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SideMenuController extends GetxController {
+class SideMenuController extends EHPanelController {
   static SideMenuController instance = Get.find<SideMenuController>();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  Rxn<OrganizationModel> selectedOrgModel = Rxn();
+
+  SideMenuController(EHPanelController? parentController)
+      : super(parentController);
 
   GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
 
@@ -21,7 +29,7 @@ class SideMenuController extends GetxController {
     }
   }
 
-  static EHTreeController getSideMenuController(SystemModule system) {
+  EHTreeController getSideMenuController(SystemModule system) {
     switch (system) {
       case SystemModule.wms:
         return Get.find<WmsPanelController>().sideMenuTreeController;
@@ -51,7 +59,7 @@ class SideMenuController extends GetxController {
   //   }
   // }
 
-  static EHTreeView getSideBarTreeView() {
+  EHTreeView getSideBarTreeView() {
     EHTreeController controller =
         getSideMenuController(GlobalDataController.instance.system.value);
 

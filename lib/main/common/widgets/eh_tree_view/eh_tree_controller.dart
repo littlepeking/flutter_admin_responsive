@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 /// A controller for a tree state.
@@ -25,6 +26,8 @@ class EHTreeController extends EHController {
 
   final bool isNodeSelectable;
 
+  final ValueChanged<EHTreeNode>? onTreeNodeTap;
+
   /// Tree controller to manage the tree state.
   bool _allNodesExpanded;
   RxList<EHTreeNode> treeNodeDataList;
@@ -40,7 +43,8 @@ class EHTreeController extends EHController {
       this.allowCascadeCheck = true,
       required this.treeNodeDataList,
       this.isNodeSelectable = false,
-      allNodesExpanded = true})
+      allNodesExpanded = true,
+      this.onTreeNodeTap})
       : _allNodesExpanded = allNodesExpanded;
 
   bool get allNodesExpanded => _allNodesExpanded;
