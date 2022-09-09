@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'role_detail_general_controller.dart';
-import 'role_model.dart';
 
 class RoleDetailGeneralView extends EHPanel<RoleDetailGeneralController> {
   RoleDetailGeneralView({Key? key, controller})

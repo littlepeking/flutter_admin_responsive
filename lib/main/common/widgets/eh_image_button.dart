@@ -1,7 +1,6 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../constants.dart';
 
 class EHImageButton<T> extends StatelessWidget {

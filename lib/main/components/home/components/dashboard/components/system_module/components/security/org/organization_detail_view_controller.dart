@@ -1,6 +1,4 @@
-import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
-import 'package:eh_flutter_framework/main/common/services/common/eh_rest_service.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
@@ -11,7 +9,6 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_tree_controller.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
-import 'organization_service.dart';
 
 class OrganizationDetailViewController extends EHPanelController {
   RxString ddlType = '0'.obs;

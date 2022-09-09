@@ -3,7 +3,6 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_co
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 class TaskPanelController extends GetxController {
   EHTabsViewController tabViewController = EHTabsViewController();

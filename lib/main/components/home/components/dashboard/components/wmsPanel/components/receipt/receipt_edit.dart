@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
-import 'package:eh_flutter_framework/main/common/services/common/eh_common_service.dart';
-import 'package:eh_flutter_framework/main/common/services/common/eh_common_service_names.dart';
 import 'package:eh_flutter_framework/main/common/services/wms/outbound/receipt_service.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';

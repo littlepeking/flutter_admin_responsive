@@ -4,7 +4,6 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/role_model.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/role_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

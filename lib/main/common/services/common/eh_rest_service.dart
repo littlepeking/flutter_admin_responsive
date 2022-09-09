@@ -6,7 +6,6 @@ import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' hide Response, FormData;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Utils/eh_navigator.dart';
 import '../../widgets/eh_loading_indicator.dart';

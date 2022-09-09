@@ -186,7 +186,7 @@ class EHTreePopupController extends EHEditableWidgetController {
         focusNode!.requestFocus();
         //focusNode!.nextFocus();
 
-        EHController.setWidgetError(this.errorBucket!, key!, '');
+        EHController.setWidgetError(this.errorBucket!, key, '');
 
         Get.back(result: true);
       },

@@ -2,7 +2,6 @@ import 'package:eh_flutter_framework/main/common/base/eh_exception.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
-import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_master_detail_splitter.dart';

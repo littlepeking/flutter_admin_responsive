@@ -1,4 +1,3 @@
-import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_custom_attributes.dart';
 import 'package:flutter/material.dart';

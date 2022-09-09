@@ -1,13 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 
 import '../organization_model.dart';
-import '../organization_service.dart';
 
 typedef OrgTreeNodeOnTap = void Function(OrganizationModel? model);
 

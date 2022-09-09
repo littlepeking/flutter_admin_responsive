@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';

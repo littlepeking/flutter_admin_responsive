@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'theme_custom_attributes.dart';
 
 class EhTheme {
   static Transition defaultTransition = Transition.zoom;
@@ -28,7 +27,7 @@ class EhTheme {
           checkColor: MaterialStateProperty.all(Colors.white)),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-            primary: Colors.grey[900]!,
+            backgroundColor: Colors.grey[900]!,
             side: BorderSide(
               width: 1.0,
               color: Colors.grey[600]!,
@@ -66,8 +65,7 @@ class EhTheme {
           checkColor: MaterialStateProperty.all(Colors.white)),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-            primary: Colors.white,
-            onPrimary: Colors.black,
+            foregroundColor: Colors.black, backgroundColor: Colors.white,
             side: BorderSide(
               width: 1.0,
               color: Colors.black,

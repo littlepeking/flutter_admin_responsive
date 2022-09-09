@@ -10,7 +10,6 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' hide Response;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

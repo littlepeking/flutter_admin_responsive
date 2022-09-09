@@ -4,7 +4,6 @@ import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../utils/theme_controller.dart';
 
 class EHEditErrorInfo extends StatelessWidget {
   EHEditErrorInfo({

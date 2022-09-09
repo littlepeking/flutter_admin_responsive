@@ -13,7 +13,6 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../utils/eh_refactor_helper.dart';
 import 'eh_dropdown.dart';
 import 'eh_custom_form_widget.dart';
 

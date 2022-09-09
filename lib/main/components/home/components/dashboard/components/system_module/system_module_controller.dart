@@ -11,8 +11,6 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/org_role_list_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user/user_list_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user/user_list_view.dart';
-import 'package:eh_flutter_framework/main/components/home/components/examples/components/TestComponent/TestController.dart';
-import 'package:eh_flutter_framework/main/components/home/components/examples/components/TestComponent/test2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/get_rx.dart';
 

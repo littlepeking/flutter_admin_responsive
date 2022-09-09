@@ -7,7 +7,6 @@ import 'package:eh_flutter_framework/main/components/home/components/examples/co
 import 'package:eh_flutter_framework/main/components/home/components/examples/components/TestComponent/test2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 class TmsPanelController extends GetxController {
   EHTabsViewController tabViewController = EHTabsViewController();
