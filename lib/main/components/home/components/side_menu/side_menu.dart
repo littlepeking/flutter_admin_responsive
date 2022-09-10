@@ -1,3 +1,4 @@
+import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_popup.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
@@ -77,7 +78,8 @@ class SideMenu extends StatelessWidget {
                   },
                   getDisplayValue: (data) {
                     return data != null
-                        ? (data as OrganizationModel).name!.tr
+                        ? EHUtilHelper.getShortStr(
+                            (data as OrganizationModel).name!.tr, 10)
                         : '';
                   },
                   loadTreeData: (EHTreeController treeController) async {

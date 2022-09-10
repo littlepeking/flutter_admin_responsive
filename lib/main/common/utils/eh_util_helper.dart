@@ -33,4 +33,9 @@ class EHUtilHelper {
     DateTime d = DateTime.now();
     return convertToGMT11AM(d);
   }
+
+  static String getShortStr(String str, int maxLength,
+      {String suffix = '...'}) {
+    return str.length > maxLength ? str.substring(0, maxLength) + suffix : str;
+  }
 }

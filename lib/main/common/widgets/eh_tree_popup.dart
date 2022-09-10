@@ -52,11 +52,13 @@ class EHTreePopup extends EHEditableWidget<EHTreePopupController> {
                         },
                         canRequestFocus: false,
                         child: TextField(
-                            autofocus: controller.autoFocus,
+
+                            // autofocus: controller.autoFocus,
                             focusNode: FocusNode(),
                             textInputAction: TextInputAction.next,
                             maxLines: 1,
                             textAlignVertical: TextAlignVertical.center,
+                            textAlign: TextAlign.center,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.all(5),
                               border: new OutlineInputBorder(),
@@ -148,7 +150,7 @@ class EHTreePopupController extends EHEditableWidgetController {
   EHTreePopupController(
       {Key? key,
       double? width,
-      bool autoFocus = false,
+      // bool autoFocus = false,
       //focusNode必须手工在controller中实例化并赋值给控件的focusNode属性,否则光标焦点跳转会有问题。
       //因为flutter要求focusNode必须在statefulWidget中进行设置，但目前框架暂时只使用statelessWidget，因此只能手工设置。
       FocusNode? focusNode,
@@ -165,7 +167,7 @@ class EHTreePopupController extends EHEditableWidgetController {
       Map<Key?, RxString>? errorBucket})
       : super(
             key: key,
-            autoFocus: autoFocus,
+            //  autoFocus: autoFocus,
             enabled: enabled,
             mustInput: mustInput,
             label: label,

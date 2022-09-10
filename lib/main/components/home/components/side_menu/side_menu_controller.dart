@@ -15,12 +15,19 @@ class SideMenuController extends EHPanelController {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  Rxn<OrganizationModel> selectedOrgModel = Rxn();
+  OrganizationModel defaultOrgModel =
+      OrganizationModel(id: '-1', name: 'Select Organization');
+
+  late Rx<OrganizationModel> selectedOrgModel = Rx(defaultOrgModel);
 
   SideMenuController(EHPanelController? parentController)
       : super(parentController);
 
   GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
+
+  reset() {
+    selectedOrgModel.value = defaultOrgModel;
+  }
 
   void toggleDrawer() {
     if (!_scaffoldKey.currentState!.isDrawerOpen) {
