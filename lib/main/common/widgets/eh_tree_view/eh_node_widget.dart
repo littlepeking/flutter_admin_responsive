@@ -1,4 +1,6 @@
 import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
+import 'package:eh_flutter_framework/main/common/utils/theme.dart';
+import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -88,17 +90,27 @@ class EHNodeWidget extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 2),
-                          child: Text(treeNode.displayName.tr),
+                          child: Text(
+                            treeNode.displayName.tr,
+                            style: TextStyle(
+                                color: treeNode.disableTap == true
+                                    ? ThemeController.getThemeCustomAttributes()
+                                        .disableColor
+                                    : ThemeController.getThemeCustomAttributes()
+                                        .textColor),
+                          ),
                         )),
-                    onTap: () {
-                      controller.selectedTreeNode.value = treeNode;
-                      if (treeNode.onTap != null) treeNode.onTap!();
+                    onTap: treeNode.disableTap == true
+                        ? null
+                        : () {
+                            controller.selectedTreeNode.value = treeNode;
+                            if (treeNode.onTap != null) treeNode.onTap!();
 
-                      if (controller.onTreeNodeTap != null)
-                        controller.onTreeNodeTap!(treeNode);
+                            if (controller.onTreeNodeTap != null)
+                              controller.onTreeNodeTap!(treeNode);
 
-                      controller.treeNodeDataList.refresh();
-                    },
+                            controller.treeNodeDataList.refresh();
+                          },
                   ),
                 ),
               ],

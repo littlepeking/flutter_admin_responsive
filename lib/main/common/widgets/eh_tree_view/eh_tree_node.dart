@@ -26,6 +26,8 @@ class EHTreeNode {
 
   VoidCallback? onTap;
 
+  bool? disableTap;
+
   Set<String> permissionCodes;
 
   EHTreeNode(
@@ -41,5 +43,6 @@ class EHTreeNode {
       this.children = const [],
       this.isSelected = false,
       this.data,
+      this.disableTap,
       this.permissionCodes = const {}});
 }

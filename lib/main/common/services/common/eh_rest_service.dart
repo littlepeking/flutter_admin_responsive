@@ -136,14 +136,16 @@ class EHRestService extends GetxController {
   Future<Response<T>> get<T>(
       {required String path,
       required Map<String, dynamic>? params,
-      required Options? options}) {
+      required Options? options}) async {
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
     return _dio.get<T>(path, queryParameters: params, options: options);
   }
 
   Future<Response<T>> delete<T>(
       {required String path,
       required Map<String, dynamic>? params,
-      required Options? options}) {
+      required Options? options}) async {
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
     return _dio.delete<T>(path, queryParameters: params, options: options);
   }
 
@@ -153,7 +155,8 @@ class EHRestService extends GetxController {
     Map<String, dynamic>? params,
     bool isFormData = false,
     Options? options,
-  }) {
+  }) async {
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
     if (isFormData) {
       FormData formData = new FormData.fromMap(body);
       body = formData;
@@ -168,7 +171,8 @@ class EHRestService extends GetxController {
     Map<String, dynamic>? params,
     String pathSuffix = '',
     Options? options,
-  }) {
+  }) async {
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
     return _dio.get<T>(serviceName + '/' + actionName + pathSuffix,
         queryParameters: params, options: options);
   }
@@ -179,7 +183,8 @@ class EHRestService extends GetxController {
     dynamic data,
     Map<String, dynamic>? params,
     Options? options,
-  }) {
+  }) async {
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
     return _dio.delete<T>(
         actionName == null ? serviceName : serviceName + '/' + actionName,
         data: data,
@@ -194,7 +199,8 @@ class EHRestService extends GetxController {
     Map<String, dynamic>? params,
     bool isFormData = false,
     Options? options,
-  }) {
+  }) async {
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
     if (isFormData) {
       FormData formData = new FormData.fromMap(body);
       body = formData;
@@ -208,7 +214,8 @@ class EHRestService extends GetxController {
     savePath,
     Map<String, dynamic>? queryParams,
     ProgressCallback? progressCallback,
-  }) {
+  }) async {
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
     return _dio.download(urlPath, savePath,
         queryParameters: queryParams, onReceiveProgress: progressCallback);
   }

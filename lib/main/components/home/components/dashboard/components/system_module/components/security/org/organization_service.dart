@@ -43,6 +43,15 @@ class OrganizationService extends EHBaseModelService<OrganizationModel> {
     return response.data;
   }
 
+  Future<List> buildTreeByUserId() async {
+    Response response = await EHRestService().getByServiceName<List>(
+      serviceName: serviceName,
+      actionName: '/buildTreeByUserId',
+    );
+
+    return response.data;
+  }
+
   Future<List> buildTreeByPermId(String permissionId) async {
     Response response = await EHRestService().getByServiceName<List>(
         serviceName: serviceName,

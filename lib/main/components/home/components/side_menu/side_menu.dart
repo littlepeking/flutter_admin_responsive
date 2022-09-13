@@ -29,7 +29,10 @@ class SideMenu extends StatelessWidget {
           data, orgTreeController, OrganizationModel.fromJson,
           overrideSelectedTreeNodeId: overrideSelectedTreeNodeId,
           rootNode: null,
-          displayNameField: 'name');
+          displayNameField: 'name',
+          treeNodePostProcessor: (node) =>
+              //if any role of the org is assigned to user, then node.ischecked == true
+              node.disableTap = node.isChecked != true);
     }
 
     getMenuItems() => [
@@ -83,9 +86,10 @@ class SideMenu extends StatelessWidget {
                         : '';
                   },
                   loadTreeData: (EHTreeController treeController) async {
-                    List treeMapData = await OrganizationService().buildTree();
-
-                    loadOrgTreeData(treeMapData, treeController);
+                    List treeMapData =
+                        await OrganizationService().buildTreeByUserId();
+                    //By default, treeMapData include root node 'all organizations', here we need remove it in Org selection.
+                    loadOrgTreeData(treeMapData[0]['children'], treeController);
                   }))),
 
           // Image.asset(

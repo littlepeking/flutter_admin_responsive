@@ -6,15 +6,21 @@ class ThemeCustomAttributes extends ThemeExtension<ThemeCustomAttributes> {
     required this.textColor,
     required this.backgroundColor,
     required this.borderColor,
+    required this.disableColor,
   });
   final Color? textColor;
+  final Color? disableColor;
   final Color? backgroundColor;
   final Color? borderColor;
   @override
   ThemeCustomAttributes copyWith(
-      {Color? textColor, Color? backgroundColor, Color? borderColor}) {
+      {Color? textColor,
+      Color? disableColor,
+      Color? backgroundColor,
+      Color? borderColor}) {
     return ThemeCustomAttributes(
       textColor: textColor ?? this.textColor,
+      disableColor: disableColor ?? this.disableColor,
       backgroundColor: backgroundColor ?? this.backgroundColor,
       borderColor: borderColor ?? this.borderColor,
     );
@@ -31,6 +37,7 @@ class ThemeCustomAttributes extends ThemeExtension<ThemeCustomAttributes> {
       textColor: Color.lerp(textColor, other.textColor, t),
       backgroundColor: Color.lerp(backgroundColor, other.backgroundColor, t),
       borderColor: Color.lerp(borderColor, other.borderColor, t),
+      disableColor: Color.lerp(textColor, other.borderColor, t),
     );
   }
 
@@ -43,6 +50,7 @@ class ThemeCustomAttributes extends ThemeExtension<ThemeCustomAttributes> {
   // the light theme
   static const light = ThemeCustomAttributes(
     textColor: Colors.black,
+    disableColor: Colors.grey,
     backgroundColor: Colors.white,
     borderColor: Colors.black,
   );
@@ -50,6 +58,7 @@ class ThemeCustomAttributes extends ThemeExtension<ThemeCustomAttributes> {
   // the dark theme
   static const dark = ThemeCustomAttributes(
     textColor: Colors.white,
+    disableColor: Colors.grey,
     backgroundColor: Colors.black87,
     borderColor: Colors.grey,
   );
