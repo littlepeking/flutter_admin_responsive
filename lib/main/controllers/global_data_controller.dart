@@ -10,7 +10,7 @@ enum SystemModule {
 class GlobalDataController extends GetxController {
   static GlobalDataController instance = Get.find<GlobalDataController>();
 
-  Rx<SystemModule> system = SystemModule.system.obs;
+  Rx<SystemModule> system = SystemModule.Workbench.obs;
 
   static Rx<bool> localeChangeTrigger = true.obs;
 
