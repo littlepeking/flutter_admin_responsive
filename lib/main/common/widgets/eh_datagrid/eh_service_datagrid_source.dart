@@ -13,7 +13,7 @@ class EHServiceDataGridSource extends EHDataGridSource {
       List<EHFilterInfo> columnFilters = const [],
       int? pageIndex,
       Map<String, Object?> params = const {},
-      bool? loadDataAtInit})
+      bool? loadDataAtInit = true})
       : super(
             pageIndex: pageIndex,
             columnFilters: columnFilters,

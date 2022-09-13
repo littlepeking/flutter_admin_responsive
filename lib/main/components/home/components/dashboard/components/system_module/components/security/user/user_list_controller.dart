@@ -39,7 +39,7 @@ class UserListController extends EHPanelController {
   getUserListDataGridSource() {
     return EHServiceDataGridSource(
       serviceName: '/security/user',
-      // loadDataAtInit: false,
+      loadDataAtInit: false,
       columnFilters: [
         EHFilterInfo(
             columnName: 'editDate', sort: EHDataGridColumnSortType.Desc)
