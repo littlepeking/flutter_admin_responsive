@@ -4,7 +4,6 @@ import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/workbench/workbench_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,7 @@ class WorkbenchModuleWidget extends StatelessWidget {
 
     if (workbenchModuleController.tabViewController.tabsConfig.length == 0)
       workbenchModuleController.tabViewController.tabsConfig.add(EHTab(
-          '%Workbench Welcome Page',
+          '%System Welcome Page',
           EHController(),
           (controller) => Center(
                 child: Container(
@@ -45,7 +44,7 @@ class WorkbenchModuleWidget extends StatelessWidget {
                 ),
               ),
           showInBottomList: false,
-          tabTranslateParams: {'Workbench': 'Workbench'}));
+          tabTranslateParams: {'System': 'Workbench'}));
 
     return PageStorage(
         bucket: globalPageStorageBucket,
@@ -57,7 +56,7 @@ class WorkbenchModuleWidget extends StatelessWidget {
                   expandMode: Responsive.isMobile(context)
                       ? EHTabsViewExpandMode.Scroll
                       : EHTabsViewExpandMode.Expand,
-                  key: PageStorageKey('SystemModuleTabView'),
+                  key: PageStorageKey('WorkbenchModuleTabView'),
                   preTabHeaderWidget: Responsive.isMobile(context)
                       ? IconButton(
                           padding: EdgeInsets.zero,

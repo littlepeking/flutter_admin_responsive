@@ -53,7 +53,6 @@ Map<String, String> zhCNMessages = {
   'Asn Details': '收货单明细',
   'Shipment Orders': '运单管理',
   '%System Welcome Page': '欢迎使用殷汉 - @System',
-  '%Workbench Welcome Page': '欢迎使用殷汉 - @Workbench',
   'Tasks': '任务',
   'Notifications': '提醒',
   'Message Infomation': '系统消息',
