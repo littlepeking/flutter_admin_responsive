@@ -4,7 +4,7 @@ enum SystemModule {
   wms,
   tms,
   system,
-  notification,
+  Workbench,
 }
 
 class GlobalDataController extends GetxController {
@@ -22,5 +22,9 @@ class GlobalDataController extends GetxController {
     //using print to cheat obx to let it rerender widget.
     print(localeChangeTrigger.value);
     return text.tr;
+  }
+
+  static reset() {
+    instance.system.value = SystemModule.Workbench;
   }
 }

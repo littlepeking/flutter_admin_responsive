@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
+import 'package:eh_flutter_framework/main/common/utils/theme_custom_attributes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../constants.dart';
@@ -10,11 +11,13 @@ class EHImageButton<T> extends StatelessWidget {
   final ValueChanged<T?> onPressed;
   final T? data;
   final double? padding;
+  final bool? isSelected;
 
   const EHImageButton(
       {Key? key,
       this.padding = 2,
       required this.icon,
+      this.isSelected,
       this.iconSize,
       required this.text,
       this.data,
@@ -23,14 +26,26 @@ class EHImageButton<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeCustomAttributes themeCustomAttributes =
+        Theme.of(Get.context!).extension<ThemeCustomAttributes>()!;
+
     return (Responsive.isMobile(context))
-        ? IconButton(
-            iconSize: iconSize ?? 24,
-            padding: EdgeInsets.all(
-                padding ?? (Responsive.isMobile(Get.context!) ? 2 : 8)),
-            onPressed: () => onPressed(data),
-            icon: icon,
-            tooltip: this.text.tr,
+        ? Container(
+            child: IconButton(
+              iconSize: iconSize ?? 24,
+              padding: EdgeInsets.all(
+                  padding ?? (Responsive.isMobile(Get.context!) ? 2 : 8)),
+              onPressed: () => onPressed(data),
+              icon: icon,
+              tooltip: this.text.tr,
+            ),
+            decoration: BoxDecoration(
+              border: isSelected == true
+                  ? Border(
+                      bottom: BorderSide(
+                          width: 3.0, color: themeCustomAttributes.textColor!))
+                  : null,
+            ),
           )
         : MouseRegion(
             cursor: SystemMouseCursors.click,
@@ -43,9 +58,12 @@ class EHImageButton<T> extends StatelessWidget {
                     vertical: defaultPadding / 2,
                   ),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).canvasColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(color: Colors.white10),
+                    border: isSelected == true
+                        ? Border(
+                            bottom: BorderSide(
+                                width: 3.0,
+                                color: themeCustomAttributes.textColor!))
+                        : null,
                   ),
                   child: Row(
                     children: [

@@ -79,7 +79,7 @@ class SideMenu extends StatelessWidget {
                   getDisplayValue: (data) {
                     return data != null
                         ? EHUtilHelper.getShortStr(
-                            (data as OrganizationModel).name!.tr, 10)
+                            (data as OrganizationModel).name!.tr, 15)
                         : '';
                   },
                   loadTreeData: (EHTreeController treeController) async {

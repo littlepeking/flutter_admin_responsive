@@ -1,6 +1,6 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/constants.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/taskPanel/task_panel_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/examples/Notifications/task_panel_controller.dart';
 import 'package:eh_flutter_framework/main/models/MyFiles.dart';
 
 import 'package:flutter/material.dart';

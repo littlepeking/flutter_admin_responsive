@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import 'components/receipt/receipt_edit.dart';
 import 'components/receipt/receipt_edit_controller.dart';
 
-class WmsPanelController extends EHController {
+class WmsModuleController extends EHController {
   EHTabsViewController tabViewController =
       EHTabsViewController(showScrollArrow: true);
 

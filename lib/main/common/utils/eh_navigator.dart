@@ -1,12 +1,15 @@
 import 'package:eh_flutter_framework/main/common/utils/theme.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/taskPanel/task_panel_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/tmsPanel/tms_panel_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/wms_panel_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/tms_module/tms_module_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/workbench/workbench_module_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/examples/Notifications/task_panel_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/wms_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/global_data_controller.dart';
 
 class EHNavigator {
   static void logout() {
@@ -48,14 +51,16 @@ class EHNavigator {
   }
 
   static void preLogout() {
+    GlobalDataController.reset();
+
     if (Get.isRegistered<SystemModuleController>())
       resetTab(Get.find<SystemModuleController>().tabViewController);
-    if (Get.isRegistered<WmsPanelController>())
-      resetTab(Get.find<WmsPanelController>().tabViewController);
-    if (Get.isRegistered<TmsPanelController>())
-      resetTab(Get.find<TmsPanelController>().tabViewController);
-    if (Get.isRegistered<TaskPanelController>())
-      resetTab(Get.find<TaskPanelController>().tabViewController);
+    if (Get.isRegistered<WmsModuleController>())
+      resetTab(Get.find<WmsModuleController>().tabViewController);
+    if (Get.isRegistered<TmsModuleController>())
+      resetTab(Get.find<TmsModuleController>().tabViewController);
+    if (Get.isRegistered<WorkbenchModuleController>())
+      resetTab(Get.find<WorkbenchModuleController>().tabViewController);
 
     Get.find<SideMenuController>().reset();
   }

@@ -63,6 +63,7 @@ class EHTreePopup extends EHEditableWidget<EHTreePopupController> {
                               contentPadding: EdgeInsets.all(5),
                               border: new OutlineInputBorder(),
                             ),
+                            style: TextStyle(fontWeight: FontWeight.bold),
                             onEditingComplete: () async {
                               await controller
                                   .doValidateAndTriggerCompleteEvent(true);

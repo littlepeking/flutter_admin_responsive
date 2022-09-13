@@ -6,7 +6,7 @@ import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/components/receipt/models/receipt_model.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/components/receipt/models/receipt_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../../../../../../../common/widgets/eh_button.dart';
@@ -102,7 +102,7 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
                 controller.asnHeaderDataGridController.dataGridSource.filters));
             EHToastMessageHelper.showInfoMessage(jsonEncode(
                 controller.asnHeaderDataGridController.dataGridSource.filters));
-            List<ReceiptModel> list = await ReceiptService().queryByConditions(
+            List list = await ReceiptService().queryByConditions(
                 conditions: Map.fromIterable(
                     controller
                         .asnHeaderDataGridController.dataGridSource.filters,

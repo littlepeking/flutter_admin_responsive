@@ -8,7 +8,7 @@ import 'package:eh_flutter_framework/main/components/home/components/examples/co
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TmsPanelController extends GetxController {
+class TmsModuleController extends GetxController {
   EHTabsViewController tabViewController = EHTabsViewController();
 
   EHTreeController get sideMenuTreeController => EHTreeController(

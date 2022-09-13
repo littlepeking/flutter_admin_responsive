@@ -4,23 +4,23 @@ import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wmsPanel/wms_panel_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/wms_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WmsPanelWidget extends StatelessWidget {
-  WmsPanelWidget({Key? key}) : super(key: key);
+class WmsModuleWidget extends StatelessWidget {
+  WmsModuleWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    WmsPanelController wmsPanelController =
-        Get.put(WmsPanelController(), permanent: true);
+    WmsModuleController wmsModuleController =
+        Get.put(WmsModuleController(), permanent: true);
 
-    // wmsPanelController.reset();
+    // wmsModuleController.reset();
 
-    if (wmsPanelController.tabViewController.tabsConfig.length == 0)
-      wmsPanelController.tabViewController.tabsConfig.add(EHTab(
+    if (wmsModuleController.tabViewController.tabsConfig.length == 0)
+      wmsModuleController.tabViewController.tabsConfig.add(EHTab(
           '%System Welcome Page',
           EHController(),
           (controller) => Center(
@@ -54,7 +54,7 @@ class WmsPanelWidget extends StatelessWidget {
                   expandMode: Responsive.isMobile(context)
                       ? EHTabsViewExpandMode.Scroll
                       : EHTabsViewExpandMode.Expand,
-                  key: PageStorageKey('wmsPanelTabView'),
+                  key: PageStorageKey('wmsModuleTabView'),
                   preTabHeaderWidget: Responsive.isMobile(context)
                       ? IconButton(
                           padding: EdgeInsets.zero,
@@ -62,7 +62,7 @@ class WmsPanelWidget extends StatelessWidget {
                           onPressed: SideMenuController.instance.toggleDrawer,
                         )
                       : null,
-                  controller: wmsPanelController.tabViewController))
+                  controller: wmsModuleController.tabViewController))
         ]));
 
     //     if (!Responsive.isMobile(context)) SizedBox(width: defaultPadding),

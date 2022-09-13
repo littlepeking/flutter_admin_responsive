@@ -5,25 +5,26 @@ import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/workbench/workbench_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SystemModuleWidget extends StatelessWidget {
-  SystemModuleWidget({Key? key}) : super(key: key);
+class WorkbenchModuleWidget extends StatelessWidget {
+  WorkbenchModuleWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    SystemModuleController systemModuleController = Get.put(
-      SystemModuleController(),
+    WorkbenchModuleController workbenchModuleController = Get.put(
+      WorkbenchModuleController(),
       permanent: true,
     );
 
     // wmsModuleController.reset();
 
-    if (systemModuleController.tabViewController.tabsConfig.length == 0)
-      systemModuleController.tabViewController.tabsConfig.add(EHTab(
-          '%System Welcome Page',
+    if (workbenchModuleController.tabViewController.tabsConfig.length == 0)
+      workbenchModuleController.tabViewController.tabsConfig.add(EHTab(
+          '%Workbench Welcome Page',
           EHController(),
           (controller) => Center(
                 child: Container(
@@ -44,7 +45,7 @@ class SystemModuleWidget extends StatelessWidget {
                 ),
               ),
           showInBottomList: false,
-          tabTranslateParams: {'System': 'SystemModule'}));
+          tabTranslateParams: {'Workbench': 'Workbench'}));
 
     return PageStorage(
         bucket: globalPageStorageBucket,
@@ -64,7 +65,7 @@ class SystemModuleWidget extends StatelessWidget {
                           onPressed: SideMenuController.instance.toggleDrawer,
                         )
                       : null,
-                  controller: systemModuleController.tabViewController))
+                  controller: workbenchModuleController.tabViewController))
         ]));
 
     //     if (!Responsive.isMobile(context)) SizedBox(width: defaultPadding),

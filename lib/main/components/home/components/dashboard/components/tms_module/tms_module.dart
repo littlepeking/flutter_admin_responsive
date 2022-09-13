@@ -4,28 +4,26 @@ import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/tmsPanel/tms_panel_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/tms_module/tms_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TmsPanelWidget extends StatefulWidget {
-  TmsPanelWidget({Key? key}) : super(key: key);
+class TmsModuleWidget extends StatefulWidget {
+  TmsModuleWidget({Key? key}) : super(key: key);
 
   @override
-  _TmsPanelWidgetState createState() => _TmsPanelWidgetState();
+  _TmsModuleWidgetState createState() => _TmsModuleWidgetState();
 }
 
-class _TmsPanelWidgetState extends State<TmsPanelWidget> {
+class _TmsModuleWidgetState extends State<TmsModuleWidget> {
   @override
   Widget build(BuildContext context) {
-    TmsPanelController tmsPanelController =
-        Get.put(TmsPanelController(), permanent: true);
+    TmsModuleController tmsModuleController =
+        Get.put(TmsModuleController(), permanent: true);
 
-    //tmsPanelController.reset();
-
-    if (tmsPanelController.tabViewController.tabsConfig.length == 0)
-      tmsPanelController.tabViewController.tabsConfig.add(EHTab(
+    if (tmsModuleController.tabViewController.tabsConfig.length == 0)
+      tmsModuleController.tabViewController.tabsConfig.add(EHTab(
           '%System Welcome Page',
           EHController(),
           (controller) => Container(
@@ -45,14 +43,14 @@ class _TmsPanelWidgetState extends State<TmsPanelWidget> {
                   expandMode: Responsive.isMobile(context)
                       ? EHTabsViewExpandMode.Scroll
                       : EHTabsViewExpandMode.Expand,
-                  key: PageStorageKey('tmsPanelTabView'),
+                  key: PageStorageKey('tmsModuleTabView'),
                   preTabHeaderWidget: Responsive.isMobile(context)
                       ? IconButton(
                           icon: Icon(Icons.menu),
                           onPressed: SideMenuController.instance.toggleDrawer,
                         )
                       : null,
-                  controller: tmsPanelController.tabViewController))
+                  controller: tmsModuleController.tabViewController))
         ]));
   }
 }
