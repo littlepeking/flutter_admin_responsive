@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
+import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_custom_attributes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,7 +44,9 @@ class EHImageButton<T> extends StatelessWidget {
               border: isSelected == true
                   ? Border(
                       bottom: BorderSide(
-                          width: 3.0, color: themeCustomAttributes.textColor!))
+                          width: 3.0,
+                          color: ThemeController.getThemeCustomAttributes()
+                              .textColor!))
                   : null,
             ),
           )

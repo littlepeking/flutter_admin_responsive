@@ -302,7 +302,7 @@ class EHDataGridSource extends DataGridSource {
             !EHUtilHelper.isEmpty(f.value))
         .toList();
 
-    Map<String, dynamic> resData = await getData(this.params, this.filters,
+    Map<String, dynamic> resData = await getData(this.params, filters,
         this.orderBy, this.pageIndex ?? 0, this.pageSize!.value);
 
     //_dataList = resData['records'] as List<Map<String, dynamic>>;

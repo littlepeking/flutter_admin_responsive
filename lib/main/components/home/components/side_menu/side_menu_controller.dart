@@ -3,7 +3,7 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_co
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_model.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/workbench/workbench_module_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/workbench_module/workbench_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/tms_module/tms_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/wms_module_controller.dart';
 import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';

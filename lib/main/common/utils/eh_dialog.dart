@@ -50,7 +50,7 @@ class EHDialog {
                     style: TextStyle().copyWith(
                         fontSize: Theme.of(Get.context!)
                             .textTheme
-                            .headline3!
+                            .displaySmall!
                             .fontSize,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,

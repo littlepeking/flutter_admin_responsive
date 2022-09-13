@@ -7,7 +7,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 ///
 /// Allows to modify the state of the tree.
 ///
-typedef bool isNodeMatch(EHTreeNode node);
+typedef bool IsNodeMatch(EHTreeNode node);
 
 class EHTreeController extends EHController {
   /// Horizontal indent between levels.
@@ -148,7 +148,7 @@ class EHTreeController extends EHController {
       return val;
   }
 
-  List<EHTreeNode> getAllFilteredNodes(isNodeMatch filter) {
+  List<EHTreeNode> getAllFilteredNodes(IsNodeMatch filter) {
     List<EHTreeNode> res = [];
     treeNodeDataList.forEach((node) {
       res.addAll(_filterNode(node, filter));
@@ -157,7 +157,7 @@ class EHTreeController extends EHController {
     return res;
   }
 
-  List<EHTreeNode> _filterNode(EHTreeNode node, isNodeMatch isNodeMatch) {
+  List<EHTreeNode> _filterNode(EHTreeNode node, IsNodeMatch isNodeMatch) {
     List<EHTreeNode> res = [];
     if (node.children != null && node.children!.length > 0) {
       node.children!.forEach((e) => res.addAll(_filterNode(e, isNodeMatch)));

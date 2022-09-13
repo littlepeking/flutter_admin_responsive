@@ -120,9 +120,11 @@ class EHRestService extends GetxController {
           (client) {
         client.badCertificateCallback =
             (X509Certificate cert, String host, int port) {
+          // ignore: dead_code
           return isProxyChecked && Platform.isAndroid;
         };
         client.findProxy = (url) {
+          // ignore: dead_code
           return isProxyChecked ? 'PROXY $proxy' : 'DIRECT';
         };
 

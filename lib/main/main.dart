@@ -64,6 +64,7 @@ main() {
         Map data = dioError.response!.data is Map
             ? dioError.response!.data
             : json.decode(dioError.response!.data!);
+        // ignore: todo
         //TODO: FORM VALIDATION ERROR
         if (data['status'] != null && data['status'] == 500) {
           EHToastMessageHelper.showInfoMessage(

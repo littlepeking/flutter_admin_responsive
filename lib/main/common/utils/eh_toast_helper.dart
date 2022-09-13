@@ -46,11 +46,11 @@ class EHToastMessageHelper {
         animationDuration: Duration(milliseconds: 500),
         titleText: Text(
           title.tr,
-          style: Theme.of(Get.context!).textTheme.bodyText1,
+          style: Theme.of(Get.context!).textTheme.bodyLarge,
         ),
         messageText: Text(
           message.tr,
-          style: Theme.of(Get.context!).textTheme.bodyText1,
+          style: Theme.of(Get.context!).textTheme.bodyLarge,
         ),
         isDismissible: true,
         mainButton: TextButton(

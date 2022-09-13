@@ -9,7 +9,6 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_tree_controller.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
-
 class OrganizationDetailViewController extends EHPanelController {
   RxString ddlType = '0'.obs;
   RxMap<String, String> orgItems = Map<String, String>().obs;
@@ -43,6 +42,7 @@ class OrganizationDetailViewController extends EHPanelController {
               widgetFocusNodes:
                   self.orgDetailViewFormController?.widgetFocusNodes,
               widgetKeys: self.orgDetailViewFormController?.widgetKeys,
+              // ignore: invalid_use_of_protected_member
               dependentObxValues: [self.ddlType.value, self.orgItems.value],
               rxModel: rxModel,
               widgetControllerBuilders: [

@@ -208,7 +208,7 @@ class EHDatePickerController extends EHEditableWidgetController {
                                   textAlign: TextAlign.center,
                                   textStyle: TextStyle(
                                     // fontSize: 18,
-                                    color: Get.textTheme.bodyText1!.color,
+                                    color: Get.textTheme.bodyLarge!.color,
                                   )),
                               showNavigationArrow: true,
                               //   showTodayButton: true,

@@ -84,7 +84,7 @@ class EHTextField extends EHEditableWidget<EHTextFieldController> {
                             hintStyle: TextStyle().copyWith(
                                 fontSize: Theme.of(context)
                                     .textTheme
-                                    .bodyText1!
+                                    .bodyLarge!
                                     .fontSize),
                             hintText: controller.textHint,
                             contentPadding: EdgeInsets.all(5),

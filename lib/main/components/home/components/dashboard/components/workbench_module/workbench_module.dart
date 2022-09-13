@@ -4,7 +4,7 @@ import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/workbench/workbench_module_controller.dart';
+import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/workbench_module/workbench_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

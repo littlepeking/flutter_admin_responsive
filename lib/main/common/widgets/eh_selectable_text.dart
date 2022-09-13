@@ -15,9 +15,9 @@ class EHSelectableText extends StatelessWidget {
     return SelectableText(
       text,
       style: TextStyle(
-        fontSize: size ?? Theme.of(context).textTheme.bodyText1!.fontSize,
-        color: color ?? Theme.of(context).textTheme.bodyText1!.color,
-        fontWeight: weight ?? Theme.of(context).textTheme.bodyText1!.fontWeight,
+        fontSize: size ?? Theme.of(context).textTheme.bodyLarge!.fontSize,
+        color: color ?? Theme.of(context).textTheme.bodyLarge!.color,
+        fontWeight: weight ?? Theme.of(context).textTheme.bodyLarge!.fontWeight,
       ),
     );
   }

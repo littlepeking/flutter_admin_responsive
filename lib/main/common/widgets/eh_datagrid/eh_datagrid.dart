@@ -81,7 +81,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                               style: new TextStyle().copyWith(
                                   fontSize: Theme.of(Get.context!)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .fontSize,
                                   fontWeight: FontWeight.bold)),
                           if (columnConfig.columnType.hasFilter)

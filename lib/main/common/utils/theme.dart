@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class EhTheme {
   static Transition defaultTransition = Transition.zoom;
 
@@ -10,11 +9,11 @@ class EhTheme {
       primaryColor: Colors.white,
       backgroundColor: Colors.black,
       textTheme: TextTheme(
-        bodyText1: TextStyle(fontSize: 13),
-        bodyText2: TextStyle(fontSize: 13),
-        button: TextStyle(fontSize: 13),
-        subtitle1: TextStyle(fontSize: 13),
-        headline3: TextStyle(fontSize: 18),
+        bodyLarge: TextStyle(fontSize: 13),
+        bodyMedium: TextStyle(fontSize: 13),
+        labelLarge: TextStyle(fontSize: 13),
+        titleMedium: TextStyle(fontSize: 13),
+        displaySmall: TextStyle(fontSize: 18),
       ),
       buttonTheme: ButtonThemeData(
         buttonColor: Colors.black,
@@ -49,11 +48,11 @@ class EhTheme {
       primaryColor: Colors.grey,
       backgroundColor: Colors.white,
       textTheme: TextTheme(
-        bodyText1: TextStyle(fontSize: 13),
-        bodyText2: TextStyle(fontSize: 13),
-        button: TextStyle(fontSize: 13),
-        subtitle1: TextStyle(fontSize: 13),
-        headline3: TextStyle(fontSize: 18),
+        bodyLarge: TextStyle(fontSize: 13),
+        bodyMedium: TextStyle(fontSize: 13),
+        labelLarge: TextStyle(fontSize: 13),
+        titleMedium: TextStyle(fontSize: 13),
+        displaySmall: TextStyle(fontSize: 18),
       ),
       buttonTheme: ButtonThemeData(
         buttonColor: Colors.grey[400]!,
@@ -65,7 +64,8 @@ class EhTheme {
           checkColor: MaterialStateProperty.all(Colors.white)),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.black, backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.white,
             side: BorderSide(
               width: 1.0,
               color: Colors.black,
