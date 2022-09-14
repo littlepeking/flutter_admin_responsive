@@ -18,6 +18,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'common/utils/theme_custom_attributes.dart';
 
 main() {
+  Get.put(ThemeController(), permanent: true);
   // disable WidgetsFlutterBinding.ensureInitialized() as it will prevent runZonedGuarded.onerror be triggered.
   // WidgetsFlutterBinding.ensureInitialized();
   runZonedGuarded(() async {
@@ -40,8 +41,9 @@ main() {
       darkTheme: EhTheme.darkTheme.copyWith(
           extensions: <ThemeExtension<dynamic>>[ThemeCustomAttributes.dark]),
       // AS WidgetsFlutterBinding.ensureInitialized() is disabled, commment following code as it will not work.
-      themeMode:
-          ThemeController.defaultIsDarkMode ? ThemeMode.dark : ThemeMode.light,
+      themeMode: ThemeController.instance.isDarkMode.value
+          ? ThemeMode.dark
+          : ThemeMode.light,
       color: Colors.white,
       //home: Home(),
       initialRoute: '/login',
@@ -111,7 +113,6 @@ main() {
 class InitAppBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(ThemeController(), permanent: true);
     Get.put(GlobalDataController(), permanent: true);
   }
 }

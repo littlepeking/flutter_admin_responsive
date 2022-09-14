@@ -1,6 +1,5 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme_custom_attributes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../constants.dart';
@@ -27,29 +26,27 @@ class EHImageButton<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeCustomAttributes themeCustomAttributes =
-        Theme.of(Get.context!).extension<ThemeCustomAttributes>()!;
-
     return (Responsive.isMobile(context))
-        ? Container(
-            child: IconButton(
-              iconSize: iconSize ?? 24,
-              padding: EdgeInsets.all(
-                  padding ?? (Responsive.isMobile(Get.context!) ? 2 : 8)),
-              onPressed: () => onPressed(data),
-              icon: icon,
-              tooltip: this.text.tr,
-            ),
-            decoration: BoxDecoration(
-              border: isSelected == true
-                  ? Border(
-                      bottom: BorderSide(
-                          width: 3.0,
-                          color: ThemeController.getThemeCustomAttributes()
-                              .textColor!))
-                  : null,
-            ),
-          )
+        ? Obx(() => Container(
+              child: IconButton(
+                iconSize: iconSize ?? 24,
+                padding: EdgeInsets.all(
+                    padding ?? (Responsive.isMobile(Get.context!) ? 2 : 8)),
+                onPressed: () => onPressed(data),
+                icon: icon,
+                tooltip: this.text.tr,
+              ),
+              decoration: BoxDecoration(
+                border: isSelected == true
+                    ? Border(
+                        bottom: BorderSide(
+                            width: 3.0, color: ThemeController.getTextColor()))
+                    : Border(
+                        bottom: BorderSide(
+                            width: 3.0,
+                            color: ThemeController.getBackgroundColor())),
+              ),
+            ))
         : MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
@@ -65,7 +62,8 @@ class EHImageButton<T> extends StatelessWidget {
                         ? Border(
                             bottom: BorderSide(
                                 width: 3.0,
-                                color: themeCustomAttributes.textColor!))
+                                color: ThemeController.getThemeColor(
+                                    Colors.white, Colors.black)))
                         : null,
                   ),
                   child: Row(

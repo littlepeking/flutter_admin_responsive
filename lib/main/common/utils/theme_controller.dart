@@ -10,11 +10,29 @@ class ThemeController extends GetxController {
     return instance.isDarkMode.value ? darkColor : lightColor;
   }
 
-  static const defaultIsDarkMode = false;
-
-  var isDarkMode = defaultIsDarkMode.obs;
+  RxBool isDarkMode = false.obs;
 
   static ThemeCustomAttributes getThemeCustomAttributes() {
     return Theme.of(Get.context!).extension<ThemeCustomAttributes>()!;
+  }
+
+  static Color getTextColor() {
+    //using getThemeColor temporarily as getThemeCustomAttributes().textColor cannot get latest color after testing, we need figure it out in future.
+    return getThemeColor(Colors.white, Colors.black);
+
+    //return getThemeCustomAttributes().textColor!;
+  }
+
+  static Color getBackgroundColor() {
+    //using getThemeColor temporarily as getThemeCustomAttributes().textColor cannot get latest color after testing, we need figure it out in future.
+    return getThemeColor(Colors.transparent, Colors.transparent);
+
+    //return getThemeCustomAttributes().textColor!;
+  }
+
+  static Color getDisableTextColor() {
+    return Colors.grey;
+
+    //eturn getThemeCustomAttributes().disableColor!;
   }
 }

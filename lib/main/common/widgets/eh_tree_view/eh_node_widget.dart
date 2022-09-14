@@ -89,14 +89,12 @@ class EHNodeWidget extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 2),
-                          child: Text(
-                            treeNode.displayName.tr,
-                            style: TextStyle(
-                                color: treeNode.disableTap == true
-                                    ? ThemeController.getThemeCustomAttributes()
-                                        .disableColor
-                                    : ThemeController.getThemeCustomAttributes()
-                                        .textColor),
+                          child: Obx(
+                            () => Text(treeNode.displayName.tr,
+                                style: TextStyle(
+                                    color: treeNode.disableTap == true
+                                        ? ThemeController.getDisableTextColor()
+                                        : ThemeController.getTextColor())),
                           ),
                         )),
                     onTap: treeNode.disableTap == true
