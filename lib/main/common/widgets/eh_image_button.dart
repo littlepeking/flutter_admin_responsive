@@ -51,32 +51,33 @@ class EHImageButton<T> extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
                 onTap: () => onPressed(data),
-                child: Container(
-                  margin: EdgeInsets.only(left: defaultPadding),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: defaultPadding,
-                    vertical: defaultPadding / 2,
-                  ),
-                  decoration: BoxDecoration(
-                    border: isSelected == true
-                        ? Border(
-                            bottom: BorderSide(
-                                width: 3.0,
-                                color: ThemeController.getThemeColor(
-                                    Colors.white, Colors.black)))
-                        : null,
-                  ),
-                  child: Row(
-                    children: [
-                      icon,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: defaultPadding / 2),
-                        child: Text(text.tr),
+                child: Obx(() => Container(
+                      margin: EdgeInsets.only(left: defaultPadding),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: defaultPadding,
+                        vertical: defaultPadding / 2,
                       ),
-                      SizedBox(width: 5),
-                    ],
-                  ),
-                )));
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: isSelected == true
+                                  ? BorderSide(
+                                      width: 3.0,
+                                      color: ThemeController.getTextColor())
+                                  : BorderSide(
+                                      width: 3.0,
+                                      color: ThemeController
+                                          .getBackgroundColor()))),
+                      child: Row(
+                        children: [
+                          icon,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: defaultPadding / 2),
+                            child: Text(text.tr),
+                          ),
+                          SizedBox(width: 5),
+                        ],
+                      ),
+                    ))));
   }
 }
