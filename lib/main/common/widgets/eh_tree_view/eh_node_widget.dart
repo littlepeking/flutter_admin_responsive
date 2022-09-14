@@ -1,5 +1,4 @@
 import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:flutter/material.dart';

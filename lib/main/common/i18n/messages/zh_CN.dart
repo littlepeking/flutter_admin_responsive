@@ -158,7 +158,7 @@ Map<String, String> zhCNMessages = {
   'First Name': '名字',
   'Last Name': '姓',
   'User role authorization': '用户角色授权',
-  'Please select an organization': '请先选择一个组织',
+  'Please select an organization': '请选择一个组织',
   '<Select Org>': '<请选择组织>',
   'Please create or select a organization before edit': '请新建或者选择一个组织以打开编辑页面',
   'User @username saved': '用户 @username 保存成功',
