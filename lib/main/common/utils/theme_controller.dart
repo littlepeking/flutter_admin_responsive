@@ -31,7 +31,7 @@ class ThemeController extends GetxController {
   }
 
   static Color getDisableTextColor() {
-    return Colors.grey;
+    return getThemeColor(Colors.grey, Colors.grey);
 
     //eturn getThemeCustomAttributes().disableColor!;
   }
