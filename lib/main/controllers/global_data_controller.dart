@@ -4,13 +4,13 @@ enum SystemModule {
   wms,
   tms,
   system,
-  Workbench,
+  workbench,
 }
 
 class GlobalDataController extends GetxController {
   static GlobalDataController instance = Get.find<GlobalDataController>();
 
-  Rx<SystemModule> system = SystemModule.Workbench.obs;
+  Rx<SystemModule> currentModule = SystemModule.workbench.obs;
 
   static Rx<bool> localeChangeTrigger = true.obs;
 
@@ -25,6 +25,6 @@ class GlobalDataController extends GetxController {
   }
 
   static reset() {
-    instance.system.value = SystemModule.Workbench;
+    instance.currentModule.value = SystemModule.workbench;
   }
 }

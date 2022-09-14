@@ -43,7 +43,7 @@ class SideMenuController extends EHPanelController {
         return Get.find<TmsModuleController>().sideMenuTreeController;
       case SystemModule.system:
         return Get.find<SystemModuleController>().sideMenuTreeController;
-      case SystemModule.Workbench:
+      case SystemModule.workbench:
         return Get.find<WorkbenchModuleController>().sideMenuTreeController;
       default:
         throw Exception('no suitable menu found for' + system.toString());
@@ -51,12 +51,12 @@ class SideMenuController extends EHPanelController {
   }
 
   EHTreeView getSideBarTreeView() {
-    EHTreeController controller =
-        getSideMenuController(GlobalDataController.instance.system.value);
+    EHTreeController controller = getSideMenuController(
+        GlobalDataController.instance.currentModule.value);
 
     return EHTreeView(
         key: GlobalKey(
-            debugLabel: GlobalDataController.instance.system.value.name),
+            debugLabel: GlobalDataController.instance.currentModule.value.name),
         controller: controller);
   }
 }

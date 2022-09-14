@@ -5,6 +5,6 @@ class MapConstant {
     SystemModule.wms: '/wmsModule',
     SystemModule.tms: '/tmsModule',
     SystemModule.system: '/systemModule',
-    SystemModule.Workbench: '/workBench',
+    SystemModule.workbench: '/workBench',
   };
 }

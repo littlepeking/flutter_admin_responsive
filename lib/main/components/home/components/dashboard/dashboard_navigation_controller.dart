@@ -26,7 +26,7 @@ class DashBoardNavigationController extends GetxController {
         MapConstant.systemModuleRoute[SystemModule.system])
       return EHNavigator.getPageRoute(settings, SystemModuleWidget());
     else if (settings.name ==
-        MapConstant.systemModuleRoute[SystemModule.Workbench])
+        MapConstant.systemModuleRoute[SystemModule.workbench])
       return EHNavigator.getPageRoute(settings, WorkbenchModuleWidget());
     else
       return null;

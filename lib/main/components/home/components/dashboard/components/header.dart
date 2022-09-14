@@ -49,12 +49,13 @@ getSystemBtnBar() {
     Obx(() => EHImageButton(
           text: 'WMS',
           icon: Icon(Icons.warehouse),
-          isSelected:
-              GlobalDataController.instance.system.value == SystemModule.wms,
+          isSelected: GlobalDataController.instance.currentModule.value ==
+              SystemModule.wms,
           onPressed: (data) {
             if (SystemModule.wms !=
-                GlobalDataController.instance.system.value) {
-              GlobalDataController.instance.system.value = SystemModule.wms;
+                GlobalDataController.instance.currentModule.value) {
+              GlobalDataController.instance.currentModule.value =
+                  SystemModule.wms;
               EHNavigator.navigateTo(
                 MapConstant.systemModuleRoute[SystemModule.wms]!,
                 navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -66,12 +67,13 @@ getSystemBtnBar() {
     Obx(() => EHImageButton(
           text: 'TMS',
           icon: Icon(Icons.local_shipping),
-          isSelected:
-              GlobalDataController.instance.system.value == SystemModule.tms,
+          isSelected: GlobalDataController.instance.currentModule.value ==
+              SystemModule.tms,
           onPressed: (data) {
             if (SystemModule.tms !=
-                GlobalDataController.instance.system.value) {
-              GlobalDataController.instance.system.value = SystemModule.tms;
+                GlobalDataController.instance.currentModule.value) {
+              GlobalDataController.instance.currentModule.value =
+                  SystemModule.tms;
               EHNavigator.navigateTo(
                 MapConstant.systemModuleRoute[SystemModule.tms]!,
                 navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -83,12 +85,13 @@ getSystemBtnBar() {
     Obx(() => EHImageButton(
           text: 'System',
           icon: Icon(Icons.monitor),
-          isSelected:
-              GlobalDataController.instance.system.value == SystemModule.system,
+          isSelected: GlobalDataController.instance.currentModule.value ==
+              SystemModule.system,
           onPressed: (data) {
             if (SystemModule.system !=
-                GlobalDataController.instance.system.value) {
-              GlobalDataController.instance.system.value = SystemModule.system;
+                GlobalDataController.instance.currentModule.value) {
+              GlobalDataController.instance.currentModule.value =
+                  SystemModule.system;
               EHNavigator.navigateTo(
                 MapConstant.systemModuleRoute[SystemModule.system]!,
                 navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -108,15 +111,15 @@ getFunctionBtnBar() {
             Icons.dvr,
             // color: Color.fromARGB(255, 67, 67, 67),
           ),
-          isSelected: GlobalDataController.instance.system.value ==
-              SystemModule.Workbench,
+          isSelected: GlobalDataController.instance.currentModule.value ==
+              SystemModule.workbench,
           onPressed: (data) {
-            if (SystemModule.Workbench !=
-                GlobalDataController.instance.system.value) {
-              GlobalDataController.instance.system.value =
-                  SystemModule.Workbench;
+            if (SystemModule.workbench !=
+                GlobalDataController.instance.currentModule.value) {
+              GlobalDataController.instance.currentModule.value =
+                  SystemModule.workbench;
               EHNavigator.navigateTo(
-                MapConstant.systemModuleRoute[SystemModule.Workbench]!,
+                MapConstant.systemModuleRoute[SystemModule.workbench]!,
                 navigatorKey: NavigationKeys.dashBoardNavKey,
               );
             }

@@ -28,7 +28,7 @@ class Dashboard extends GetView<DashBoardNavigationController> {
                 key: controller.navigatorKey,
                 onGenerateRoute: controller.generateRoute,
                 initialRoute: MapConstant.systemModuleRoute[
-                    GlobalDataController.instance.system.value],
+                    GlobalDataController.instance.currentModule.value],
               ),
             ),
           ],
