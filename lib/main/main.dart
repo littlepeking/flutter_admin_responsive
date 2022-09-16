@@ -4,12 +4,14 @@ import 'package:eh_flutter_framework/main/common/base/eh_exception.dart';
 import 'dart:convert';
 import 'package:eh_flutter_framework/main/common/i18n/customSfLocalization.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
+import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:eh_flutter_framework/main/common/Utils/theme.dart';
 import 'package:eh_flutter_framework/main/common/i18n/fallback_localization_delegate.dart';
 import 'package:eh_flutter_framework/main/common/i18n/messages.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
 import 'package:eh_flutter_framework/main/components/home/components/error/PageNotFound.dart';
 import 'package:eh_flutter_framework/main/routes/page_config.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,7 +19,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'common/utils/theme_custom_attributes.dart';
 
 main() {
-  Get.put(ThemeController(), permanent: true);
+  //SOME GetxControllers CANNOT BE PUT HERE (NEED FIGURE IT OUT), OTHERWISE EXCEPTION WILL NOT BE CAUGHT PROPERLY!
+  //E.G. Get.put(EHTabsViewController(), permanent: true);
+  //////////////////////////////////////////////////////////////
   // disable WidgetsFlutterBinding.ensureInitialized() as it will prevent runZonedGuarded.onerror be triggered.
   // WidgetsFlutterBinding.ensureInitialized();
   runZonedGuarded(() async {
@@ -40,9 +44,8 @@ main() {
       darkTheme: EhTheme.darkTheme.copyWith(
           extensions: <ThemeExtension<dynamic>>[ThemeCustomAttributes.dark]),
       // AS WidgetsFlutterBinding.ensureInitialized() is disabled, commment following code as it will not work.
-      themeMode: ThemeController.instance.isDarkMode.value
-          ? ThemeMode.dark
-          : ThemeMode.light,
+      themeMode:
+          EHThemeHelper.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
       color: Colors.white,
       //home: Home(),
       initialRoute: '/login',
@@ -111,5 +114,7 @@ main() {
 
 class InitAppBinding extends Bindings {
   @override
-  void dependencies() {}
+  void dependencies() {
+    //Get.put(GlobalDataController(), permanent: true);
+  }
 }

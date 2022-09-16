@@ -1,5 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/eh_edit_widget_controller.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +14,7 @@ class EHFormDivider extends EHEditableWidget<EHFormDividerController> {
   Widget build(BuildContext context) {
     return Obx(() => Container(
           decoration: BoxDecoration(
-              color: ThemeController.instance.isDarkMode.value
+              color: EHThemeHelper.isDarkMode.value
                   ? Colors.grey[800]
                   : Colors.grey[300],
               borderRadius: BorderRadius.all(Radius.circular(10))),

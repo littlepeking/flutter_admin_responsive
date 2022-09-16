@@ -1,5 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_header.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:flutter/material.dart';
@@ -82,13 +82,13 @@ class EHTabsView extends StatelessWidget {
               border: Border.symmetric(
                   horizontal: BorderSide(
                       width: showSideBorder ? 1.0 : 2.0,
-                      color: ThemeController.instance.isDarkMode.isTrue
+                      color: EHThemeHelper.isDarkMode.isTrue
                           ? Colors.white30
                           : Colors.black45),
                   vertical: showSideBorder
                       ? BorderSide(
                           width: 1.0,
-                          color: ThemeController.instance.isDarkMode.isTrue
+                          color: EHThemeHelper.isDarkMode.isTrue
                               ? Colors.white30
                               : Colors.black45)
                       : BorderSide.none)),

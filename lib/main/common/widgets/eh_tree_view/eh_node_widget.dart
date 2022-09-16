@@ -1,5 +1,5 @@
 import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -93,8 +93,8 @@ class EHNodeWidget extends StatelessWidget {
                             () => Text(treeNode.displayName.tr,
                                 style: TextStyle(
                                     color: treeNode.disableTap == true
-                                        ? ThemeController.getDisableTextColor()
-                                        : ThemeController.getTextColor())),
+                                        ? EHThemeHelper.getDisableTextColor()
+                                        : EHThemeHelper.getTextColor())),
                           ),
                         )),
                     onTap: treeNode.disableTap == true

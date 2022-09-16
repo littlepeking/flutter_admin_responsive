@@ -1,5 +1,5 @@
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../constants.dart';
@@ -40,11 +40,11 @@ class EHImageButton<T> extends StatelessWidget {
                 border: isSelected == true
                     ? Border(
                         bottom: BorderSide(
-                            width: 3.0, color: ThemeController.getTextColor()))
+                            width: 3.0, color: EHThemeHelper.getTextColor()))
                     : Border(
                         bottom: BorderSide(
                             width: 3.0,
-                            color: ThemeController.getBackgroundColor())),
+                            color: EHThemeHelper.getBackgroundColor())),
               ),
             ))
         : MouseRegion(
@@ -62,11 +62,11 @@ class EHImageButton<T> extends StatelessWidget {
                               bottom: isSelected == true
                                   ? BorderSide(
                                       width: 3.0,
-                                      color: ThemeController.getTextColor())
+                                      color: EHThemeHelper.getTextColor())
                                   : BorderSide(
                                       width: 3.0,
-                                      color: ThemeController
-                                          .getBackgroundColor()))),
+                                      color:
+                                          EHThemeHelper.getBackgroundColor()))),
                       child: Row(
                         children: [
                           icon,

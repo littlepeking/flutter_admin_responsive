@@ -1,5 +1,5 @@
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -81,7 +81,7 @@ class EHTabsHeaderMobile extends StatelessWidget {
                             tileColor:
                                 controller.selectedIndex.value == entry.key
                                     ? Get.theme.hoverColor
-                                    : ThemeController.instance.isDarkMode.value
+                                    : EHThemeHelper.isDarkMode.value
                                         ? Get.theme.backgroundColor
                                         : Get.theme.canvasColor,
                             title: EHText(
@@ -105,7 +105,7 @@ class EHTabsHeaderMobile extends StatelessWidget {
             ),
           ],
         ),
-        backgroundColor: ThemeController.instance.isDarkMode.value
+        backgroundColor: EHThemeHelper.isDarkMode.value
             ? Get.theme.backgroundColor
             : Get.theme.canvasColor,
         elevation: 5.0,

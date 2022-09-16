@@ -1,9 +1,8 @@
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 class EHEditErrorInfo extends StatelessWidget {
   EHEditErrorInfo({
@@ -20,7 +19,7 @@ class EHEditErrorInfo extends StatelessWidget {
               children: [
                 Icon(Icons.error_outline,
                     size: 18,
-                    color: ThemeController.getThemeColor(
+                    color: EHThemeHelper.getThemeColor(
                         Colors.yellow.shade200, Colors.red)),
                 Flexible(
                   child: Obx(() {
@@ -29,7 +28,7 @@ class EHEditErrorInfo extends StatelessWidget {
                       overflow: TextOverflow.clip,
                       softWrap: true,
                       style: TextStyle(
-                          color: ThemeController.getThemeColor(
+                          color: EHThemeHelper.getThemeColor(
                               Colors.yellow.shade200, Colors.red)),
                     );
                   }),

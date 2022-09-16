@@ -4,7 +4,7 @@ import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_stateless_widget.dart';
 import 'package:eh_flutter_framework/main/common/constants/layout_constant.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_error_info.dart';
 import 'package:eh_flutter_framework/main/common/widgets/common/eh_edit_label.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +82,7 @@ class EHDropdown extends EHStatelessWidget<EHDropDownController> {
               decoration: BoxDecoration(
                 color: !controller.isMenu
                     ? null
-                    : ThemeController.instance.isDarkMode.value
+                    : EHThemeHelper.isDarkMode.value
                         ? Colors.grey[900]
                         : Colors.white,
                 borderRadius: BorderRadius.circular(5.0),

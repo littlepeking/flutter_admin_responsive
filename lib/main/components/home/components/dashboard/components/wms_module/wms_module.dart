@@ -1,7 +1,7 @@
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/wms_module_controller.dart';
@@ -32,7 +32,7 @@ class WmsModuleWidget extends StatelessWidget {
                   child: AspectRatio(
                     aspectRatio: 1,
                     child: Obx(() => Image.asset(
-                          !ThemeController.instance.isDarkMode.value
+                          !EHThemeHelper.isDarkMode.value
                               ? 'assets/images/background_image5.png'
                               : 'assets/images/background_image5_dark.jpg',
                           //#Image Url: https://unsplash.com/photos/bOBM8CB4ZC4

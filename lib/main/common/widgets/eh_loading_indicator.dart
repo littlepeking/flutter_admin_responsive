@@ -6,7 +6,7 @@ import 'package:simple_fontellico_progress_dialog/fontelico_icons.dart';
 import 'package:simple_fontellico_progress_dialog/rotate_icon.dart';
 import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 
-import '../utils/theme_controller.dart';
+import '../utils/eh_theme_helper.dart';
 
 class EHLoadingIndicator {
   /// Value to indicate if dialog is open
@@ -162,16 +162,12 @@ class EHLoadingIndicator {
       textStyle: TextStyle(
           fontWeight: FontWeight.w500,
           fontSize: 14,
-          color: ThemeController.instance.isDarkMode.value
-              ? Colors.white
-              : Colors.black),
+          color: EHThemeHelper.isDarkMode.value ? Colors.white : Colors.black),
       horizontal: true,
-      backgroundColor: ThemeController.instance.isDarkMode.value
-          ? Colors.black87
-          : Colors.white,
-      indicatorColor: ThemeController.instance.isDarkMode.value
-          ? Colors.white
-          : Colors.blue,
+      backgroundColor:
+          EHThemeHelper.isDarkMode.value ? Colors.black87 : Colors.white,
+      indicatorColor:
+          EHThemeHelper.isDarkMode.value ? Colors.white : Colors.blue,
       message: 'Loading...'.tr,
       width: 200,
       height: 80,

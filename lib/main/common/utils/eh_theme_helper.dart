@@ -3,14 +3,19 @@ import 'package:get/get.dart';
 
 import 'theme_custom_attributes.dart';
 
-class ThemeController extends GetxController {
-  static ThemeController instance = Get.find<ThemeController>();
+class EHThemeHelper {
+  static EHThemeHelper instance = Get.find<EHThemeHelper>();
 
-  static getThemeColor(Color darkColor, Color lightColor) {
-    return instance.isDarkMode.value ? darkColor : lightColor;
+  static changeTheme() {
+    Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+    EHThemeHelper.isDarkMode.value = !Get.isDarkMode;
   }
 
-  RxBool isDarkMode = false.obs;
+  static getThemeColor(Color darkColor, Color lightColor) {
+    return isDarkMode.value ? darkColor : lightColor;
+  }
+
+  static RxBool isDarkMode = false.obs;
 
   static ThemeCustomAttributes getThemeCustomAttributes() {
     return Theme.of(Get.context!).extension<ThemeCustomAttributes>()!;

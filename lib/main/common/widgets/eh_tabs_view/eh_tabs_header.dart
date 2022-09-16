@@ -1,4 +1,4 @@
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/scrollable_positioned_list/lib/item_positions_listener.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/scrollable_positioned_list/lib/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +70,7 @@ class EHTabHeader extends StatelessWidget {
                                                             index
                                                         ? 3
                                                         : 1),
-                                                color: ThemeController.instance
+                                                color: EHThemeHelper
                                                         .isDarkMode.value
                                                     ? Colors.grey.shade600
                                                     : Colors.black),
@@ -103,14 +103,12 @@ class EHTabHeader extends StatelessWidget {
                                                                       .selectedIndex
                                                                       .value ==
                                                                   index
-                                                              ? ThemeController
-                                                                      .instance
+                                                              ? EHThemeHelper
                                                                       .isDarkMode
                                                                       .isTrue
                                                                   ? Colors.white
                                                                   : Colors.black
-                                                              : ThemeController
-                                                                      .instance
+                                                              : EHThemeHelper
                                                                       .isDarkMode
                                                                       .isTrue
                                                                   ? Colors
@@ -121,8 +119,7 @@ class EHTabHeader extends StatelessWidget {
                                                                           .selectedIndex
                                                                           .value ==
                                                                       index &&
-                                                                  ThemeController
-                                                                      .instance
+                                                                  EHThemeHelper
                                                                       .isDarkMode
                                                                       .isFalse
                                                               ? FontWeight.bold

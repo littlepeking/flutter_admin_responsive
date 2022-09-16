@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../common/utils/theme_controller.dart';
+import '../../../../../common/utils/eh_theme_helper.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -125,9 +125,7 @@ getFunctionBtnBar() {
           //   color: Color.fromARGB(255, 67, 67, 67),
         ),
         onPressed: (data) {
-          Get.changeThemeMode(
-              Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
-          ThemeController.instance.isDarkMode.value = !Get.isDarkMode;
+          EHThemeHelper.changeTheme();
           // WmsModuleNavigationController.instance.isDarkMode.value =
           //     !Get.isDarkMode;
           //  print(ThemeController.instance.isDarkMode);

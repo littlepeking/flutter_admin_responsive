@@ -2,7 +2,6 @@ import 'package:eh_flutter_framework/main/common/base/eh_exception.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/scrollable_positioned_list/lib/item_positions_listener.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/workbench_module/workbench_module_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'scrollable_positioned_list/lib/scrollable_positioned_list.dart';

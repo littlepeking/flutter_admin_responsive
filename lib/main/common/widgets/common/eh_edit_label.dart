@@ -1,5 +1,5 @@
 import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +35,7 @@ class EHEditLabel extends StatelessWidget {
                   padding: EdgeInsets.only(left: 5),
                   child: Icon(
                     Icons.check_circle,
-                    color: ThemeController.getThemeColor(
+                    color: EHThemeHelper.getThemeColor(
                         Colors.yellow.shade200, Colors.red),
                     size: 12,
                   ),

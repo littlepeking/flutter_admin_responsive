@@ -1,4 +1,4 @@
-import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_custom_attributes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,14 +19,14 @@ class EHToastMessageHelper {
         barBlur: 20.0,
         boxShadows: [
           BoxShadow(
-              color: ThemeController.instance.isDarkMode.value
+              color: EHThemeHelper.isDarkMode.value
                   ? Color.fromARGB(255, 81, 80, 80)
                   : Colors.grey,
               offset: Offset(2, 2),
               spreadRadius: 2,
               blurRadius: 8)
         ],
-        backgroundColor: ThemeController.instance.isDarkMode.value
+        backgroundColor: EHThemeHelper.isDarkMode.value
             ? Color.fromARGB(255, 68, 68, 68)
             : Colors.white,
         //backgroundColor: Colors.grey,
@@ -34,7 +34,7 @@ class EHToastMessageHelper {
         icon: Icon(Icons.info,
             color: type == EHToastMsgType.Successful
                 ? Colors.green
-                : ThemeController.instance.isDarkMode.value
+                : EHThemeHelper.isDarkMode.value
                     ? Colors.yellow
                     : Colors.red),
         // forwardAnimationCurve: Curves.easeOutBack,
