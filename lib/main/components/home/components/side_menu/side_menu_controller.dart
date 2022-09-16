@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_model.dart';
@@ -15,19 +16,10 @@ class SideMenuController extends EHPanelController {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  OrganizationModel defaultOrgModel =
-      OrganizationModel(id: '-1', name: '<Select Org>');
-
-  late Rx<OrganizationModel> selectedOrgModel = Rx(defaultOrgModel);
-
   SideMenuController(EHPanelController? parentController)
       : super(parentController);
 
   GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
-
-  reset() {
-    selectedOrgModel.value = defaultOrgModel;
-  }
 
   void toggleDrawer() {
     if (!_scaffoldKey.currentState!.isDrawerOpen) {
@@ -51,12 +43,11 @@ class SideMenuController extends EHPanelController {
   }
 
   EHTreeView getSideBarTreeView() {
-    EHTreeController controller = getSideMenuController(
-        GlobalDataController.instance.currentModule.value);
+    EHTreeController controller =
+        getSideMenuController(EHContextHelper.currentModule.value);
 
     return EHTreeView(
-        key: GlobalKey(
-            debugLabel: GlobalDataController.instance.currentModule.value.name),
+        key: GlobalKey(debugLabel: EHContextHelper.currentModule.value.name),
         controller: controller);
   }
 }

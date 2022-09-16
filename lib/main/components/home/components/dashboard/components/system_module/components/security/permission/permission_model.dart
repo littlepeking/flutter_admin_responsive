@@ -13,6 +13,7 @@ part 'permission_model.g.dart';
 @EHList2StringConverter
 class PermissionModel extends EHVersionModel {
   String? type;
+  String? moduleId;
   String parentId;
   String? authority;
   String? displayName;
@@ -27,6 +28,7 @@ class PermissionModel extends EHVersionModel {
     String? editWho,
     int? version,
     this.type,
+    this.moduleId,
     required this.parentId,
     this.authority,
     this.displayName,

@@ -76,7 +76,7 @@ class UserList extends EHPanel<UserListController> {
               'exportToExcel': 'Export To Excel',
             },
             onChanged: (value) async {
-              print((await EHContextHelper.getCurrentUserPermissions()));
+              print((EHContextHelper.getUserOrgPermissions()));
             },
           )),
         )

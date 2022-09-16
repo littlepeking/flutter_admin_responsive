@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/constants/map_constant.dart';
 import 'package:eh_flutter_framework/main/common/constants/navigation_keys.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_navigator.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/constants.dart';
@@ -46,60 +47,55 @@ List<Widget> getHeaderButtons(BuildContext context) {
 
 getSystemBtnBar() {
   return [
-    Obx(() => EHImageButton(
-          text: 'WMS',
-          icon: Icon(Icons.warehouse),
-          isSelected: GlobalDataController.instance.currentModule.value ==
-              SystemModule.wms,
-          onPressed: (data) {
-            if (SystemModule.wms !=
-                GlobalDataController.instance.currentModule.value) {
-              GlobalDataController.instance.currentModule.value =
-                  SystemModule.wms;
-              EHNavigator.navigateTo(
-                MapConstant.systemModuleRoute[SystemModule.wms]!,
-                navigatorKey: NavigationKeys.dashBoardNavKey,
-              );
-            }
-          },
-        )),
-    SizedBox(width: 15),
-    Obx(() => EHImageButton(
-          text: 'TMS',
-          icon: Icon(Icons.local_shipping),
-          isSelected: GlobalDataController.instance.currentModule.value ==
-              SystemModule.tms,
-          onPressed: (data) {
-            if (SystemModule.tms !=
-                GlobalDataController.instance.currentModule.value) {
-              GlobalDataController.instance.currentModule.value =
-                  SystemModule.tms;
-              EHNavigator.navigateTo(
-                MapConstant.systemModuleRoute[SystemModule.tms]!,
-                navigatorKey: NavigationKeys.dashBoardNavKey,
-              );
-            }
-          },
-        )),
-    SizedBox(width: 15),
-    Obx(() => EHImageButton(
-          text: 'System',
-          icon: Icon(Icons.monitor),
-          isSelected: GlobalDataController.instance.currentModule.value ==
-              SystemModule.system,
-          onPressed: (data) {
-            if (SystemModule.system !=
-                GlobalDataController.instance.currentModule.value) {
-              GlobalDataController.instance.currentModule.value =
-                  SystemModule.system;
-              EHNavigator.navigateTo(
-                MapConstant.systemModuleRoute[SystemModule.system]!,
-                navigatorKey: NavigationKeys.dashBoardNavKey,
-              );
-            }
-          },
-        )),
-    SizedBox(width: 15),
+    Obx(() => EHContextHelper.getUserOrgModules().contains('WMS')
+        ? EHImageButton(
+            text: 'WMS',
+            icon: Icon(Icons.warehouse),
+            isSelected: EHContextHelper.currentModule.value == SystemModule.wms,
+            onPressed: (data) {
+              if (SystemModule.wms != EHContextHelper.currentModule.value) {
+                EHContextHelper.currentModule.value = SystemModule.wms;
+                EHNavigator.navigateTo(
+                  MapConstant.systemModuleRoute[SystemModule.wms]!,
+                  navigatorKey: NavigationKeys.dashBoardNavKey,
+                );
+              }
+            },
+          )
+        : SizedBox.shrink()),
+    Obx(() => EHContextHelper.getUserOrgModules().contains('TMS')
+        ? EHImageButton(
+            text: 'TMS',
+            icon: Icon(Icons.local_shipping),
+            isSelected: EHContextHelper.currentModule.value == SystemModule.tms,
+            onPressed: (data) {
+              if (SystemModule.tms != EHContextHelper.currentModule.value) {
+                EHContextHelper.currentModule.value = SystemModule.tms;
+                EHNavigator.navigateTo(
+                  MapConstant.systemModuleRoute[SystemModule.tms]!,
+                  navigatorKey: NavigationKeys.dashBoardNavKey,
+                );
+              }
+            },
+          )
+        : SizedBox.shrink()),
+    Obx(() => EHContextHelper.getUserOrgModules().contains('SYSTEM')
+        ? EHImageButton(
+            text: 'System',
+            icon: Icon(Icons.monitor),
+            isSelected:
+                EHContextHelper.currentModule.value == SystemModule.system,
+            onPressed: (data) {
+              if (SystemModule.system != EHContextHelper.currentModule.value) {
+                EHContextHelper.currentModule.value = SystemModule.system;
+                EHNavigator.navigateTo(
+                  MapConstant.systemModuleRoute[SystemModule.system]!,
+                  navigatorKey: NavigationKeys.dashBoardNavKey,
+                );
+              }
+            },
+          )
+        : SizedBox.shrink()),
   ];
 }
 
@@ -111,13 +107,11 @@ getFunctionBtnBar() {
             Icons.dvr,
             // color: Color.fromARGB(255, 67, 67, 67),
           ),
-          isSelected: GlobalDataController.instance.currentModule.value ==
-              SystemModule.workbench,
+          isSelected:
+              EHContextHelper.currentModule.value == SystemModule.workbench,
           onPressed: (data) {
-            if (SystemModule.workbench !=
-                GlobalDataController.instance.currentModule.value) {
-              GlobalDataController.instance.currentModule.value =
-                  SystemModule.workbench;
+            if (SystemModule.workbench != EHContextHelper.currentModule.value) {
+              EHContextHelper.currentModule.value = SystemModule.workbench;
               EHNavigator.navigateTo(
                 MapConstant.systemModuleRoute[SystemModule.workbench]!,
                 navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -161,7 +155,7 @@ getFunctionBtnBar() {
           //  color: Color.fromARGB(255, 67, 67, 67),
         ),
         onPressed: (data) {
-          EHNavigator.logout();
+          EHContextHelper.logout();
         }),
   ];
 }

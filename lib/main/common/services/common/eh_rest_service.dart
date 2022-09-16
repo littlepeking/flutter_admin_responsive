@@ -75,11 +75,11 @@ class EHRestService extends GetxController {
             'user login is expired.') {
           EHToastMessageHelper.showLoginErrorMessage(
               error.response!.data!['details'].toString().tr);
-          EHNavigator.logout();
+          EHContextHelper.logout();
         } else if (error.response?.data!['details'] != null) {
           EHToastMessageHelper.showLoginErrorMessage(
               error.response!.data!['details'].toString().tr);
-          EHNavigator.logout();
+          EHContextHelper.logout();
         } else {
           EHToastMessageHelper.showInfoMessage('Unauthorized'.tr);
         }
@@ -137,7 +137,7 @@ class EHRestService extends GetxController {
       {required String path,
       required Map<String, dynamic>? params,
       required Options? options}) async {
-    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserDetail()).id;
     return _dio.get<T>(path, queryParameters: params, options: options);
   }
 
@@ -145,7 +145,7 @@ class EHRestService extends GetxController {
       {required String path,
       required Map<String, dynamic>? params,
       required Options? options}) async {
-    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserDetail()).id;
     return _dio.delete<T>(path, queryParameters: params, options: options);
   }
 
@@ -156,7 +156,7 @@ class EHRestService extends GetxController {
     bool isFormData = false,
     Options? options,
   }) async {
-    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserDetail()).id;
     if (isFormData) {
       FormData formData = new FormData.fromMap(body);
       body = formData;
@@ -172,7 +172,7 @@ class EHRestService extends GetxController {
     String pathSuffix = '',
     Options? options,
   }) async {
-    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserDetail()).id;
     return _dio.get<T>(serviceName + '/' + actionName + pathSuffix,
         queryParameters: params, options: options);
   }
@@ -184,7 +184,7 @@ class EHRestService extends GetxController {
     Map<String, dynamic>? params,
     Options? options,
   }) async {
-    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserDetail()).id;
     return _dio.delete<T>(
         actionName == null ? serviceName : serviceName + '/' + actionName,
         data: data,
@@ -200,7 +200,7 @@ class EHRestService extends GetxController {
     bool isFormData = false,
     Options? options,
   }) async {
-    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserDetail()).id;
     if (isFormData) {
       FormData formData = new FormData.fromMap(body);
       body = formData;
@@ -215,7 +215,7 @@ class EHRestService extends GetxController {
     Map<String, dynamic>? queryParams,
     ProgressCallback? progressCallback,
   }) async {
-    _dio.options.headers['userId'] = (await EHContextHelper.getUserInfo()).id;
+    _dio.options.headers['userId'] = (await EHContextHelper.getUserDetail()).id;
     return _dio.download(urlPath, savePath,
         queryParameters: queryParams, onReceiveProgress: progressCallback);
   }

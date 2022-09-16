@@ -4,18 +4,10 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/tms_module/tms_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/workbench_module/workbench_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/wms_module_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/global_data_controller.dart';
-
 class EHNavigator {
-  static void logout() {
-    preLogout();
-    EHNavigator.navigateTo("/login");
-  }
-
   static navigateTo(String routeName, {int? navigatorKey}) {
     Get.offAndToNamed(routeName, id: navigatorKey);
 
@@ -49,9 +41,7 @@ class EHNavigator {
         opaque: false);
   }
 
-  static void preLogout() {
-    GlobalDataController.reset();
-
+  static void resetAllModuleTabs() {
     if (Get.isRegistered<SystemModuleController>())
       resetTab(Get.find<SystemModuleController>().tabViewController);
     if (Get.isRegistered<WmsModuleController>())
@@ -60,8 +50,6 @@ class EHNavigator {
       resetTab(Get.find<TmsModuleController>().tabViewController);
     if (Get.isRegistered<WorkbenchModuleController>())
       resetTab(Get.find<WorkbenchModuleController>().tabViewController);
-
-    Get.find<SideMenuController>().reset();
   }
 
   static void resetTab(EHTabsViewController? c) {
