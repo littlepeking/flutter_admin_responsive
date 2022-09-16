@@ -10,8 +10,6 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../controllers/global_data_controller.dart';
-
 class EHContextHelper {
   static OrganizationModel defaultOrgModel =
       OrganizationModel(id: '-1', name: '<Select Org>');

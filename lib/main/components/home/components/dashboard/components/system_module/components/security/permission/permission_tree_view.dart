@@ -1,4 +1,5 @@
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_master_detail_splitter.dart';
@@ -75,25 +76,45 @@ class PermissionTreeView extends EHPanel<PermissionTreeController> {
             EHButton(
                 controller: EHButtonController(
               onPressed: () async {
-                this.controller.permissionModel.value = PermissionModel(
-                    parentId: this
-                        .controller
-                        .permTreeCompController
-                        .permTreeController
-                        .selectedTreeNode
-                        .value!
-                        .id!);
                 if (this
+                            .controller
+                            .permTreeCompController
+                            .permTreeController
+                            .selectedTreeNode
+                            .value !=
+                        null &&
+                    (this
+                                .controller
+                                .permTreeCompController
+                                .permTreeController
+                                .selectedTreeNode
+                                .value!
+                                .data as PermissionModel)
+                            .type ==
+                        'D') {
+                  this.controller.permissionModel.value = PermissionModel(
+                      parentId: this
+                          .controller
+                          .permTreeCompController
+                          .permTreeController
+                          .selectedTreeNode
+                          .value!
+                          .id!);
+                  if (this
+                          .controller
+                          .permissionDetailViewController
+                          .detailViewFormController !=
+                      null)
+                    this
                         .controller
                         .permissionDetailViewController
-                        .detailViewFormController !=
-                    null)
-                  this
-                      .controller
-                      .permissionDetailViewController
-                      .detailViewFormController!
-                      .reset();
-                controller.refreshPermDetailData();
+                        .detailViewFormController!
+                        .reset();
+                  controller.refreshPermDetailData();
+                } else {
+                  EHToastMessageHelper.showInfoMessage(
+                      'Please select a directory before creating a permission');
+                }
               },
               child: Text('Add'.tr),
             )),

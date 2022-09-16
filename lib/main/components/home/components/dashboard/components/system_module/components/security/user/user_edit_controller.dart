@@ -4,6 +4,7 @@ import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
 import 'package:eh_flutter_framework/main/common/services/common/eh_rest_service.dart';
 import 'package:eh_flutter_framework/main/common/services/common/service_name.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_dialog.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_locale_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_column/eh_image_button_column_type.dart';
@@ -18,7 +19,6 @@ import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_vi
 import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/components/org_role_component.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/components/org_role_component_controller.dart';
-import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 
@@ -152,7 +152,7 @@ class UserEditController extends EHPanelController {
                 title: 'User role authorization'.tr);
           },
           //TO DO: deep reclusively defined text cannot be translate dynamically, need reopen the page as a workaround.
-          child: Obx(() => Text(GlobalDataController.tr('Assign Role'))),
+          child: Obx(() => Text(EHLocaleHelper.tr('Assign Role'))),
         )),
         // EHButton(
         //     controller: EHButtonController(

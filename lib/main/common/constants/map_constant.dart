@@ -1,4 +1,9 @@
-import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
+enum SystemModule {
+  wms,
+  tms,
+  system,
+  workbench,
+}
 
 class MapConstant {
   static const Map<SystemModule, String> systemModuleRoute = {

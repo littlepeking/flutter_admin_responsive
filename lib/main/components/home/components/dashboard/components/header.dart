@@ -6,7 +6,6 @@ import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/constants.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_image_button.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
-import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

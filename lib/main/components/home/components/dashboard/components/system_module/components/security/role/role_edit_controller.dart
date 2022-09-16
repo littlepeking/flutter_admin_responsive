@@ -1,5 +1,6 @@
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
+import 'package:eh_flutter_framework/main/common/utils/eh_locale_helper.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
@@ -9,7 +10,6 @@ import 'package:eh_flutter_framework/main/components/home/components/dashboard/c
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/components/perm_tree_component_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/permission_model.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/permission_service.dart';
-import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 
@@ -107,7 +107,7 @@ class RoleEditController extends EHPanelController {
             model.refresh();
           },
           //TO DO: deep reclusively defined text cannot be translate dynamically, need reopen the page as a workaround.
-          child: Obx(() => Text(GlobalDataController.tr('Assign Role'))),
+          child: Obx(() => Text(EHLocaleHelper.tr('Assign Role'))),
         )),
         // EHButton(
         //     controller: EHButtonController(

@@ -11,7 +11,6 @@ import 'package:eh_flutter_framework/main/common/i18n/fallback_localization_dele
 import 'package:eh_flutter_framework/main/common/i18n/messages.dart';
 import 'package:eh_flutter_framework/main/common/utils/theme_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/error/PageNotFound.dart';
-import 'package:eh_flutter_framework/main/controllers/global_data_controller.dart';
 import 'package:eh_flutter_framework/main/routes/page_config.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -112,7 +111,5 @@ main() {
 
 class InitAppBinding extends Bindings {
   @override
-  void dependencies() {
-    Get.put(GlobalDataController(), permanent: true);
-  }
+  void dependencies() {}
 }

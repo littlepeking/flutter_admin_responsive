@@ -1,15 +1,6 @@
 import 'package:get/get.dart';
 
-enum SystemModule {
-  wms,
-  tms,
-  system,
-  workbench,
-}
-
-class GlobalDataController extends GetxController {
-  static GlobalDataController instance = Get.find<GlobalDataController>();
-
+class EHLocaleHelper {
   static Rx<bool> localeChangeTrigger = true.obs;
 
   // static changeLocale() {
