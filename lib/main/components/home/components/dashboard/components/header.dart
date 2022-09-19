@@ -151,8 +151,8 @@ getFunctionBtnBar() {
           Icons.exit_to_app,
           //  color: Color.fromARGB(255, 67, 67, 67),
         ),
-        onPressed: (data) {
-          EHContextHelper.logout();
+        onPressed: (data) async {
+          await EHContextHelper.logout();
         }),
   ];
 }

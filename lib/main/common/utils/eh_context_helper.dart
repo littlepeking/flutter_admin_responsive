@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class EHContextHelper {
   static OrganizationModel defaultOrgModel =
-      OrganizationModel(id: '-1', name: '<Select Org>');
+      OrganizationModel(id: null, name: '<Select Org>');
 
   static Rx<OrganizationModel?> selectedOrgModel = Rxn();
 
@@ -47,7 +47,9 @@ class EHContextHelper {
     return user;
   }
 
-  static void logout() {
+  static Future<void> logout() async {
+    await EHContextHelper.removeString('userInfo');
+    await EHContextHelper.removeString("Authorization");
     selectedOrgModel.value = defaultOrgModel;
     currentModule.value = SystemModule.workbench;
     EHNavigator.resetAllModuleTabs();
@@ -108,6 +110,12 @@ class EHContextHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.setString(key, value);
+  }
+
+  static removeString(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.remove(key);
   }
 
   static Future<String?> getString(String key) async {

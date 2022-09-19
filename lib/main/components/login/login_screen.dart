@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:dio/dio.dart';
-import 'package:eh_flutter_framework/main/common/base/eh_exception.dart';
 import 'package:eh_flutter_framework/main/common/services/common/eh_rest_service.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
