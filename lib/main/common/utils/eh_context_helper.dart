@@ -98,7 +98,7 @@ class EHContextHelper {
 
   static refreshPermissions() async {
     UserModel userModel = await getUserDetail();
-
+    _orgPermissions.clear();
     userModel.roles.forEach((r) {
       r.permissions.forEach((p) {
         _orgPermissions.putIfAbsent(r.orgId!, () => {}).add(p);

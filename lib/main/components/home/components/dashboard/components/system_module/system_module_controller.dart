@@ -31,7 +31,7 @@ class SystemModuleController extends EHController {
             icon: Icons.admin_panel_settings,
             children: [
               EHTreeNode(
-                  permissionCodes: {'SECURITY_PERMISSION'},
+                  permissionCodes: {'SECURITY_ORG'},
                   displayName: "Organization",
                   isChecked: true,
                   onTap: () async {
@@ -46,7 +46,7 @@ class SystemModuleController extends EHController {
                     // FocusManager.instance.primaryFocus?.unfocus();
                   }),
               EHTreeNode(
-                  // permissionCodes: {'SECURITY_USER'},
+                  permissionCodes: {'SECURITY_USER'},
                   displayName: "User",
                   isChecked: true,
                   onTap: () {
