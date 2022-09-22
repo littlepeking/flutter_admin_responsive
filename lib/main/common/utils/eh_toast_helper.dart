@@ -46,7 +46,10 @@ class EHToastMessageHelper {
         animationDuration: Duration(milliseconds: 500),
         titleText: Text(
           title.tr,
-          style: Theme.of(Get.context!).textTheme.bodyLarge,
+          style: Theme.of(Get.context!)
+              .textTheme
+              .bodyLarge!
+              .copyWith(fontWeight: FontWeight.bold),
         ),
         messageText: Text(
           message.tr,
