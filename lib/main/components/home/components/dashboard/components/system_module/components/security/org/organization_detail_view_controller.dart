@@ -29,7 +29,7 @@ class OrganizationDetailViewController extends EHPanelController {
     OrganizationDetailViewController self =
         OrganizationDetailViewController._create(parent);
 
-    self.initData();
+    await self.initData();
 
     self.getWidgetControllerFormController = () {
       Rx<OrganizationModel> rxModel = Rx<OrganizationModel>(

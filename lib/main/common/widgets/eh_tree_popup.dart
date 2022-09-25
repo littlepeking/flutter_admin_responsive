@@ -190,8 +190,8 @@ class EHTreePopupController extends EHEditableWidgetController {
         //focusNode!.nextFocus();
 
         EHController.setWidgetError(this.errorBucket!, key, '');
-
-        Get.back(result: true);
+        //closeOverlays to resolve issue of cannot close dialog once toastMsg is shown.
+        Get.back(closeOverlays: true, result: true);
       },
       treeNodeDataList: treeNodeDataList.obs,
     );

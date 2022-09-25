@@ -181,7 +181,8 @@ class UserEditController extends EHPanelController {
         columnFilters: [],
         columnsConfig: [
           EHColumnConf('name', EHStringColumnType(),
-              fullQuanifiedName: 'org.name', columnHeaderName: 'Organization'),
+              fullQuanifiedName: 'tr_org.trans_text',
+              columnHeaderName: 'Organization'),
           EHColumnConf('roleName', EHStringColumnType(),
               fullQuanifiedName: 'r.roleName', columnHeaderName: 'Role Name'),
           EHColumnConf('displayName', EHStringColumnType(),
