@@ -12,7 +12,7 @@ class EHIntColumnType extends EHColumnType<int> {
       padding: EdgeInsets.all(this.padding),
       alignment: alignment,
       child: EHText(
-        textMsgKey: value == null ? '' : value.toString(),
+        text: value == null ? '' : value.toString(),
       ),
     );
   }

@@ -31,7 +31,7 @@ class _TmsModuleWidgetState extends State<TmsModuleWidget> {
                 padding: EdgeInsets.all(50),
                 child: EHText(
                     weight: FontWeight.bold,
-                    textMsgKey: 'Welcome use Enhantec TMS System!'.tr),
+                    text: 'Welcome use Enhantec TMS System!'.tr),
               ),
           showInBottomList: false,
           tabTranslateParams: {'System': 'TMS'}));

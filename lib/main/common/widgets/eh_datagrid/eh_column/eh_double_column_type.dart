@@ -14,7 +14,7 @@ class EHDoubleColumnType extends EHColumnType<double> {
       padding: EdgeInsets.all(this.padding),
       alignment: alignment,
       child: EHText(
-        textMsgKey: value == null ? '' : value.toStringAsFixed(precision),
+        text: value == null ? '' : value.toStringAsFixed(precision),
       ),
     );
   }

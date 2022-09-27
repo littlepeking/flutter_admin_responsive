@@ -30,7 +30,7 @@ class EHTabsHeaderMobile extends StatelessWidget {
                   child: Center(
                       child: EHText(
                 weight: FontWeight.bold,
-                textMsgKey: controller
+                text: controller
                     .tabsConfig[controller.selectedIndex.value].tabHeaderMsgKey
                     .trParams(translatedTabParams),
                 size: 15,
@@ -58,7 +58,7 @@ class EHTabsHeaderMobile extends StatelessWidget {
               alignment: Alignment.center,
               height: 30,
               child: EHText(
-                textMsgKey: 'common.general.windowList'.tr,
+                text: 'common.general.windowList'.tr,
                 weight: FontWeight.bold,
               ),
               decoration: BoxDecoration(
@@ -86,7 +86,7 @@ class EHTabsHeaderMobile extends StatelessWidget {
                                         ? Get.theme.backgroundColor
                                         : Get.theme.canvasColor,
                             title: EHText(
-                              textMsgKey: entry.value.tabHeaderMsgKey.tr,
+                              text: entry.value.tabHeaderMsgKey.tr,
                             ),
                             leading: Icon(Icons.domain_verification),
                             trailing: entry.value.closable

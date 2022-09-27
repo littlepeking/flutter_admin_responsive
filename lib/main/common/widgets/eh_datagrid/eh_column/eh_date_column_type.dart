@@ -15,7 +15,7 @@ class EHDateColumnType extends EHColumnType<DateTime> {
       padding: EdgeInsets.all(this.padding),
       alignment: alignment,
       child: EHText(
-        textMsgKey: value == null ? '' : DateFormat(dateFormat).format(value),
+        text: value == null ? '' : DateFormat(dateFormat).format(value),
       ),
     );
   }
