@@ -53,7 +53,7 @@ class ReceiptDetailViewController extends EHPanelController {
           onEditingComplete: (value) => receiptModel.update((model) {
                 model!.dateTime = value;
               }),
-          label: 'common.general.Date');
+          labelMsgKey: 'common.general.Date');
     };
 
     EHDataGridSource popUpDataSource = DataGridTest.getDataGridSource();
@@ -66,7 +66,7 @@ class ReceiptDetailViewController extends EHPanelController {
                 key: key,
                 focusNode: focusNode,
                 //autoFocus: true,
-                label: '测试1',
+                labelMsgKey: '测试1',
                 bindingValue: receiptModel.value.receiptKey ?? '',
                 mustInput: true,
                 onEditingComplete: (value) => receiptModel.update((model) {
@@ -102,7 +102,7 @@ class ReceiptDetailViewController extends EHPanelController {
               onEditingComplete: (value) => receiptModel.update((model) {
                     model!.dateTime = value;
                   }),
-              label: 'common.general.Date')),
+              labelMsgKey: 'common.general.Date')),
     ]);
 
     getWidgetControllerFormController = () =>
@@ -113,7 +113,7 @@ class ReceiptDetailViewController extends EHPanelController {
             rxModel: receiptModel,
             widgetControllerBuilders: [
               () => EHTextFieldController(
-                  label: '文本框',
+                  labelMsgKey: '文本框',
                   //autoFocus: true,
                   bindingFieldName: 'receiptKey',
                   mustInput: true,
@@ -122,7 +122,7 @@ class ReceiptDetailViewController extends EHPanelController {
                       }, // onChanged 仅在需要输入字母时马上触发控件时才使用，避免不必要的性能损耗，一般功能请使用onEditingComplete。
                   onEditingComplete: (value) {}),
               () => EHDropDownController(
-                  label: '下拉框',
+                  labelMsgKey: '下拉框',
                   mustInput: true,
                   bindingFieldName: 'dropdownValue',
                   items: {
@@ -132,14 +132,14 @@ class ReceiptDetailViewController extends EHPanelController {
                   },
                   onChanged: (value) {}),
               () => EHTextFieldController(
-                  label: '整数',
+                  labelMsgKey: '整数',
                   type: EHTextInputType.Int,
                   //autoFocus: true,
                   bindingFieldName: 'num1',
                   //   mustInput: true,
                   onEditingComplete: (value) {}),
               () => EHTextFieldController(
-                  label: '浮点数',
+                  labelMsgKey: '浮点数',
                   type: EHTextInputType.Double,
                   //autoFocus: true,
                   bindingFieldName: 'num2',
@@ -148,7 +148,7 @@ class ReceiptDetailViewController extends EHPanelController {
                     print('text = onChange triggered');
                   }),
               () => EHDropDownController(
-                  label: '下拉框1-级联',
+                  labelMsgKey: '下拉框1-级联',
                   bindingFieldName: 'dropdownValue',
                   items: {
                     '0': 'Item0',
@@ -171,12 +171,12 @@ class ReceiptDetailViewController extends EHPanelController {
                             .toString());
                   }),
               () => EHDropDownController(
-                  label: '下拉框2',
+                  labelMsgKey: '下拉框2',
                   bindingFieldName: 'dropdownValue2',
                   items: getDDLItems(ddlType.value),
                   onChanged: (value) => {}),
               () => EHDropDownController(
-                  label: '下拉框3',
+                  labelMsgKey: '下拉框3',
                   bindingFieldName: 'dropdownValue3',
                   items: () {
                     receiptModel.value.dropdownValue3 =
@@ -186,7 +186,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   }(),
                   onChanged: (value) => {}),
               () => EHDropDownController(
-                  label: '下拉框-级联',
+                  labelMsgKey: '下拉框-级联',
                   bindingFieldName: 'dropdownValue',
                   items: {
                     'city:PEK': 'city:Beijing',
@@ -233,7 +233,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   },
                   onChanged: (value) => {}),
               () => EHDatePickerController(
-                    label: 'common.general.Date',
+                    labelMsgKey: 'common.general.Date',
                     bindingFieldName: 'dateTime',
                     mustInput: true,
                     onEditingComplete: (value) => {},
@@ -252,13 +252,13 @@ class ReceiptDetailViewController extends EHPanelController {
                   ),
               () => EHDatePickerController(
                     enabled: false,
-                    label: 'common.general.Date',
+                    labelMsgKey: 'common.general.Date',
                     bindingFieldName: 'dateTime',
                     mustInput: true,
                     onEditingComplete: (value) => {},
                   ),
               () => EHDatePickerController(
-                    label: 'common.general.time',
+                    labelMsgKey: 'common.general.time',
                     bindingFieldName: 'dateTime2',
                     mustInput: true,
                     showTimePicker: true,
@@ -267,14 +267,14 @@ class ReceiptDetailViewController extends EHPanelController {
                   ),
               () => EHDatePickerController(
                     enabled: false,
-                    label: 'common.general.time',
+                    labelMsgKey: 'common.general.time',
                     bindingFieldName: 'dateTime2',
                     mustInput: true,
                     showTimePicker: true,
                     onEditingComplete: (value) => {},
                   ),
               () => EHCheckBoxController(
-                  label: 'checkBox',
+                  labelMsgKey: 'checkBox',
                   bindingFieldName: 'isChecked',
                   onChanged: (v) {
                     widgetControllerFormController!.widgetFocusNodes![0]
@@ -282,7 +282,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   }),
               () => EHFormDividerController(width: 1),
               () => EHTextFieldController(
-                  label: '文本框',
+                  labelMsgKey: '文本框',
                   //autoFocus: true,
                   width: 300,
                   bindingFieldName: 'receiptKey',
@@ -290,7 +290,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   maxLines: 3,
                   onEditingComplete: (value) {}),
               () => EHTextFieldController(
-                  label: '文本框',
+                  labelMsgKey: '文本框',
                   //autoFocus: true,
                   width: 300,
                   bindingFieldName: 'receiptKey',

@@ -42,7 +42,7 @@ class EHDataGridController extends EHController {
           0,
           EHColumnConf(
               '__select', EHImageButtonColumnType(onPressed: onRowSelected),
-              columnHeaderName: '', columnWidth: 36));
+              columnHeaderMsgKey: '', columnWidth: 36));
 
     this.dataGridSource = dataGridSource;
   }

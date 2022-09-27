@@ -37,7 +37,7 @@ class EHTreeUtilHelper {
 
       EHTreeNode node = EHTreeNode(
           id: data[idField],
-          displayName: data[displayNameField],
+          displayNameMsgKey: data[displayNameField],
           data: model,
           children: children,
           isChecked: data[checkStatusField],

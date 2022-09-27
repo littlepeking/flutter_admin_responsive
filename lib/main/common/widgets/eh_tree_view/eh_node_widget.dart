@@ -90,7 +90,7 @@ class EHNodeWidget extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 2),
                           child: Obx(
-                            () => Text(treeNode.displayName.tr,
+                            () => Text(treeNode.displayNameMsgKey.tr,
                                 style: TextStyle(
                                     color: treeNode.disableTap == true
                                         ? EHThemeHelper.getDisableTextColor()

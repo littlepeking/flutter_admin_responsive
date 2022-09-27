@@ -77,7 +77,7 @@ main() {
                 .toString()
                 .startsWith('https://zalando.github.io/problem/')) {
           EHToastMessageHelper.showInfoMessage(data['details'],
-              title: data['title'], type: EHToastMsgType.Error);
+              titleMsgKey: data['title'], type: EHToastMsgType.Error);
         } else {
           EHToastMessageHelper.showInfoMessage(data['error'],
               type: EHToastMsgType.Error);

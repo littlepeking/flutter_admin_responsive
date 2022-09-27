@@ -97,7 +97,7 @@ class EHDatePickerController extends EHEditableWidgetController {
       double? width,
       bool autoFocus = false,
       FocusNode? focusNode,
-      String label = '',
+      String labelMsgKey = '',
       DateTime? bindingValue,
       bool enabled = true,
       bool mustInput = false,
@@ -117,7 +117,7 @@ class EHDatePickerController extends EHEditableWidgetController {
             autoFocus: autoFocus,
             enabled: enabled,
             mustInput: mustInput,
-            label: label,
+            label: labelMsgKey,
             onValidate: onValidate,
             width: width ?? LayoutConstant.editWidgetSize,
             focusNode: FocusNode(),
@@ -165,7 +165,7 @@ class EHDatePickerController extends EHEditableWidgetController {
     this._textEditingController = EHTextFieldController(
         key: key,
         focusNode: focusNode,
-        label: label,
+        labelMsgKey: labelMsgKey,
         bindingValue: getDisplayValue(),
         textHint: this._dateFormat,
         enabled: enabled,
@@ -239,7 +239,7 @@ class EHDatePickerController extends EHEditableWidgetController {
                           ),
                           height: 400,
                           width: 400,
-                          title: 'common.general.selectDate'.tr);
+                          titleMsgKey: 'common.general.selectDate'.tr);
                     }
                   : null),
         )));

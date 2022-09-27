@@ -227,7 +227,7 @@ class EHDropDownController extends EHEditableWidgetController {
       EdgeInsets? padding,
       bool autoFocus = false,
       FocusNode? focusNode,
-      String label = '',
+      String labelMsgKey = '',
       String bindingValue = '',
       bool enabled = true,
       bool mustInput = false,
@@ -244,7 +244,7 @@ class EHDropDownController extends EHEditableWidgetController {
             autoFocus: autoFocus,
             enabled: enabled,
             mustInput: mustInput,
-            label: label,
+            label: labelMsgKey,
             focusNode: focusNode,
             errorBucket: errorBucket,
             onValidate: onValidate) {

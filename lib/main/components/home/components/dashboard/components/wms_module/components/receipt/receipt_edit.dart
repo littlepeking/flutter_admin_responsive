@@ -128,7 +128,7 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
             focusNode: FocusNode(),
             isMenu: true,
             dropDownWidth: 150,
-            label: 'common.general.actions',
+            labelMsgKey: 'common.general.actions',
             items: {
               'receivingASN': 'wms.receivingASN',
               'closeASN': 'wms.closeASN',

@@ -123,7 +123,7 @@ class UserEditController extends EHPanelController {
                           'assignRole',
                           EHImageButtonColumnType(
                               icon: null,
-                              label: 'common.security.assign',
+                              labelMsgKey: 'common.security.assign',
                               onPressed: (dataRow) async {
                                 Response userModelResponse =
                                     await EHRestService().postByServiceName(
@@ -148,9 +148,9 @@ class UserEditController extends EHPanelController {
                                   'username': model.value.username!
                                 }));
                               }),
-                          columnHeaderName: 'common.security.assignRole')
+                          columnHeaderMsgKey: 'common.security.assignRole')
                     ])),
-                title: 'common.security.userRoleAuthorization'.tr);
+                titleMsgKey: 'common.security.userRoleAuthorization'.tr);
           },
           //TO DO: deep reclusively defined text cannot be translate dynamically, need reopen the page as a workaround.
           child:
@@ -184,13 +184,13 @@ class UserEditController extends EHPanelController {
         columnsConfig: [
           EHColumnConf('name', EHStringColumnType(),
               fullQuanifiedName: 'tr_org.trans_text',
-              columnHeaderName: 'common.security.organization'),
+              columnHeaderMsgKey: 'common.security.organization'),
           EHColumnConf('roleName', EHStringColumnType(),
               fullQuanifiedName: 'r.roleName',
-              columnHeaderName: 'common.security.roleName'),
+              columnHeaderMsgKey: 'common.security.roleName'),
           EHColumnConf('displayName', EHStringColumnType(),
               fullQuanifiedName: 'r.displayName',
-              columnHeaderName: 'common.general.description'),
+              columnHeaderMsgKey: 'common.general.description'),
           EHColumnConf(
               '__delete',
               EHImageButtonColumnType(
@@ -212,7 +212,7 @@ class UserEditController extends EHPanelController {
                       'username': model.value.username!
                     }));
                   }),
-              columnHeaderName: 'common.general.delete'),
+              columnHeaderMsgKey: 'common.general.delete'),
         ],
         params: {
           'userId': model.value.id

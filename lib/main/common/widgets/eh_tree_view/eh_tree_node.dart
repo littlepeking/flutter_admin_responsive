@@ -10,7 +10,7 @@ class EHTreeNode {
 
   IconData? icon;
 
-  String displayName;
+  String displayNameMsgKey;
 
   dynamic data;
 
@@ -34,7 +34,7 @@ class EHTreeNode {
       {this.key,
       this.id,
       this.parentTreeNode,
-      required this.displayName,
+      required this.displayNameMsgKey,
       this.icon,
       this.isExpanded,
       this.isChecked = false,

@@ -55,7 +55,7 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                   key: controller.textKey1,
                                   focusNode: controller.textFn1,
                                   //autoFocus: true,
-                                  label: '测试1',
+                                  labelMsgKey: '测试1',
                                   bindingValue: controller
                                           .receiptModel.value.receiptKey ??
                                       '',
@@ -99,7 +99,7 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                               controller: EHDropDownController(
                                   key: controller.dropdownKey1,
                                   focusNode: controller.ddlFn1,
-                                  label: 'popUp',
+                                  labelMsgKey: 'popUp',
                                   mustInput: true,
                                   bindingValue: controller
                                       .receiptModel.value.dropdownValue,
@@ -125,12 +125,12 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                     controller.receiptModel.update((model) {
                                       model!.dateTime2 = value;
                                     }),
-                                label: 'common.general.Date'))),
+                                labelMsgKey: 'common.general.Date'))),
                         Obx(() => EHDropdown(
                               controller: EHDropDownController(
                                   key: controller.dropdownKey2,
                                   focusNode: controller.ddlFn2,
-                                  label: '测试5',
+                                  labelMsgKey: '测试5',
                                   enabled: false,
                                   mustInput: true,
                                   bindingValue: controller
@@ -170,7 +170,7 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                               controller: EHCheckBoxController(
                                   key: controller.checkBoxKey1,
                                   focusNode: controller.checkBoxFn1,
-                                  label: '选择框',
+                                  labelMsgKey: '选择框',
                                   enabled: true,
                                   mustInput: true,
                                   bindingValue:
@@ -185,7 +185,7 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                               controller: EHTextFieldController(
                                   key: controller.textKey2,
                                   focusNode: controller.textFn2,
-                                  label: '测试2',
+                                  labelMsgKey: '测试2',
                                   //errorBucket: controller.errorBucket,
                                   bindingValue: controller
                                           .receiptModel.value.receiptKey ??

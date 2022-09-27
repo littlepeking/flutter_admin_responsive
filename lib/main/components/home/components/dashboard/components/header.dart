@@ -48,7 +48,7 @@ getSystemBtnBar() {
   return [
     Obx(() => EHContextHelper.getUserOrgModules().contains('WMS')
         ? EHImageButton(
-            text: 'WMS',
+            textMsgKey: 'WMS',
             icon: Icon(Icons.warehouse),
             isSelected: EHContextHelper.currentModule.value == SystemModule.wms,
             onPressed: (data) {
@@ -64,7 +64,7 @@ getSystemBtnBar() {
         : SizedBox.shrink()),
     Obx(() => EHContextHelper.getUserOrgModules().contains('TMS')
         ? EHImageButton(
-            text: 'TMS',
+            textMsgKey: 'TMS',
             icon: Icon(Icons.local_shipping),
             isSelected: EHContextHelper.currentModule.value == SystemModule.tms,
             onPressed: (data) {
@@ -80,7 +80,7 @@ getSystemBtnBar() {
         : SizedBox.shrink()),
     Obx(() => EHContextHelper.getUserOrgModules().contains('SYSTEM')
         ? EHImageButton(
-            text: 'common.module.system',
+            textMsgKey: 'common.module.system',
             icon: Icon(Icons.monitor),
             isSelected:
                 EHContextHelper.currentModule.value == SystemModule.system,
@@ -101,7 +101,7 @@ getSystemBtnBar() {
 getFunctionBtnBar() {
   return [
     Obx(() => EHImageButton(
-          text: 'common.module.workbench',
+          textMsgKey: 'common.module.workbench',
           icon: Icon(
             Icons.dvr,
             // color: Color.fromARGB(255, 67, 67, 67),
@@ -119,7 +119,7 @@ getFunctionBtnBar() {
           },
         )),
     EHImageButton(
-        text: 'common.general.changeTheme',
+        textMsgKey: 'common.general.changeTheme',
         icon: Icon(
           Icons.ac_unit_sharp,
           //   color: Color.fromARGB(255, 67, 67, 67),
@@ -131,7 +131,7 @@ getFunctionBtnBar() {
           //  print(ThemeController.instance.isDarkMode);
         }),
     EHImageButton(
-        text: 'common.general.changeLocale',
+        textMsgKey: 'common.general.changeLocale',
         icon: Icon(
           Icons.language,
           //   color: Color.fromARGB(255, 67, 67, 67),
@@ -146,7 +146,7 @@ getFunctionBtnBar() {
           }
         }),
     EHImageButton(
-        text: 'common.security.logout'.tr,
+        textMsgKey: 'common.security.logout'.tr,
         icon: Icon(
           Icons.exit_to_app,
           //  color: Color.fromARGB(255, 67, 67, 67),

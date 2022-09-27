@@ -15,11 +15,11 @@ class TmsModuleController extends GetxController {
       allNodesExpanded: true,
       treeNodeDataList: [
         EHTreeNode(
-          displayName: 'wms.transportManagement',
+          displayNameMsgKey: 'wms.transportManagement',
           children: [
             EHTreeNode(
                 icon: Icons.assignment,
-                displayName: 'wms.shipmentOrders',
+                displayNameMsgKey: 'wms.shipmentOrders',
                 onTap: () {
                   tabViewController.addTab((EHTab<TestController>(
                       'shipmentOrders', 'wms.shipmentOrders', TestController(),
@@ -29,7 +29,7 @@ class TmsModuleController extends GetxController {
                 }),
             EHTreeNode(
               icon: Icons.alt_route,
-              displayName: 'wms.routes',
+              displayNameMsgKey: 'wms.routes',
               children: [],
             ),
           ],

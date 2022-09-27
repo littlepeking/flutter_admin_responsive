@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 
 class EHImageButtonColumnType extends EHColumnType<Map> {
   IconData? icon;
-  String? label;
+  String? labelMsgKey;
   final ValueChanged<Map>? onPressed;
 
   EHImageButtonColumnType(
       {this.icon = Icons.exit_to_app,
-      this.label,
+      this.labelMsgKey,
       Alignment alignment: Alignment.center,
       bool hasFilter = false,
       this.onPressed})
@@ -34,12 +34,12 @@ class EHImageButtonColumnType extends EHColumnType<Map> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (icon != null) Icon(icon, size: 20),
-                    if (this.label != null)
+                    if (this.labelMsgKey != null)
                       Container(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 2, horizontal: 5),
-                            child: Text(this.label!.tr),
+                            child: Text(this.labelMsgKey!.tr),
                           ),
                           decoration: BoxDecoration(
                             border: Border.all(

@@ -7,14 +7,14 @@ enum EHToastMsgType { Successful, Error }
 
 class EHToastMessageHelper {
   static showInfoMessage(String message,
-      {String title = 'common.general.messageInfo',
+      {String titleMsgKey = 'common.general.messageInfo',
       EHToastMsgType type = EHToastMsgType.Successful}) {
     final ThemeCustomAttributes themeCustomAttributes =
         Theme.of(Get.context!).extension<ThemeCustomAttributes>()!;
 
     late SnackbarController snackbarController;
 
-    snackbarController = Get.snackbar(title.tr, message.tr,
+    snackbarController = Get.snackbar(titleMsgKey.tr, message.tr,
         maxWidth: 500,
         barBlur: 20.0,
         boxShadows: [
@@ -45,7 +45,7 @@ class EHToastMessageHelper {
         duration: Duration(milliseconds: 3000),
         animationDuration: Duration(milliseconds: 500),
         titleText: Text(
-          title.tr,
+          titleMsgKey.tr,
           style: Theme.of(Get.context!)
               .textTheme
               .bodyLarge!

@@ -38,7 +38,7 @@ class Home extends GetView {
                   height: Responsive.isDesktop(context) ? 20 : 13,
                   child: EHText(
                     size: Responsive.isDesktop(context) ? 13 : 10,
-                    text: " Copyright © 2022 Enhantec",
+                    textMsgKey: " Copyright © 2022 Enhantec",
                   ))
             ]),
           ),

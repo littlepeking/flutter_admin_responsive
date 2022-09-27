@@ -25,16 +25,16 @@ class SystemModuleController extends EHController {
       allNodesExpanded: true,
       treeNodeDataList: [
         EHTreeNode(
-            displayName: 'common.md.masterData',
+            displayNameMsgKey: 'common.md.masterData',
             icon: Icons.museum,
             children: []),
         EHTreeNode(
-            displayName: 'common.security.security',
+            displayNameMsgKey: 'common.security.security',
             icon: Icons.admin_panel_settings,
             children: [
               EHTreeNode(
                   permissionCodes: {'SECURITY_ORG'},
-                  displayName: 'common.security.organization',
+                  displayNameMsgKey: 'common.security.organization',
                   isChecked: true,
                   onTap: () async {
                     tabViewController.addTab(EHTab<OrganizationTreeController>(
@@ -50,7 +50,7 @@ class SystemModuleController extends EHController {
                   }),
               EHTreeNode(
                   permissionCodes: {'SECURITY_USER'},
-                  displayName: 'common.security.user',
+                  displayNameMsgKey: 'common.security.user',
                   isChecked: true,
                   onTap: () {
                     tabViewController.addTab(EHTab<UserListController>(
@@ -63,7 +63,7 @@ class SystemModuleController extends EHController {
                   }),
               EHTreeNode(
                   permissionCodes: {'SECURITY_ROLE'},
-                  displayName: 'common.security.role',
+                  displayNameMsgKey: 'common.security.role',
                   onTap: () async {
                     tabViewController.addTab(EHTab<OrgRoleListController>(
                         'Role',
@@ -76,7 +76,7 @@ class SystemModuleController extends EHController {
                   children: []),
               EHTreeNode(
                   permissionCodes: {'SECURITY_PERMISSION'},
-                  displayName: 'common.security.permission',
+                  displayNameMsgKey: 'common.security.permission',
                   onTap: () async {
                     tabViewController.addTab(EHTab<PermissionTreeController>(
                         'Permission',

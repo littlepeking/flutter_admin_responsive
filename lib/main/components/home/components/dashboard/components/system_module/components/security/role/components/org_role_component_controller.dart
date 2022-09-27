@@ -50,14 +50,14 @@ class OrgRoleComponentController extends EHPanelController {
           columnsConfig: [
             EHColumnConf('orgId', EHStringColumnType(),
                 fullQuanifiedName: 'orgId',
-                columnHeaderName: 'common.security.organization',
+                columnHeaderMsgKey: 'common.security.organization',
                 hideType: EHGridColHideType.hide),
             EHColumnConf('roleName', EHStringColumnType(),
                 fullQuanifiedName: 'roleName',
-                columnHeaderName: 'common.security.roleName'),
+                columnHeaderMsgKey: 'common.security.roleName'),
             EHColumnConf('displayName', EHStringColumnType(),
                 fullQuanifiedName: 'displayName',
-                columnHeaderName: 'common.general.description'),
+                columnHeaderMsgKey: 'common.general.description'),
             ...extraColumns
           ],
           params: {

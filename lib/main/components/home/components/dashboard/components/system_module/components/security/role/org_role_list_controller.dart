@@ -44,7 +44,7 @@ class OrgRoleListController extends EHPanelController {
               'delete',
               EHImageButtonColumnType(
                   icon: null,
-                  label: 'common.general.delete',
+                  labelMsgKey: 'common.general.delete',
                   onPressed: (dataRow) async {
                     await RoleService().deleteById(dataRow['id']);
 
@@ -57,7 +57,7 @@ class OrgRoleListController extends EHPanelController {
                       'displayName': dataRow['displayName'],
                     }));
                   }),
-              columnHeaderName: 'common.security.deleteRole')
+              columnHeaderMsgKey: 'common.security.deleteRole')
         ]);
 
     return self;

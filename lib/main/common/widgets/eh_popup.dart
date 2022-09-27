@@ -123,7 +123,7 @@ class EHPopup extends EHEditableWidget<EHPopupController> {
                                   ),
                                 ),
                                 focusNode: controller.focusNode,
-                                title: controller.popupTitle);
+                                titleMsgKey: controller.popupTitle);
 
                             print('result: $result');
                           },

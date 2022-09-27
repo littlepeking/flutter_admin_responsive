@@ -73,7 +73,7 @@ class OrgRoleListView extends EHPanel<OrgRoleListController> {
             focusNode: FocusNode(),
             isMenu: true,
             dropDownWidth: 150,
-            label: 'common.general.actions',
+            labelMsgKey: 'common.general.actions',
             items: {
               'exportToExcel': 'Export To Excel',
             },

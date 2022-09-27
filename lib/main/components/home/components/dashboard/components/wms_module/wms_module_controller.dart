@@ -21,10 +21,10 @@ class WmsModuleController extends EHController {
       treeNodeDataList: [
         EHTreeNode(
           icon: Icons.login,
-          displayName: "wms.inbound",
+          displayNameMsgKey: "wms.inbound",
           children: [
             EHTreeNode(
-                displayName: 'wms.asn',
+                displayNameMsgKey: 'wms.asn',
                 onTap: () {
                   tabViewController.addTab(EHTab<ReceiptEditController>(
                       'asn', 'wms.asn', ReceiptEditController(),
@@ -34,7 +34,7 @@ class WmsModuleController extends EHController {
                   // FocusManager.instance.primaryFocus?.unfocus();
                 }),
             EHTreeNode(
-                displayName: 'wms.asnDetails',
+                displayNameMsgKey: 'wms.asnDetails',
                 icon: Icons.folder,
                 onTap: () {
                   tabViewController.addTab(EHTab<TestController>(
@@ -45,7 +45,7 @@ class WmsModuleController extends EHController {
                 },
                 children: [
                   EHTreeNode(
-                      displayName: 'wms.asnDetails',
+                      displayNameMsgKey: 'wms.asnDetails',
                       onTap: () {
                         tabViewController.addTab(EHTab<TestController>(
                             'asnDetails', 'wms.asnDetails', TestController(),
@@ -54,7 +54,7 @@ class WmsModuleController extends EHController {
                         }, closable: true));
                       }),
                   EHTreeNode(
-                      displayName: 'wms.asnDetails',
+                      displayNameMsgKey: 'wms.asnDetails',
                       icon: Icons.folder,
                       onTap: () {
                         tabViewController.addTab(EHTab<TestController>(
@@ -65,7 +65,7 @@ class WmsModuleController extends EHController {
                       },
                       children: [
                         EHTreeNode(
-                            displayName: 'wms.asnDetails',
+                            displayNameMsgKey: 'wms.asnDetails',
                             onTap: () {
                               tabViewController.addTab(EHTab<TestController>(
                                   'asnDetails',
@@ -80,11 +80,11 @@ class WmsModuleController extends EHController {
         ),
         EHTreeNode(
           icon: Icons.logout,
-          displayName: 'wms.outbound',
+          displayNameMsgKey: 'wms.outbound',
           children: [
-            EHTreeNode(displayName: 'wms.orders'),
-            EHTreeNode(displayName: 'wms.orderDetails'),
-            EHTreeNode(displayName: "wms.pickDetails"),
+            EHTreeNode(displayNameMsgKey: 'wms.orders'),
+            EHTreeNode(displayNameMsgKey: 'wms.orderDetails'),
+            EHTreeNode(displayNameMsgKey: "wms.pickDetails"),
           ],
         ),
       ].obs);

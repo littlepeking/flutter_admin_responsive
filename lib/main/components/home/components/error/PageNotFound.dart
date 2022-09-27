@@ -19,7 +19,7 @@ class PageNotFound extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               EHText(
-                text: "Page not found",
+                textMsgKey: "Page not found",
                 size: 24,
                 weight: FontWeight.bold,
               ),

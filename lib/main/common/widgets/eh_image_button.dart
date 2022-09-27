@@ -7,7 +7,7 @@ import '../constants.dart';
 class EHImageButton<T> extends StatelessWidget {
   final Icon icon;
   final double? iconSize;
-  final String text;
+  final String textMsgKey;
   final ValueChanged<T?> onPressed;
   final T? data;
   final double? padding;
@@ -19,7 +19,7 @@ class EHImageButton<T> extends StatelessWidget {
       required this.icon,
       this.isSelected,
       this.iconSize,
-      required this.text,
+      required this.textMsgKey,
       this.data,
       required this.onPressed})
       : super(key: key);
@@ -34,7 +34,7 @@ class EHImageButton<T> extends StatelessWidget {
                     padding ?? (Responsive.isMobile(Get.context!) ? 2 : 8)),
                 onPressed: () => onPressed(data),
                 icon: icon,
-                tooltip: this.text.tr,
+                tooltip: this.textMsgKey.tr,
               ),
               decoration: BoxDecoration(
                 border: isSelected == true
@@ -73,7 +73,7 @@ class EHImageButton<T> extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: defaultPadding / 2),
-                            child: Text(text.tr),
+                            child: Text(textMsgKey.tr),
                           ),
                           SizedBox(width: 5),
                         ],

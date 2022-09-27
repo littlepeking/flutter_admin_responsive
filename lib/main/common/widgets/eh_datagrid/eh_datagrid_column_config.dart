@@ -10,7 +10,7 @@ class EHColumnConf {
 
   String? sortColumnName; //排序时使用的列，默认为columnName
   //列头显示名称
-  String? columnHeaderName;
+  String? columnHeaderMsgKey;
   //控件类型：用于排序比较和选择控件展示
   EHColumnType columnType;
 
@@ -23,7 +23,7 @@ class EHColumnConf {
     this.columnType, {
     this.fullQuanifiedName,
     double? columnWidth,
-    this.columnHeaderName,
+    this.columnHeaderMsgKey,
     this.sortColumnName,
     this.hideType = EHGridColHideType.None,
   }) : width = columnWidth == null ? 150.0.obs : columnWidth.obs;

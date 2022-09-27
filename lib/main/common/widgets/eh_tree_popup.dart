@@ -98,7 +98,7 @@ class EHTreePopup extends EHEditableWidget<EHTreePopupController> {
                                   ),
                                 ),
                                 focusNode: controller.iconButtonFocusNode,
-                                title: controller.popupTitle);
+                                titleMsgKey: controller.popupTitleMsgKey);
 
                             print('result: $result');
                           },
@@ -127,7 +127,7 @@ class EHTreePopupController extends EHEditableWidgetController {
 
   FocusNode iconButtonFocusNode = FocusNode();
 
-  String popupTitle;
+  String popupTitleMsgKey;
 
   late dynamic bindingData;
   bool isValidated = false;
@@ -155,7 +155,7 @@ class EHTreePopupController extends EHEditableWidgetController {
       //focusNode必须手工在controller中实例化并赋值给控件的focusNode属性,否则光标焦点跳转会有问题。
       //因为flutter要求focusNode必须在statefulWidget中进行设置，但目前框架暂时只使用statelessWidget，因此只能手工设置。
       FocusNode? focusNode,
-      required this.popupTitle,
+      required this.popupTitleMsgKey,
       String label = '',
       this.bindingData,
       required this.getDisplayValue,
@@ -182,7 +182,7 @@ class EHTreePopupController extends EHEditableWidgetController {
       onTreeNodeTap: (EHTreeNode node) {
         EHController.setWidgetDisplayValue(key!, '');
 
-        if (getInitValue() != node.displayName) {
+        if (getInitValue() != node.displayNameMsgKey) {
           if (onTreeNodeTap != null) onTreeNodeTap!(node.data);
         }
 
@@ -241,7 +241,7 @@ class EHTreePopupController extends EHEditableWidgetController {
   doValidateAndTriggerCompleteEvent(bool goNextFocusIfValid) async {
     if (await _validate()) {
       if (getInitValue() !=
-          treeController.selectedTreeNode.value?.displayName) {
+          treeController.selectedTreeNode.value?.displayNameMsgKey) {
         if (onTreeNodeTap != null)
           onTreeNodeTap!(treeController.selectedTreeNode.value?.data);
       }

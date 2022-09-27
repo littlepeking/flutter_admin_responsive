@@ -74,8 +74,8 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                              columnConfig.columnHeaderName != null
-                                  ? columnConfig.columnHeaderName!.tr
+                              columnConfig.columnHeaderMsgKey != null
+                                  ? columnConfig.columnHeaderMsgKey!.tr
                                   : columnConfig.columnName.tr,
                               overflow: TextOverflow.ellipsis,
                               style: new TextStyle().copyWith(

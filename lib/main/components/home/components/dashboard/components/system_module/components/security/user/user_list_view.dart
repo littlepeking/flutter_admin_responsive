@@ -72,7 +72,7 @@ class UserList extends EHPanel<UserListController> {
             focusNode: FocusNode(),
             isMenu: true,
             dropDownWidth: 150,
-            label: 'common.general.actions',
+            labelMsgKey: 'common.general.actions',
             items: {
               'exportToExcel': 'common.general.Export2Excel',
             },

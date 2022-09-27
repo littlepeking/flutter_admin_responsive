@@ -94,7 +94,7 @@ class UserEditView extends EHPanel<UserEditController> {
             focusNode: FocusNode(),
             isMenu: true,
             dropDownWidth: 150,
-            label: 'common.general.actions',
+            labelMsgKey: 'common.general.actions',
             items: {'print': 'common.general.print'},
             onChanged: (value) {},
           )),

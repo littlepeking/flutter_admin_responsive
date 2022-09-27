@@ -92,7 +92,7 @@ class EHTabHeader extends StatelessWidget {
                                                       '   ' +
                                                           controller
                                                               .tabsConfig[index]
-                                                              .tabHeaderName
+                                                              .tabHeaderMsgKey
                                                               .trParams(
                                                                   translatedTabParams) +
                                                           '   ',

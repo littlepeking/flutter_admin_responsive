@@ -4,7 +4,7 @@ import 'responsive.dart';
 
 class EHDialog {
   static showPopupDialog(Widget widget,
-      {String title = 'common.general.selectItem',
+      {String titleMsgKey = 'common.general.selectItem',
       FocusNode? focusNode,
       double? width,
       double? height}) async {
@@ -46,7 +46,7 @@ class EHDialog {
                   ),
                   Expanded(
                       child: Text(
-                    title.tr,
+                    titleMsgKey.tr,
                     style: TextStyle().copyWith(
                         fontSize: Theme.of(Get.context!)
                             .textTheme

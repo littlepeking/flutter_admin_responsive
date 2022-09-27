@@ -14,11 +14,11 @@ class WorkbenchModuleController extends EHController {
       allNodesExpanded: true,
       treeNodeDataList: [
         EHTreeNode(
-            displayName: 'common.general.notification',
+            displayNameMsgKey: 'common.general.notification',
             icon: Icons.notifications,
             children: []),
         EHTreeNode(
-            displayName: 'common.general.alert',
+            displayNameMsgKey: 'common.general.alert',
             icon: Icons.alarm,
             children: [
               // EHTreeNode(
