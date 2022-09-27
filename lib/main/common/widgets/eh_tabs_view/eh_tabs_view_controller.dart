@@ -54,14 +54,13 @@ class EHTabsViewController extends GetxController {
     }
   }
 
-  EHTab getTab(String tabName) {
-    Iterable<EHTab> iterator =
-        tabsConfig.where((tab) => tab.tabName == tabName);
+  EHTab getTab(String tabId) {
+    Iterable<EHTab> iterator = tabsConfig.where((tab) => tab.tabId == tabId);
 
     if (iterator.isNotEmpty)
       return iterator.first;
     else
-      throw EHException('no tab named \'' + tabName + '\'');
+      throw EHException('Tab Id: \'' + tabId + '\' not found');
   }
 
   removeTab(int index) {

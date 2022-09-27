@@ -75,8 +75,8 @@ class OrgRoleComponentController extends EHPanelController {
         dataGridSource: getOrgRolesDataGridSource());
 
     self.detailTabsViewController = EHTabsViewController(tabs: [
-      EHTab('common.security.roleList', self.orgRoleDataGridController,
-          (EHController c) {
+      EHTab('roleList', 'common.security.roleList',
+          self.orgRoleDataGridController, (EHController c) {
         return EHDataGrid(controller: c);
       }, expandMode: EHTabsViewExpandMode.Expand),
     ]);

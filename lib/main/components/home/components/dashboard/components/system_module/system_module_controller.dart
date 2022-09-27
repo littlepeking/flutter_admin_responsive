@@ -38,6 +38,7 @@ class SystemModuleController extends EHController {
                   isChecked: true,
                   onTap: () async {
                     tabViewController.addTab(EHTab<OrganizationTreeController>(
+                        'organization',
                         'common.security.organization',
                         await OrganizationTreeController.create(),
                         (EHController controller) {
@@ -53,8 +54,9 @@ class SystemModuleController extends EHController {
                   isChecked: true,
                   onTap: () {
                     tabViewController.addTab(EHTab<UserListController>(
-                        'common.security.userList', UserListController(),
-                        (EHController controller) {
+                        'userList',
+                        'common.security.userList',
+                        UserListController(), (EHController controller) {
                       return UserList(controller: controller);
                     }, closable: true, expandMode: EHTabsViewExpandMode.None));
                     // FocusManager.instance.primaryFocus?.unfocus();
@@ -64,7 +66,9 @@ class SystemModuleController extends EHController {
                   displayName: 'common.security.role',
                   onTap: () async {
                     tabViewController.addTab(EHTab<OrgRoleListController>(
-                        'Role', await OrgRoleListController.create(),
+                        'Role',
+                        'common.security.role',
+                        await OrgRoleListController.create(),
                         (EHController controller) {
                       return OrgRoleListView(controller: controller);
                     }, closable: true, expandMode: EHTabsViewExpandMode.None));
@@ -75,7 +79,9 @@ class SystemModuleController extends EHController {
                   displayName: 'common.security.permission',
                   onTap: () async {
                     tabViewController.addTab(EHTab<PermissionTreeController>(
-                        'Permission', await PermissionTreeController.create(),
+                        'Permission',
+                        'common.security.permission',
+                        await PermissionTreeController.create(),
                         (EHController controller) {
                       return PermissionTreeView(controller: controller);
                     },

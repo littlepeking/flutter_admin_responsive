@@ -45,15 +45,16 @@ class RoleEditController extends EHPanelController {
         await RoleDetailGeneralController.create(self, params);
 
     self.headerTabsViewController = EHTabsViewController(tabs: [
-      EHTab('common.general.generalInfo', self.roleGeneralInfoController,
-          (EHController c) {
+      EHTab('generalInfo', 'common.general.generalInfo',
+          self.roleGeneralInfoController, (EHController c) {
         return PageStorage(
             bucket: self.pageStorageBucket,
             child: RoleDetailGeneralView(
               controller: c,
             ));
       }),
-      EHTab('common.security.funcPerms', self.permTreeCompController,
+      EHTab(
+          'funcPerms', 'common.security.funcPerms', self.permTreeCompController,
           (EHController c) {
         return PageStorage(
             bucket: self.pageStorageBucket,
@@ -75,11 +76,9 @@ class RoleEditController extends EHPanelController {
       List permData =
           await PermissionService().buildTreeByRoleId(this.model.value.id!);
       permTreeCompController.reloadPermTreeData(permData);
-      headerTabsViewController.getTab('common.security.funcPerms').isHide =
-          false;
+      headerTabsViewController.getTab('funcPerms').isHide = false;
     } else {
-      headerTabsViewController.getTab('common.security.funcPerms').isHide =
-          true;
+      headerTabsViewController.getTab('funcPerms').isHide = true;
     }
     headerTabsViewController.tabsConfig.refresh();
   }

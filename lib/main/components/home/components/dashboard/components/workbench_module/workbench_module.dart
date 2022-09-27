@@ -23,6 +23,7 @@ class WorkbenchModuleWidget extends StatelessWidget {
 
     if (workbenchModuleController.tabViewController.tabsConfig.length == 0)
       workbenchModuleController.tabViewController.tabsConfig.add(EHTab(
+          'welcome',
           'common.general.welcome',
           EHController(),
           (controller) => Center(

@@ -58,23 +58,22 @@ class OrganizationTreeController extends EHPanelController {
         await PermTreeComponentController.create(self, showCheckBox: true);
 
     self.detailTabsViewController = EHTabsViewController(tabs: [
-      EHTab('common.general.detailInfo', self.organizationDetailViewController,
-          (EHController c) {
+      EHTab('detailInfo', 'common.general.detailInfo',
+          self.organizationDetailViewController, (EHController c) {
         return PageStorage(
             bucket: self.pageStorageBucket,
             child: OrganizationDetailView(
               controller: c,
             ));
       }),
-
       EHTab(
+        'funcPerms',
         'common.security.funcPerms',
         self.permTreeComponentController,
         (controller) => PermTreeComponent(
           controller: self.permTreeComponentController,
         ),
       ),
-      // EHTab('Other', controller, (controller) => EditingDataGrid()),
     ]);
 
     return self;
@@ -98,13 +97,11 @@ class OrganizationTreeController extends EHPanelController {
       await refreshPermissionTreeData(orgModel.value!.id!);
       await organizationDetailViewController.initData();
 
-      detailTabsViewController.getTab('common.security.funcPerms').isHide =
-          false;
+      detailTabsViewController.getTab('funcPerms').isHide = false;
     } else {
       detailTabsViewController.selectedTab =
-          detailTabsViewController.getTab('common.general.detailInfo');
-      detailTabsViewController.getTab('common.security.funcPerms').isHide =
-          true;
+          detailTabsViewController.getTab('detailInfo');
+      detailTabsViewController.getTab('funcPerms').isHide = true;
     }
     organizationDetailViewController.orgDetailViewFormController?.reset();
     detailTabsViewController.tabsConfig.refresh();

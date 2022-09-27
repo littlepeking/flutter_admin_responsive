@@ -27,7 +27,7 @@ class WmsModuleController extends EHController {
                 displayName: 'wms.asn',
                 onTap: () {
                   tabViewController.addTab(EHTab<ReceiptEditController>(
-                      'wms.asn', ReceiptEditController(),
+                      'asn', 'wms.asn', ReceiptEditController(),
                       (EHController controller) {
                     return ReceiptEdit(controller: controller);
                   }, closable: true));
@@ -37,9 +37,9 @@ class WmsModuleController extends EHController {
                 displayName: 'wms.asnDetails',
                 icon: Icons.folder,
                 onTap: () {
-                  tabViewController.addTab(
-                      EHTab<TestController>('wms.asnDetails', TestController(),
-                          (EHController controller) {
+                  tabViewController.addTab(EHTab<TestController>(
+                      'asnDetails', 'wms.asnDetails', TestController(),
+                      (EHController controller) {
                     return Test2(controller: controller);
                   }, closable: true));
                 },
@@ -48,7 +48,7 @@ class WmsModuleController extends EHController {
                       displayName: 'wms.asnDetails',
                       onTap: () {
                         tabViewController.addTab(EHTab<TestController>(
-                            'wms.asnDetails', TestController(),
+                            'asnDetails', 'wms.asnDetails', TestController(),
                             (EHController controller) {
                           return Test2(controller: controller);
                         }, closable: true));
@@ -58,7 +58,7 @@ class WmsModuleController extends EHController {
                       icon: Icons.folder,
                       onTap: () {
                         tabViewController.addTab(EHTab<TestController>(
-                            'wms.asnDetails', TestController(),
+                            'asnDetails', 'wms.asnDetails', TestController(),
                             (EHController controller) {
                           return Test2(controller: controller);
                         }, closable: true));
@@ -68,8 +68,9 @@ class WmsModuleController extends EHController {
                             displayName: 'wms.asnDetails',
                             onTap: () {
                               tabViewController.addTab(EHTab<TestController>(
-                                  'wms.asnDetails', TestController(),
-                                  (EHController controller) {
+                                  'asnDetails',
+                                  'wms.asnDetails',
+                                  TestController(), (EHController controller) {
                                 return Test2(controller: controller);
                               }, closable: true));
                             })

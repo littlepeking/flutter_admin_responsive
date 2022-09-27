@@ -29,6 +29,7 @@ class OrgRoleListController extends EHPanelController {
             onRowSelected: (dataRow) async => {
                   Get.find<SystemModuleController>().tabViewController.addTab(
                           EHTab<RoleEditController>(
+                              'edit',
                               'common.general.edit',
                               await RoleEditController.create(
                                   params: {'id': dataRow['id']}),

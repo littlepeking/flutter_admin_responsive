@@ -55,8 +55,8 @@ class PermissionTreeController extends EHPanelController {
     await self.refreshPermTreeData();
 
     self.detailTabsViewController = EHTabsViewController(tabs: [
-      EHTab('common.general.detailInfo', self.permissionDetailViewController,
-          (EHController c) {
+      EHTab('detailInfo', 'common.general.detailInfo',
+          self.permissionDetailViewController, (EHController c) {
         return PageStorage(
             bucket: self.pageStorageBucket,
             child: PermissionDetailView(
@@ -65,6 +65,7 @@ class PermissionTreeController extends EHPanelController {
       }),
 
       EHTab(
+        'organizations',
         'common.security.organizations',
         self.orgTreeComponentController,
         (controller) => OrgTreeComponent(
@@ -96,21 +97,16 @@ class PermissionTreeController extends EHPanelController {
       await refreshOrgTreeData(permissionModel.value!.id!);
 
       if (permissionModel.value!.type == 'D') {
-        detailTabsViewController
-            .getTab('common.security.organizations')
-            .isHide = true;
+        detailTabsViewController.getTab('organizations').isHide = true;
         detailTabsViewController.selectedTab =
-            detailTabsViewController.getTab('common.general.detailInfo');
+            detailTabsViewController.getTab('detailInfo');
       } else {
-        detailTabsViewController
-            .getTab('common.security.organizations')
-            .isHide = false;
+        detailTabsViewController.getTab('organizations').isHide = false;
       }
     } else {
       detailTabsViewController.selectedTab =
-          detailTabsViewController.getTab('common.general.detailInfo');
-      detailTabsViewController.getTab('common.security.organizations').isHide =
-          true;
+          detailTabsViewController.getTab('detailInfo');
+      detailTabsViewController.getTab('organizations').isHide = true;
     }
 
     permissionDetailViewController.detailViewFormController?.reset();

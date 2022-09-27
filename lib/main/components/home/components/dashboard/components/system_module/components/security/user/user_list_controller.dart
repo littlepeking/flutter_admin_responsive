@@ -28,7 +28,7 @@ class UserListController extends EHPanelController {
         disableFixedHeight: true,
         onRowSelected: (data) async => Get.find<SystemModuleController>()
             .tabViewController
-            .addTab(EHTab<UserEditController>('Edit User',
+            .addTab(EHTab<UserEditController>('edit', 'common.general.edit',
                 await UserEditController.create(params: {'id': data['id']}),
                 (EHController controller) {
               return UserEditView(controller: controller);

@@ -31,7 +31,7 @@ class EHTabsHeaderMobile extends StatelessWidget {
                       child: EHText(
                 weight: FontWeight.bold,
                 text: controller
-                    .tabsConfig[controller.selectedIndex.value].tabName
+                    .tabsConfig[controller.selectedIndex.value].tabHeaderName
                     .trParams(translatedTabParams),
                 size: 15,
               ))),
@@ -86,7 +86,7 @@ class EHTabsHeaderMobile extends StatelessWidget {
                                         ? Get.theme.backgroundColor
                                         : Get.theme.canvasColor,
                             title: EHText(
-                              text: entry.value.tabName.tr,
+                              text: entry.value.tabHeaderName.tr,
                             ),
                             leading: Icon(Icons.domain_verification),
                             trailing: entry.value.closable

@@ -60,8 +60,8 @@ class UserEditController extends EHPanelController {
     self.userGeneralInfoController = UserDetailGeneralController(self, params);
 
     self.headerTabsViewController = EHTabsViewController(tabs: [
-      EHTab('common.general.generalInfo', self.userGeneralInfoController,
-          (EHController c) {
+      EHTab('generalInfo', 'common.general.generalInfo',
+          self.userGeneralInfoController, (EHController c) {
         return PageStorage(
             bucket: self.pageStorageBucket,
             child: UserDetailGeneralView(
@@ -82,8 +82,8 @@ class UserEditController extends EHPanelController {
         dataGridSource: self.getRolesDataGridSource());
 
     self.detailTabsViewController = EHTabsViewController(tabs: [
-      EHTab('common.security.assignedRoles', self.userRoleDataGridController,
-          (EHController c) {
+      EHTab('assignedRoles', 'common.security.assignedRoles',
+          self.userRoleDataGridController, (EHController c) {
         return PageStorage(
             bucket: self.pageStorageBucket,
             child: Column(

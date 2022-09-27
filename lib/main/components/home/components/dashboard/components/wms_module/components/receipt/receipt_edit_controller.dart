@@ -40,8 +40,8 @@ class ReceiptEditController extends EHPanelController {
         dataGridSource: DataGridTest.getDataGridSource());
 
     receiptHeaderTabsViewController = EHTabsViewController(tabs: [
-      EHTab('common.general.generalInfo', asnHeaderDataGridController,
-          (EHController c) {
+      EHTab('generalInfo', 'common.general.generalInfo',
+          asnHeaderDataGridController, (EHController c) {
         return PageStorage(
             bucket: pageStorageBucket,
             child: Container(
@@ -55,8 +55,8 @@ class ReceiptEditController extends EHPanelController {
     ]);
 
     receiptDetailTabsViewController = EHTabsViewController(tabs: [
-      EHTab('common.general.detailInfo', receiptDetailInfoController,
-          (EHController c) {
+      EHTab('generalInfo', 'common.general.detailInfo',
+          receiptDetailInfoController, (EHController c) {
         return PageStorage(
             bucket: pageStorageBucket,
             child: ReceiptDetailView(

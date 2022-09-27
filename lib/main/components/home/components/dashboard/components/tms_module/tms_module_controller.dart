@@ -22,7 +22,7 @@ class TmsModuleController extends GetxController {
                 displayName: 'wms.shipmentOrders',
                 onTap: () {
                   tabViewController.addTab((EHTab<TestController>(
-                      'wms.shipmentOrders', TestController(),
+                      'shipmentOrders', 'wms.shipmentOrders', TestController(),
                       (EHController controller) {
                     return Test2(controller: controller);
                   }, closable: true)));

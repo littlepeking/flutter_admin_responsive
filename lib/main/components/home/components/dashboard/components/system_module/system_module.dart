@@ -23,6 +23,7 @@ class SystemModuleWidget extends StatelessWidget {
 
     if (systemModuleController.tabViewController.tabsConfig.length == 0)
       systemModuleController.tabViewController.tabsConfig.add(EHTab(
+          'welcome',
           'common.general.welcome',
           EHController(),
           (controller) => Center(
