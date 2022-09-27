@@ -65,24 +65,26 @@ class EHRestService extends GetxController {
       // await Future.delayed(Duration(seconds: 2));
       //if (loadingIndicator.isOpen) loadingIndicator.hide();
       if (error.response?.statusCode == 404) {
-        EHToastMessageHelper.showInfoMessage('request url cannot found'.tr,
+        EHToastMessageHelper.showInfoMessage('common.error.urlNotFound'.tr,
             type: EHToastMsgType.Error);
         //return handler.next(error);
       } else if (error.response?.statusCode == 401) {
         // bus.emit("401");
         if (error.response?.data!['details'] == 'Bad credentials') {
-          EHToastMessageHelper.showLoginErrorMessage('Bad credentials'.tr);
+          EHToastMessageHelper.showLoginErrorMessage(
+              'common.security.badCredentials'.tr);
         } else if (error.response?.data!['details'] ==
             'user login is expired.') {
           EHToastMessageHelper.showLoginErrorMessage(
-              error.response!.data!['details'].toString().tr);
+              'common.security.loginExpired'.tr);
           await EHContextHelper.logout();
         } else if (error.response?.data!['details'] != null) {
           EHToastMessageHelper.showLoginErrorMessage(
-              error.response!.data!['details'].toString().tr);
+              error.response!.data!['details'].toString());
           await EHContextHelper.logout();
         } else {
-          EHToastMessageHelper.showInfoMessage('Unauthorized'.tr);
+          EHToastMessageHelper.showInfoMessage(
+              'common.security.unauthorized'.tr);
         }
       } else {
         if (error.type == DioErrorType.connectTimeout ||

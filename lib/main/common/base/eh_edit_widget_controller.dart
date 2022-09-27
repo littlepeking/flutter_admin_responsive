@@ -102,7 +102,7 @@ abstract class EHEditableWidgetController<T extends EHModel>
           text is String &&
               (EHUtilHelper.isEmpty(text) || text == emptyValue)) {
         EHController.setWidgetError(
-            errorBucket!, key, 'This field cannot be empty'.tr);
+            errorBucket!, key, 'common.error.fieldNotEmpty'.tr);
 
         return false;
       } else {

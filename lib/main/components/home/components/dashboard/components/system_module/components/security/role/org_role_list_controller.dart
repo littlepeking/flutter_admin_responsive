@@ -29,7 +29,7 @@ class OrgRoleListController extends EHPanelController {
             onRowSelected: (dataRow) async => {
                   Get.find<SystemModuleController>().tabViewController.addTab(
                           EHTab<RoleEditController>(
-                              'Edit Role',
+                              'common.general.edit',
                               await RoleEditController.create(
                                   params: {'id': dataRow['id']}),
                               (EHController controller) {
@@ -43,7 +43,7 @@ class OrgRoleListController extends EHPanelController {
               'delete',
               EHImageButtonColumnType(
                   icon: null,
-                  label: 'Delete',
+                  label: 'common.general.delete',
                   onPressed: (dataRow) async {
                     await RoleService().deleteById(dataRow['id']);
 
@@ -56,7 +56,7 @@ class OrgRoleListController extends EHPanelController {
                       'displayName': dataRow['displayName'],
                     }));
                   }),
-              columnHeaderName: 'Delete Role')
+              columnHeaderName: 'common.security.deleteRole')
         ]);
 
     return self;

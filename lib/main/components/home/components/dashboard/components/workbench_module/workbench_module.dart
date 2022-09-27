@@ -23,7 +23,7 @@ class WorkbenchModuleWidget extends StatelessWidget {
 
     if (workbenchModuleController.tabViewController.tabsConfig.length == 0)
       workbenchModuleController.tabViewController.tabsConfig.add(EHTab(
-          '%System Welcome Page',
+          'common.general.welcome',
           EHController(),
           (controller) => Center(
                 child: Container(
@@ -44,7 +44,7 @@ class WorkbenchModuleWidget extends StatelessWidget {
                 ),
               ),
           showInBottomList: false,
-          tabTranslateParams: {'System': 'Workbench'}));
+          tabTranslateParams: {'System': 'common.module.workbench'}));
 
     return PageStorage(
         bucket: globalPageStorageBucket,

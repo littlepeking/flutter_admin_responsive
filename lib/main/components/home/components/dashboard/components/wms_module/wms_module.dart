@@ -21,7 +21,7 @@ class WmsModuleWidget extends StatelessWidget {
 
     if (wmsModuleController.tabViewController.tabsConfig.length == 0)
       wmsModuleController.tabViewController.tabsConfig.add(EHTab(
-          '%System Welcome Page',
+          'common.general.welcome',
           EHController(),
           (controller) => Center(
                 child: Container(

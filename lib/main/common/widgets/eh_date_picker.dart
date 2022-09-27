@@ -201,8 +201,8 @@ class EHDatePickerController extends EHEditableWidgetController {
                           Card(
                             child: SfDateRangePicker(
                               showActionButtons: true,
-                              confirmText: 'Confirm'.tr,
-                              cancelText: 'Cancel'.tr,
+                              confirmText: 'common.general.confirm'.tr,
+                              cancelText: 'common.general.cancel'.tr,
                               toggleDaySelection: true,
                               headerStyle: DateRangePickerHeaderStyle(
                                   textAlign: TextAlign.center,
@@ -239,7 +239,7 @@ class EHDatePickerController extends EHEditableWidgetController {
                           ),
                           height: 400,
                           width: 400,
-                          title: 'Please Select Date'.tr);
+                          title: 'common.general.selectDate'.tr);
                     }
                   : null),
         )));
@@ -263,7 +263,7 @@ class EHDatePickerController extends EHEditableWidgetController {
     TimeOfDay? time;
 
     if (selectedDate == null) {
-      EHToastMessageHelper.showInfoMessage('Please select a date firstly'.tr,
+      EHToastMessageHelper.showInfoMessage('common.general.selectDateFirst'.tr,
           type: EHToastMsgType.Error);
       return null;
     }
@@ -311,7 +311,7 @@ class EHDatePickerController extends EHEditableWidgetController {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Use 24 hours'.tr),
+                              Text('common.general.use24HoursFormat'.tr),
                               SizedBox(
                                 width: 20,
                               ),
@@ -383,7 +383,7 @@ class EHDatePickerController extends EHEditableWidgetController {
         EHController.setWidgetDisplayValue(
             textFieldKey!, _textEditingController.displayValue);
         EHController.setWidgetError(errorBucket!, textFieldKey!,
-            'Date format should be: '.tr + _dateFormat);
+            'common.general.dateFormatInfo'.tr + _dateFormat);
 
         return false;
       }

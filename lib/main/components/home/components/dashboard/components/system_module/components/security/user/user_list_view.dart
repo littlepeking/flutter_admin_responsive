@@ -39,14 +39,15 @@ class UserList extends EHPanel<UserListController> {
         EHButton(
             controller: EHButtonController(
           onPressed: () async {
-            Get.find<SystemModuleController>().tabViewController.addTab(
-                    EHTab<UserEditController>(
-                        'Edit User', await UserEditController.create(),
-                        (EHController controller) {
+            Get.find<SystemModuleController>()
+                .tabViewController
+                .addTab(EHTab<UserEditController>(
+                    'common.general.edit', await UserEditController.create(),
+                    (EHController controller) {
                   return UserEditView(controller: controller);
                 }, closable: true, expandMode: EHTabsViewExpandMode.Expand));
           },
-          child: Text('Add'.tr),
+          child: Text('common.general.add'.tr),
         )),
         EHButton(
             controller: EHButtonController(
@@ -59,7 +60,8 @@ class UserList extends EHPanel<UserListController> {
                 .map((e) => e['id'].toString())
                 .toList();
             UserService().deleteByIds(userIds);
-            EHToastMessageHelper.showInfoMessage('Selected users deleted');
+            EHToastMessageHelper.showInfoMessage(
+                'common.security.selectedUsersDeleted');
             controller.userDataGridController.dataGridSource.handleRefresh();
           },
         )),
@@ -71,9 +73,9 @@ class UserList extends EHPanel<UserListController> {
             focusNode: FocusNode(),
             isMenu: true,
             dropDownWidth: 150,
-            label: 'Actions',
+            label: 'common.general.actions',
             items: {
-              'exportToExcel': 'Export To Excel',
+              'exportToExcel': 'common.general.Export2Excel',
             },
             onChanged: (value) async {
               print((EHContextHelper.getUserOrgPermissions()));

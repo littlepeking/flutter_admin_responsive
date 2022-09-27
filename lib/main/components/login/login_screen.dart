@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      'SCM Execution Platform'.tr,
+                                      'common.general.scmExecutionPlatform'.tr,
                                       style: TextStyle(
                                         letterSpacing:
                                             Get.locale == Locale('zh', 'CN')
@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 component(
                                   usernameController,
                                   Icons.account_circle_outlined,
-                                  'Username'.tr,
+                                  'common.security.username'.tr,
                                   false,
                                   false,
                                 ),
@@ -114,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 component(
                                   passwordController,
                                   Icons.lock_outline,
-                                  'Password'.tr,
+                                  'common.security.password'.tr,
                                   true,
                                   false,
                                 ),
@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         EHUtilHelper.isEmpty(
                                             passwordController.text)) {
                                       EHToastMessageHelper.showLoginErrorMessage(
-                                          "username and password cannot be empty"
+                                          "common.security.usernameOrPasswordEmpty"
                                               .tr);
                                       return;
                                     }
@@ -191,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Text(
-                                      'Sign-In'.tr,
+                                      'common.security.signIn'.tr,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
@@ -218,7 +218,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         Get.updateLocale(enLocale);
                                       }
                                     },
-                                    child: Text('changeLocale'.tr)),
+                                    child:
+                                        Text('common.general.changeLocale'.tr)),
                               ],
                             ),
                           ),

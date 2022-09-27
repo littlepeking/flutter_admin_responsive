@@ -77,7 +77,7 @@ class SideMenu extends StatelessWidget {
                   focusNode: FocusNode(),
                   bindingData: EHContextHelper.selectedOrgModel.value ??
                       EHContextHelper.defaultOrgModel,
-                  popupTitle: 'Please select an organization',
+                  popupTitle: 'common.security.selectOrg',
                   onTreeNodeTap: (data) {
                     if (data != null) {
                       EHContextHelper.switchOrg(data);

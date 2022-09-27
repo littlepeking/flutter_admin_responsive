@@ -38,12 +38,12 @@ class RoleEditView extends EHPanel<RoleEditController> {
               await controller.updateRolePermissions(
                   roleId: controller.model.value.id!);
               controller.reloadData();
-              EHToastMessageHelper.showInfoMessage('Role @displayName saved'
+              EHToastMessageHelper.showInfoMessage('common.security.roleSaved'
                   .trParams(
                       {'displayName': controller.model.value.displayName!}));
             }
           },
-          child: Text('Save'.tr),
+          child: Text('common.general.save'.tr),
         )),
         Container(
           // width: 90,
@@ -53,7 +53,7 @@ class RoleEditView extends EHPanel<RoleEditController> {
             focusNode: FocusNode(),
             isMenu: true,
             dropDownWidth: 150,
-            label: 'Actions',
+            label: 'common.general.actions',
             items: {'print': 'Print'},
             onChanged: (value) {},
           )),

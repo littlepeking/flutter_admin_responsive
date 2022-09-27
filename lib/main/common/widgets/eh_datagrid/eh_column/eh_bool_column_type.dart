@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 
 class EHBoolColumnType extends EHColumnType<bool> {
   EHBoolColumnType({EHWidgetType widgetType = EHWidgetType.CheckBox})
-      : super(widgetType: widgetType, items: {'true': 'Yes', 'false': 'No'});
+      : super(widgetType: widgetType, items: {
+          'true': 'common.general.yes',
+          'false': 'common.general.no'
+        });
 
   @override
   getWidget(bool? value, int rowIndex, columnName, List<Map> dataList) {

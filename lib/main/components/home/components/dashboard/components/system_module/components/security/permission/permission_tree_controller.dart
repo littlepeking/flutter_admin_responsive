@@ -55,7 +55,7 @@ class PermissionTreeController extends EHPanelController {
     await self.refreshPermTreeData();
 
     self.detailTabsViewController = EHTabsViewController(tabs: [
-      EHTab('Detail Info', self.permissionDetailViewController,
+      EHTab('common.general.detailInfo', self.permissionDetailViewController,
           (EHController c) {
         return PageStorage(
             bucket: self.pageStorageBucket,
@@ -65,7 +65,7 @@ class PermissionTreeController extends EHPanelController {
       }),
 
       EHTab(
-        'Organizations',
+        'common.security.organizations',
         self.orgTreeComponentController,
         (controller) => OrgTreeComponent(
           controller: self.orgTreeComponentController,
@@ -96,16 +96,21 @@ class PermissionTreeController extends EHPanelController {
       await refreshOrgTreeData(permissionModel.value!.id!);
 
       if (permissionModel.value!.type == 'D') {
-        detailTabsViewController.getTab('Organizations').isHide = true;
+        detailTabsViewController
+            .getTab('common.security.organizations')
+            .isHide = true;
         detailTabsViewController.selectedTab =
-            detailTabsViewController.getTab('Detail Info');
+            detailTabsViewController.getTab('common.general.detailInfo');
       } else {
-        detailTabsViewController.getTab('Organizations').isHide = false;
+        detailTabsViewController
+            .getTab('common.security.organizations')
+            .isHide = false;
       }
     } else {
       detailTabsViewController.selectedTab =
-          detailTabsViewController.getTab('Detail Info');
-      detailTabsViewController.getTab('Organizations').isHide = true;
+          detailTabsViewController.getTab('common.general.detailInfo');
+      detailTabsViewController.getTab('common.security.organizations').isHide =
+          true;
     }
 
     permissionDetailViewController.detailViewFormController?.reset();
@@ -125,7 +130,7 @@ class PermissionTreeController extends EHPanelController {
       await refreshPermDetailData();
     }
 
-    EHToastMessageHelper.showInfoMessage('Saved successfully.');
+    EHToastMessageHelper.showInfoMessage('common.general.saved');
   }
 
   Future<void> deleteSelectedPerm() async {
@@ -136,7 +141,7 @@ class PermissionTreeController extends EHPanelController {
 
     permissionModel.value = null;
 
-    EHToastMessageHelper.showInfoMessage('Deleted successfully.');
+    EHToastMessageHelper.showInfoMessage('common.general.deleted');
   }
 
   Future<List> updatePermissionOrgIds({required String permissionId}) async {

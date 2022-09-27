@@ -72,7 +72,7 @@ main() {
         //TODO: FORM VALIDATION ERROR
         if (data['status'] != null && data['status'] == 500) {
           EHToastMessageHelper.showInfoMessage(
-              'Internal server error, please contact admin',
+              'common.error.internalServerError',
               type: EHToastMsgType.Error);
         } else if (data['type'] != null &&
             data['type']

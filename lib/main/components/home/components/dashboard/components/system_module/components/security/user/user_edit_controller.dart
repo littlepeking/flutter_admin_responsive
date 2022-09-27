@@ -60,7 +60,8 @@ class UserEditController extends EHPanelController {
     self.userGeneralInfoController = UserDetailGeneralController(self, params);
 
     self.headerTabsViewController = EHTabsViewController(tabs: [
-      EHTab('General Info', self.userGeneralInfoController, (EHController c) {
+      EHTab('common.general.generalInfo', self.userGeneralInfoController,
+          (EHController c) {
         return PageStorage(
             bucket: self.pageStorageBucket,
             child: UserDetailGeneralView(
@@ -81,7 +82,7 @@ class UserEditController extends EHPanelController {
         dataGridSource: self.getRolesDataGridSource());
 
     self.detailTabsViewController = EHTabsViewController(tabs: [
-      EHTab('Assigned Roles', self.userRoleDataGridController,
+      EHTab('common.security.assignedRoles', self.userRoleDataGridController,
           (EHController c) {
         return PageStorage(
             bucket: self.pageStorageBucket,
@@ -122,7 +123,7 @@ class UserEditController extends EHPanelController {
                           'assignRole',
                           EHImageButtonColumnType(
                               icon: null,
-                              label: 'Assign',
+                              label: 'common.security.assign',
                               onPressed: (dataRow) async {
                                 Response userModelResponse =
                                     await EHRestService().postByServiceName(
@@ -141,18 +142,19 @@ class UserEditController extends EHPanelController {
                                     .handleRefresh();
 
                                 EHToastMessageHelper.showInfoMessage(
-                                    'Role @displayName assigned to user @username successfully'
+                                    'common.security.roleAssigned2User'
                                         .trParams({
                                   'displayName': dataRow['displayName'],
                                   'username': model.value.username!
                                 }));
                               }),
-                          columnHeaderName: 'Assign Role')
+                          columnHeaderName: 'common.security.assignRole')
                     ])),
-                title: 'User role authorization'.tr);
+                title: 'common.security.userRoleAuthorization'.tr);
           },
           //TO DO: deep reclusively defined text cannot be translate dynamically, need reopen the page as a workaround.
-          child: Obx(() => Text(EHLocaleHelper.tr('Assign Role'))),
+          child:
+              Obx(() => Text(EHLocaleHelper.tr('common.security.assignRole'))),
         )),
         // EHButton(
         //     controller: EHButtonController(
@@ -182,12 +184,13 @@ class UserEditController extends EHPanelController {
         columnsConfig: [
           EHColumnConf('name', EHStringColumnType(),
               fullQuanifiedName: 'tr_org.trans_text',
-              columnHeaderName: 'Organization'),
+              columnHeaderName: 'common.security.organization'),
           EHColumnConf('roleName', EHStringColumnType(),
-              fullQuanifiedName: 'r.roleName', columnHeaderName: 'Role Name'),
+              fullQuanifiedName: 'r.roleName',
+              columnHeaderName: 'common.security.roleName'),
           EHColumnConf('displayName', EHStringColumnType(),
               fullQuanifiedName: 'r.displayName',
-              columnHeaderName: 'Description'),
+              columnHeaderName: 'common.general.description'),
           EHColumnConf(
               '__delete',
               EHImageButtonColumnType(
@@ -204,13 +207,12 @@ class UserEditController extends EHPanelController {
                     userRoleDataGridController.dataGridSource.handleRefresh();
 
                     EHToastMessageHelper.showInfoMessage(
-                        'Role @displayName revoked from user @username successfully'
-                            .trParams({
+                        'common.security.roleRevokedFromUser'.trParams({
                       'displayName': rowData['displayName'],
                       'username': model.value.username!
                     }));
                   }),
-              columnHeaderName: 'Delete'),
+              columnHeaderName: 'common.general.delete'),
         ],
         params: {
           'userId': model.value.id

@@ -47,7 +47,8 @@ class EHTabsHeaderMobile extends StatelessWidget {
   showBottomList() {
     if (controller.tabsConfig.length == 0 ||
         controller.tabsConfig.where((e) => e.showInBottomList).length == 0) {
-      EHToastMessageHelper.showInfoMessage("Window list is empty".tr,
+      EHToastMessageHelper.showInfoMessage(
+          'common.general.windowCannotEmpty'.tr,
           type: EHToastMsgType.Error);
     } else {
       Get.bottomSheet(
@@ -57,7 +58,7 @@ class EHTabsHeaderMobile extends StatelessWidget {
               alignment: Alignment.center,
               height: 30,
               child: EHText(
-                text: 'Window List'.tr,
+                text: 'common.general.windowList'.tr,
                 weight: FontWeight.bold,
               ),
               decoration: BoxDecoration(

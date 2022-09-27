@@ -53,7 +53,7 @@ class ReceiptDetailViewController extends EHPanelController {
           onEditingComplete: (value) => receiptModel.update((model) {
                 model!.dateTime = value;
               }),
-          label: 'date');
+          label: 'common.general.Date');
     };
 
     EHDataGridSource popUpDataSource = DataGridTest.getDataGridSource();
@@ -102,7 +102,7 @@ class ReceiptDetailViewController extends EHPanelController {
               onEditingComplete: (value) => receiptModel.update((model) {
                     model!.dateTime = value;
                   }),
-              label: 'date')),
+              label: 'common.general.Date')),
     ]);
 
     getWidgetControllerFormController = () =>
@@ -233,7 +233,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   },
                   onChanged: (value) => {}),
               () => EHDatePickerController(
-                    label: 'date',
+                    label: 'common.general.Date',
                     bindingFieldName: 'dateTime',
                     mustInput: true,
                     onEditingComplete: (value) => {},
@@ -252,13 +252,13 @@ class ReceiptDetailViewController extends EHPanelController {
                   ),
               () => EHDatePickerController(
                     enabled: false,
-                    label: 'date',
+                    label: 'common.general.Date',
                     bindingFieldName: 'dateTime',
                     mustInput: true,
                     onEditingComplete: (value) => {},
                   ),
               () => EHDatePickerController(
-                    label: 'time',
+                    label: 'common.general.time',
                     bindingFieldName: 'dateTime2',
                     mustInput: true,
                     showTimePicker: true,
@@ -267,7 +267,7 @@ class ReceiptDetailViewController extends EHPanelController {
                   ),
               () => EHDatePickerController(
                     enabled: false,
-                    label: 'time',
+                    label: 'common.general.time',
                     bindingFieldName: 'dateTime2',
                     mustInput: true,
                     showTimePicker: true,

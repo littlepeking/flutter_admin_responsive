@@ -66,7 +66,7 @@ class UserEditView extends EHPanel<UserEditController> {
               print(modelStr);
               if (EHUtilHelper.nvl(controller.model.value.password, '') !=
                   EHUtilHelper.nvl(controller.model.value.rePassword, ''))
-                throw EHException("Password does not match.");
+                throw EHException('common.security.passwordNotMatch');
 
               bool isCreateNewUser = controller.model.value.id == null;
               await UserService()
@@ -80,11 +80,11 @@ class UserEditView extends EHPanel<UserEditController> {
               controller.model.value.password = "";
               controller.model.value.rePassword = "";
 
-              EHToastMessageHelper.showInfoMessage('User @username saved'
+              EHToastMessageHelper.showInfoMessage('common.security.userSaved'
                   .trParams({'username': controller.model.value.username!}));
             }
           },
-          child: Text('Save'.tr),
+          child: Text('common.general.save'.tr),
         )),
         Container(
           // width: 90,
@@ -94,8 +94,8 @@ class UserEditView extends EHPanel<UserEditController> {
             focusNode: FocusNode(),
             isMenu: true,
             dropDownWidth: 150,
-            label: 'Actions',
-            items: {'print': 'Print'},
+            label: 'common.general.actions',
+            items: {'print': 'common.general.print'},
             onChanged: (value) {},
           )),
         )

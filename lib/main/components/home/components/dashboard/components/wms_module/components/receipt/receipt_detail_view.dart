@@ -125,7 +125,7 @@ class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {
                                     controller.receiptModel.update((model) {
                                       model!.dateTime2 = value;
                                     }),
-                                label: 'date'))),
+                                label: 'common.general.Date'))),
                         Obx(() => EHDropdown(
                               controller: EHDropDownController(
                                   key: controller.dropdownKey2,

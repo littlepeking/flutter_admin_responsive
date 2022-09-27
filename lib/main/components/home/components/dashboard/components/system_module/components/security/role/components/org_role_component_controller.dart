@@ -43,22 +43,26 @@ class OrgRoleComponentController extends EHPanelController {
     await self.orgTreeComponentController.reloadOrgTreeData(treeMapData);
 
     getOrgRolesDataGridSource() {
-      EHServiceDataGridSource dataGridSource =
-          EHServiceDataGridSource(serviceName: SecurityServiceNames.RoleService,
-              // loadDataAtInit: false,
-              columnFilters: [], columnsConfig: [
-        EHColumnConf('orgId', EHStringColumnType(),
-            fullQuanifiedName: 'orgId',
-            columnHeaderName: 'Organization',
-            hideType: EHGridColHideType.hide),
-        EHColumnConf('roleName', EHStringColumnType(),
-            fullQuanifiedName: 'roleName', columnHeaderName: 'Role Name'),
-        EHColumnConf('displayName', EHStringColumnType(),
-            fullQuanifiedName: 'displayName', columnHeaderName: 'Description'),
-        ...extraColumns
-      ], params: {
-        'orgId': '0'
-      });
+      EHServiceDataGridSource dataGridSource = EHServiceDataGridSource(
+          serviceName: SecurityServiceNames.RoleService,
+          // loadDataAtInit: false,
+          columnFilters: [],
+          columnsConfig: [
+            EHColumnConf('orgId', EHStringColumnType(),
+                fullQuanifiedName: 'orgId',
+                columnHeaderName: 'common.security.organization',
+                hideType: EHGridColHideType.hide),
+            EHColumnConf('roleName', EHStringColumnType(),
+                fullQuanifiedName: 'roleName',
+                columnHeaderName: 'common.security.roleName'),
+            EHColumnConf('displayName', EHStringColumnType(),
+                fullQuanifiedName: 'displayName',
+                columnHeaderName: 'common.general.description'),
+            ...extraColumns
+          ],
+          params: {
+            'orgId': '0'
+          });
       return dataGridSource;
     }
 
@@ -71,7 +75,8 @@ class OrgRoleComponentController extends EHPanelController {
         dataGridSource: getOrgRolesDataGridSource());
 
     self.detailTabsViewController = EHTabsViewController(tabs: [
-      EHTab('Role List', self.orgRoleDataGridController, (EHController c) {
+      EHTab('common.security.roleList', self.orgRoleDataGridController,
+          (EHController c) {
         return EHDataGrid(controller: c);
       }, expandMode: EHTabsViewExpandMode.Expand),
     ]);

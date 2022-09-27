@@ -128,11 +128,11 @@ class ReceiptEdit extends EHPanel<ReceiptEditController> {
             focusNode: FocusNode(),
             isMenu: true,
             dropDownWidth: 150,
-            label: 'Actions',
+            label: 'common.general.actions',
             items: {
-              'receivingASN': 'Receiving ASN',
-              'closeASN': 'Close ASN',
-              'printItemLabel': 'Print SKU Label'
+              'receivingASN': 'wms.receivingASN',
+              'closeASN': 'wms.closeASN',
+              'printItemLabel': 'wms.printSKULabel'
             },
             onChanged: (value) {
               if (value == 'receivingASN') {

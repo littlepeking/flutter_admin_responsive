@@ -58,7 +58,7 @@ class OrganizationTreeController extends EHPanelController {
         await PermTreeComponentController.create(self, showCheckBox: true);
 
     self.detailTabsViewController = EHTabsViewController(tabs: [
-      EHTab('Detail Info', self.organizationDetailViewController,
+      EHTab('common.general.detailInfo', self.organizationDetailViewController,
           (EHController c) {
         return PageStorage(
             bucket: self.pageStorageBucket,
@@ -68,7 +68,7 @@ class OrganizationTreeController extends EHPanelController {
       }),
 
       EHTab(
-        'Permissions',
+        'common.security.funcPerms',
         self.permTreeComponentController,
         (controller) => PermTreeComponent(
           controller: self.permTreeComponentController,
@@ -98,11 +98,13 @@ class OrganizationTreeController extends EHPanelController {
       await refreshPermissionTreeData(orgModel.value!.id!);
       await organizationDetailViewController.initData();
 
-      detailTabsViewController.getTab('Permissions').isHide = false;
+      detailTabsViewController.getTab('common.security.funcPerms').isHide =
+          false;
     } else {
       detailTabsViewController.selectedTab =
-          detailTabsViewController.getTab('Detail Info');
-      detailTabsViewController.getTab('Permissions').isHide = true;
+          detailTabsViewController.getTab('common.general.detailInfo');
+      detailTabsViewController.getTab('common.security.funcPerms').isHide =
+          true;
     }
     organizationDetailViewController.orgDetailViewFormController?.reset();
     detailTabsViewController.tabsConfig.refresh();
@@ -122,7 +124,7 @@ class OrganizationTreeController extends EHPanelController {
       await refreshOrgDetailData();
     }
 
-    EHToastMessageHelper.showInfoMessage('Saved successfully.');
+    EHToastMessageHelper.showInfoMessage('common.general.saved');
   }
 
   Future<void> deleteSelectedOrg() async {
@@ -133,7 +135,7 @@ class OrganizationTreeController extends EHPanelController {
     orgModel.value = null;
 
     await organizationDetailViewController.initData();
-    EHToastMessageHelper.showInfoMessage('Deleted successfully.');
+    EHToastMessageHelper.showInfoMessage('common.general.deleted');
   }
 
   Future<List> updateOrgPermissions({required String orgId}) async {

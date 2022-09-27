@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'messages/en_US.dart';
-import 'messages/permission_zh_CN.dart';
 import 'messages/zh_CN.dart';
 
 class Messages extends Translations {
@@ -10,8 +9,6 @@ class Messages extends Translations {
   Map<String, Map<String, String>> get keys {
     if (_message.length == 0) {
       _message['en_US'] = enUSMessages;
-
-      zhCNMessages.addAll(permissionZhCNMessages);
       _message['zh_CN'] = zhCNMessages;
     }
 

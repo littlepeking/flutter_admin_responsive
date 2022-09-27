@@ -45,14 +45,16 @@ class RoleEditController extends EHPanelController {
         await RoleDetailGeneralController.create(self, params);
 
     self.headerTabsViewController = EHTabsViewController(tabs: [
-      EHTab('General Info', self.roleGeneralInfoController, (EHController c) {
+      EHTab('common.general.generalInfo', self.roleGeneralInfoController,
+          (EHController c) {
         return PageStorage(
             bucket: self.pageStorageBucket,
             child: RoleDetailGeneralView(
               controller: c,
             ));
       }),
-      EHTab('Permissions', self.permTreeCompController, (EHController c) {
+      EHTab('common.security.funcPerms', self.permTreeCompController,
+          (EHController c) {
         return PageStorage(
             bucket: self.pageStorageBucket,
             child: PermTreeComponent(
@@ -73,9 +75,11 @@ class RoleEditController extends EHPanelController {
       List permData =
           await PermissionService().buildTreeByRoleId(this.model.value.id!);
       permTreeCompController.reloadPermTreeData(permData);
-      headerTabsViewController.getTab('Permissions').isHide = false;
+      headerTabsViewController.getTab('common.security.funcPerms').isHide =
+          false;
     } else {
-      headerTabsViewController.getTab('Permissions').isHide = true;
+      headerTabsViewController.getTab('common.security.funcPerms').isHide =
+          true;
     }
     headerTabsViewController.tabsConfig.refresh();
   }
@@ -107,7 +111,8 @@ class RoleEditController extends EHPanelController {
             model.refresh();
           },
           //TO DO: deep reclusively defined text cannot be translate dynamically, need reopen the page as a workaround.
-          child: Obx(() => Text(EHLocaleHelper.tr('Assign Role'))),
+          child:
+              Obx(() => Text(EHLocaleHelper.tr('common.security.assignRole'))),
         )),
         // EHButton(
         //     controller: EHButtonController(

@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class EHContextHelper {
   static OrganizationModel defaultOrgModel =
-      OrganizationModel(id: null, name: '<Select Org>');
+      OrganizationModel(id: null, name: 'common.security.selectOrgDefaultVal');
 
   static Rx<OrganizationModel?> selectedOrgModel = Rxn();
 

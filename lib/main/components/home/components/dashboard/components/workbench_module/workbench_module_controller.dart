@@ -14,22 +14,25 @@ class WorkbenchModuleController extends EHController {
       allNodesExpanded: true,
       treeNodeDataList: [
         EHTreeNode(
-            displayName: "Notifications",
+            displayName: 'common.general.notification',
             icon: Icons.notifications,
             children: []),
-        EHTreeNode(displayName: "Alerts", icon: Icons.alarm, children: [
-          // EHTreeNode(
-          //     permissionCodes: {'SECURITY_PERMISSION'},
-          //     displayName: "Permission",
-          //     onTap: () async {
-          //       tabViewController.addTab(EHTab<PermissionTreeController>(
-          //           'Permission', await PermissionTreeController.create(),
-          //           (EHController controller) {
-          //         return PermissionTreeView(controller: controller);
-          //       }, closable: true, expandMode: EHTabsViewExpandMode.Expand));
-          //     },
-          //     children: [])
-        ]),
+        EHTreeNode(
+            displayName: 'common.general.alert',
+            icon: Icons.alarm,
+            children: [
+              // EHTreeNode(
+              //     permissionCodes: {'SECURITY_PERMISSION'},
+              //     displayName: "Permission",
+              //     onTap: () async {
+              //       tabViewController.addTab(EHTab<PermissionTreeController>(
+              //           'Permission', await PermissionTreeController.create(),
+              //           (EHController controller) {
+              //         return PermissionTreeView(controller: controller);
+              //       }, closable: true, expandMode: EHTabsViewExpandMode.Expand));
+              //     },
+              //     children: [])
+            ]),
       ].obs);
 
   reset() {

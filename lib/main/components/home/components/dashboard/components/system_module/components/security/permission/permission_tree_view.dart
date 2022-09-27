@@ -113,21 +113,21 @@ class PermissionTreeView extends EHPanel<PermissionTreeController> {
                   controller.refreshPermDetailData();
                 } else {
                   EHToastMessageHelper.showInfoMessage(
-                      'Please select a directory before creating a permission');
+                      'common.security.selectOrgBeforeCreatePerm');
                 }
               },
-              child: Text('Add'.tr),
+              child: Text('common.general.add'.tr),
             )),
             EHButton(
                 controller: EHButtonController(
                     enabled: isTreeNodeEditable(),
-                    child: Text('Save'.tr),
+                    child: Text('common.general.save'.tr),
                     onPressed: () async =>
                         await this.controller.savePermDetailView())),
             EHButton(
                 controller: EHButtonController(
               enabled: isTreeNodeEditable(),
-              child: Text('Delete'.tr),
+              child: Text('common.general.delete'.tr),
               onPressed: () async {
                 await controller.deleteSelectedPerm();
               },

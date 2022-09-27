@@ -282,13 +282,13 @@ class EHPopupController extends EHEditableWidgetController {
       print('3:' + displayText);
       if (res.length == 0) {
         EHController.setWidgetError(errorBucket!, key!,
-            'No record related to code'.tr + ':' + displayText);
+            'common.error.noRecordRelated2Code'.tr + ':' + displayText);
 
         return false;
       }
       if (res.length > 1) {
         EHController.setWidgetError(errorBucket!, key!,
-            'Mutilple records related to code'.tr + ':' + displayText);
+            'common.error.multiRecordsRelated2Code'.tr + ':' + displayText);
 
         return false;
       } else {

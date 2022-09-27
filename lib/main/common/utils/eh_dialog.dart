@@ -4,7 +4,7 @@ import 'responsive.dart';
 
 class EHDialog {
   static showPopupDialog(Widget widget,
-      {String title = 'Please Select Item',
+      {String title = 'common.general.selectItem',
       FocusNode? focusNode,
       double? width,
       double? height}) async {

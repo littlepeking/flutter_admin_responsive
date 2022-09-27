@@ -24,7 +24,7 @@ class _TmsModuleWidgetState extends State<TmsModuleWidget> {
 
     if (tmsModuleController.tabViewController.tabsConfig.length == 0)
       tmsModuleController.tabViewController.tabsConfig.add(EHTab(
-          '%System Welcome Page',
+          'common.general.welcome',
           EHController(),
           (controller) => Container(
                 padding: EdgeInsets.all(50),

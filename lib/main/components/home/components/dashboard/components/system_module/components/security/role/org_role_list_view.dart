@@ -51,7 +51,7 @@ class OrgRoleListView extends EHPanel<OrgRoleListController> {
               Get.find<SystemModuleController>()
                   .tabViewController
                   .addTab(EHTab<RoleEditController>(
-                      'Edit Role',
+                      'common.general.edit',
                       await RoleEditController.create(params: {
                         'orgId': (selectedTreeNode.data as OrganizationModel).id
                       }), (EHController controller) {
@@ -59,10 +59,10 @@ class OrgRoleListView extends EHPanel<OrgRoleListController> {
                   }, closable: true, expandMode: EHTabsViewExpandMode.Expand));
             } else {
               EHToastMessageHelper.showInfoMessage(
-                  'Please select an organization before add a role');
+                  'common.security.selectOrgBeforeAddRole');
             }
           },
-          child: Text('Add'.tr),
+          child: Text('common.general.add'.tr),
         )),
         Container(
           // width: 90,
@@ -72,7 +72,7 @@ class OrgRoleListView extends EHPanel<OrgRoleListController> {
             focusNode: FocusNode(),
             isMenu: true,
             dropDownWidth: 150,
-            label: 'Actions',
+            label: 'common.general.actions',
             items: {
               'exportToExcel': 'Export To Excel',
             },

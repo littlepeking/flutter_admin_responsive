@@ -25,18 +25,20 @@ class SystemModuleController extends EHController {
       allNodesExpanded: true,
       treeNodeDataList: [
         EHTreeNode(
-            displayName: "Master Data", icon: Icons.museum, children: []),
+            displayName: 'common.md.masterData',
+            icon: Icons.museum,
+            children: []),
         EHTreeNode(
-            displayName: "Security",
+            displayName: 'common.security.security',
             icon: Icons.admin_panel_settings,
             children: [
               EHTreeNode(
                   permissionCodes: {'SECURITY_ORG'},
-                  displayName: "Organization",
+                  displayName: 'common.security.organization',
                   isChecked: true,
                   onTap: () async {
                     tabViewController.addTab(EHTab<OrganizationTreeController>(
-                        'Organization',
+                        'common.security.organization',
                         await OrganizationTreeController.create(),
                         (EHController controller) {
                       return OrganizationTreeView(controller: controller);
@@ -47,11 +49,11 @@ class SystemModuleController extends EHController {
                   }),
               EHTreeNode(
                   permissionCodes: {'SECURITY_USER'},
-                  displayName: "User",
+                  displayName: 'common.security.user',
                   isChecked: true,
                   onTap: () {
                     tabViewController.addTab(EHTab<UserListController>(
-                        'User List', UserListController(),
+                        'common.security.userList', UserListController(),
                         (EHController controller) {
                       return UserList(controller: controller);
                     }, closable: true, expandMode: EHTabsViewExpandMode.None));
@@ -59,7 +61,7 @@ class SystemModuleController extends EHController {
                   }),
               EHTreeNode(
                   permissionCodes: {'SECURITY_ROLE'},
-                  displayName: "Role",
+                  displayName: 'common.security.role',
                   onTap: () async {
                     tabViewController.addTab(EHTab<OrgRoleListController>(
                         'Role', await OrgRoleListController.create(),
@@ -70,7 +72,7 @@ class SystemModuleController extends EHController {
                   children: []),
               EHTreeNode(
                   permissionCodes: {'SECURITY_PERMISSION'},
-                  displayName: "Permission",
+                  displayName: 'common.security.permission',
                   onTap: () async {
                     tabViewController.addTab(EHTab<PermissionTreeController>(
                         'Permission', await PermissionTreeController.create(),

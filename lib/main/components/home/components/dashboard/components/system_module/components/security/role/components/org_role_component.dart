@@ -46,7 +46,7 @@ class OrgRoleComponent extends EHPanel<OrgRoleComponentController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.tips_and_updates),
-                          Text('Please select an organization'.tr)
+                          Text('common.security.selectOrg'.tr)
                         ],
                       ))))),
         ),

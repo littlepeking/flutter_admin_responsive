@@ -7,7 +7,7 @@ enum EHToastMsgType { Successful, Error }
 
 class EHToastMessageHelper {
   static showInfoMessage(String message,
-      {String title = 'Message Infomation',
+      {String title = 'common.general.messageInfo',
       EHToastMsgType type = EHToastMsgType.Successful}) {
     final ThemeCustomAttributes themeCustomAttributes =
         Theme.of(Get.context!).extension<ThemeCustomAttributes>()!;
@@ -58,7 +58,7 @@ class EHToastMessageHelper {
         isDismissible: true,
         mainButton: TextButton(
           child: Text(
-            'Close'.tr,
+            'common.general.close'.tr,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: themeCustomAttributes.textColor),

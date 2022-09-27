@@ -1,4 +1,3 @@
-
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
@@ -31,25 +30,25 @@ class UserDetailGeneralController extends EHPanelController {
             rxModel: userModel,
             widgetControllerBuilders: [
               () => EHTextFieldController(
-                  label: 'Username',
+                  label: 'common.security.username',
                   //autoFocus: true,
                   bindingFieldName: 'username',
                   enabled: userModel.value.id == null,
                   mustInput: true,
                   onEditingComplete: (value) {}),
               () => EHTextFieldController(
-                  label: 'First Name',
+                  label: 'common.security.firstName',
                   bindingFieldName: 'firstName',
                   mustInput: true,
                   onEditingComplete: (value) {}),
               () => EHTextFieldController(
-                  label: 'Last Name',
+                  label: 'common.security.lastName',
                   bindingFieldName: 'lastName',
                   mustInput: true,
                   onEditingComplete: (value) {}),
               () => EHFormDividerController(width: 1),
               () => EHDropDownController(
-                  label: 'Auth Type',
+                  label: 'common.security.authType',
                   enabled: userModel.value.id == null,
                   mustInput: true,
                   bindingFieldName: 'authType',
@@ -58,7 +57,7 @@ class UserDetailGeneralController extends EHPanelController {
                     editFormController!.reset();
                   }),
               () => EHTextFieldController(
-                  label: 'Domain Username',
+                  label: 'common.security.domainUsername',
                   bindingFieldName: 'domainUsername',
                   enabled: false, //POPULATE BY BACKEND
                   onEditingComplete: (value) {}),
@@ -69,7 +68,7 @@ class UserDetailGeneralController extends EHPanelController {
               //     bindingFieldName: 'originalPassword',
               //     onEditingComplete: (value) {}),
               () => EHTextFieldController(
-                  label: 'New Password',
+                  label: 'common.security.newPassword',
                   hideText: true,
                   enabled: userModel.value.authType == EHAuthType.BASIC.name,
                   mustInput:
@@ -78,7 +77,7 @@ class UserDetailGeneralController extends EHPanelController {
                   bindingFieldName: 'password',
                   onEditingComplete: (value) {}),
               () => EHTextFieldController(
-                  label: 'Verify New Password',
+                  label: 'common.security.verifyNewPassword',
                   hideText: true,
                   enabled: userModel.value.authType == EHAuthType.BASIC.name,
                   mustInput:
@@ -88,22 +87,22 @@ class UserDetailGeneralController extends EHPanelController {
                   onEditingComplete: (value) {}),
               () => EHFormDividerController(width: 1),
               () => EHCheckBoxController(
-                  label: 'Enabled',
+                  label: 'common.general.isEnabled',
                   bindingFieldName: 'enabled',
                   onChanged: (v) {}),
               () => EHCheckBoxController(
-                  label: 'Account Locked',
+                  label: 'common.security.accountLocked',
                   bindingFieldName: 'accountLocked',
                   onChanged: (v) {}),
               () => EHCheckBoxController(
                   enabled: userModel.value.authType == EHAuthType.BASIC.name,
-                  label: 'Credentials Expired',
+                  label: 'common.security.credentialsExpired',
                   bindingFieldName: 'credentialsExpired',
                   onChanged: (v) {}),
               () => EHFormDividerController(width: 1),
               () => EHTextFieldController(
                   enabled: false,
-                  label: 'Add Who',
+                  label: 'common.general.addWho',
                   //autoFocus: true,
                   bindingFieldName: 'addWho',
                   mustInput: false,
@@ -111,14 +110,14 @@ class UserDetailGeneralController extends EHPanelController {
               () => EHDatePickerController(
                     enabled: false,
                     showTimePicker: true,
-                    label: 'Add Date',
+                    label: 'common.general.addDate',
                     bindingFieldName: 'addDate',
                     mustInput: false,
                     onEditingComplete: (value) => {},
                   ),
               () => EHTextFieldController(
                   enabled: false,
-                  label: 'Edit Who',
+                  label: 'common.general.editWho',
                   //autoFocus: true,
                   bindingFieldName: 'editWho',
                   mustInput: false,
@@ -126,7 +125,7 @@ class UserDetailGeneralController extends EHPanelController {
               () => EHDatePickerController(
                     enabled: false,
                     showTimePicker: true,
-                    label: 'Edit Date',
+                    label: 'common.general.editDate',
                     bindingFieldName: 'editDate',
                     mustInput: false,
                     onEditingComplete: (value) => {},

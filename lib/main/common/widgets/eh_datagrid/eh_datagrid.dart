@@ -134,9 +134,9 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
               focusNode:
                   controller.dataGridSource.getFilterFocusNode(columnConfig),
               items: {
-                '': '[--All--]'.tr,
-                'true': 'Yes'.tr,
-                'false': 'No'.tr,
+                '': 'common.general.all'.tr,
+                'true': 'common.general.yes'.tr,
+                'false': 'common.general.no'.tr,
               },
               onChanged: (value) {
                 getColumnFilter(columnConfig.columnName).text = value;
@@ -155,7 +155,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
         try {
           bindValue = new DateFormat(_dateFormat).parseStrict(dateStr);
         } catch (e) {
-          throw EHException('Date format should be: '.tr + _dateFormat);
+          throw EHException('common.general.dateFormatInfo'.tr + _dateFormat);
         }
       }
 
@@ -206,7 +206,7 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
           decoration: InputDecoration(
             contentPadding: EdgeInsets.all(5),
             border: new OutlineInputBorder(),
-            hintText: "Filter...".tr,
+            hintText: 'common.general.filterCondition'.tr,
           ),
           onChanged: (value) {
             getColumnFilter(columnConfig.columnName).text = value;

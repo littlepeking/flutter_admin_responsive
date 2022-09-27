@@ -80,7 +80,7 @@ getSystemBtnBar() {
         : SizedBox.shrink()),
     Obx(() => EHContextHelper.getUserOrgModules().contains('SYSTEM')
         ? EHImageButton(
-            text: 'System',
+            text: 'common.module.system',
             icon: Icon(Icons.monitor),
             isSelected:
                 EHContextHelper.currentModule.value == SystemModule.system,
@@ -101,7 +101,7 @@ getSystemBtnBar() {
 getFunctionBtnBar() {
   return [
     Obx(() => EHImageButton(
-          text: 'Workbench',
+          text: 'common.module.workbench',
           icon: Icon(
             Icons.dvr,
             // color: Color.fromARGB(255, 67, 67, 67),
@@ -119,7 +119,7 @@ getFunctionBtnBar() {
           },
         )),
     EHImageButton(
-        text: 'changeTheme',
+        text: 'common.general.changeTheme',
         icon: Icon(
           Icons.ac_unit_sharp,
           //   color: Color.fromARGB(255, 67, 67, 67),
@@ -131,7 +131,7 @@ getFunctionBtnBar() {
           //  print(ThemeController.instance.isDarkMode);
         }),
     EHImageButton(
-        text: 'changeLocale',
+        text: 'common.general.changeLocale',
         icon: Icon(
           Icons.language,
           //   color: Color.fromARGB(255, 67, 67, 67),
@@ -146,7 +146,7 @@ getFunctionBtnBar() {
           }
         }),
     EHImageButton(
-        text: 'Logout'.tr,
+        text: 'common.security.logout'.tr,
         icon: Icon(
           Icons.exit_to_app,
           //  color: Color.fromARGB(255, 67, 67, 67),

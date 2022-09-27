@@ -15,21 +15,21 @@ class TmsModuleController extends GetxController {
       allNodesExpanded: true,
       treeNodeDataList: [
         EHTreeNode(
-          displayName: "Transport Management",
+          displayName: 'wms.transportManagement',
           children: [
             EHTreeNode(
                 icon: Icons.assignment,
-                displayName: "Shipment Orders",
+                displayName: 'wms.shipmentOrders',
                 onTap: () {
                   tabViewController.addTab((EHTab<TestController>(
-                      'Shipment Orders', TestController(),
+                      'wms.shipmentOrders', TestController(),
                       (EHController controller) {
                     return Test2(controller: controller);
                   }, closable: true)));
                 }),
             EHTreeNode(
               icon: Icons.alt_route,
-              displayName: "Routes",
+              displayName: 'wms.routes',
               children: [],
             ),
           ],

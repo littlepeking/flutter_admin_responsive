@@ -39,19 +39,19 @@ class RoleDetailGeneralController extends EHPanelController {
             rxModel: userModel,
             widgetControllerBuilders: [
               () => EHTextFieldController(
-                  label: 'Role Name',
+                  label: 'common.security.roleName',
                   //autoFocus: true,
                   bindingFieldName: 'roleName',
                   //enabled: userModel.value.id == null,
                   mustInput: true,
                   onEditingComplete: (value) {}),
               () => EHTextFieldController(
-                  label: 'Display Name',
+                  label: 'common.general.displayName',
                   bindingFieldName: 'displayName',
                   mustInput: true,
                   onEditingComplete: (value) {}),
               () => EHDropDownController(
-                  label: 'Organization',
+                  label: 'common.security.organization',
                   enabled: false,
                   bindingFieldName: 'orgId',
                   items: self.orgItems,
@@ -59,7 +59,7 @@ class RoleDetailGeneralController extends EHPanelController {
               () => EHFormDividerController(width: 1),
               () => EHTextFieldController(
                   enabled: false,
-                  label: 'Add Who',
+                  label: 'common.general.addWho',
                   //autoFocus: true,
                   bindingFieldName: 'addWho',
                   mustInput: false,
@@ -67,14 +67,14 @@ class RoleDetailGeneralController extends EHPanelController {
               () => EHDatePickerController(
                     enabled: false,
                     showTimePicker: true,
-                    label: 'Add Date',
+                    label: 'common.general.addDate',
                     bindingFieldName: 'addDate',
                     mustInput: false,
                     onEditingComplete: (value) => {},
                   ),
               () => EHTextFieldController(
                   enabled: false,
-                  label: 'Edit Who',
+                  label: 'common.general.editWho',
                   //autoFocus: true,
                   bindingFieldName: 'editWho',
                   mustInput: false,
@@ -82,7 +82,7 @@ class RoleDetailGeneralController extends EHPanelController {
               () => EHDatePickerController(
                     enabled: false,
                     showTimePicker: true,
-                    label: 'Edit Date',
+                    label: 'common.general.editDate',
                     bindingFieldName: 'editDate',
                     mustInput: false,
                     onEditingComplete: (value) => {},

@@ -40,24 +40,27 @@ class PermissionDetailViewController extends EHPanelController {
               rxModel: rxModel,
               widgetControllerBuilders: [
                 () => EHTextFieldController(
-                    label: 'Display Name',
+                    label: 'common.general.displayName',
                     //autoFocus: true,
                     bindingFieldName: 'displayName',
                     mustInput: true,
                     onEditingComplete: (value) {}),
                 () => EHDropDownController(
-                      label: 'Type',
+                      label: 'common.general.type',
                       mustInput: true,
                       width: 300,
                       bindingFieldName: 'type',
-                      items: {'P': 'Permission', 'D': 'Directory'},
+                      items: {
+                        'P': 'common.security.permission',
+                        'D': 'common.general.directory'
+                      },
                       enabled: rxModel.value.id == null,
                       onChanged: (val) {
                         if (val == 'D') rxModel.value.authority = '';
                       },
                     ),
                 () => EHTextFieldController(
-                    label: 'Authority Code',
+                    label: 'common.security.authorityCode',
                     //autoFocus: true,
                     bindingFieldName: 'authority',
                     mustInput: rxModel.value.type == 'P',
@@ -67,13 +70,13 @@ class PermissionDetailViewController extends EHPanelController {
                 () => EHFormDividerController(width: 1),
                 () => EHTextFieldController(
                     enabled: false,
-                    label: 'Add Who',
+                    label: 'common.general.addWho',
                     //autoFocus: true,
                     bindingFieldName: 'addWho',
                     mustInput: false,
                     onEditingComplete: (value) {}),
                 () => EHDatePickerController(
-                      label: 'Add Date',
+                      label: 'common.general.addDate',
                       enabled: false,
                       bindingFieldName: 'addDate',
                       showTimePicker: true,
@@ -82,14 +85,14 @@ class PermissionDetailViewController extends EHPanelController {
                     ),
                 () => EHTextFieldController(
                     enabled: false,
-                    label: 'Edit Who',
+                    label: 'common.general.editWho',
                     //autoFocus: true,
                     bindingFieldName: 'editWho',
                     mustInput: false,
                     onEditingComplete: (value) {}),
                 () => EHDatePickerController(
                       enabled: false,
-                      label: 'Edit Date',
+                      label: 'common.general.editDate',
                       bindingFieldName: 'editDate',
                       showTimePicker: true,
                       onEditingComplete: (value) => {},

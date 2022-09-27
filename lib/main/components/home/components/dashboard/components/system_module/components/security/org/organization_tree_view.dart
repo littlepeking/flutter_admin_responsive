@@ -90,16 +90,16 @@ class OrganizationTreeView extends EHPanel<OrganizationTreeController> {
                   .reset();
             controller.refreshOrgDetailData();
           },
-          child: Text('Add'.tr),
+          child: Text('common.general.add'.tr),
         )),
         EHButton(
             controller: EHButtonController(
-                child: Text('Save'.tr),
+                child: Text('common.general.save'.tr),
                 onPressed: () async =>
                     await this.controller.saveOrgDetailView())),
         EHButton(
             controller: EHButtonController(
-          child: Text('Delete'.tr),
+          child: Text('common.general.delete'.tr),
           onPressed: () async {
             await controller.deleteSelectedOrg();
           },

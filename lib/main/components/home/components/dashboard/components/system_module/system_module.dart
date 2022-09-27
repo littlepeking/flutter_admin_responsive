@@ -23,7 +23,7 @@ class SystemModuleWidget extends StatelessWidget {
 
     if (systemModuleController.tabViewController.tabsConfig.length == 0)
       systemModuleController.tabViewController.tabsConfig.add(EHTab(
-          '%System Welcome Page',
+          'common.general.welcome',
           EHController(),
           (controller) => Center(
                 child: Container(
@@ -44,7 +44,7 @@ class SystemModuleWidget extends StatelessWidget {
                 ),
               ),
           showInBottomList: false,
-          tabTranslateParams: {'System': 'SystemModule'}));
+          tabTranslateParams: {'System': 'common.module.system'}));
 
     return PageStorage(
         bucket: globalPageStorageBucket,
