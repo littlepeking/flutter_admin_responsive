@@ -42,7 +42,9 @@ class SideMenu extends StatelessWidget {
           //       mainAxisAlignment: MainAxisAlignment.end,
           //       children: getFunctionBtnBar())
           // else
-          SizedBox(height: 20),
+          Responsive.isMobile(Get.context!)
+              ? SizedBox(height: 10)
+              : SizedBox(height: 20),
           SizedBox(
             height: 10,
           ),
@@ -75,6 +77,7 @@ class SideMenu extends StatelessWidget {
               controller: EHTreePopupController(
                   key: GlobalKey(),
                   focusNode: FocusNode(),
+                  width: 180,
                   bindingData: EHContextHelper.selectedOrgModel.value ??
                       EHContextHelper.defaultOrgModel,
                   popupTitleMsgKey: 'common.security.selectOrg',
@@ -100,9 +103,6 @@ class SideMenu extends StatelessWidget {
           //   "assets/images/enhantec.png",
           //   height: 70,
           // ),
-          SizedBox(
-            height: 10,
-          ),
           if (Responsive.isMobile(context))
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -111,7 +111,7 @@ class SideMenu extends StatelessWidget {
 
     getDrawerContent() => [
           Container(
-            height: Responsive.isMobile(context) ? 185 : 150,
+            height: Responsive.isMobile(context) ? 200 : 150,
             child: DrawerHeader(
               padding: EdgeInsets.zero,
               child: Center(

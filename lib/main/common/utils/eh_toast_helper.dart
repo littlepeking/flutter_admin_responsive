@@ -3,6 +3,8 @@ import 'package:eh_flutter_framework/main/common/utils/theme_custom_attributes.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../widgets/eh_check_mark.dart';
+
 enum EHToastMsgType { Successful, Error }
 
 class EHToastMessageHelper {
@@ -51,9 +53,25 @@ class EHToastMessageHelper {
               .bodyLarge!
               .copyWith(fontWeight: FontWeight.bold),
         ),
-        messageText: Text(
-          message.tr,
-          style: Theme.of(Get.context!).textTheme.bodyLarge,
+        messageText: Row(
+          children: [
+            if (type == EHToastMsgType.Successful)
+              EHCheckMark()
+            else if (type == EHToastMsgType.Error)
+              Icon(
+                Icons.close,
+                color: Colors.red,
+                weight: 1000,
+              ),
+            Expanded(
+              child: Text(
+                message.tr,
+                style: Theme.of(Get.context!).textTheme.bodyLarge,
+                softWrap: true,
+                maxLines: 5,
+              ),
+            ),
+          ],
         ),
         isDismissible: true,
         mainButton: TextButton(
