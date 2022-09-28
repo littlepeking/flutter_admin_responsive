@@ -19,7 +19,6 @@
 import 'dart:convert';
 
 import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
-import 'package:eh_flutter_framework/main/common/services/wms/outbound/receipt_service.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
@@ -31,6 +30,8 @@ import '../../../../../../../../common/widgets/eh_datagrid/eh_datagrid_filter_da
 import '../../../../../../../../common/widgets/eh_toolbar.dart';
 import 'receipt_edit_controller.dart';
 import 'package:split_view/split_view.dart';
+
+import 'receipt_service.dart';
 
 class ReceiptEdit extends EHPanel<ReceiptEditController> {
   ReceiptEdit({Key? key, controller}) : super(key: key, controller: controller);

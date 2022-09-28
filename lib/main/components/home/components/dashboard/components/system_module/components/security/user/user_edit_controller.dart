@@ -20,7 +20,7 @@ import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
 import 'package:eh_flutter_framework/main/common/base/eh_panel_controller.dart';
 import 'package:eh_flutter_framework/main/common/services/common/eh_rest_service.dart';
-import 'package:eh_flutter_framework/main/common/services/common/service_name.dart';
+import 'package:eh_flutter_framework/main/common/services/common/service_names.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_dialog.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_locale_helper.dart';
 import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';

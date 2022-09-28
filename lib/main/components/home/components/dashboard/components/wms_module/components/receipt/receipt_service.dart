@@ -19,7 +19,7 @@
 import 'package:eh_flutter_framework/main/common/services/common/eh_base_model_service.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/components/receipt/models/receipt_model.dart';
 
-import '../service_name.dart';
+import '../../../../../../../../common/services/common/service_names.dart';
 
 class ReceiptService extends EHBaseModelService<ReceiptModel> {
   ReceiptService._internal();

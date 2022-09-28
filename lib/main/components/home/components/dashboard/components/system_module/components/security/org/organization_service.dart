@@ -19,7 +19,7 @@
 import 'package:dio/dio.dart';
 import 'package:eh_flutter_framework/main/common/services/common/eh_base_model_service.dart';
 import 'package:eh_flutter_framework/main/common/services/common/eh_rest_service.dart';
-import 'package:eh_flutter_framework/main/common/services/common/service_name.dart';
+import 'package:eh_flutter_framework/main/common/services/common/service_names.dart';
 
 import 'organization_model.dart';
 

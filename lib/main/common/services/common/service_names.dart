@@ -24,3 +24,7 @@ class SecurityServiceNames {
   static String PermissionService = '/security/permission';
   static String OrganizationService = '/security/org';
 }
+
+class WMSServiceNames {
+  static String ReceiptService = '/security/user';
+}
