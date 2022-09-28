@@ -93,7 +93,7 @@ Map<String, String> enUSMessages = {
   'common.general.alert': 'Alerts',
   'common.general.configuration': 'Configuration',
   'common.general.report': 'Reports',
-  'common.general.welcome': '%System Welcome Page',
+  'common.general.welcome': '@System Welcome Page',
   'common.general.scmExecutionPlatform': 'SCM Execution Platform',
   'common.general.saved': 'Saved successfully',
   'common.general.deleted': 'Deleted successfully',
