@@ -16,19 +16,19 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/main/common/constants/map_constant.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/constants/layout_constant.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/constants/map_constant.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_context_helper.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_navigator.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/responsive.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_image_button.dart';
 import 'package:eh_flutter_framework/main/common/constants/navigation_keys.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_navigator.dart';
-import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
-import 'package:eh_flutter_framework/main/common/constants.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_image_button.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../common/utils/eh_theme_helper.dart';
+import '../../../../../../enhantec_ui_framework/utils/eh_theme_helper.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -194,10 +194,11 @@ class SearchField extends StatelessWidget {
         suffixIcon: InkWell(
           onTap: () {},
           child: Container(
-            padding: EdgeInsets.all(defaultPadding * 0.75),
-            margin: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+            padding: EdgeInsets.all(LayoutConstant.defaultPadding * 0.75),
+            margin: EdgeInsets.symmetric(
+                horizontal: LayoutConstant.defaultPadding / 2),
             decoration: BoxDecoration(
-              color: primaryColor,
+              color: LayoutConstant.primaryColor,
               borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
             child: SvgPicture.asset("assets/icons/Search.svg"),

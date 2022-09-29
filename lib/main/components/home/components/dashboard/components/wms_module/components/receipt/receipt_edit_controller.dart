@@ -16,18 +16,18 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_datagrid/eh_datagrid_controller.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_panel_controller.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_toast_helper.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid_controller.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_dropdown.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:eh_flutter_framework/test/TestData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../../../common/base/eh_panel_controller.dart';
 import 'receipt_detail_view.dart';
 import 'receipt_detail_view_controller.dart';
 

@@ -16,12 +16,12 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tab.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_controller.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tree_view/eh_tree_node.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_controller.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_tree_view.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/permission_tree_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/permission_tree_view.dart';

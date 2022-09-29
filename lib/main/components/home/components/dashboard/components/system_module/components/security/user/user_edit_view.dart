@@ -16,15 +16,15 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/main/common/base/eh_exception.dart';
-import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_util_helper.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_button.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_master_detail_splitter.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_tabs_view/eh_tabs_view.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_toolbar.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_exception.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_panel.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_toast_helper.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_util_helper.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_button.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_dropdown.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_master_detail_splitter.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'user_edit_controller.dart';

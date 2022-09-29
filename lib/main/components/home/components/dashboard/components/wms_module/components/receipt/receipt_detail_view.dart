@@ -15,21 +15,19 @@
 
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
-
-import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
-import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_check_box.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_date_picker.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_dropdown.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_popup.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_text_field.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_panel.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_check_box.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_date_picker.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_dropdown.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_edit_form.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_multi_select.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_popup.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_text_field.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/components/receipt/models/receipt_model.dart';
 import 'package:eh_flutter_framework/test/TestData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../../../../../../common/widgets/eh_multi_select.dart';
 import 'receipt_detail_view_controller.dart';
 
 class ReceiptDetailView extends EHPanel<ReceiptDetailViewController> {

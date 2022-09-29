@@ -18,9 +18,9 @@
 
 import 'dart:convert';
 
-import 'package:eh_flutter_framework/main/common/base/eh_model_converters.dart';
-import 'package:eh_flutter_framework/main/common/base/eh_version_model.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_refactor_helper.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_model_converters.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_version_model.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_refactor_helper.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'permission_model.g.dart';

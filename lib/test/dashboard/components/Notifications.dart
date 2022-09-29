@@ -16,7 +16,7 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/main/common/constants.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/constants/layout_constant.dart';
 import 'package:flutter/material.dart';
 
 import 'chart.dart';
@@ -30,7 +30,7 @@ class Notifications extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(defaultPadding),
+      padding: EdgeInsets.all(LayoutConstant.defaultPadding),
       decoration: BoxDecoration(
         color: Theme.of(context).canvasColor,
         borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -45,7 +45,7 @@ class Notifications extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: defaultPadding),
+          SizedBox(height: LayoutConstant.defaultPadding),
           Chart(),
           StorageInfoCard(
             svgSrc: "assets/icons/Documents.svg",

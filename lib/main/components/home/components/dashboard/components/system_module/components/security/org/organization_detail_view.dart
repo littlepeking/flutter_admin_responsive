@@ -16,8 +16,8 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/main/common/base/eh_panel.dart';
-import 'package:eh_flutter_framework/main/common/widgets/eh_edit_form.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_panel.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_edit_form.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_model.dart';
 
 import 'package:flutter/material.dart';

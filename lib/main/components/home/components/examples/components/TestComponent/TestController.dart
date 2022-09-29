@@ -16,7 +16,7 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/main/common/base/eh_controller.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_controller.dart';
 import 'package:get/get.dart';
 
 class TestController extends EHController {

@@ -16,7 +16,7 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/main/common/constants.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/constants/layout_constant.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +43,7 @@ class Chart extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: defaultPadding),
+                SizedBox(height: LayoutConstant.defaultPadding),
                 Text(
                   "29.1",
                   style: Theme.of(context)
@@ -63,7 +63,7 @@ class Chart extends StatelessWidget {
 
 List<PieChartSectionData> paiChartSelectionDatas = [
   PieChartSectionData(
-    color: primaryColor,
+    color: LayoutConstant.primaryColor,
     value: 25,
     showTitle: false,
     radius: 25,
@@ -87,7 +87,7 @@ List<PieChartSectionData> paiChartSelectionDatas = [
     radius: 16,
   ),
   PieChartSectionData(
-    color: primaryColor.withOpacity(0.1),
+    color: LayoutConstant.primaryColor.withOpacity(0.1),
     value: 25,
     showTitle: false,
     radius: 13,

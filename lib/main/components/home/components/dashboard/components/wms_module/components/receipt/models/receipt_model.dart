@@ -19,13 +19,10 @@
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:eh_flutter_framework/main/common/base/eh_model_converters.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_model.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_model_converters.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_refactor_helper.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'package:eh_flutter_framework/main/common/base/eh_model.dart';
-
-import '../../../../../../../../../common/utils/eh_refactor_helper.dart';
-
 part 'receipt_model.g.dart';
 
 @JsonSerializable()

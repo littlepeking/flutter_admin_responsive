@@ -16,12 +16,12 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/main/common/constants.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_context_helper.dart';
-import 'package:eh_flutter_framework/main/common/utils/responsive.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/constants/layout_constant.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_context_helper.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/responsive.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/dashboard_navigation_controller.dart';
 import 'package:flutter/material.dart';
-import '../../../../common/constants/map_constant.dart';
+import '../../../../../enhantec_ui_framework/constants/map_constant.dart';
 import 'components/header.dart';
 import 'package:get/get.dart';
 
@@ -33,9 +33,9 @@ class Dashboard extends GetView<DashBoardNavigationController> {
       child: Container(
         padding: !Responsive.isMobile(context)
             ? EdgeInsets.only(
-                left: defaultPadding,
-                right: defaultPadding,
-                top: defaultPadding)
+                left: LayoutConstant.defaultPadding,
+                right: LayoutConstant.defaultPadding,
+                top: LayoutConstant.defaultPadding)
             : EdgeInsets.only(left: 0, right: 0, top: 0),
         child: Column(
           children: [

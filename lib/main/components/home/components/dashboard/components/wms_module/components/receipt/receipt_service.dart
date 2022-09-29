@@ -16,10 +16,9 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/main/common/services/common/eh_base_model_service.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/services/eh_base_model_service.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/services/service_names.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/components/receipt/models/receipt_model.dart';
-
-import '../../../../../../../../common/services/common/service_names.dart';
 
 class ReceiptService extends EHBaseModelService<ReceiptModel> {
   ReceiptService._internal();

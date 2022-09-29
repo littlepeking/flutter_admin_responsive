@@ -18,21 +18,21 @@
 
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:eh_flutter_framework/main/common/base/eh_exception.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_exception.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/i18n/customSfLocalization.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/i18n/fallback_localization_delegate.dart';
 import 'dart:convert';
-import 'package:eh_flutter_framework/main/common/i18n/customSfLocalization.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_toast_helper.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_toast_helper.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:eh_flutter_framework/main/common/Utils/theme.dart';
-import 'package:eh_flutter_framework/main/common/i18n/fallback_localization_delegate.dart';
-import 'package:eh_flutter_framework/main/common/i18n/messages.dart';
-import 'package:eh_flutter_framework/main/common/utils/eh_theme_helper.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/i18n/messages/messages.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_theme_helper.dart';
 import 'package:eh_flutter_framework/main/components/home/components/error/PageNotFound.dart';
 import 'package:eh_flutter_framework/main/routes/page_config.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'common/utils/theme_custom_attributes.dart';
+import '../enhantec_ui_framework/utils/theme_custom_attributes.dart';
 
 main() {
   //SOME GetxControllers CANNOT BE PUT HERE (NEED FIGURE IT OUT), OTHERWISE EXCEPTION WILL NOT BE CAUGHT PROPERLY!
