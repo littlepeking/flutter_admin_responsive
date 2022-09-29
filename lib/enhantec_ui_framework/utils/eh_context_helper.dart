@@ -18,12 +18,11 @@
 
 import 'dart:convert';
 
-import 'package:eh_flutter_framework/enhantec_ui_framework/constants/map_constant.dart';
-import 'package:eh_flutter_framework/main/common/constants/navigation_keys.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/org/organization_model.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/permission/permission_model.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/role/role_model.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/components/security/user/user_model.dart';
+import 'package:eh_flutter_framework/main/common/constants/constants.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/modules/security/org/organization_model.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/modules/security/permission/permission_model.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/modules/security/role/role_model.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/modules/security/user/user_model.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

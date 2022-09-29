@@ -19,9 +19,9 @@
 import 'package:eh_flutter_framework/enhantec_ui_framework/constants/layout_constant.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/utils/responsive.dart';
+import 'package:eh_flutter_framework/main/common/constants/constants.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/dashboard_navigation_controller.dart';
 import 'package:flutter/material.dart';
-import '../../../../../enhantec_ui_framework/constants/map_constant.dart';
 import 'components/header.dart';
 import 'package:get/get.dart';
 
