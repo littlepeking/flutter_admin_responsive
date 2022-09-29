@@ -171,7 +171,8 @@ class EHDataGrid extends EHStatelessWidget<EHDataGridController> {
 
       if (!EHUtilHelper.isEmpty(dateStr)) {
         try {
-          bindValue = new DateFormat(_dateFormat).parseStrict(dateStr);
+          // bindValue = new DateFormat(_dateFormat).parseStrict(dateStr);
+          bindValue = new DateFormat(_dateFormat).parse(dateStr);
         } catch (e) {
           throw EHException('common.general.dateFormatInfo'.tr + _dateFormat);
         }

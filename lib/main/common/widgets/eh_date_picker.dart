@@ -368,8 +368,10 @@ class EHDatePickerController extends EHEditableWidgetController {
   getDisplayDate() {
     DateTime? date;
     try {
+      // date = new DateFormat(_dateFormat)
+      //    .parse(_textEditingController.displayValue);
       date = new DateFormat(_dateFormat)
-          .parseStrict(_textEditingController.displayValue);
+          .parse(_textEditingController.displayValue);
     } catch (e) {
       //print(e);
     }
@@ -396,7 +398,7 @@ class EHDatePickerController extends EHEditableWidgetController {
       //check if date is match format
       try {
         parsedDate = new DateFormat(_dateFormat)
-            .parseStrict(_textEditingController.displayValue);
+            .parse(_textEditingController.displayValue);
       } catch (e) {
         EHController.setWidgetDisplayValue(
             textFieldKey!, _textEditingController.displayValue);
