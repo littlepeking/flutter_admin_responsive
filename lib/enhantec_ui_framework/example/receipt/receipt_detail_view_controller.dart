@@ -29,8 +29,8 @@ import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_form_divid
 import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_multi_select.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_popup.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_text_field.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/components/receipt/models/receipt_model.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/components/receipt/receipt_edit_controller.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/example/receipt/models/receipt_model.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/example/receipt/receipt_edit_controller.dart';
 import 'package:eh_flutter_framework/test/TestData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

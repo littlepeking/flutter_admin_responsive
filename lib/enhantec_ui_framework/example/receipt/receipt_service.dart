@@ -18,7 +18,7 @@
 
 import 'package:eh_flutter_framework/enhantec_ui_framework/services/eh_base_model_service.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/services/service_names.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/components/receipt/models/receipt_model.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/example/receipt/models/receipt_model.dart';
 
 class ReceiptService extends EHBaseModelService<ReceiptModel> {
   ReceiptService._internal();
