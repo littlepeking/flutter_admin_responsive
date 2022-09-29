@@ -16,8 +16,8 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/enhantec_ui_framework/i18n/messages/base_messages_en_US.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/i18n/messages/base_messages_zh_CN.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/i18n/messages/base_messages_en_US.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/i18n/messages/base_messages_zh_CN.dart';
 import 'package:get/get.dart';
 
 import 'messages_en_US.dart';

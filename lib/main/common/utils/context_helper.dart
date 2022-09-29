@@ -1,9 +1,9 @@
-import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
-import 'package:eh_flutter_framework/main/common/constants/constants.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/tms_module/tms_module_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/wms_module_controller.dart';
-import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/workbench_module/workbench_module_controller.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
+import 'package:enhantec_frontend_project/main/common/constants/constants.dart';
+import 'package:enhantec_frontend_project/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
+import 'package:enhantec_frontend_project/main/components/home/components/dashboard/components/tms_module/tms_module_controller.dart';
+import 'package:enhantec_frontend_project/main/components/home/components/dashboard/components/wms_module/wms_module_controller.dart';
+import 'package:enhantec_frontend_project/main/components/home/components/dashboard/components/workbench_module/workbench_module_controller.dart';
 import 'package:get/get.dart';
 
 class ContextHelper {

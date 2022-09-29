@@ -17,7 +17,7 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:dio/dio.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_model.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_model.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 

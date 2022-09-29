@@ -16,10 +16,10 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_exception.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/utils/responsive.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tabs_view/scrollable_positioned_list/lib/item_positions_listener.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_exception.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/responsive.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_tabs_view/scrollable_positioned_list/lib/item_positions_listener.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'scrollable_positioned_list/lib/scrollable_positioned_list.dart';

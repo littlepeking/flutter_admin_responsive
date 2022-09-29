@@ -17,9 +17,9 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:dio/dio.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/services/eh_rest_service.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/services/eh_base_model_service.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/services/service_names.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/services/eh_rest_service.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/services/eh_base_model_service.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/services/service_names.dart';
 
 import 'organization_model.dart';
 

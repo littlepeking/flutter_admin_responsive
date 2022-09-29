@@ -20,9 +20,9 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_context_helper.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_toast_helper.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_loading_indicator.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_context_helper.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_toast_helper.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_loading_indicator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' hide Response, FormData;
 

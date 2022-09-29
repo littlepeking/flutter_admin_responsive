@@ -16,10 +16,10 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_controller.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_theme_helper.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_header.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_theme_helper.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_header.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

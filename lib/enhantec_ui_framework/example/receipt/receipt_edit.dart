@@ -18,14 +18,14 @@
 
 import 'dart:convert';
 
-import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_panel.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_button.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_toast_helper.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/utils/responsive.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid_filter_data.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_dropdown.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_toolbar.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_panel.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_button.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_toast_helper.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/responsive.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid_filter_data.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_dropdown.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'receipt_edit_controller.dart';

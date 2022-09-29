@@ -16,7 +16,7 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_model.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_model.dart';
 
 abstract class EHVersionModel extends EHModel {
   int? version;

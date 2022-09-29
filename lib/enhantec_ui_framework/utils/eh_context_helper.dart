@@ -18,12 +18,12 @@
 
 import 'dart:convert';
 
-import 'package:eh_flutter_framework/main/common/constants/constants.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/modules/security/org/organization_model.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/modules/security/permission/permission_model.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/modules/security/role/role_model.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/modules/security/user/user_model.dart';
-import 'package:eh_flutter_framework/main/common/utils/context_helper.dart';
+import 'package:enhantec_frontend_project/main/common/constants/constants.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/modules/security/org/organization_model.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/modules/security/permission/permission_model.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/modules/security/role/role_model.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/modules/security/user/user_model.dart';
+import 'package:enhantec_frontend_project/main/common/utils/context_helper.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

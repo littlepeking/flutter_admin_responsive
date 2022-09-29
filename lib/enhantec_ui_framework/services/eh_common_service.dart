@@ -17,8 +17,8 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:dio/dio.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/services/eh_common_service_names.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid_filter_data.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/services/eh_common_service_names.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid_filter_data.dart';
 
 import 'eh_rest_service.dart';
 

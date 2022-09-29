@@ -16,8 +16,8 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_edit_widget_controller.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_stateless_widget.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_edit_widget_controller.dart';
+import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_stateless_widget.dart';
 import 'package:flutter/material.dart';
 
 class EHButton extends EHStatelessWidget<EHButtonController> {
