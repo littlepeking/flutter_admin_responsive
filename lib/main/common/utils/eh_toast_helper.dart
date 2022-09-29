@@ -55,7 +55,7 @@ class EHToastMessageHelper {
             color: type == EHToastMsgType.Successful
                 ? Colors.green
                 : EHThemeHelper.isDarkMode.value
-                    ? Colors.yellow
+                    ? Color.fromARGB(255, 249, 164, 164)
                     : Colors.red),
         // forwardAnimationCurve: Curves.easeOutBack,
         //colorText: Colors.black,
@@ -76,11 +76,24 @@ class EHToastMessageHelper {
             if (type == EHToastMsgType.Successful)
               EHCheckMark()
             else if (type == EHToastMsgType.Error)
-              Icon(
-                Icons.close,
-                color: Colors.red,
-                weight: 1000,
-              ),
+              Container(
+                  margin: EdgeInsets.only(right: 10),
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(
+                          width: 2,
+                          color: EHThemeHelper.isDarkMode.value
+                              ? Color.fromARGB(255, 249, 164, 164)
+                              : Colors.red)),
+                  child: Icon(
+                    Icons.close,
+                    color: EHThemeHelper.isDarkMode.value
+                        ? Color.fromARGB(255, 249, 164, 164)
+                        : Colors.red,
+                    size: 35,
+                  )),
             Expanded(
               child: Text(
                 message.tr,
