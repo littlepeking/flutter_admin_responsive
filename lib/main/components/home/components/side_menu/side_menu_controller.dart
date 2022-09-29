@@ -17,10 +17,10 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:eh_flutter_framework/enhantec_ui_framework/base/eh_panel_controller.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_view.dart';
 import 'package:eh_flutter_framework/main/common/constants/constants.dart';
+import 'package:eh_flutter_framework/main/common/utils/context_helper.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/workbench_module/workbench_module_controller.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/tms_module/tms_module_controller.dart';
@@ -61,10 +61,10 @@ class SideMenuController extends EHPanelController {
 
   EHTreeView getSideBarTreeView() {
     EHTreeController controller =
-        getSideMenuController(EHContextHelper.currentModule.value);
+        getSideMenuController(ContextHelper.currentModule.value);
 
     return EHTreeView(
-        key: GlobalKey(debugLabel: EHContextHelper.currentModule.value.name),
+        key: GlobalKey(debugLabel: ContextHelper.currentModule.value.name),
         controller: controller);
   }
 }

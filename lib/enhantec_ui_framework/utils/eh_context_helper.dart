@@ -23,6 +23,7 @@ import 'package:eh_flutter_framework/enhantec_ui_framework/modules/security/org/
 import 'package:eh_flutter_framework/enhantec_ui_framework/modules/security/permission/permission_model.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/modules/security/role/role_model.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/modules/security/user/user_model.dart';
+import 'package:eh_flutter_framework/main/common/utils/context_helper.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,8 +36,6 @@ class EHContextHelper {
   static Rx<OrganizationModel?> selectedOrgModel = Rxn();
 
   static Map<String, Set<PermissionModel>> _orgPermissions = {};
-
-  static Rx<SystemModule> currentModule = SystemModule.workbench.obs;
 
   static Future<UserModel> getUserDetail() async {
     String? contextString = await getString("userInfo");
@@ -69,19 +68,13 @@ class EHContextHelper {
     await EHContextHelper.removeString('userInfo');
     await EHContextHelper.removeString("Authorization");
     selectedOrgModel.value = defaultOrgModel;
-    currentModule.value = SystemModule.workbench;
-    EHNavigator.resetAllModuleTabs();
+    ContextHelper.currentModule.value = SystemModule.workbench;
+
     EHNavigator.navigateTo("/login");
   }
 
   static switchOrg(OrganizationModel organizationModel) {
     selectedOrgModel.value = organizationModel;
-    currentModule.value = SystemModule.workbench;
-    EHNavigator.resetAllModuleTabs();
-    EHNavigator.navigateTo(
-      MapConstant.systemModuleRoute[currentModule.value]!,
-      navigatorKey: NavigationKeys.dashBoardNavKey,
-    );
   }
 
   static Map<String, Set<PermissionModel>> getAllUserPermissions() {

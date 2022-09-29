@@ -22,6 +22,7 @@ import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_navigator.da
 import 'package:eh_flutter_framework/enhantec_ui_framework/utils/responsive.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/widgets/eh_image_button.dart';
 import 'package:eh_flutter_framework/main/common/constants/constants.dart';
+import 'package:eh_flutter_framework/main/common/utils/context_helper.dart';
 import 'package:eh_flutter_framework/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -67,10 +68,10 @@ getSystemBtnBar() {
         ? EHImageButton(
             textMsgKey: 'WMS',
             icon: Icon(Icons.warehouse),
-            isSelected: EHContextHelper.currentModule.value == SystemModule.wms,
+            isSelected: ContextHelper.currentModule.value == SystemModule.wms,
             onPressed: (data) {
-              if (SystemModule.wms != EHContextHelper.currentModule.value) {
-                EHContextHelper.currentModule.value = SystemModule.wms;
+              if (SystemModule.wms != ContextHelper.currentModule.value) {
+                ContextHelper.currentModule.value = SystemModule.wms;
                 EHNavigator.navigateTo(
                   MapConstant.systemModuleRoute[SystemModule.wms]!,
                   navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -83,10 +84,10 @@ getSystemBtnBar() {
         ? EHImageButton(
             textMsgKey: 'TMS',
             icon: Icon(Icons.local_shipping),
-            isSelected: EHContextHelper.currentModule.value == SystemModule.tms,
+            isSelected: ContextHelper.currentModule.value == SystemModule.tms,
             onPressed: (data) {
-              if (SystemModule.tms != EHContextHelper.currentModule.value) {
-                EHContextHelper.currentModule.value = SystemModule.tms;
+              if (SystemModule.tms != ContextHelper.currentModule.value) {
+                ContextHelper.currentModule.value = SystemModule.tms;
                 EHNavigator.navigateTo(
                   MapConstant.systemModuleRoute[SystemModule.tms]!,
                   navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -100,10 +101,10 @@ getSystemBtnBar() {
             textMsgKey: 'common.module.system',
             icon: Icon(Icons.monitor),
             isSelected:
-                EHContextHelper.currentModule.value == SystemModule.system,
+                ContextHelper.currentModule.value == SystemModule.system,
             onPressed: (data) {
-              if (SystemModule.system != EHContextHelper.currentModule.value) {
-                EHContextHelper.currentModule.value = SystemModule.system;
+              if (SystemModule.system != ContextHelper.currentModule.value) {
+                ContextHelper.currentModule.value = SystemModule.system;
                 EHNavigator.navigateTo(
                   MapConstant.systemModuleRoute[SystemModule.system]!,
                   navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -124,10 +125,10 @@ getFunctionBtnBar() {
             // color: Color.fromARGB(255, 67, 67, 67),
           ),
           isSelected:
-              EHContextHelper.currentModule.value == SystemModule.workbench,
+              ContextHelper.currentModule.value == SystemModule.workbench,
           onPressed: (data) {
-            if (SystemModule.workbench != EHContextHelper.currentModule.value) {
-              EHContextHelper.currentModule.value = SystemModule.workbench;
+            if (SystemModule.workbench != ContextHelper.currentModule.value) {
+              ContextHelper.currentModule.value = SystemModule.workbench;
               EHNavigator.navigateTo(
                 MapConstant.systemModuleRoute[SystemModule.workbench]!,
                 navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -170,6 +171,7 @@ getFunctionBtnBar() {
         ),
         onPressed: (data) async {
           await EHContextHelper.logout();
+          ContextHelper.resetAllModuleTabs();
         }),
   ];
 }
