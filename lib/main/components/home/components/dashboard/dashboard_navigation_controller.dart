@@ -16,9 +16,8 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:eh_flutter_framework/enhantec_ui_framework/constants/map_constant.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_navigator.dart';
-import 'package:eh_flutter_framework/main/common/constants/navigation_keys.dart';
+import 'package:eh_flutter_framework/main/common/constants/constants.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/system_module/system_module.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/wms_module/wms_module.dart';
 import 'package:eh_flutter_framework/main/components/home/components/dashboard/components/workbench_module/workbench_module.dart';
