@@ -16,6 +16,8 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
+import 'package:eh_flutter_framework/enhantec_ui_framework/i18n/messages/base_messages_en_US.dart';
+import 'package:eh_flutter_framework/enhantec_ui_framework/i18n/messages/base_messages_zh_CN.dart';
 import 'package:get/get.dart';
 
 import 'messages_en_US.dart';
@@ -27,8 +29,11 @@ class Messages extends Translations {
   @override
   Map<String, Map<String, String>> get keys {
     if (_message.length == 0) {
-      _message['en_US'] = enUSMessages;
-      _message['zh_CN'] = zhCNMessages;
+      _message['en_US'] = baseEnUSMessages;
+      _message['zh_CN'] = baseZhCNMessages;
+
+      _message['en_US']!.addAll(enUSMessages);
+      _message['zh_CN']!.addAll(zhCNMessages);
     }
 
     return _message;

@@ -24,9 +24,9 @@ import 'package:eh_flutter_framework/enhantec_ui_framework/i18n/fallback_localiz
 import 'dart:convert';
 import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_toast_helper.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/utils/theme.dart';
+import 'package:eh_flutter_framework/main/common/i18n/messages/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:eh_flutter_framework/enhantec_ui_framework/i18n/messages/messages.dart';
 import 'package:eh_flutter_framework/enhantec_ui_framework/utils/eh_theme_helper.dart';
 import 'package:eh_flutter_framework/main/components/home/components/error/PageNotFound.dart';
 import 'package:eh_flutter_framework/main/routes/page_config.dart';

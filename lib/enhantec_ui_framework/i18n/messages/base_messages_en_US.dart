@@ -16,7 +16,7 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-Map<String, String> enUSMessages = {
+Map<String, String> baseEnUSMessages = {
   //module
 
   'common.module.workbench': 'WorkBench',
@@ -151,26 +151,4 @@ Map<String, String> enUSMessages = {
   'common.general.windowCannotEmpty': 'Window list is empty',
   'common.general.windowList': 'Window List',
   'common.general.Export2Excel': 'Export to EXCEL',
-
-  //master data
-
-  'common.md.masterData': 'Master Data',
-
-  //wms
-
-  'wms.inbound': 'Inbound',
-  'wms.outbound': 'Outbound',
-  'wms.inventory': 'Inventory',
-  'wms.receivingASN': 'Receiving ASN',
-  'wms.closeASN': 'Close ASN',
-  'wms.printSKULabel': 'Print SKU Label',
-  'wms.orders': 'Orders',
-  'wms.orderDetails': 'Order Details',
-  'wms.pickDetails': 'Pick Details',
-  'wms.warehouseManagement': 'Warehouse Management',
-  'wms.transportManagement': 'Transport Management',
-  'wms.asn': 'Asn',
-  'wms.asnDetails': 'Asn Details',
-  'wms.shipmentOrders': 'Shipment Orders',
-  'wms.routes': 'Routes',
 };

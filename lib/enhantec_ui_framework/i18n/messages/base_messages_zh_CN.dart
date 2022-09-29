@@ -16,7 +16,7 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-Map<String, String> zhCNMessages = {
+Map<String, String> baseZhCNMessages = {
   //test i18 data
   'popUp': '弹出框',
   'checkBox': '选择框',
@@ -155,26 +155,4 @@ Map<String, String> zhCNMessages = {
   'common.general.windowCannotEmpty': '窗口列表为空',
   'common.general.windowList': '窗口列表',
   'common.general.Export2Excel': '导出为EXCEL',
-
-  //master data
-
-  'common.md.masterData': '主数据',
-
-  //wms
-
-  'wms.inbound': '入库',
-  'wms.outbound': '出库',
-  'wms.inventory': '库存',
-  'wms.receivingASN': '接收ASN',
-  'wms.closeASN': '关闭ASN',
-  'wms.printSKULabel': '打印物料标签',
-  'wms.orders': '订单管理',
-  'wms.orderDetails': '订单明细',
-  'wms.pickDetails': '拣货明细',
-  'wms.warehouseManagement': '仓库管理',
-  'wms.transportManagement': '运输管理',
-  'wms.asn': '收货单',
-  'wms.asnDetails': '收货单明细',
-  'wms.shipmentOrders': '运单管理',
-  'wms.routes': '路线',
 };
