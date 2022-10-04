@@ -5,21 +5,21 @@
     "version": "0.1.0",
     "configurations": [
         {
-            "name": "enhantec_frontend_project (release)",
+            "name": "enhantec_platform_ui (release)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
             "program": "lib/main/main.dart"
         },
         {
-            "name": "enhantec_frontend_project (profile)",
+            "name": "enhantec_platform_ui (profile)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
             "program": "lib/main/main.dart"
         },
         {
-            "name": "enhantec_frontend_project (debug)",
+            "name": "enhantec_platform_ui (debug)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",

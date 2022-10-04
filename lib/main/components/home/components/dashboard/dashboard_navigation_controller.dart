@@ -16,11 +16,11 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_navigator.dart';
-import 'package:enhantec_frontend_project/main/common/constants/constants.dart';
-import 'package:enhantec_frontend_project/main/components/home/components/dashboard/components/system_module/system_module.dart';
-import 'package:enhantec_frontend_project/main/components/home/components/dashboard/components/wms_module/wms_module.dart';
-import 'package:enhantec_frontend_project/main/components/home/components/dashboard/components/workbench_module/workbench_module.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_navigator.dart';
+import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
+import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/system_module/system_module.dart';
+import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/wms_module/wms_module.dart';
+import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/workbench_module/workbench_module.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

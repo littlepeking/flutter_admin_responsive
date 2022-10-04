@@ -16,9 +16,9 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_datagrid/eh_column/eh_column_type.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid_constants.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_dropdown.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_column/eh_column_type.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid_constants.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_dropdown.dart';
 import 'package:flutter/material.dart';
 
 class EHBoolColumnType extends EHColumnType<bool> {

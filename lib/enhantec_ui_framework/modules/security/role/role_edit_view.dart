@@ -16,13 +16,13 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_panel.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_toast_helper.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_button.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_dropdown.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_toolbar.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/modules/security/role/role_service.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_panel.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_toast_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_button.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_dropdown.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_toolbar.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/role/role_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'role_edit_controller.dart';

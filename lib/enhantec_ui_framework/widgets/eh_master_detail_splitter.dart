@@ -16,8 +16,8 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_controller.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_stateless_widget.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_stateless_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:split_view/split_view.dart';
 

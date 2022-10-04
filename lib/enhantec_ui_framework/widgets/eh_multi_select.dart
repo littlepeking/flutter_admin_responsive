@@ -17,13 +17,13 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_edit_widget_controller.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_editable_widget.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_model.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/constants/layout_constant.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_util_helper.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/common/eh_edit_error_info.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/common/eh_edit_label.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_edit_widget_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_editable_widget.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_model.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/layout_constant.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_util_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/common/eh_edit_error_info.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/common/eh_edit_label.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

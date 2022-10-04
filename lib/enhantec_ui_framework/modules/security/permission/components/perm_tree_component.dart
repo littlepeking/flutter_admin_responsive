@@ -16,8 +16,8 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_stateless_widget.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_view.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_stateless_widget.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_view.dart';
 import 'package:flutter/material.dart';
 
 import 'perm_tree_component_controller.dart';

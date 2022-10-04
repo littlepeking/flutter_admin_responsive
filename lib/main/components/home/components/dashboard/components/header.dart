@@ -16,14 +16,14 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_frontend_project/enhantec_ui_framework/constants/layout_constant.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_context_helper.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_navigator.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/responsive.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_image_button.dart';
-import 'package:enhantec_frontend_project/main/common/constants/constants.dart';
-import 'package:enhantec_frontend_project/main/common/utils/context_helper.dart';
-import 'package:enhantec_frontend_project/main/components/home/components/side_menu/side_menu_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/layout_constant.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_navigator.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_image_button.dart';
+import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
+import 'package:enhantec_platform_ui/main/common/utils/context_helper.dart';
+import 'package:enhantec_platform_ui/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

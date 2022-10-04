@@ -19,8 +19,8 @@
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_model_converters.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_version_model.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_model_converters.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_version_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 import '../../../../../../../../../../enhantec_ui_framework/utils/eh_refactor_helper.dart';
 

@@ -16,9 +16,9 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_context_helper.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_theme_helper.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_node.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_theme_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -16,9 +16,9 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_edit_widget_controller.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_editable_widget.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_model.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_edit_widget_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_editable_widget.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

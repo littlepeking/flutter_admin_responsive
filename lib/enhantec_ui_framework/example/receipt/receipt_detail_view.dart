@@ -15,17 +15,17 @@
 
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_controller.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_panel.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_check_box.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_date_picker.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_dropdown.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_edit_form.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_multi_select.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_popup.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_text_field.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/example/receipt/models/receipt_model.dart';
-import 'package:enhantec_frontend_project/test/TestData.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_panel.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_check_box.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_date_picker.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_dropdown.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_edit_form.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_multi_select.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_popup.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_text_field.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/example/receipt/models/receipt_model.dart';
+import 'package:enhantec_platform_ui/test/TestData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'receipt_detail_view_controller.dart';

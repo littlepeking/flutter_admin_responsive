@@ -16,8 +16,8 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_frontend_project/enhantec_ui_framework/modules/security/org/organization_model.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/modules/security/org/organization_service.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/org/organization_model.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/org/organization_service.dart';
 
 class CommonDataSources {
   static Future<Map<String, String>> getOrgDDLDataSource() async {

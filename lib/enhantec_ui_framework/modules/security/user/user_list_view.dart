@@ -16,18 +16,18 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_controller.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_panel.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_context_helper.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_toast_helper.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_button.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_dropdown.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/widgets/eh_toolbar.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/modules/security/user/user_service.dart';
-import 'package:enhantec_frontend_project/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_panel.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_toast_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_button.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_dropdown.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_toolbar.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/user/user_service.dart';
+import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'user_edit_controller.dart';

@@ -18,11 +18,11 @@
 
 import 'dart:async';
 
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_controller.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/base/eh_model.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/constants/layout_constant.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_refactor_helper.dart';
-import 'package:enhantec_frontend_project/enhantec_ui_framework/utils/eh_util_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_model.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/layout_constant.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_refactor_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_util_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
