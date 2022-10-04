@@ -200,13 +200,13 @@ class UserEditController extends EHPanelController {
         // loadDataAtInit: false,
         columnFilters: [],
         columnsConfig: [
-          EHColumnConf('name', EHStringColumnType(),
+          EHColumnConf('orgName', EHStringColumnType(),
               fullQuanifiedName: 'tr_org.trans_text',
               columnHeaderMsgKey: 'common.security.organization'),
           EHColumnConf('roleName', EHStringColumnType(),
               fullQuanifiedName: 'r.roleName',
               columnHeaderMsgKey: 'common.security.roleName'),
-          EHColumnConf('displayName', EHStringColumnType(),
+          EHColumnConf('roleDisplayName', EHStringColumnType(),
               fullQuanifiedName: 'r.displayName',
               columnHeaderMsgKey: 'common.general.description'),
           EHColumnConf(
