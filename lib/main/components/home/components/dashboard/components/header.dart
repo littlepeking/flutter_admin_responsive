@@ -62,13 +62,31 @@ List<Widget> getHeaderButtons(BuildContext context) {
   return buttons;
 }
 
+getDecoration(isSelected, isVertical) {
+  return isVertical
+      ? BoxDecoration(
+          border: Border(
+              right: isSelected
+                  ? BorderSide(width: 3.0, color: EHThemeHelper.getTextColor())
+                  : BorderSide(
+                      width: 3.0, color: EHThemeHelper.getBackgroundColor())))
+      : BoxDecoration(
+          border: Border(
+              bottom: isSelected
+                  ? BorderSide(width: 3.0, color: EHThemeHelper.getTextColor())
+                  : BorderSide(
+                      width: 3.0, color: EHThemeHelper.getBackgroundColor())));
+}
+
 getSystemBtnBar() {
   return [
     Obx(() => EHContextHelper.getUserOrgModules().contains('WMS')
         ? EHImageButton(
             textMsgKey: 'WMS',
             icon: Icon(Icons.warehouse),
-            isSelected: ContextHelper.currentModule.value == SystemModule.wms,
+            decoration: getDecoration(
+                ContextHelper.currentModule.value == SystemModule.wms,
+                Responsive.isMobile(Get.context!)),
             onPressed: (data) {
               if (SystemModule.wms != ContextHelper.currentModule.value) {
                 ContextHelper.currentModule.value = SystemModule.wms;
@@ -84,7 +102,9 @@ getSystemBtnBar() {
         ? EHImageButton(
             textMsgKey: 'TMS',
             icon: Icon(Icons.local_shipping),
-            isSelected: ContextHelper.currentModule.value == SystemModule.tms,
+            decoration: getDecoration(
+                ContextHelper.currentModule.value == SystemModule.tms,
+                Responsive.isMobile(Get.context!)),
             onPressed: (data) {
               if (SystemModule.tms != ContextHelper.currentModule.value) {
                 ContextHelper.currentModule.value = SystemModule.tms;
@@ -100,8 +120,9 @@ getSystemBtnBar() {
         ? EHImageButton(
             textMsgKey: 'common.module.system',
             icon: Icon(Icons.monitor),
-            isSelected:
+            decoration: getDecoration(
                 ContextHelper.currentModule.value == SystemModule.system,
+                Responsive.isMobile(Get.context!)),
             onPressed: (data) {
               if (SystemModule.system != ContextHelper.currentModule.value) {
                 ContextHelper.currentModule.value = SystemModule.system;
@@ -124,8 +145,9 @@ getFunctionBtnBar() {
             Icons.dvr,
             // color: Color.fromARGB(255, 67, 67, 67),
           ),
-          isSelected:
+          decoration: getDecoration(
               ContextHelper.currentModule.value == SystemModule.workbench,
+              false),
           onPressed: (data) {
             if (SystemModule.workbench != ContextHelper.currentModule.value) {
               ContextHelper.currentModule.value = SystemModule.workbench;

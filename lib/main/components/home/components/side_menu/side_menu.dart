@@ -93,54 +93,69 @@ class SideMenu extends StatelessWidget {
           //         onEditingComplete: (code, row) {
           //           if (code != null) controller.selectedOrgId.value = code;
           //         }))),
+          SizedBox(
+            height: 5,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Padding(
+              //   padding: const EdgeInsets.only(bottom: 2.0),
+              //   child: Text(
+              //     'common.security.organization'.tr + ':',
+              //     style: TextStyle(fontWeight: FontWeight.bold),
+              //   ),
+              // ),
+              Obx(() => EHTreePopup(
+                  controller: EHTreePopupController(
+                      key: GlobalKey(),
+                      focusNode: FocusNode(),
+                      width: 180,
+                      bindingData: EHContextHelper.selectedOrgModel.value ??
+                          EHContextHelper.defaultOrgModel,
+                      popupTitleMsgKey: 'common.security.selectOrg',
+                      onTreeNodeTap: (data) {
+                        if (data != null) {
+                          EHContextHelper.switchOrg(data);
+                          ContextHelper.resetAllModuleTabs();
+                          ContextHelper.currentModule.value =
+                              SystemModule.workbench;
+                          EHNavigator.navigateTo(
+                            MapConstant.systemModuleRoute[
+                                ContextHelper.currentModule.value]!,
+                            navigatorKey: NavigationKeys.dashBoardNavKey,
+                          );
+                        }
+                      },
+                      getDisplayValue: (data) {
+                        return data != null
+                            ? EHUtilHelper.getShortStr(
+                                (data as OrganizationModel).name!.tr, 15)
+                            : '';
+                      },
+                      loadTreeData: (EHTreeController treeController) async {
+                        List treeMapData =
+                            await OrganizationService().buildTreeByUserId();
 
-          Obx(() => EHTreePopup(
-              controller: EHTreePopupController(
-                  key: GlobalKey(),
-                  focusNode: FocusNode(),
-                  width: 180,
-                  bindingData: EHContextHelper.selectedOrgModel.value ??
-                      EHContextHelper.defaultOrgModel,
-                  popupTitleMsgKey: 'common.security.selectOrg',
-                  onTreeNodeTap: (data) {
-                    if (data != null) {
-                      EHContextHelper.switchOrg(data);
-                      ContextHelper.resetAllModuleTabs();
-                      ContextHelper.currentModule.value =
-                          SystemModule.workbench;
-                      EHNavigator.navigateTo(
-                        MapConstant.systemModuleRoute[
-                            ContextHelper.currentModule.value]!,
-                        navigatorKey: NavigationKeys.dashBoardNavKey,
-                      );
-                    }
-                  },
-                  getDisplayValue: (data) {
-                    return data != null
-                        ? EHUtilHelper.getShortStr(
-                            (data as OrganizationModel).name!.tr, 15)
-                        : '';
-                  },
-                  loadTreeData: (EHTreeController treeController) async {
-                    List treeMapData =
-                        await OrganizationService().buildTreeByUserId();
-
-                    loadOrgTreeData(treeMapData, treeController);
-                  }))),
+                        loadOrgTreeData(treeMapData, treeController);
+                      }))),
+            ],
+          ),
 
           // Image.asset(
           //   "assets/images/enhantec.png",
           //   height: 70,
           // ),
-          if (Responsive.isMobile(context))
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: getSystemBtnBar()),
+          // if (Responsive.isMobile(context))
+          //   Row(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: getSystemBtnBar()),
         ];
 
     getDrawerContent() => [
           Container(
-            height: Responsive.isMobile(context) ? 200 : 150,
+            height: 120,
             child: DrawerHeader(
               padding: EdgeInsets.zero,
               child: Center(
@@ -150,7 +165,14 @@ class SideMenu extends StatelessWidget {
               // child: Image.asset("assets/images/Home.png"),
             ),
           ),
-          Obx(() => controller.getSideBarTreeView()),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (Responsive.isMobile(context))
+                Column(children: getSystemBtnBar()),
+              Obx(() => controller.getSideBarTreeView()),
+            ],
+          ),
         ];
 
     return StatefulWrapper(

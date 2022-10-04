@@ -49,10 +49,14 @@ class EHTreePopup extends EHEditableWidget<EHTreePopupController> {
           width: this.controller.width,
           child: Column(
             children: [
-              EHEditLabel(
-                mustInput: controller.mustInput,
-                label: controller.label.tr,
-              ),
+              controller.label != ''
+                  ? EHEditLabel(
+                      mustInput: controller.mustInput,
+                      label: controller.label.tr,
+                    )
+                  : SizedBox(
+                      height: 5,
+                    ),
               Container(
                 height: 25,
                 child: Row(
