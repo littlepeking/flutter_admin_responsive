@@ -88,10 +88,11 @@ Map<String, String> baseEnUSMessages = {
   'common.security.roleRevokedFromUser':
       'Role @displayName revoked from user @username successfully',
   'common.security.roleSaved': 'Role @displayName saved',
+  'common.security.deleteRole': 'Delete Role',
   'common.security.roleDeleted': 'Role @displayName deleted',
   'common.security.selectOrgBeforeAddRole':
       'Please select an organization before add a role',
-  'common.security.deleteRole': 'Delete Role',
+
   'common.security.selectedUsersDeleted': 'Selected users deleted',
 
   //general

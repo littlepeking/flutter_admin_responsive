@@ -71,7 +71,7 @@ class OrgRoleListController extends EHPanelController {
                         .handleRefresh();
 
                     EHToastMessageHelper.showInfoMessage(
-                        'Role @displayName delete successfully'.trParams({
+                        'common.security.roleDeleted'.trParams({
                       'displayName': dataRow['displayName'],
                     }));
                   }),

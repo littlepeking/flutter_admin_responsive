@@ -69,7 +69,7 @@ class UserList extends EHPanel<UserListController> {
         EHButton(
             controller: EHButtonController(
           enabled: true,
-          child: Text('Delete'.tr),
+          child: Text('common.general.delete'.tr),
           onPressed: () async {
             List<String> userIds = controller
                 .userDataGridController.dataGridSource

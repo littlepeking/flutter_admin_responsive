@@ -131,7 +131,8 @@ class PermissionTreeView extends EHPanel<PermissionTreeController> {
                   controller.refreshPermDetailData();
                 } else {
                   EHToastMessageHelper.showInfoMessage(
-                      'common.security.selectOrgBeforeCreatePerm');
+                      'common.security.selectOrgBeforeCreatePerm',
+                      type: EHToastMsgType.Error);
                 }
               },
               child: Text('common.general.add'.tr),
