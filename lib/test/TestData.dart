@@ -20,9 +20,7 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/common_cons
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_column/eh_bool_column_type.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_column/eh_date_column_type.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_column/eh_double_column_type.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_column/eh_int_column_type.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_column/eh_string_column_type.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_common_datagrid_source.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid_column_config.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid_constants.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
@@ -67,28 +65,6 @@ class DataGridTest {
   //           await DataGridTest.getOrders(
   //               filters, orderBy, pageIndex, pageSize));
   // }
-
-  static getCommonDataGridSource() {
-    return EHCommonDataGridSource(
-      dataSourceCode: 'orders.list.query',
-      columnFilters: [
-        EHFilterInfo(columnName: 'id', sort: EHDataGridColumnSortType.Asc)
-      ],
-      columnsConfig: [
-        EHColumnConf('id', EHIntColumnType()),
-        EHColumnConf('receiptKey', EHIntColumnType()),
-        EHColumnConf('name', EHStringColumnType()),
-        EHColumnConf(
-            'city',
-            EHStringColumnType(
-                widgetType: EHWidgetType.DropDown,
-                items: {'PEK': 'Beijing', 'SH': 'Shanghai', 'SZ': 'Shenzhen'})),
-        EHColumnConf('qty', EHDoubleColumnType()),
-        EHColumnConf('date', EHDateColumnType()),
-        EHColumnConf('enabled', EHBoolColumnType(), columnWidth: 110),
-      ],
-    );
-  }
 
   static getServiceDataGridSource() {
     return EHServiceDataGridSource(

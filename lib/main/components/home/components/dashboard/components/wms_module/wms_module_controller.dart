@@ -19,6 +19,7 @@
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/example/receipt/receipt_edit.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/example/receipt/receipt_edit_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_controller.dart';
@@ -35,6 +36,9 @@ class WmsModuleController extends EHController {
   EHTreeController get sideMenuTreeController => EHTreeController(
       showCheckBox: false,
       allNodesExpanded: true,
+      displayMode: Responsive.isMobile(Get.context!)
+          ? EHTreeDisplayMode.stackMode
+          : EHTreeDisplayMode.treeMode,
       treeNodeDataList: [
         EHTreeNode(
           icon: Icons.login,

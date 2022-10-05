@@ -17,6 +17,7 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_controller.dart';
@@ -31,9 +32,13 @@ class TmsModuleController extends GetxController {
 
   EHTreeController get sideMenuTreeController => EHTreeController(
       allNodesExpanded: true,
+      displayMode: Responsive.isMobile(Get.context!)
+          ? EHTreeDisplayMode.stackMode
+          : EHTreeDisplayMode.treeMode,
       treeNodeDataList: [
         EHTreeNode(
           displayNameMsgKey: 'wms.transportManagement',
+          icon: Icons.local_shipping,
           children: [
             EHTreeNode(
                 icon: Icons.assignment,

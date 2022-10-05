@@ -30,6 +30,7 @@ import 'package:enhantec_platform_ui/main/components/home/components/dashboard/c
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/org/organization_service.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -165,13 +166,21 @@ class SideMenu extends StatelessWidget {
               // child: Image.asset("assets/images/Home.png"),
             ),
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (Responsive.isMobile(context))
-                Column(children: getSystemBtnBar()),
-              Obx(() => controller.getSideBarTreeView()),
-            ],
+          ConstrainedBox(
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height - 180),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (Responsive.isMobile(context))
+                  Column(children: getSystemBtnBar()),
+                SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: SizedBox(
+                        width: 240,
+                        child: Obx(() => controller.getSideBarTreeView()))),
+              ],
+            ),
           ),
         ];
 
@@ -180,11 +189,9 @@ class SideMenu extends StatelessWidget {
         getChildWidget: () => Drawer(
               child: Responsive.isMobile(Get.context!)
                   ? Scaffold(
-                      body: SingleChildScrollView(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: getDrawerContent()),
-                      ),
+                      body: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: getDrawerContent()),
                       persistentFooterButtons: Responsive.isMobile(Get.context!)
                           ? getFunctionBtnBar()
                           : [],

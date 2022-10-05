@@ -18,6 +18,7 @@
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/org/organization_tree_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
@@ -31,6 +32,7 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/role
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/user/user_list_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/user/user_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 
 class SystemModuleController extends EHController {
@@ -40,6 +42,9 @@ class SystemModuleController extends EHController {
   EHTreeController get sideMenuTreeController => EHTreeController(
       showCheckBox: false,
       allNodesExpanded: true,
+      displayMode: Responsive.isMobile(Get.context!)
+          ? EHTreeDisplayMode.stackMode
+          : EHTreeDisplayMode.treeMode,
       treeNodeDataList: [
         EHTreeNode(
             displayNameMsgKey: 'common.md.masterData',

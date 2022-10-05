@@ -17,11 +17,12 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_node.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get.dart';
 
 class WorkbenchModuleController extends EHController {
   EHTabsViewController tabViewController =
@@ -30,6 +31,9 @@ class WorkbenchModuleController extends EHController {
   EHTreeController get sideMenuTreeController => EHTreeController(
       showCheckBox: false,
       allNodesExpanded: true,
+      displayMode: Responsive.isMobile(Get.context!)
+          ? EHTreeDisplayMode.stackMode
+          : EHTreeDisplayMode.treeMode,
       treeNodeDataList: [
         EHTreeNode(
             displayNameMsgKey: 'common.general.notification',

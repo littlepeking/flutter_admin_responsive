@@ -27,6 +27,8 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 ///
 typedef bool IsNodeMatch(EHTreeNode node);
 
+enum EHTreeDisplayMode { treeMode, stackMode }
+
 class EHTreeController extends EHController {
   /// Horizontal indent between levels.
   final double indent;
@@ -40,6 +42,8 @@ class EHTreeController extends EHController {
 
   final bool showCheckBox;
 
+  final EHTreeDisplayMode displayMode;
+
   final bool allowCascadeCheck;
 
   final bool isNodeSelectable;
@@ -52,12 +56,15 @@ class EHTreeController extends EHController {
 
   Rx<EHTreeNode?> selectedTreeNode = Rxn();
 
+  Rx<EHTreeNode?> parentTreeNode4StackMode = Rxn();
+
   EHTreeController(
       {this.indent = 10,
       this.iconSize = 20,
       this.nodeMaxSize,
       this.paddingSize = 6,
       this.showCheckBox = false,
+      this.displayMode = EHTreeDisplayMode.treeMode,
       this.allowCascadeCheck = true,
       required this.treeNodeDataList,
       this.isNodeSelectable = false,
