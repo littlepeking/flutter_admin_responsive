@@ -21,7 +21,6 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_help
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_theme_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'eh_node_widget.dart';
 import 'eh_tree_controller.dart';
 import 'eh_tree_node.dart';
@@ -62,67 +61,89 @@ class EHTreeView extends EHStatelessWidget<EHTreeController> {
             ))
         : Padding(
             padding: const EdgeInsets.only(left: 10.0),
-            child: Obx(() => SingleChildScrollView(
-                controller: ScrollController(),
-                scrollDirection: Axis.vertical,
-                child: Wrap(
-                    spacing: 5,
-                    runSpacing: 5,
-                    children: (controller.parentTreeNode4StackMode.value == null
-                            ? controller.treeNodeDataList
-                            : controller
-                                    .parentTreeNode4StackMode.value!.children ??
-                                [])
-                        .map<Widget>((treeNode) => ConstrainedBox(
-                              constraints: BoxConstraints.tightFor(
-                                  width: 100, height: 80),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      //check if treenode is directory
-                                      if (treeNode.children != null &&
-                                          treeNode.children!.length > 0) {
-                                        controller.parentTreeNode4StackMode
-                                            .value = treeNode;
-                                      } else {
-                                        if (treeNode.children != null &&
-                                            treeNode.children!.length > 0) {}
+            child: Obx(() => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (controller.stackParentNodes.length > 0)
+                      TextButton(
+                          onPressed: () =>
+                              controller.stackParentNodes.removeLast(),
+                          child: Icon(
+                            Icons.reply,
+                            size: 40,
+                            color: EHThemeHelper.getTextColor(),
+                          )),
+                    SizedBox(height: 5),
+                    SingleChildScrollView(
+                        controller: ScrollController(),
+                        scrollDirection: Axis.vertical,
+                        child: Wrap(
+                            spacing: 5,
+                            runSpacing: 5,
+                            children: (controller.stackParentNodes.length == 0
+                                    ? controller.treeNodeDataList
+                                    : controller
+                                            .stackParentNodes.last.children ??
+                                        [])
+                                .map<Widget>((treeNode) => ConstrainedBox(
+                                      constraints: BoxConstraints.tightFor(
+                                          width: 100, height: 80),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {
+                                              //check if treenode is directory
+                                              if (treeNode.children != null &&
+                                                  treeNode.children!.length >
+                                                      0) {
+                                                controller.stackParentNodes
+                                                    .add(treeNode);
+                                              } else {
+                                                if (treeNode.children != null &&
+                                                    treeNode.children!.length >
+                                                        0) {}
 
-                                        if (treeNode.onTap != null)
-                                          treeNode.onTap!();
+                                                if (treeNode.onTap != null)
+                                                  treeNode.onTap!();
 
-                                        if (controller.onTreeNodeTap != null)
-                                          controller.onTreeNodeTap!(treeNode);
-                                      }
-                                    },
-                                    child: Column(
-                                      children: [
-                                        Icon(
-                                          treeNode.icon == null
-                                              ? Icons.launch
-                                              : treeNode.icon,
-                                          size: 50,
-                                          color: EHThemeHelper.getTextColor(),
-                                        ),
-                                        Text(
-                                          treeNode.displayNameMsgKey.tr,
-                                          textAlign: TextAlign.center,
-                                          maxLines: 2,
-                                          style: TextStyle(
-                                              color:
-                                                  EHThemeHelper.getTextColor(),
-                                              fontSize: 13,
-                                              overflow: TextOverflow.ellipsis),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ))
-                        .toList()))),
+                                                if (controller.onTreeNodeTap !=
+                                                    null)
+                                                  controller
+                                                      .onTreeNodeTap!(treeNode);
+                                              }
+                                            },
+                                            child: Column(
+                                              children: [
+                                                Icon(
+                                                  treeNode.icon == null
+                                                      ? Icons.launch
+                                                      : treeNode.icon,
+                                                  size: 50,
+                                                  color: EHThemeHelper
+                                                      .getTextColor(),
+                                                ),
+                                                Text(
+                                                  treeNode.displayNameMsgKey.tr,
+                                                  textAlign: TextAlign.center,
+                                                  maxLines: 2,
+                                                  style: TextStyle(
+                                                      color: EHThemeHelper
+                                                          .getTextColor(),
+                                                      fontSize: 13,
+                                                      overflow: TextOverflow
+                                                          .ellipsis),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ))
+                                .toList())),
+                  ],
+                )),
           );
   }
 

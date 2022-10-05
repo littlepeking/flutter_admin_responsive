@@ -28,35 +28,38 @@ class WorkbenchModuleController extends EHController {
   EHTabsViewController tabViewController =
       EHTabsViewController(showScrollArrow: true);
 
-  EHTreeController get sideMenuTreeController => EHTreeController(
-      showCheckBox: false,
-      allNodesExpanded: true,
-      displayMode: Responsive.isMobile(Get.context!)
-          ? EHTreeDisplayMode.stackMode
-          : EHTreeDisplayMode.treeMode,
-      treeNodeDataList: [
-        EHTreeNode(
-            displayNameMsgKey: 'common.general.notification',
-            icon: Icons.notifications,
-            children: []),
-        EHTreeNode(
-            displayNameMsgKey: 'common.general.alert',
-            icon: Icons.alarm,
-            children: [
-              // EHTreeNode(
-              //     permissionCodes: {'SECURITY_PERMISSION'},
-              //     displayName: "Permission",
-              //     onTap: () async {
-              //       tabViewController.addTab(EHTab<PermissionTreeController>(
-              //           'Permission', await PermissionTreeController.create(),
-              //           (EHController controller) {
-              //         return PermissionTreeView(controller: controller);
-              //       }, closable: true, expandMode: EHTabsViewExpandMode.Expand));
-              //     },
-              //     children: [])
-            ]),
-      ].obs);
+  late EHTreeController sideMenuTreeController;
 
+  WorkbenchModuleController() {
+    sideMenuTreeController = EHTreeController(
+        showCheckBox: false,
+        allNodesExpanded: true,
+        displayMode: !Responsive.isDesktop(Get.context!)
+            ? EHTreeDisplayMode.stackMode
+            : EHTreeDisplayMode.treeMode,
+        treeNodeDataList: [
+          EHTreeNode(
+              displayNameMsgKey: 'common.general.notification',
+              icon: Icons.notifications,
+              children: []),
+          EHTreeNode(
+              displayNameMsgKey: 'common.general.alert',
+              icon: Icons.alarm,
+              children: [
+                // EHTreeNode(
+                //     permissionCodes: {'SECURITY_PERMISSION'},
+                //     displayName: "Permission",
+                //     onTap: () async {
+                //       tabViewController.addTab(EHTab<PermissionTreeController>(
+                //           'Permission', await PermissionTreeController.create(),
+                //           (EHController controller) {
+                //         return PermissionTreeView(controller: controller);
+                //       }, closable: true, expandMode: EHTabsViewExpandMode.Expand));
+                //     },
+                //     children: [])
+              ]),
+        ].obs);
+  }
   reset() {
     tabViewController.reset();
   }

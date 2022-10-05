@@ -56,7 +56,7 @@ List<Widget> getHeaderButtons(BuildContext context) {
 
     // EHImageButton(text: 'quit'.tr, icon: Icon(Icons.logout), onPressed: () {})
   ];
-  buttons.addAll(getSystemBtnBar());
+  if (Responsive.isDesktop(context)) buttons.addAll(getSystemBtnBar());
   buttons.addAll(getFunctionBtnBar());
 
   return buttons;
@@ -88,7 +88,7 @@ getSystemBtnBar() {
           ),
           decoration: getDecoration(
               ContextHelper.currentModule.value == SystemModule.workbench,
-              Responsive.isMobile(Get.context!)),
+              !Responsive.isDesktop(Get.context!)),
           onPressed: (data) {
             if (SystemModule.workbench != ContextHelper.currentModule.value) {
               ContextHelper.currentModule.value = SystemModule.workbench;
@@ -105,7 +105,7 @@ getSystemBtnBar() {
             icon: Icon(Icons.warehouse),
             decoration: getDecoration(
                 ContextHelper.currentModule.value == SystemModule.wms,
-                Responsive.isMobile(Get.context!)),
+                !Responsive.isDesktop(Get.context!)),
             onPressed: (data) {
               if (SystemModule.wms != ContextHelper.currentModule.value) {
                 ContextHelper.currentModule.value = SystemModule.wms;
@@ -123,7 +123,7 @@ getSystemBtnBar() {
             icon: Icon(Icons.local_shipping),
             decoration: getDecoration(
                 ContextHelper.currentModule.value == SystemModule.tms,
-                Responsive.isMobile(Get.context!)),
+                !Responsive.isDesktop(Get.context!)),
             onPressed: (data) {
               if (SystemModule.tms != ContextHelper.currentModule.value) {
                 ContextHelper.currentModule.value = SystemModule.tms;
@@ -141,7 +141,7 @@ getSystemBtnBar() {
             icon: Icon(Icons.monitor),
             decoration: getDecoration(
                 ContextHelper.currentModule.value == SystemModule.system,
-                Responsive.isMobile(Get.context!)),
+                !Responsive.isDesktop(Get.context!)),
             onPressed: (data) {
               if (SystemModule.system != ContextHelper.currentModule.value) {
                 ContextHelper.currentModule.value = SystemModule.system;
@@ -164,6 +164,7 @@ getFunctionBtnBar() {
           Icons.ac_unit_sharp,
           //   color: Color.fromARGB(255, 67, 67, 67),
         ),
+        showButtonText: !Responsive.isMobile(Get.context!),
         onPressed: (data) {
           EHThemeHelper.changeTheme();
           // WmsModuleNavigationController.instance.isDarkMode.value =
@@ -176,6 +177,7 @@ getFunctionBtnBar() {
           Icons.language,
           //   color: Color.fromARGB(255, 67, 67, 67),
         ),
+        showButtonText: !Responsive.isMobile(Get.context!),
         onPressed: (data) {
           var enLocale = Locale('en', 'US');
           var cnLocale = Locale('zh', 'CN');
@@ -191,6 +193,7 @@ getFunctionBtnBar() {
           Icons.exit_to_app,
           //  color: Color.fromARGB(255, 67, 67, 67),
         ),
+        showButtonText: !Responsive.isMobile(Get.context!),
         onPressed: (data) async {
           await EHContextHelper.logout();
           ContextHelper.resetAllModuleTabs();

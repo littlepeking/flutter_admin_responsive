@@ -56,7 +56,7 @@ class EHTreeController extends EHController {
 
   Rx<EHTreeNode?> selectedTreeNode = Rxn();
 
-  Rx<EHTreeNode?> parentTreeNode4StackMode = Rxn();
+  RxList<EHTreeNode> stackParentNodes = RxList<EHTreeNode>();
 
   EHTreeController(
       {this.indent = 10,

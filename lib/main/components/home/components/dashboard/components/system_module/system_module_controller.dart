@@ -33,87 +33,94 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/user
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/user/user_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 
 class SystemModuleController extends EHController {
   EHTabsViewController tabViewController =
       EHTabsViewController(showScrollArrow: true);
 
-  EHTreeController get sideMenuTreeController => EHTreeController(
-      showCheckBox: false,
-      allNodesExpanded: true,
-      displayMode: Responsive.isMobile(Get.context!)
-          ? EHTreeDisplayMode.stackMode
-          : EHTreeDisplayMode.treeMode,
-      treeNodeDataList: [
-        EHTreeNode(
-            displayNameMsgKey: 'common.md.masterData',
-            icon: Icons.museum,
-            children: []),
-        EHTreeNode(
-            displayNameMsgKey: 'common.security.security',
-            icon: Icons.admin_panel_settings,
-            children: [
-              EHTreeNode(
-                  permissionCodes: {'SECURITY_ORG'},
-                  displayNameMsgKey: 'common.security.organization',
-                  isChecked: true,
-                  onTap: () async {
-                    tabViewController.addTab(EHTab<OrganizationTreeController>(
-                        'organization',
-                        'common.security.organization',
-                        await OrganizationTreeController.create(),
-                        (EHController controller) {
-                      return OrganizationTreeView(controller: controller);
-                    },
-                        closable: true,
-                        expandMode: EHTabsViewExpandMode.Expand));
-                    // FocusManager.instance.primaryFocus?.unfocus();
-                  }),
-              EHTreeNode(
-                  permissionCodes: {'SECURITY_USER'},
-                  displayNameMsgKey: 'common.security.user',
-                  isChecked: true,
-                  onTap: () {
-                    tabViewController.addTab(EHTab<UserListController>(
-                        'userList',
-                        'common.security.userList',
-                        UserListController(), (EHController controller) {
-                      return UserList(controller: controller);
-                    }, closable: true, expandMode: EHTabsViewExpandMode.None));
-                    // FocusManager.instance.primaryFocus?.unfocus();
-                  }),
-              EHTreeNode(
-                  permissionCodes: {'SECURITY_ROLE'},
-                  displayNameMsgKey: 'common.security.role',
-                  onTap: () async {
-                    tabViewController.addTab(EHTab<OrgRoleListController>(
-                        'Role',
-                        'common.security.role',
-                        await OrgRoleListController.create(),
-                        (EHController controller) {
-                      return OrgRoleListView(controller: controller);
-                    }, closable: true, expandMode: EHTabsViewExpandMode.None));
-                  },
-                  children: []),
-              EHTreeNode(
-                  permissionCodes: {'SECURITY_PERMISSION'},
-                  displayNameMsgKey: 'common.security.permission',
-                  onTap: () async {
-                    tabViewController.addTab(EHTab<PermissionTreeController>(
-                        'Permission',
-                        'common.security.permission',
-                        await PermissionTreeController.create(),
-                        (EHController controller) {
-                      return PermissionTreeView(controller: controller);
-                    },
-                        closable: true,
-                        expandMode: EHTabsViewExpandMode.Expand));
-                  },
-                  children: [])
-            ]),
-      ].obs);
+  late EHTreeController sideMenuTreeController;
 
+  SystemModuleController() {
+    sideMenuTreeController = EHTreeController(
+        showCheckBox: false,
+        allNodesExpanded: true,
+        displayMode: !Responsive.isDesktop(Get.context!)
+            ? EHTreeDisplayMode.stackMode
+            : EHTreeDisplayMode.treeMode,
+        treeNodeDataList: [
+          EHTreeNode(
+              displayNameMsgKey: 'common.md.masterData',
+              icon: Icons.museum,
+              children: []),
+          EHTreeNode(
+              displayNameMsgKey: 'common.security.security',
+              icon: Icons.admin_panel_settings,
+              children: [
+                EHTreeNode(
+                    permissionCodes: {'SECURITY_ORG'},
+                    displayNameMsgKey: 'common.security.organization',
+                    isChecked: true,
+                    onTap: () async {
+                      tabViewController.addTab(
+                          EHTab<OrganizationTreeController>(
+                              'organization',
+                              'common.security.organization',
+                              await OrganizationTreeController.create(),
+                              (EHController controller) {
+                        return OrganizationTreeView(controller: controller);
+                      },
+                              closable: true,
+                              expandMode: EHTabsViewExpandMode.Expand));
+                      // FocusManager.instance.primaryFocus?.unfocus();
+                    }),
+                EHTreeNode(
+                    permissionCodes: {'SECURITY_USER'},
+                    displayNameMsgKey: 'common.security.user',
+                    isChecked: true,
+                    onTap: () {
+                      tabViewController.addTab(EHTab<UserListController>(
+                          'userList',
+                          'common.security.userList',
+                          UserListController(), (EHController controller) {
+                        return UserList(controller: controller);
+                      },
+                          closable: true,
+                          expandMode: EHTabsViewExpandMode.None));
+                      // FocusManager.instance.primaryFocus?.unfocus();
+                    }),
+                EHTreeNode(
+                    permissionCodes: {'SECURITY_ROLE'},
+                    displayNameMsgKey: 'common.security.role',
+                    onTap: () async {
+                      tabViewController.addTab(EHTab<OrgRoleListController>(
+                          'Role',
+                          'common.security.role',
+                          await OrgRoleListController.create(),
+                          (EHController controller) {
+                        return OrgRoleListView(controller: controller);
+                      },
+                          closable: true,
+                          expandMode: EHTabsViewExpandMode.None));
+                    },
+                    children: []),
+                EHTreeNode(
+                    permissionCodes: {'SECURITY_PERMISSION'},
+                    displayNameMsgKey: 'common.security.permission',
+                    onTap: () async {
+                      tabViewController.addTab(EHTab<PermissionTreeController>(
+                          'Permission',
+                          'common.security.permission',
+                          await PermissionTreeController.create(),
+                          (EHController controller) {
+                        return PermissionTreeView(controller: controller);
+                      },
+                          closable: true,
+                          expandMode: EHTabsViewExpandMode.Expand));
+                    },
+                    children: [])
+              ]),
+        ].obs);
+  }
   reset() {
     tabViewController.reset();
   }

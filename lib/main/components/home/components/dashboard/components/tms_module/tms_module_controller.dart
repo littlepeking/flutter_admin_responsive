@@ -30,35 +30,39 @@ import 'package:get/get.dart';
 class TmsModuleController extends GetxController {
   EHTabsViewController tabViewController = EHTabsViewController();
 
-  EHTreeController get sideMenuTreeController => EHTreeController(
-      allNodesExpanded: true,
-      displayMode: Responsive.isMobile(Get.context!)
-          ? EHTreeDisplayMode.stackMode
-          : EHTreeDisplayMode.treeMode,
-      treeNodeDataList: [
-        EHTreeNode(
-          displayNameMsgKey: 'wms.transportManagement',
-          icon: Icons.local_shipping,
-          children: [
-            EHTreeNode(
-                icon: Icons.assignment,
-                displayNameMsgKey: 'wms.shipmentOrders',
-                onTap: () {
-                  tabViewController.addTab((EHTab<TestController>(
-                      'shipmentOrders', 'wms.shipmentOrders', TestController(),
-                      (EHController controller) {
-                    return Test2(controller: controller);
-                  }, closable: true)));
-                }),
-            EHTreeNode(
-              icon: Icons.alt_route,
-              displayNameMsgKey: 'wms.routes',
-              children: [],
-            ),
-          ],
-        ),
-      ].obs);
+  late EHTreeController sideMenuTreeController;
 
+  TmsModuleController() {
+    sideMenuTreeController = EHTreeController(
+        allNodesExpanded: true,
+        displayMode: !Responsive.isDesktop(Get.context!)
+            ? EHTreeDisplayMode.stackMode
+            : EHTreeDisplayMode.treeMode,
+        treeNodeDataList: [
+          EHTreeNode(
+            displayNameMsgKey: 'wms.transportManagement',
+            icon: Icons.local_shipping,
+            children: [
+              EHTreeNode(
+                  icon: Icons.assignment,
+                  displayNameMsgKey: 'wms.shipmentOrders',
+                  onTap: () {
+                    tabViewController.addTab((EHTab<TestController>(
+                        'shipmentOrders',
+                        'wms.shipmentOrders',
+                        TestController(), (EHController controller) {
+                      return Test2(controller: controller);
+                    }, closable: true)));
+                  }),
+              EHTreeNode(
+                icon: Icons.alt_route,
+                displayNameMsgKey: 'wms.routes',
+                children: [],
+              ),
+            ],
+          ),
+        ].obs);
+  }
   reset() {
     tabViewController.reset();
   }

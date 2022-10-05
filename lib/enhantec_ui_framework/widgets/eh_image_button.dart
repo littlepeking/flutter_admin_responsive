@@ -30,9 +30,11 @@ class EHImageButton<T> extends StatelessWidget {
   final T? data;
   final double? padding;
   final BoxDecoration? decoration;
+  final bool? showButtonText;
   const EHImageButton(
       {Key? key,
       this.padding = 2,
+      this.showButtonText,
       required this.icon,
       this.decoration,
       this.iconSize,
@@ -43,12 +45,14 @@ class EHImageButton<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (Responsive.isMobile(context))
+    bool showText = showButtonText ?? Responsive.isDesktop(context);
+
+    return (!showText)
         ? Container(
             child: IconButton(
               iconSize: iconSize ?? 24,
               padding: EdgeInsets.all(
-                  padding ?? (Responsive.isMobile(Get.context!) ? 2 : 8)),
+                  padding ?? (!Responsive.isDesktop(Get.context!) ? 2 : 8)),
               onPressed: () => onPressed(data),
               icon: icon,
               tooltip: this.textMsgKey.tr,

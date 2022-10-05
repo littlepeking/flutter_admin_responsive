@@ -156,7 +156,7 @@ class SideMenu extends StatelessWidget {
 
     getDrawerContent() => [
           Container(
-            height: Responsive.isMobile(Get.context!) ? 110 : 120,
+            height: Responsive.isMobile(Get.context!) ? 130 : 120,
             child: DrawerHeader(
               margin: EdgeInsets.zero,
               padding: EdgeInsets.zero,
@@ -171,11 +171,11 @@ class SideMenu extends StatelessWidget {
                 color: EHThemeHelper.getExtraLightBackgroundColor(),
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height - 168),
+                      maxHeight: MediaQuery.of(context).size.height - 190),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (Responsive.isMobile(context))
+                      if (!Responsive.isDesktop(context))
                         Obx(() => Container(
                               color: EHThemeHelper.getLightBackgroundColor(),
                               child: SingleChildScrollView(
