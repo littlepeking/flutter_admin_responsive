@@ -19,6 +19,7 @@
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/org/organization_model.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_navigator.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_theme_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_util_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_popup.dart';
@@ -30,7 +31,6 @@ import 'package:enhantec_platform_ui/main/components/home/components/dashboard/c
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/org/organization_service.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -94,9 +94,9 @@ class SideMenu extends StatelessWidget {
           //         onEditingComplete: (code, row) {
           //           if (code != null) controller.selectedOrgId.value = code;
           //         }))),
-          SizedBox(
-            height: 5,
-          ),
+          Responsive.isMobile(Get.context!)
+              ? SizedBox(height: 5)
+              : SizedBox(height: 10),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -156,8 +156,9 @@ class SideMenu extends StatelessWidget {
 
     getDrawerContent() => [
           Container(
-            height: 120,
+            height: Responsive.isMobile(Get.context!) ? 110 : 120,
             child: DrawerHeader(
+              margin: EdgeInsets.zero,
               padding: EdgeInsets.zero,
               child: Center(
                   child: Column(
@@ -166,22 +167,34 @@ class SideMenu extends StatelessWidget {
               // child: Image.asset("assets/images/Home.png"),
             ),
           ),
-          ConstrainedBox(
-            constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height - 180),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (Responsive.isMobile(context))
-                  Column(children: getSystemBtnBar()),
-                SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: SizedBox(
-                        width: 240,
-                        child: Obx(() => controller.getSideBarTreeView()))),
-              ],
-            ),
-          ),
+          Obx(() => Container(
+                color: EHThemeHelper.getExtraLightBackgroundColor(),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height - 168),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (Responsive.isMobile(context))
+                        Obx(() => Container(
+                              color: EHThemeHelper.getLightBackgroundColor(),
+                              child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: Column(children: getSystemBtnBar())),
+                            )),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: SizedBox(
+                                width: 240,
+                                child: Obx(
+                                    () => controller.getSideBarTreeView()))),
+                      ),
+                    ],
+                  ),
+                ),
+              )),
         ];
 
     return StatefulWrapper(

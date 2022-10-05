@@ -80,6 +80,25 @@ getDecoration(isSelected, isVertical) {
 
 getSystemBtnBar() {
   return [
+    Obx(() => EHImageButton(
+          textMsgKey: 'common.module.workbench',
+          icon: Icon(
+            Icons.dvr,
+            // color: Color.fromARGB(255, 67, 67, 67),
+          ),
+          decoration: getDecoration(
+              ContextHelper.currentModule.value == SystemModule.workbench,
+              Responsive.isMobile(Get.context!)),
+          onPressed: (data) {
+            if (SystemModule.workbench != ContextHelper.currentModule.value) {
+              ContextHelper.currentModule.value = SystemModule.workbench;
+              EHNavigator.navigateTo(
+                MapConstant.systemModuleRoute[SystemModule.workbench]!,
+                navigatorKey: NavigationKeys.dashBoardNavKey,
+              );
+            }
+          },
+        )),
     Obx(() => EHContextHelper.getUserOrgModules().contains('WMS')
         ? EHImageButton(
             textMsgKey: 'WMS',
@@ -139,25 +158,6 @@ getSystemBtnBar() {
 
 getFunctionBtnBar() {
   return [
-    Obx(() => EHImageButton(
-          textMsgKey: 'common.module.workbench',
-          icon: Icon(
-            Icons.dvr,
-            // color: Color.fromARGB(255, 67, 67, 67),
-          ),
-          decoration: getDecoration(
-              ContextHelper.currentModule.value == SystemModule.workbench,
-              false),
-          onPressed: (data) {
-            if (SystemModule.workbench != ContextHelper.currentModule.value) {
-              ContextHelper.currentModule.value = SystemModule.workbench;
-              EHNavigator.navigateTo(
-                MapConstant.systemModuleRoute[SystemModule.workbench]!,
-                navigatorKey: NavigationKeys.dashBoardNavKey,
-              );
-            }
-          },
-        )),
     EHImageButton(
         textMsgKey: 'common.general.changeTheme',
         icon: Icon(

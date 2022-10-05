@@ -105,6 +105,14 @@ class WmsModuleController extends EHController {
           children: [
             EHTreeNode(displayNameMsgKey: 'wms.orders'),
             EHTreeNode(displayNameMsgKey: 'wms.orderDetails'),
+          ],
+        ),
+        EHTreeNode(
+          icon: Icons.warehouse,
+          displayNameMsgKey: 'wms.inventory',
+          children: [
+            EHTreeNode(displayNameMsgKey: 'wms.orders'),
+            EHTreeNode(displayNameMsgKey: 'wms.orderDetails'),
             EHTreeNode(displayNameMsgKey: "wms.pickDetails"),
           ],
         ),

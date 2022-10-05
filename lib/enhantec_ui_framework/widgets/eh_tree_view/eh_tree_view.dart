@@ -18,8 +18,10 @@
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_stateless_widget.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_theme_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'eh_node_widget.dart';
 import 'eh_tree_controller.dart';
 import 'eh_tree_node.dart';
@@ -98,13 +100,21 @@ class EHTreeView extends EHStatelessWidget<EHTreeController> {
                                     child: Column(
                                       children: [
                                         Icon(
-                                          treeNode.icon,
+                                          treeNode.icon == null
+                                              ? Icons.launch
+                                              : treeNode.icon,
                                           size: 50,
+                                          color: EHThemeHelper.getTextColor(),
                                         ),
                                         Text(
                                           treeNode.displayNameMsgKey.tr,
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(fontSize: 13),
+                                          maxLines: 2,
+                                          style: TextStyle(
+                                              color:
+                                                  EHThemeHelper.getTextColor(),
+                                              fontSize: 13,
+                                              overflow: TextOverflow.ellipsis),
                                         ),
                                       ],
                                     ),

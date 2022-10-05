@@ -53,8 +53,25 @@ class EHThemeHelper {
     //return getThemeCustomAttributes().textColor!;
   }
 
+  static Color getLightBackgroundColor() {
+    //using getThemeColor temporarily as getThemeCustomAttributes().textColor cannot get latest color after testing, we need figure it out in future.
+    return getThemeColor(
+        Color.fromARGB(255, 62, 62, 62), Color.fromARGB(255, 227, 227, 227));
+
+    //return getThemeCustomAttributes().textColor!;
+  }
+
+  static Color getExtraLightBackgroundColor() {
+    //using getThemeColor temporarily as getThemeCustomAttributes().textColor cannot get latest color after testing, we need figure it out in future.
+    return getThemeColor(
+        Colors.transparent, Color.fromARGB(255, 244, 244, 244));
+
+    //return getThemeCustomAttributes().textColor!;
+  }
+
   static Color getDisableTextColor() {
-    return getThemeColor(Colors.grey, Colors.grey);
+    return getThemeColor(
+        Color.fromARGB(255, 34, 34, 34), Color.fromARGB(255, 216, 216, 216));
 
     //eturn getThemeCustomAttributes().disableColor!;
   }
