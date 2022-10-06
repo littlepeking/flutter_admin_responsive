@@ -94,7 +94,7 @@ class SystemModuleController extends EHController {
                     onTap: () async {
                       tabViewController.getOrAddTab(
                           EHTab<OrgRoleListController>(
-                              'Role',
+                              'role',
                               'common.security.role',
                               await OrgRoleListController.create(),
                               (EHController controller) {
@@ -110,7 +110,7 @@ class SystemModuleController extends EHController {
                     onTap: () async {
                       tabViewController.getOrAddTab(
                           EHTab<PermissionTreeController>(
-                              'Permission',
+                              'permission',
                               'common.security.permission',
                               await PermissionTreeController.create(),
                               (EHController controller) {

@@ -50,7 +50,7 @@ class WmsModuleController extends EHController {
               EHTreeNode(
                   displayNameMsgKey: 'wms.asn',
                   onTap: () {
-                    tabViewController.addTab(EHTab<ReceiptEditController>(
+                    tabViewController.getOrAddTab(EHTab<ReceiptEditController>(
                         'asn', 'wms.asn', ReceiptEditController(),
                         (EHController controller) {
                       return ReceiptEdit(controller: controller);
@@ -61,7 +61,7 @@ class WmsModuleController extends EHController {
                   displayNameMsgKey: 'wms.asnDetails',
                   icon: Icons.folder,
                   onTap: () {
-                    tabViewController.addTab(EHTab<TestController>(
+                    tabViewController.getOrAddTab(EHTab<TestController>(
                         'asnDetails', 'wms.asnDetails', TestController(),
                         (EHController controller) {
                       return Test2(controller: controller);
@@ -71,7 +71,7 @@ class WmsModuleController extends EHController {
                     EHTreeNode(
                         displayNameMsgKey: 'wms.asnDetails',
                         onTap: () {
-                          tabViewController.addTab(EHTab<TestController>(
+                          tabViewController.getOrAddTab(EHTab<TestController>(
                               'asnDetails', 'wms.asnDetails', TestController(),
                               (EHController controller) {
                             return Test2(controller: controller);
@@ -81,7 +81,7 @@ class WmsModuleController extends EHController {
                         displayNameMsgKey: 'wms.asnDetails',
                         icon: Icons.folder,
                         onTap: () {
-                          tabViewController.addTab(EHTab<TestController>(
+                          tabViewController.getOrAddTab(EHTab<TestController>(
                               'asnDetails', 'wms.asnDetails', TestController(),
                               (EHController controller) {
                             return Test2(controller: controller);
@@ -91,11 +91,10 @@ class WmsModuleController extends EHController {
                           EHTreeNode(
                               displayNameMsgKey: 'wms.asnDetails',
                               onTap: () {
-                                tabViewController.addTab(EHTab<TestController>(
-                                    'asnDetails',
-                                    'wms.asnDetails',
-                                    TestController(),
-                                    (EHController controller) {
+                                tabViewController.getOrAddTab(
+                                    EHTab<TestController>('asnDetails',
+                                        'wms.asnDetails', TestController(),
+                                        (EHController controller) {
                                   return Test2(controller: controller);
                                 }, closable: true));
                               })

@@ -68,8 +68,8 @@ class OrgRoleListView extends EHPanel<OrgRoleListController> {
             if (selectedTreeNode != null) {
               Get.find<SystemModuleController>()
                   .tabViewController
-                  .addTab(EHTab<RoleEditController>(
-                      'edit',
+                  .getOrAddTab(EHTab<RoleEditController>(
+                      'editRole',
                       'common.general.edit',
                       await RoleEditController.create(params: {
                         'orgId': (selectedTreeNode.data as OrganizationModel).id

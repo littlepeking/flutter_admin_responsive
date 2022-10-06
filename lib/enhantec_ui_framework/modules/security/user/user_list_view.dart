@@ -57,8 +57,8 @@ class UserList extends EHPanel<UserListController> {
         EHButton(
             controller: EHButtonController(
           onPressed: () async {
-            Get.find<SystemModuleController>().tabViewController.addTab(
-                    EHTab<UserEditController>('edit', 'common.general.edit',
+            Get.find<SystemModuleController>().tabViewController.getOrAddTab(
+                    EHTab<UserEditController>('editUser', 'common.general.edit',
                         await UserEditController.create(),
                         (EHController controller) {
                   return UserEditView(controller: controller);

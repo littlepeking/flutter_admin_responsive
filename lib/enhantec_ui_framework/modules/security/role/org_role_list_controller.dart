@@ -45,17 +45,18 @@ class OrgRoleListController extends EHPanelController {
     self.orgRoleComponentController =
         await OrgRoleComponentController.create(self,
             onRowSelected: (dataRow) async => {
-                  Get.find<SystemModuleController>().tabViewController.addTab(
-                          EHTab<RoleEditController>(
-                              'edit',
-                              'common.general.edit',
-                              await RoleEditController.create(
-                                  params: {'id': dataRow['id']}),
-                              (EHController controller) {
+                  Get.find<SystemModuleController>()
+                      .tabViewController
+                      .getOrAddTab(EHTab<RoleEditController>(
+                          'editRole',
+                          'common.general.edit',
+                          await RoleEditController.create(
+                              params: {'id': dataRow['id']}),
+                          (EHController controller) {
                         return RoleEditView(controller: controller);
                       },
-                              closable: true,
-                              expandMode: EHTabsViewExpandMode.Expand))
+                          closable: true,
+                          expandMode: EHTabsViewExpandMode.Expand))
                 },
             extraColumns: [
           EHColumnConf(

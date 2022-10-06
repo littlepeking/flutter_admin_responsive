@@ -201,7 +201,11 @@ class SideMenu extends StatelessWidget {
 
     return StatefulWrapper(
         onInit: () async {},
-        getChildWidget: () => Drawer(
+        getChildWidget: () => ClipRRect(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(5), bottomRight: Radius.circular(8)),
+            child: Drawer(
+              width: Get.width * 0.9,
               child: Responsive.isMobile(Get.context!)
                   ? Scaffold(
                       body: Column(
@@ -218,7 +222,7 @@ class SideMenu extends StatelessWidget {
               //       mainAxisAlignment: MainAxisAlignment.end,
               //       children: getFunctionBtnBar()),
               // ),
-            ));
+            )));
   }
 }
 

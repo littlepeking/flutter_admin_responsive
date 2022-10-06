@@ -47,7 +47,7 @@ class TmsModuleController extends GetxController {
                   icon: Icons.assignment,
                   displayNameMsgKey: 'wms.shipmentOrders',
                   onTap: () {
-                    tabViewController.addTab((EHTab<TestController>(
+                    tabViewController.getOrAddTab((EHTab<TestController>(
                         'shipmentOrders',
                         'wms.shipmentOrders',
                         TestController(), (EHController controller) {

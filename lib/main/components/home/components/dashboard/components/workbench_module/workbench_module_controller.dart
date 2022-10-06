@@ -50,7 +50,7 @@ class WorkbenchModuleController extends EHController {
                 //     permissionCodes: {'SECURITY_PERMISSION'},
                 //     displayName: "Permission",
                 //     onTap: () async {
-                //       tabViewController.addTab(EHTab<PermissionTreeController>(
+                //       tabViewController.getOrAddTab(EHTab<PermissionTreeController>(
                 //           'Permission', await PermissionTreeController.create(),
                 //           (EHController controller) {
                 //         return PermissionTreeView(controller: controller);
