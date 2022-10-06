@@ -62,22 +62,19 @@ class EHDialog {
             Container(
               child: Row(
                 children: [
-                  SizedBox(width: 10),
-                  SizedBox(
-                      width: 15,
-                      child: !Responsive.isDesktop(Get.context!)
-                          ? IconButton(
-                              padding: EdgeInsets.only(right: 20),
-                              onPressed: () {
-                                Get.back(result: false);
-                                focusNode?.requestFocus();
-                              },
-                              icon: Icon(
-                                Icons.arrow_back,
-                                color: EHThemeHelper.getTextColor(),
-                              ),
-                            )
-                          : null),
+                  if (!Responsive.isDesktop(Get.context!))
+                    IconButton(
+                      padding: EdgeInsets.only(left: 10),
+                      onPressed: () {
+                        Get.back(result: false);
+                        focusNode?.requestFocus();
+                      },
+                      icon: Icon(
+                        Icons.arrow_back,
+                        size: 30,
+                        color: EHThemeHelper.getTextColor(),
+                      ),
+                    ),
                   Expanded(
                       child: Text(
                     titleMsgKey.tr,

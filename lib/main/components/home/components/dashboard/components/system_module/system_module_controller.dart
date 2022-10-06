@@ -121,29 +121,43 @@ class SystemModuleController extends EHController {
                               expandMode: EHTabsViewExpandMode.Expand));
                     },
                     children: []),
-                EHTreeNode(
-                    displayNameMsgKey: 'testDialog',
-                    onTap: () async {
-                      popupDialog(TextButton(
-                          onPressed: () => popupDialog(TextButton(
-                              onPressed: () => popupDialog(TextButton(
-                                  onPressed: () => popupDialog(TextButton(
-                                      onPressed: () => popupDialog(TextButton(
-                                          onPressed: () => {},
-                                          child: Text('popup new dialog1'))),
-                                      child: Text('popup new dialog2'))),
-                                  child: Text('popup new dialog3'))),
-                              child: Text('popup new dialog4'))),
-                          child: Text('popup new dialog5')));
-                    },
-                    children: [])
+                // EHTreeNode(
+                //     displayNameMsgKey: 'testDialog',
+                //     onTap: () async {
+                //       popupDialog(TextButton(
+                //           onPressed: () => popupDialog(Column(
+                //                 children: [
+                //                   SizedBox(
+                //                     height: 10,
+                //                   ),
+                //                   Container(
+                //                     width: 200,
+                //                     color: Colors.red,
+                //                     child: TextButton(
+                //                         onPressed: () => popupDialog(TextButton(
+                //                             onPressed: () => popupDialog(TextButton(
+                //                                 onPressed: () => popupDialog(
+                //                                     TextButton(
+                //                                         onPressed: () => {},
+                //                                         child: Text(
+                //                                             'popup new dialog1'))),
+                //                                 child:
+                //                                     Text('popup new dialog2'))),
+                //                             child: Text('popup new dialog3'))),
+                //                         child: Text('popup new dialog4')),
+                //                   ),
+                //                 ],
+                //               )),
+                //           child: Text('popup new dialog5')));
+                //     },
+                //     children: [])
               ]),
         ].obs);
   }
 
-  popupDialog(Widget widget) {
-    EHDialog.showPopupDialog(widget, barrierDismissible: false);
-  }
+  // popupDialog(Widget widget) {
+  //   EHDialog.showPopupDialog(widget, barrierDismissible: false);
+  // }
 
   reset() {
     tabViewController.reset();
