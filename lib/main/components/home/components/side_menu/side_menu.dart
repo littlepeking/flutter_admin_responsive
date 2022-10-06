@@ -182,14 +182,16 @@ class SideMenu extends StatelessWidget {
                                   scrollDirection: Axis.vertical,
                                   child: Column(children: getSystemBtnBar())),
                             )),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: SizedBox(
-                                width: 240,
-                                child: Obx(
-                                    () => controller.getSideBarTreeView()))),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: SizedBox(
+                                  width: 240,
+                                  child: Obx(
+                                      () => controller.getSideBarTreeView()))),
+                        ),
                       ),
                     ],
                   ),

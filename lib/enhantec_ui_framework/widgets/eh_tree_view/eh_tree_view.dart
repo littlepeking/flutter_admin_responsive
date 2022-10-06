@@ -120,7 +120,7 @@ class EHTreeView extends EHStatelessWidget<EHTreeController> {
                                                   treeNode.icon == null
                                                       ? Icons.launch
                                                       : treeNode.icon,
-                                                  size: 50,
+                                                  size: 40,
                                                   color: EHThemeHelper
                                                       .getTextColor(),
                                                 ),
