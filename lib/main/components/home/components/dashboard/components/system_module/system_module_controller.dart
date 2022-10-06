@@ -18,6 +18,7 @@
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/org/organization_tree_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_dialog.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view.dart';
@@ -119,10 +120,31 @@ class SystemModuleController extends EHController {
                               closable: true,
                               expandMode: EHTabsViewExpandMode.Expand));
                     },
+                    children: []),
+                EHTreeNode(
+                    displayNameMsgKey: 'testDialog',
+                    onTap: () async {
+                      popupDialog(TextButton(
+                          onPressed: () => popupDialog(TextButton(
+                              onPressed: () => popupDialog(TextButton(
+                                  onPressed: () => popupDialog(TextButton(
+                                      onPressed: () => popupDialog(TextButton(
+                                          onPressed: () => {},
+                                          child: Text('popup new dialog1'))),
+                                      child: Text('popup new dialog2'))),
+                                  child: Text('popup new dialog3'))),
+                              child: Text('popup new dialog4'))),
+                          child: Text('popup new dialog5')));
+                    },
                     children: [])
               ]),
         ].obs);
   }
+
+  popupDialog(Widget widget) {
+    EHDialog.showPopupDialog(widget, barrierDismissible: false);
+  }
+
   reset() {
     tabViewController.reset();
   }

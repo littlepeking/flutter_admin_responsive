@@ -16,6 +16,7 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_theme_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'responsive.dart';
@@ -24,6 +25,7 @@ class EHDialog {
   static showPopupDialog(Widget widget,
       {String titleMsgKey = 'common.general.selectItem',
       FocusNode? focusNode,
+      bool barrierDismissible = true,
       double? width,
       double? height}) async {
     // return Get.dialog(
@@ -48,6 +50,7 @@ class EHDialog {
 
     return await showDialog<bool>(
       context: Get.context!,
+      barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {
         return SimpleDialog(
           titlePadding: EdgeInsets.zero,
@@ -59,9 +62,22 @@ class EHDialog {
             Container(
               child: Row(
                 children: [
+                  SizedBox(width: 10),
                   SizedBox(
-                    width: 25,
-                  ),
+                      width: 15,
+                      child: !Responsive.isDesktop(Get.context!)
+                          ? IconButton(
+                              padding: EdgeInsets.only(right: 20),
+                              onPressed: () {
+                                Get.back(result: false);
+                                focusNode?.requestFocus();
+                              },
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: EHThemeHelper.getTextColor(),
+                              ),
+                            )
+                          : null),
                   Expanded(
                       child: Text(
                     titleMsgKey.tr,
@@ -73,13 +89,14 @@ class EHDialog {
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )),
-                  IconButton(
-                      padding: EdgeInsets.only(right: 20),
-                      onPressed: () {
-                        Get.back(result: false);
-                        focusNode?.requestFocus();
-                      },
-                      icon: Icon(Icons.close))
+                  if (Responsive.isDesktop(Get.context!))
+                    IconButton(
+                        padding: EdgeInsets.only(right: 20),
+                        onPressed: () {
+                          Get.back(result: false);
+                          focusNode?.requestFocus();
+                        },
+                        icon: Icon(Icons.close))
                 ],
               ),
             ),
