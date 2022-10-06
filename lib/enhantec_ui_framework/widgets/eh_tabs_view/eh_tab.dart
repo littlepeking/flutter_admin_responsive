@@ -25,7 +25,7 @@ import 'eh_tabs_view.dart';
 //     T controller);
 
 class EHTab<T extends EHController> {
-  String tabId;
+  String tabName;
   String tabHeaderMsgKey;
   Map<String, String>? tabTranslateParams;
   T tabController;
@@ -42,7 +42,7 @@ class EHTab<T extends EHController> {
   bool closable;
   bool showInBottomList; //Used only in mobile mode
 
-  EHTab(this.tabId, this.tabHeaderMsgKey, this.tabController,
+  EHTab(this.tabName, this.tabHeaderMsgKey, this.tabController,
       this.getTabWidgetFunc,
       {this.tabTranslateParams,
       this.closable = false,

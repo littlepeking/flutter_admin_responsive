@@ -73,7 +73,7 @@ class EHTabsViewController extends GetxController {
   }
 
   EHTab getTab(String tabId) {
-    Iterable<EHTab> iterator = tabsConfig.where((tab) => tab.tabId == tabId);
+    Iterable<EHTab> iterator = tabsConfig.where((tab) => tab.tabName == tabId);
 
     if (iterator.isNotEmpty)
       return iterator.first;
@@ -109,6 +109,17 @@ class EHTabsViewController extends GetxController {
     tabsConfig = tabs.obs;
   }
 
+  getOrAddTab(EHTab tab) {
+    if (Responsive.isMobile(Get.context!)) {
+      List<EHTab> existedTabs = tabsConfig
+          .where((t) => t.tabName == tab.tabName && t.isDeleted != true)
+          .toList();
+
+      existedTabs.length == 0 ? addTab(tab) : selectTab(existedTabs[0]);
+    } else
+      addTab(tab);
+  }
+
   addTab(EHTab tab) {
     tabsConfig.add(tab);
     // itemScrollController.jumpTo(index: (tabsData.length - 1));
@@ -126,6 +137,11 @@ class EHTabsViewController extends GetxController {
         Responsive.isTablet(Get.context!)) {
       Get.back();
     }
+  }
+
+  selectTab(EHTab tab) {
+    selectedTab = tab;
+    Get.back();
   }
 
   EHTab get selectedTab {

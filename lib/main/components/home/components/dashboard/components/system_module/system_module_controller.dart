@@ -61,7 +61,7 @@ class SystemModuleController extends EHController {
                     displayNameMsgKey: 'common.security.organization',
                     isChecked: true,
                     onTap: () async {
-                      tabViewController.addTab(
+                      tabViewController.getOrAddTab(
                           EHTab<OrganizationTreeController>(
                               'organization',
                               'common.security.organization',
@@ -78,7 +78,7 @@ class SystemModuleController extends EHController {
                     displayNameMsgKey: 'common.security.user',
                     isChecked: true,
                     onTap: () {
-                      tabViewController.addTab(EHTab<UserListController>(
+                      tabViewController.getOrAddTab(EHTab<UserListController>(
                           'userList',
                           'common.security.userList',
                           UserListController(), (EHController controller) {
@@ -92,30 +92,32 @@ class SystemModuleController extends EHController {
                     permissionCodes: {'SECURITY_ROLE'},
                     displayNameMsgKey: 'common.security.role',
                     onTap: () async {
-                      tabViewController.addTab(EHTab<OrgRoleListController>(
-                          'Role',
-                          'common.security.role',
-                          await OrgRoleListController.create(),
-                          (EHController controller) {
+                      tabViewController.getOrAddTab(
+                          EHTab<OrgRoleListController>(
+                              'Role',
+                              'common.security.role',
+                              await OrgRoleListController.create(),
+                              (EHController controller) {
                         return OrgRoleListView(controller: controller);
                       },
-                          closable: true,
-                          expandMode: EHTabsViewExpandMode.None));
+                              closable: true,
+                              expandMode: EHTabsViewExpandMode.None));
                     },
                     children: []),
                 EHTreeNode(
                     permissionCodes: {'SECURITY_PERMISSION'},
                     displayNameMsgKey: 'common.security.permission',
                     onTap: () async {
-                      tabViewController.addTab(EHTab<PermissionTreeController>(
-                          'Permission',
-                          'common.security.permission',
-                          await PermissionTreeController.create(),
-                          (EHController controller) {
+                      tabViewController.getOrAddTab(
+                          EHTab<PermissionTreeController>(
+                              'Permission',
+                              'common.security.permission',
+                              await PermissionTreeController.create(),
+                              (EHController controller) {
                         return PermissionTreeView(controller: controller);
                       },
-                          closable: true,
-                          expandMode: EHTabsViewExpandMode.Expand));
+                              closable: true,
+                              expandMode: EHTabsViewExpandMode.Expand));
                     },
                     children: [])
               ]),
