@@ -122,10 +122,7 @@ class EHTabHeader extends StatelessWidget {
                                                                       .value ==
                                                                   index
                                                               ? EHThemeHelper
-                                                                      .isDarkMode
-                                                                      .isTrue
-                                                                  ? Colors.white
-                                                                  : Colors.black
+                                                                  .getTextColor()
                                                               : EHThemeHelper
                                                                       .isDarkMode
                                                                       .isTrue

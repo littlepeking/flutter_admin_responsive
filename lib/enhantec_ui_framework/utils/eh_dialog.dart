@@ -62,7 +62,7 @@ class EHDialog {
             Container(
               child: Row(
                 children: [
-                  if (!Responsive.isDesktop(Get.context!))
+                  if (Responsive.isMobile(Get.context!))
                     IconButton(
                       padding: EdgeInsets.only(left: 10),
                       onPressed: () {
@@ -86,7 +86,7 @@ class EHDialog {
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )),
-                  if (Responsive.isDesktop(Get.context!))
+                  if (!Responsive.isMobile(Get.context!))
                     IconButton(
                         padding: EdgeInsets.only(right: 20),
                         onPressed: () {

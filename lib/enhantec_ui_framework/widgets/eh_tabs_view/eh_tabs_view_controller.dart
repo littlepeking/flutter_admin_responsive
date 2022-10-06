@@ -89,7 +89,7 @@ class EHTabsViewController extends GetxController {
     //     ),
     //     isActive: false);
 
-    tabsConfig[index].tabWidget = null;
+    tabsConfig[index].tabWidget = SizedBox.shrink();
     tabsConfig[index].isDeleted = true;
     tabsConfig.refresh();
 
