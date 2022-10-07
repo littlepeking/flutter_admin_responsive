@@ -99,7 +99,7 @@ class EHTabsView extends StatelessWidget {
           decoration: BoxDecoration(
               border: Border.symmetric(
                   horizontal: BorderSide(
-                      width: showSideBorder ? 1.0 : 2.0,
+                      width: showSideBorder ? 1 : 2.0,
                       color: EHThemeHelper.isDarkMode.isTrue
                           ? Colors.white30
                           : Colors.black45),
@@ -107,9 +107,13 @@ class EHTabsView extends StatelessWidget {
                       ? BorderSide(
                           width: 1.0,
                           color: EHThemeHelper.isDarkMode.isTrue
-                              ? Colors.white30
+                              ? Color.fromARGB(77, 255, 255, 255)
                               : Colors.black45)
-                      : BorderSide.none)),
+                      : BorderSide(
+                          width: 1.0,
+                          color: EHThemeHelper.isDarkMode.isTrue
+                              ? Color.fromARGB(77, 109, 109, 109)
+                              : Color.fromARGB(115, 222, 222, 222)))),
           child: IndexedStack(
             index: controller.selectedIndex.value,
             children: controller.tabsConfig.map((tab) {

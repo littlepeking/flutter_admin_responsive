@@ -167,36 +167,37 @@ class SideMenu extends StatelessWidget {
               // child: Image.asset("assets/images/Home.png"),
             ),
           ),
-          Obx(() => Container(
-                color: EHThemeHelper.getExtraLightBackgroundColor(),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height - 190),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (!Responsive.isDesktop(context))
-                        Obx(() => Container(
-                              color: EHThemeHelper.getLightBackgroundColor(),
-                              child: SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  child: Column(children: getSystemBtnBar())),
-                            )),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: SingleChildScrollView(
-                              scrollDirection: Axis.vertical,
-                              child: SizedBox(
-                                  width: 240,
-                                  child: Obx(
-                                      () => controller.getSideBarTreeView()))),
-                        ),
-                      ),
-                    ],
+          ConstrainedBox(
+            constraints: BoxConstraints(
+                maxHeight: Responsive.isMobile(Get.context!)
+                    ? MediaQuery.of(context).size.height - 190
+                    : MediaQuery.of(context).size.height - 140,
+                minHeight: Responsive.isMobile(Get.context!)
+                    ? MediaQuery.of(context).size.height - 190
+                    : MediaQuery.of(context).size.height - 140),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (!Responsive.isDesktop(context))
+                  Obx(() => Container(
+                        color: EHThemeHelper.getLightBackgroundColor(),
+                        child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: Column(children: getSystemBtnBar())),
+                      )),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: SizedBox(
+                            width: 240,
+                            child: Obx(() => controller.getSideBarTreeView()))),
                   ),
                 ),
-              )),
+              ],
+            ),
+          ),
         ];
 
     return StatefulWrapper(

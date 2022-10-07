@@ -63,8 +63,7 @@ class EHThemeHelper {
 
   static Color getExtraLightBackgroundColor() {
     //using getThemeColor temporarily as getThemeCustomAttributes().textColor cannot get latest color after testing, we need figure it out in future.
-    return getThemeColor(
-        Colors.transparent, Color.fromARGB(255, 244, 244, 244));
+    return getThemeColor(Colors.transparent, Color.fromARGB(255, 92, 91, 91));
 
     //return getThemeCustomAttributes().textColor!;
   }
