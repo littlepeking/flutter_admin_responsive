@@ -68,7 +68,8 @@ class EHTabHeader extends StatelessWidget {
                         return Obx(() {
                           // if (index >= controller.tabsData.length)
                           //   return SizedBox(); //增加此判断是因为删除TAB页时会越界，怀疑是ScrollablePositionedList的bug
-                          if (controller.tabsConfig[index].isDeleted)
+                          if (controller.tabsConfig.length < index + 1 ||
+                              controller.tabsConfig[index].isDeleted)
                             // return placeholder when tab is inactive.
                             return Container(
                               width: 0,
