@@ -99,8 +99,8 @@ class DataGridTest {
     int pageIndex,
     int pageSize,
   ) async {
-    if (!EHRestService().loadingIndicator.isOpen)
-      EHRestService().loadingIndicator.showIndicator();
+    // if (!EHRestService().loadingIndicator.isOpen)
+    //   EHRestService().loadingIndicator.showIndicator();
     // final int startIndex = orderData.isNotEmpty ? orderData.length : 0,
     //     endIndex = startIndex + 25;
     final int startIndex = 0, endIndex = 100;
@@ -136,7 +136,7 @@ class DataGridTest {
     // //test dynamic filtering
     // if (keyValueFilter != null) data = filterData(data, keyValueFilter);
     await Future.delayed(Duration(milliseconds: 300));
-    EHRestService().loadingIndicator.hide();
+    // EHRestService().loadingIndicator.hide();
     return data;
   }
 

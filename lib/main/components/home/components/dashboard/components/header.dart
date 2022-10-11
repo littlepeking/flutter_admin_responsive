@@ -91,11 +91,7 @@ getSystemBtnBar() {
               !Responsive.isDesktop(Get.context!)),
           onPressed: (data) {
             if (SystemModule.workbench != ContextHelper.currentModule.value) {
-              ContextHelper.currentModule.value = SystemModule.workbench;
-              EHNavigator.navigateTo(
-                MapConstant.systemModuleRoute[SystemModule.workbench]!,
-                navigatorKey: NavigationKeys.dashBoardNavKey,
-              );
+              ContextHelper.switchModule(SystemModule.workbench);
             }
           },
         )),
@@ -108,11 +104,11 @@ getSystemBtnBar() {
                 !Responsive.isDesktop(Get.context!)),
             onPressed: (data) {
               if (SystemModule.wms != ContextHelper.currentModule.value) {
-                ContextHelper.currentModule.value = SystemModule.wms;
-                EHNavigator.navigateTo(
-                  MapConstant.systemModuleRoute[SystemModule.wms]!,
-                  navigatorKey: NavigationKeys.dashBoardNavKey,
-                );
+                ContextHelper.switchModule(SystemModule.wms);
+                // EHNavigator.navigateTo(
+                //   MapConstant.systemModuleRoute[SystemModule.wms]!,
+                //   navigatorKey: NavigationKeys.dashBoardNavKey,
+                // );
               }
             },
           )
@@ -126,11 +122,11 @@ getSystemBtnBar() {
                 !Responsive.isDesktop(Get.context!)),
             onPressed: (data) {
               if (SystemModule.tms != ContextHelper.currentModule.value) {
-                ContextHelper.currentModule.value = SystemModule.tms;
-                EHNavigator.navigateTo(
-                  MapConstant.systemModuleRoute[SystemModule.tms]!,
-                  navigatorKey: NavigationKeys.dashBoardNavKey,
-                );
+                ContextHelper.switchModule(SystemModule.tms);
+                // EHNavigator.navigateTo(
+                //   MapConstant.systemModuleRoute[SystemModule.tms]!,
+                //   navigatorKey: NavigationKeys.dashBoardNavKey,
+                // );
               }
             },
           )
@@ -144,11 +140,11 @@ getSystemBtnBar() {
                 !Responsive.isDesktop(Get.context!)),
             onPressed: (data) {
               if (SystemModule.system != ContextHelper.currentModule.value) {
-                ContextHelper.currentModule.value = SystemModule.system;
-                EHNavigator.navigateTo(
-                  MapConstant.systemModuleRoute[SystemModule.system]!,
-                  navigatorKey: NavigationKeys.dashBoardNavKey,
-                );
+                ContextHelper.switchModule(SystemModule.system);
+                // EHNavigator.navigateTo(
+                //   MapConstant.systemModuleRoute[SystemModule.system]!,
+                //   navigatorKey: NavigationKeys.dashBoardNavKey,
+                // );
               }
             },
           )

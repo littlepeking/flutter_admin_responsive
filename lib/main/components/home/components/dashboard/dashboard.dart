@@ -42,13 +42,18 @@ class Dashboard extends GetView<DashBoardNavigationController> {
             if (!Responsive.isMobile(context)) Header(),
             //SizedBox(height: defaultPadding),
             Expanded(
-              child: Navigator(
-                key: controller.navigatorKey,
-                onGenerateRoute: controller.generateRoute,
-                initialRoute: MapConstant
-                    .systemModuleRoute[ContextHelper.currentModule.value],
-              ),
-            ),
+                child: Obx(() => IndexedStack(
+                      index: ContextHelper.currentModule.value.index,
+                      children: MapConstant.systemModuleMap.values.toList(),
+                    ))
+
+                // child: Navigator(
+                //   key: controller.navigatorKey,
+                //   onGenerateRoute: controller.generateRoute,
+                //   initialRoute: MapConstant
+                //       .systemModuleRoute[ContextHelper.currentModule.value],
+                // ),
+                ),
           ],
         ),
       ),

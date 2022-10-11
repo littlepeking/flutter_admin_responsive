@@ -9,6 +9,10 @@ import 'package:get/get.dart';
 class ContextHelper {
   static Rx<SystemModule> currentModule = SystemModule.workbench.obs;
 
+  static switchModule(SystemModule systemModule) {
+    currentModule.value = systemModule;
+  }
+
   static void resetAllModuleTabs() {
     if (Get.isRegistered<SystemModuleController>())
       resetTab(Get.find<SystemModuleController>().tabViewController);

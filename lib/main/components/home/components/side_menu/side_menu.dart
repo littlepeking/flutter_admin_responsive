@@ -120,13 +120,7 @@ class SideMenu extends StatelessWidget {
                         if (data != null) {
                           EHContextHelper.switchOrg(data);
                           ContextHelper.resetAllModuleTabs();
-                          ContextHelper.currentModule.value =
-                              SystemModule.workbench;
-                          EHNavigator.navigateTo(
-                            MapConstant.systemModuleRoute[
-                                ContextHelper.currentModule.value]!,
-                            navigatorKey: NavigationKeys.dashBoardNavKey,
-                          );
+                          ContextHelper.switchModule(SystemModule.workbench);
                         }
                       },
                       getDisplayValue: (data) {

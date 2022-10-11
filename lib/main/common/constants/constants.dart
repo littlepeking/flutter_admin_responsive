@@ -13,6 +13,12 @@
  *
  *******************************************************************************/
 
+import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/system_module/system_module.dart';
+import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/tms_module/tms_module.dart';
+import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/wms_module/wms_module.dart';
+import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/workbench_module/workbench_module.dart';
+import 'package:flutter/material.dart';
+
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
@@ -21,18 +27,25 @@ class NavigationKeys {
   static int dashBoardNavKey = 1;
 }
 
-class MapConstant {
-  static const Map<SystemModule, String> systemModuleRoute = {
-    SystemModule.wms: '/wmsModule',
-    SystemModule.tms: '/tmsModule',
-    SystemModule.system: '/systemModule',
-    SystemModule.workbench: '/workBench',
-  };
-}
-
 enum SystemModule {
   wms,
   tms,
   system,
   workbench,
+}
+
+class MapConstant {
+  // static const Map<SystemModule, String> systemModuleRoute = {
+  //   SystemModule.wms: '/wmsModule',
+  //   SystemModule.tms: '/tmsModule',
+  //   SystemModule.system: '/systemModule',
+  //   SystemModule.workbench: '/workBench',
+  // };
+
+  static Map<SystemModule, Widget> systemModuleMap = {
+    SystemModule.wms: WmsModuleWidget(),
+    SystemModule.tms: TmsModuleWidget(),
+    SystemModule.system: SystemModuleWidget(),
+    SystemModule.workbench: WorkbenchModuleWidget(),
+  };
 }

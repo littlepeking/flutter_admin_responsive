@@ -30,22 +30,22 @@ class DashBoardNavigationController extends GetxController {
   static DashBoardNavigationController instance =
       Get.find<DashBoardNavigationController>();
 
-  final GlobalKey<NavigatorState>? navigatorKey =
-      Get.nestedKey(NavigationKeys.dashBoardNavKey);
+  // final GlobalKey<NavigatorState>? navigatorKey =
+  //     Get.nestedKey(NavigationKeys.dashBoardNavKey);
 
-  Route? generateRoute(RouteSettings settings) {
-    if (settings.name == MapConstant.systemModuleRoute[SystemModule.wms])
-      return EHNavigator.getPageRoute(settings, WmsModuleWidget());
-    else if (settings.name == MapConstant.systemModuleRoute[SystemModule.tms])
-      return EHNavigator.getPageRoute(settings, TmsModuleWidget());
-    else if (settings.name ==
-        MapConstant.systemModuleRoute[SystemModule.system])
-      return EHNavigator.getPageRoute(settings, SystemModuleWidget());
-    else if (settings.name ==
-        MapConstant.systemModuleRoute[SystemModule.workbench])
-      return EHNavigator.getPageRoute(settings, WorkbenchModuleWidget());
-    else
-      return null;
-    //  return _getPageRoute(settings, WmsModuleWidget()); 不能写DEFAULT,因为多级导航时，父路径'/'也会在此进行遍历。可能是FLUTTER BUG，导致重复创建路由，报错：Multiple widgets used the same GlobalKey。
-  }
+  // Route? generateRoute(RouteSettings settings) {
+  //   if (settings.name == MapConstant.systemModuleRoute[SystemModule.wms])
+  //     return EHNavigator.getPageRoute(settings, WmsModuleWidget());
+  //   else if (settings.name == MapConstant.systemModuleRoute[SystemModule.tms])
+  //     return EHNavigator.getPageRoute(settings, TmsModuleWidget());
+  //   else if (settings.name ==
+  //       MapConstant.systemModuleRoute[SystemModule.system])
+  //     return EHNavigator.getPageRoute(settings, SystemModuleWidget());
+  //   else if (settings.name ==
+  //       MapConstant.systemModuleRoute[SystemModule.workbench])
+  //     return EHNavigator.getPageRoute(settings, WorkbenchModuleWidget());
+  //   else
+  //     return null;
+  //   //  return _getPageRoute(settings, WmsModuleWidget()); 不能写DEFAULT,因为多级导航时，父路径'/'也会在此进行遍历。可能是FLUTTER BUG，导致重复创建路由，报错：Multiple widgets used the same GlobalKey。
+  // }
 }

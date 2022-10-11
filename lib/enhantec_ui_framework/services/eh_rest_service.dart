@@ -22,8 +22,6 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_toast_helper.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_loading_indicator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' hide Response, FormData;
 
@@ -38,8 +36,8 @@ class EHRestService extends GetxController {
 
   factory EHRestService() => _singleton;
 
-  EHLoadingIndicator loadingIndicator =
-      EHLoadingIndicator(context: Get.context, barrierDimisable: false);
+  // EHLoadingIndicator loadingIndicator =
+  //     EHLoadingIndicator(context: Get.context, barrierDimisable: false);
 
   EHRestService._internal() {
     _dio.options.baseUrl = "http://192.168.4.39:8061/api/";
@@ -52,8 +50,8 @@ class EHRestService extends GetxController {
         (RequestOptions requestOptions,
             RequestInterceptorHandler handler) async {
       //DISABLE SPINNER since it will prevent cursor move to selected widget after unfocused from popup which triggering a rest service call.
-      if (!loadingIndicator.isOpen && !Responsive.isMobile(Get.context!))
-        loadingIndicator.showIndicator();
+      // if (!loadingIndicator.isOpen && !Responsive.isMobile(Get.context!))
+      //   loadingIndicator.showIndicator();
       String? authorization = await EHContextHelper.getString("Authorization");
       String jwtToken = authorization == null || authorization == "null"
           ? ''
@@ -71,7 +69,7 @@ class EHRestService extends GetxController {
     }, onResponse:
         (Response response, ResponseInterceptorHandler handler) async {
       //await Future.delayed(Duration(seconds: 2));
-      if (loadingIndicator.isOpen) loadingIndicator.hide();
+      // if (loadingIndicator.isOpen) loadingIndicator.hide();
       String? authorization = await EHContextHelper.getString("Authorization");
       // if the value is the same as the header, continue with the request
       if (authorization != null &&
@@ -83,7 +81,7 @@ class EHRestService extends GetxController {
       return handler.next(response);
     }, onError: (DioError error, ErrorInterceptorHandler handler) async {
       // await Future.delayed(Duration(seconds: 2));
-      if (loadingIndicator.isOpen) loadingIndicator.hide();
+      // if (loadingIndicator.isOpen) loadingIndicator.hide();
       if (error.response?.statusCode == 404) {
         EHToastMessageHelper.showInfoMessage('common.error.urlNotFound'.tr,
             type: EHToastMsgType.Error);
