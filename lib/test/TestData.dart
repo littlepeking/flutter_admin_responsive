@@ -25,7 +25,6 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/e
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid_constants.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_datagrid_filter_info.dart';
 
-import 'package:enhantec_platform_ui/enhantec_ui_framework/services/eh_rest_service.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_datagrid/eh_service_datagrid_source.dart';
 
 class DataGridTest {

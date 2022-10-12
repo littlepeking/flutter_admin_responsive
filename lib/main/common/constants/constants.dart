@@ -12,15 +12,14 @@
  *             (c) COPYRIGHT 2022 Enhantec. ALL RIGHTS RESERVED.
  *
  *******************************************************************************/
+///Author: John Wang
+///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/system_module/system_module.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/tms_module/tms_module.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/wms_module/wms_module.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/workbench_module/workbench_module.dart';
 import 'package:flutter/material.dart';
-
-///Author: John Wang
-///john.wang_ca@hotmail.com
 
 class NavigationKeys {
   static int rootNavKey = 0;

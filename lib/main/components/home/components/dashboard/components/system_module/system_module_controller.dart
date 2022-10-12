@@ -18,7 +18,6 @@
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/org/organization_tree_controller.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_dialog.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view.dart';

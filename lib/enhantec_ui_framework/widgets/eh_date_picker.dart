@@ -371,7 +371,7 @@ class EHDatePickerController extends EHEditableWidgetController {
       // date = new DateFormat(_dateFormat)
       //    .parse(_textEditingController.displayValue);
       date = new DateFormat(_dateFormat)
-          .parse(_textEditingController.displayValue);
+          .parseStrict(_textEditingController.displayValue);
     } catch (e) {
       //print(e);
     }
