@@ -152,4 +152,6 @@ Map<String, String> baseEnUSMessages = {
   'common.general.windowCannotEmpty': 'Window list is empty',
   'common.general.windowList': 'Window List',
   'common.general.Export2Excel': 'Export to EXCEL',
+  'common.general.page': 'Page',
+  'common.general.rowPerPage': 'Rows / Page',
 };

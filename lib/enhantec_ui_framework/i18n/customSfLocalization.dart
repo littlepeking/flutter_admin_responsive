@@ -18,6 +18,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/localizations.dart';
 
 class CustomSfLocalizationDelegate
@@ -129,10 +130,10 @@ class CustomSfLocalization extends SfLocalizations {
   String get ofDataPagerLabel => '/';
 
   @override
-  String get pagesDataPagerLabel => '页';
+  String get pagesDataPagerLabel => 'common.general.page'.tr;
 
   @override
-  String get rowsPerPageDataPagerLabel => '每页行数';
+  String get rowsPerPageDataPagerLabel => 'common.general.rowPerPage'.tr;
 
   @override
   // ignore: todo

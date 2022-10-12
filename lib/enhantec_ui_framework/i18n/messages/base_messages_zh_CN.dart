@@ -155,4 +155,6 @@ Map<String, String> baseZhCNMessages = {
   'common.general.windowCannotEmpty': '窗口列表为空',
   'common.general.windowList': '窗口列表',
   'common.general.Export2Excel': '导出为EXCEL',
+  'common.general.page': '页',
+  'common.general.rowPerPage': '每页行数',
 };
