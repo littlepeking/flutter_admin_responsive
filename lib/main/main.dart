@@ -31,10 +31,12 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_theme_helper
 import 'package:enhantec_platform_ui/main/components/home/components/error/PageNotFound.dart';
 import 'package:enhantec_platform_ui/main/routes/page_config.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
+import '../../main/main.reflectable.dart';
 import '../enhantec_ui_framework/utils/theme_custom_attributes.dart';
 
 main() {
+  initializeReflectable();
+
   //SOME GetxControllers CANNOT BE PUT HERE (NEED FIGURE IT OUT), OTHERWISE EXCEPTION WILL NOT BE CAUGHT PROPERLY!
   //E.G. Get.put(EHTabsViewController(), permanent: true);
   //////////////////////////////////////////////////////////////
