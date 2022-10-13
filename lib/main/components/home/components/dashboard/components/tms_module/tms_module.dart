@@ -24,7 +24,7 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_text.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/tms_module/tms_module_controller.dart';
-import 'package:enhantec_platform_ui/main/components/home/components/side_menu/side_menu_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

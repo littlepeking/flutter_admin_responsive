@@ -23,7 +23,7 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_image_button.dart';
 import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
 import 'package:enhantec_platform_ui/main/common/utils/context_helper.dart';
-import 'package:enhantec_platform_ui/main/components/home/components/side_menu/side_menu_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/side_menu/side_menu_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
