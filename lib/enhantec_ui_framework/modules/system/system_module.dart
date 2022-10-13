@@ -30,19 +30,14 @@ import 'package:get/get.dart';
 import 'system_module_controller.dart';
 
 class SystemModuleWidget extends EHModuleWidget<SystemModuleController> {
-  SystemModuleWidget({super.key});
+  SystemModuleWidget({super.key, required super.controller});
 
   @override
   Widget build(BuildContext context) {
-    SystemModuleController systemModuleController = Get.put(
-      SystemModuleController(),
-      permanent: true,
-    );
-
     // wmsModuleController.reset();
 
-    if (systemModuleController.moduleTabViewController.tabsConfig.length == 0)
-      systemModuleController.moduleTabViewController.tabsConfig.add(EHTab(
+    if (controller.moduleTabViewController.tabsConfig.length == 0)
+      controller.moduleTabViewController.tabsConfig.add(EHTab(
           'welcome',
           'common.general.welcome',
           EHController(),
@@ -85,7 +80,7 @@ class SystemModuleWidget extends EHModuleWidget<SystemModuleController> {
                           onPressed: SideMenuController.instance.toggleDrawer,
                         )
                       : null,
-                  controller: systemModuleController.moduleTabViewController))
+                  controller: controller.moduleTabViewController))
         ]));
 
     //     if (!Responsive.isMobile(context)) SizedBox(width: defaultPadding),

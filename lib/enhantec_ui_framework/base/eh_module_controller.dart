@@ -19,9 +19,16 @@
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_controller.dart';
+import 'package:flutter/material.dart';
 
 class EHModuleController extends EHController {
+  late String moduleMsgKey;
+
   late EHTreeController moduleSideMenuTreeController;
 
   late EHTabsViewController moduleTabViewController;
+
+  late Icon moduleIcon;
+
+  bool isPermissionControl = true;
 }

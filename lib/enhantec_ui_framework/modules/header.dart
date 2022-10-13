@@ -17,18 +17,17 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/layout_constant.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/module_registry.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/eh_module_manager.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_config_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_image_button.dart';
-import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
-import 'package:enhantec_platform_ui/main/common/utils/context_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/side_menu/side_menu_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../../enhantec_ui_framework/utils/eh_theme_helper.dart';
+import '../utils/eh_theme_helper.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -79,83 +78,27 @@ getDecoration(isSelected, isVertical) {
 }
 
 getSystemBtnBar() {
-  return [
-    Obx(() => EHImageButton(
-          textMsgKey: 'common.module.workbench',
-          icon: Icon(
-            Icons.dvr,
-            // color: Color.fromARGB(255, 67, 67, 67),
-          ),
-          decoration: getDecoration(
-              EHContextHelper.currentModule.value ==
-                  SystemModule.workbench.name,
-              !Responsive.isDesktop(Get.context!)),
-          onPressed: (data) {
-            if (SystemModule.workbench.name !=
-                EHContextHelper.currentModule.value) {
-              EHContextHelper.switchModule(SystemModule.workbench.name);
-            }
-          },
-        )),
-    Obx(() => EHContextHelper.getUserOrgModules().contains('WMS')
-        ? EHImageButton(
-            textMsgKey: 'WMS',
-            icon: Icon(Icons.warehouse),
-            decoration: getDecoration(
-                EHContextHelper.currentModule.value == SystemModule.wms.name,
-                !Responsive.isDesktop(Get.context!)),
-            onPressed: (data) {
-              if (SystemModule.wms.name !=
-                  EHContextHelper.currentModule.value) {
-                EHContextHelper.switchModule(SystemModule.wms.name);
-                // EHNavigator.navigateTo(
-                //   MapConstant.systemModuleRoute[SystemModule.wms]!,
-                //   navigatorKey: NavigationKeys.dashBoardNavKey,
-                // );
-              }
-            },
-          )
-        : SizedBox.shrink()),
-    Obx(() => EHContextHelper.getUserOrgModules().contains('TMS')
-        ? EHImageButton(
-            textMsgKey: 'TMS',
-            icon: Icon(Icons.local_shipping),
-            decoration: getDecoration(
-                EHContextHelper.currentModule.value == SystemModule.tms.name,
-                !Responsive.isDesktop(Get.context!)),
-            onPressed: (data) {
-              if (SystemModule.tms.toString() !=
-                  EHContextHelper.currentModule.value) {
-                EHContextHelper.switchModule(SystemModule.tms.name);
-                // EHNavigator.navigateTo(
-                //   MapConstant.systemModuleRoute[SystemModule.tms]!,
-                //   navigatorKey: NavigationKeys.dashBoardNavKey,
-                // );
-              }
-            },
-          )
-        : SizedBox.shrink()),
-    Obx(() => EHContextHelper.getUserOrgModules().contains('SYSTEM')
-        ? EHImageButton(
-            textMsgKey: 'common.module.system',
-            icon: Icon(Icons.monitor),
-            decoration: getDecoration(
-                EHContextHelper.currentModule.value ==
-                    SystemNativeModule.system.name,
-                !Responsive.isDesktop(Get.context!)),
-            onPressed: (data) {
-              if (SystemNativeModule.system.toString() !=
-                  EHContextHelper.currentModule.value) {
-                EHContextHelper.switchModule(SystemNativeModule.system.name);
-                // EHNavigator.navigateTo(
-                //   MapConstant.systemModuleRoute[SystemModule.system]!,
-                //   navigatorKey: NavigationKeys.dashBoardNavKey,
-                // );
-              }
-            },
-          )
-        : SizedBox.shrink()),
-  ];
+  List<Widget> buttons = List.empty(growable: true);
+
+  EHModuleManager.systemModuleMap.forEach((moduleId, moduleWidget) => {
+        buttons.add(Obx(() =>
+            EHContextHelper.getUserOrgModules().contains(moduleId) ||
+                    moduleWidget.controller.isPermissionControl == false
+                ? EHImageButton(
+                    textMsgKey: moduleWidget.controller.moduleMsgKey,
+                    icon: moduleWidget.controller.moduleIcon,
+                    decoration: getDecoration(
+                        EHContextHelper.currentModuleId.value == moduleId,
+                        !Responsive.isDesktop(Get.context!)),
+                    onPressed: (data) {
+                      if (moduleId != EHContextHelper.currentModuleId.value) {
+                        EHContextHelper.switchModule(moduleId);
+                      }
+                    })
+                : SizedBox.shrink()))
+      });
+
+  return buttons;
 }
 
 getFunctionBtnBar() {
@@ -198,8 +141,9 @@ getFunctionBtnBar() {
         showButtonText: !Responsive.isMobile(Get.context!),
         onPressed: (data) async {
           await EHContextHelper.logout();
-          ContextHelper.resetAllModuleTabs();
-          EHContextHelper.switchModule(SystemModule.workbench.name);
+          EHModuleManager.resetAllModuleTabs();
+          EHContextHelper.switchModule(EHConfigHelper.instance
+              .getConfigItemWithDef('common.defaultModuleName', 'system'));
         }),
   ];
 }

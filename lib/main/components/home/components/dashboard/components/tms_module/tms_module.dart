@@ -29,15 +29,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TmsModuleWidget extends EHModuleWidget<TmsModuleController> {
-  TmsModuleWidget({Key? key}) : super(key: key);
+  TmsModuleWidget({super.key, required super.controller});
 
   @override
   Widget build(BuildContext context) {
-    TmsModuleController tmsModuleController =
-        Get.put(TmsModuleController(), permanent: true);
-
-    if (tmsModuleController.moduleTabViewController.tabsConfig.length == 0)
-      tmsModuleController.moduleTabViewController.tabsConfig.add(EHTab(
+    if (controller.moduleTabViewController.tabsConfig.length == 0)
+      controller.moduleTabViewController.tabsConfig.add(EHTab(
           'welcome',
           'common.general.welcome',
           EHController(),
@@ -65,7 +62,7 @@ class TmsModuleWidget extends EHModuleWidget<TmsModuleController> {
                           onPressed: SideMenuController.instance.toggleDrawer,
                         )
                       : null,
-                  controller: tmsModuleController.moduleTabViewController))
+                  controller: controller.moduleTabViewController))
         ]));
   }
 }

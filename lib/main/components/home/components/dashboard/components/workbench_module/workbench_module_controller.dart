@@ -26,6 +26,12 @@ import 'package:get/get.dart';
 
 class WorkbenchModuleController extends EHModuleController {
   WorkbenchModuleController() {
+    isPermissionControl = false;
+
+    moduleMsgKey = 'common.module.workbench';
+
+    moduleIcon = Icon(Icons.monitor);
+
     moduleTabViewController = EHTabsViewController(showScrollArrow: true);
     moduleSideMenuTreeController = EHTreeController(
         showCheckBox: false,

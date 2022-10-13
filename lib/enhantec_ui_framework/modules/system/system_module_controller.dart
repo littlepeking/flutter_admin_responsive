@@ -37,6 +37,10 @@ import 'package:get/get.dart';
 
 class SystemModuleController extends EHModuleController {
   SystemModuleController() {
+    moduleMsgKey = 'common.module.system';
+
+    moduleIcon = Icon(Icons.dvr);
+
     moduleTabViewController = EHTabsViewController(showScrollArrow: true);
 
     moduleSideMenuTreeController = EHTreeController(

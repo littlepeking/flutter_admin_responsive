@@ -21,7 +21,7 @@ import 'package:dio/dio.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_exception.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/i18n/customSfLocalization.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/i18n/fallback_localization_delegate.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/module_registry.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/eh_module_manager.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_config_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'dart:convert';
@@ -30,8 +30,11 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/theme.dart';
 import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
 import 'package:enhantec_platform_ui/main/common/i18n/messages/messages.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/tms_module/tms_module.dart';
+import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/tms_module/tms_module_controller.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/wms_module/wms_module.dart';
+import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/wms_module/wms_module_controller.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/workbench_module/workbench_module.dart';
+import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/workbench_module/workbench_module_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_theme_helper.dart';
@@ -42,13 +45,6 @@ import '../../main/main.reflectable.dart';
 import '../enhantec_ui_framework/utils/theme_custom_attributes.dart';
 
 main() {
-  ModuleRegistry.registerModule(SystemModule.wms.name, WmsModuleWidget());
-  ModuleRegistry.registerModule(SystemModule.tms.name, TmsModuleWidget());
-  ModuleRegistry.registerModule(
-      SystemModule.workbench.name, WorkbenchModuleWidget());
-
-  EHContextHelper.switchModule(SystemModule.workbench.name);
-
   initializeReflectable();
 
   //SOME GetxControllers CANNOT BE PUT HERE (NEED FIGURE IT OUT), OTHERWISE EXCEPTION WILL NOT BE CAUGHT PROPERLY!
@@ -148,6 +144,30 @@ class InitAppBinding extends Bindings {
   @override
   void dependencies() async {
     Get.put(await EHConfigHelper.create(), permanent: true);
+
+    EHModuleManager.registerModule(
+        SystemModule.WMS.name,
+        WmsModuleWidget(
+            controller: Get.put(
+          WmsModuleController(),
+          permanent: true,
+        )));
+    EHModuleManager.registerModule(
+        SystemModule.TMS.name,
+        TmsModuleWidget(
+            controller: Get.put(
+          TmsModuleController(),
+          permanent: true,
+        )));
+    EHModuleManager.registerModule(
+        SystemModule.WORKBENCH.name,
+        WorkbenchModuleWidget(
+            controller: Get.put(
+          WorkbenchModuleController(),
+          permanent: true,
+        )));
+
+    EHContextHelper.switchModule(SystemModule.WORKBENCH.name);
     //Get.put(GlobalDataController(), permanent: true);
   }
 }

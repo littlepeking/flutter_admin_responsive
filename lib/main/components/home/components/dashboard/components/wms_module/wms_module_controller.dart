@@ -32,6 +32,10 @@ import 'package:get/get.dart';
 
 class WmsModuleController extends EHModuleController {
   WmsModuleController() {
+    moduleMsgKey = 'common.module.wms';
+
+    moduleIcon = Icon(Icons.warehouse);
+
     moduleTabViewController = EHTabsViewController(showScrollArrow: true);
 
     moduleSideMenuTreeController = EHTreeController(

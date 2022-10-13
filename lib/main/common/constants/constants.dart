@@ -21,9 +21,9 @@ class NavigationKeys {
 }
 
 enum SystemModule {
-  wms,
-  tms,
-  workbench,
+  WMS,
+  TMS,
+  WORKBENCH,
 }
 
 // class MapConstant {

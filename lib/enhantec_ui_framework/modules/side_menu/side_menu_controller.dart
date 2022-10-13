@@ -17,7 +17,7 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_panel_controller.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/module_registry.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/eh_module_manager.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_view.dart';
@@ -41,7 +41,7 @@ class SideMenuController extends EHPanelController {
   }
 
   EHTreeController getSideMenuController(String module) {
-    return ModuleRegistry
+    return EHModuleManager
         .systemModuleMap[module]!.controller.moduleSideMenuTreeController;
 
     // switch (system) {
@@ -62,10 +62,10 @@ class SideMenuController extends EHPanelController {
 
   EHTreeView getSideBarTreeView() {
     EHTreeController controller =
-        getSideMenuController(EHContextHelper.currentModule.value);
+        getSideMenuController(EHContextHelper.currentModuleId.value);
 
     return EHTreeView(
-        key: GlobalKey(debugLabel: EHContextHelper.currentModule.value),
+        key: GlobalKey(debugLabel: EHContextHelper.currentModuleId.value),
         controller: controller);
   }
 }

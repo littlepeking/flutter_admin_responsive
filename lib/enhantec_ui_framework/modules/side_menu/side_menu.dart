@@ -16,6 +16,7 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/eh_module_manager.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/org/organization_model.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_theme_helper.dart';
@@ -25,8 +26,7 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_popup
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_helper.dart';
 import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
-import 'package:enhantec_platform_ui/main/common/utils/context_helper.dart';
-import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/header.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/header.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/org/organization_service.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
@@ -118,9 +118,9 @@ class SideMenu extends StatelessWidget {
                       onTreeNodeTap: (data) {
                         if (data != null) {
                           EHContextHelper.switchOrg(data);
-                          ContextHelper.resetAllModuleTabs();
+                          EHModuleManager.resetAllModuleTabs();
                           EHContextHelper.switchModule(
-                              SystemModule.workbench.name);
+                              SystemModule.WORKBENCH.name);
                         }
                       },
                       getDisplayValue: (data) {

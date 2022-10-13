@@ -29,20 +29,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WorkbenchModuleWidget extends EHModuleWidget<WorkbenchModuleController> {
-  WorkbenchModuleWidget({Key? key}) : super(key: key);
+  WorkbenchModuleWidget({super.key, required super.controller});
 
   @override
   Widget build(BuildContext context) {
-    WorkbenchModuleController workbenchModuleController = Get.put(
-      WorkbenchModuleController(),
-      permanent: true,
-    );
-
     // wmsModuleController.reset();
 
-    if (workbenchModuleController.moduleTabViewController.tabsConfig.length ==
-        0)
-      workbenchModuleController.moduleTabViewController.tabsConfig.add(EHTab(
+    if (controller.moduleTabViewController.tabsConfig.length == 0)
+      controller.moduleTabViewController.tabsConfig.add(EHTab(
           'welcome',
           'common.general.welcome',
           EHController(),
@@ -85,8 +79,7 @@ class WorkbenchModuleWidget extends EHModuleWidget<WorkbenchModuleController> {
                           onPressed: SideMenuController.instance.toggleDrawer,
                         )
                       : null,
-                  controller:
-                      workbenchModuleController.moduleTabViewController))
+                  controller: controller.moduleTabViewController))
         ]));
 
     //     if (!Responsive.isMobile(context)) SizedBox(width: defaultPadding),

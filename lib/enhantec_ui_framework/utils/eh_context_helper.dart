@@ -18,7 +18,7 @@
 
 import 'dart:convert';
 
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/module_registry.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/eh_module_manager.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_config_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/org/organization_model.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/permission/permission_model.dart';
@@ -37,10 +37,10 @@ class EHContextHelper {
 
   static Map<String, Set<PermissionModel>> _orgPermissions = {};
 
-  static Rx<String> currentModule = SystemNativeModule.system.name.obs;
+  static Rx<String> currentModuleId = SystemNativeModule.SYSTEM.name.obs;
 
-  static switchModule(String systemModule) {
-    currentModule.value = systemModule;
+  static switchModule(String moduleId) {
+    currentModuleId.value = moduleId;
   }
 
   static Future<UserModel> getUserDetail() async {

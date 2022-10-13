@@ -1,6 +1,7 @@
 common:
   serverUrl: http://192.168.4.39:8061/api/
   loginUrl: /login
+  defaultModuleName: workbench
 debug:
   useCharles: false
   charlesProxy: 169.254.124.128:8887

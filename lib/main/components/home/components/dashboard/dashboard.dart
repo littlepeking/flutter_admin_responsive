@@ -17,12 +17,12 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/layout_constant.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/module_registry.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/eh_module_manager.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/dashboard_navigation_controller.dart';
 import 'package:flutter/material.dart';
-import 'components/header.dart';
+import '../../../../../enhantec_ui_framework/modules/header.dart';
 import 'package:get/get.dart';
 
 class Dashboard extends GetView<DashBoardNavigationController> {
@@ -43,10 +43,10 @@ class Dashboard extends GetView<DashBoardNavigationController> {
             //SizedBox(height: defaultPadding),
             Expanded(
                 child: Obx(() => IndexedStack(
-                      index: ModuleRegistry.systemModuleMap.keys
+                      index: EHModuleManager.systemModuleMap.keys
                           .toList()
-                          .indexOf(EHContextHelper.currentModule.value),
-                      children: ModuleRegistry.systemModuleMap.values.toList(),
+                          .indexOf(EHContextHelper.currentModuleId.value),
+                      children: EHModuleManager.systemModuleMap.values.toList(),
                     ))
 
                 // child: Navigator(
