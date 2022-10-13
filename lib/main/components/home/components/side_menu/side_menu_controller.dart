@@ -21,7 +21,7 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_view.dart';
 import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
 import 'package:enhantec_platform_ui/main/common/utils/context_helper.dart';
-import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/system_module/system_module_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/system_module_controller.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/workbench_module/workbench_module_controller.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/tms_module/tms_module_controller.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/wms_module/wms_module_controller.dart';
@@ -55,7 +55,7 @@ class SideMenuController extends EHPanelController {
       case SystemModule.workbench:
         return Get.find<WorkbenchModuleController>().sideMenuTreeController;
       default:
-        throw Exception('no suitable menu found for' + system.toString());
+        throw Exception('Side menu not found for module: ' + system.toString());
     }
   }
 

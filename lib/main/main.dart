@@ -21,6 +21,7 @@ import 'package:dio/dio.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_exception.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/i18n/customSfLocalization.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/i18n/fallback_localization_delegate.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_config_helper.dart';
 import 'dart:convert';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_toast_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/theme.dart';
@@ -132,7 +133,8 @@ main() {
 
 class InitAppBinding extends Bindings {
   @override
-  void dependencies() {
+  void dependencies() async {
+    Get.put(await EHConfigHelper.create(), permanent: true);
     //Get.put(GlobalDataController(), permanent: true);
   }
 }

@@ -192,6 +192,7 @@ getFunctionBtnBar() {
         onPressed: (data) async {
           await EHContextHelper.logout();
           ContextHelper.resetAllModuleTabs();
+          ContextHelper.switchModule(SystemModule.workbench);
         }),
   ];
 }

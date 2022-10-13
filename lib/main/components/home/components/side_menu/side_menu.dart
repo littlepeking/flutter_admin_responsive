@@ -16,7 +16,7 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/org/organization_model.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/org/organization_model.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_theme_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_util_helper.dart';
@@ -27,7 +27,7 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/
 import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
 import 'package:enhantec_platform_ui/main/common/utils/context_helper.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/header.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/org/organization_service.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/org/organization_service.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

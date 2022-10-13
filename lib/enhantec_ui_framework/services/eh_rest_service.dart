@@ -20,6 +20,7 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_config_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_toast_helper.dart';
 import 'package:flutter/foundation.dart';
@@ -27,10 +28,12 @@ import 'package:get/get.dart' hide Response, FormData;
 
 class EHRestService extends GetxController {
   var _dio = Dio();
-  var useCharles = false;
+  var useCharles =
+      EHConfigHelper.instance.getConfigItemWithDef('debug.useCharles', false);
 
   ///使用charles需修改对应ip
-  String charlesProxy = '169.254.124.128:8887';
+  String charlesProxy =
+      EHConfigHelper.instance.getConfigItemWithDef('debug.charlesProxy', null);
 
   static EHRestService _singleton = new EHRestService._internal();
 
@@ -40,7 +43,8 @@ class EHRestService extends GetxController {
   //     EHLoadingIndicator(context: Get.context, barrierDimisable: false);
 
   EHRestService._internal() {
-    _dio.options.baseUrl = "http://192.168.4.39:8061/api/";
+    _dio.options.baseUrl =
+        EHConfigHelper.instance.getConfigItem('common.serverUrl');
     //dio.options.connectTimeout = 20000;
     //dio.options.receiveTimeout = 10000;
 

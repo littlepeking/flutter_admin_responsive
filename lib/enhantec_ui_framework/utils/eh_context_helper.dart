@@ -18,12 +18,11 @@
 
 import 'dart:convert';
 
-import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/org/organization_model.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/permission/permission_model.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/role/role_model.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/security/user/user_model.dart';
-import 'package:enhantec_platform_ui/main/common/utils/context_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_config_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/org/organization_model.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/permission/permission_model.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/role/role_model.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/user/user_model.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -64,13 +63,22 @@ class EHContextHelper {
     return user;
   }
 
+  static Function? postLogoutFunc;
+
+  static setPostLogout(Function f) {
+    postLogoutFunc = f;
+  }
+
   static Future<void> logout() async {
     await EHContextHelper.removeString('userInfo');
     await EHContextHelper.removeString("Authorization");
     selectedOrgModel.value = defaultOrgModel;
-    ContextHelper.currentModule.value = SystemModule.workbench;
 
-    EHNavigator.navigateTo("/login");
+    EHNavigator.navigateTo(EHConfigHelper.instance
+        .getConfigItemWithDef('common.loginUrl', '/login')
+        .toString());
+
+    if (postLogoutFunc != null) postLogoutFunc!();
   }
 
   static switchOrg(OrganizationModel organizationModel) {
