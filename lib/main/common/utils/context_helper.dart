@@ -1,5 +1,4 @@
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
-import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/system_module_controller.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/tms_module/tms_module_controller.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/wms_module/wms_module_controller.dart';
@@ -7,12 +6,6 @@ import 'package:enhantec_platform_ui/main/components/home/components/dashboard/c
 import 'package:get/get.dart';
 
 class ContextHelper {
-  static Rx<String> currentModule = SystemModule.workbench.name.obs;
-
-  static switchModule(String systemModule) {
-    currentModule.value = systemModule;
-  }
-
   static void resetAllModuleTabs() {
     if (Get.isRegistered<SystemModuleController>())
       resetTab(Get.find<SystemModuleController>().moduleTabViewController);

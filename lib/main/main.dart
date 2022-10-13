@@ -23,6 +23,7 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/i18n/customSfLocaliza
 import 'package:enhantec_platform_ui/enhantec_ui_framework/i18n/fallback_localization_delegate.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/module_registry.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_config_helper.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'dart:convert';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_toast_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/theme.dart';
@@ -45,6 +46,8 @@ main() {
   ModuleRegistry.registerModule(SystemModule.tms.name, TmsModuleWidget());
   ModuleRegistry.registerModule(
       SystemModule.workbench.name, WorkbenchModuleWidget());
+
+  EHContextHelper.switchModule(SystemModule.workbench.name);
 
   initializeReflectable();
 

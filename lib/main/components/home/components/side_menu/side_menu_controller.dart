@@ -18,9 +18,9 @@
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_panel_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/module_registry.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_view.dart';
-import 'package:enhantec_platform_ui/main/common/utils/context_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -62,10 +62,10 @@ class SideMenuController extends EHPanelController {
 
   EHTreeView getSideBarTreeView() {
     EHTreeController controller =
-        getSideMenuController(ContextHelper.currentModule.value);
+        getSideMenuController(EHContextHelper.currentModule.value);
 
     return EHTreeView(
-        key: GlobalKey(debugLabel: ContextHelper.currentModule.value),
+        key: GlobalKey(debugLabel: EHContextHelper.currentModule.value),
         controller: controller);
   }
 }

@@ -25,7 +25,6 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_help
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_toast_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_util_helper.dart';
 import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
-import 'package:enhantec_platform_ui/main/common/utils/context_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' hide Response;
@@ -42,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     EHContextHelper.setPostLogout(
-        () => ContextHelper.switchModule(SystemModule.workbench.toString()));
+        () => EHContextHelper.switchModule(SystemModule.workbench.name));
 
     usernameController.text = 'jessica';
     passwordController.text = 'Laura';

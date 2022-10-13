@@ -54,7 +54,7 @@ class EHTreeView extends EHStatelessWidget<EHTreeController> {
                       EHNodeWidget(
                         treeNode: node,
                         controller: controller,
-                      )
+                      ),
                   ],
                 ),
               ),

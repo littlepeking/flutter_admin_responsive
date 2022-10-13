@@ -119,7 +119,7 @@ class SideMenu extends StatelessWidget {
                         if (data != null) {
                           EHContextHelper.switchOrg(data);
                           ContextHelper.resetAllModuleTabs();
-                          ContextHelper.switchModule(
+                          EHContextHelper.switchModule(
                               SystemModule.workbench.name);
                         }
                       },

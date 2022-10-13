@@ -87,12 +87,13 @@ getSystemBtnBar() {
             // color: Color.fromARGB(255, 67, 67, 67),
           ),
           decoration: getDecoration(
-              ContextHelper.currentModule.value == SystemModule.workbench.name,
+              EHContextHelper.currentModule.value ==
+                  SystemModule.workbench.name,
               !Responsive.isDesktop(Get.context!)),
           onPressed: (data) {
             if (SystemModule.workbench.name !=
-                ContextHelper.currentModule.value) {
-              ContextHelper.switchModule(SystemModule.workbench.name);
+                EHContextHelper.currentModule.value) {
+              EHContextHelper.switchModule(SystemModule.workbench.name);
             }
           },
         )),
@@ -101,11 +102,12 @@ getSystemBtnBar() {
             textMsgKey: 'WMS',
             icon: Icon(Icons.warehouse),
             decoration: getDecoration(
-                ContextHelper.currentModule.value == SystemModule.wms.name,
+                EHContextHelper.currentModule.value == SystemModule.wms.name,
                 !Responsive.isDesktop(Get.context!)),
             onPressed: (data) {
-              if (SystemModule.wms.name != ContextHelper.currentModule.value) {
-                ContextHelper.switchModule(SystemModule.wms.name);
+              if (SystemModule.wms.name !=
+                  EHContextHelper.currentModule.value) {
+                EHContextHelper.switchModule(SystemModule.wms.name);
                 // EHNavigator.navigateTo(
                 //   MapConstant.systemModuleRoute[SystemModule.wms]!,
                 //   navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -119,12 +121,12 @@ getSystemBtnBar() {
             textMsgKey: 'TMS',
             icon: Icon(Icons.local_shipping),
             decoration: getDecoration(
-                ContextHelper.currentModule.value == SystemModule.tms.name,
+                EHContextHelper.currentModule.value == SystemModule.tms.name,
                 !Responsive.isDesktop(Get.context!)),
             onPressed: (data) {
               if (SystemModule.tms.toString() !=
-                  ContextHelper.currentModule.value) {
-                ContextHelper.switchModule(SystemModule.tms.name);
+                  EHContextHelper.currentModule.value) {
+                EHContextHelper.switchModule(SystemModule.tms.name);
                 // EHNavigator.navigateTo(
                 //   MapConstant.systemModuleRoute[SystemModule.tms]!,
                 //   navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -138,13 +140,13 @@ getSystemBtnBar() {
             textMsgKey: 'common.module.system',
             icon: Icon(Icons.monitor),
             decoration: getDecoration(
-                ContextHelper.currentModule.value ==
+                EHContextHelper.currentModule.value ==
                     SystemNativeModule.system.name,
                 !Responsive.isDesktop(Get.context!)),
             onPressed: (data) {
               if (SystemNativeModule.system.toString() !=
-                  ContextHelper.currentModule.value) {
-                ContextHelper.switchModule(SystemNativeModule.system.name);
+                  EHContextHelper.currentModule.value) {
+                EHContextHelper.switchModule(SystemNativeModule.system.name);
                 // EHNavigator.navigateTo(
                 //   MapConstant.systemModuleRoute[SystemModule.system]!,
                 //   navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -197,7 +199,7 @@ getFunctionBtnBar() {
         onPressed: (data) async {
           await EHContextHelper.logout();
           ContextHelper.resetAllModuleTabs();
-          ContextHelper.switchModule(SystemModule.workbench.toString());
+          EHContextHelper.switchModule(SystemModule.workbench.name);
         }),
   ];
 }
