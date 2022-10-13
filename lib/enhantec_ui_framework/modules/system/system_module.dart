@@ -17,6 +17,7 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_module_widget.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/constants.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_theme_helper.dart';
@@ -28,8 +29,8 @@ import 'package:get/get.dart';
 
 import 'system_module_controller.dart';
 
-class SystemModuleWidget extends StatelessWidget {
-  SystemModuleWidget({Key? key}) : super(key: key);
+class SystemModuleWidget extends EHModuleWidget<SystemModuleController> {
+  SystemModuleWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +41,8 @@ class SystemModuleWidget extends StatelessWidget {
 
     // wmsModuleController.reset();
 
-    if (systemModuleController.tabViewController.tabsConfig.length == 0)
-      systemModuleController.tabViewController.tabsConfig.add(EHTab(
+    if (systemModuleController.moduleTabViewController.tabsConfig.length == 0)
+      systemModuleController.moduleTabViewController.tabsConfig.add(EHTab(
           'welcome',
           'common.general.welcome',
           EHController(),
@@ -84,7 +85,7 @@ class SystemModuleWidget extends StatelessWidget {
                           onPressed: SideMenuController.instance.toggleDrawer,
                         )
                       : null,
-                  controller: systemModuleController.tabViewController))
+                  controller: systemModuleController.moduleTabViewController))
         ]));
 
     //     if (!Responsive.isMobile(context)) SizedBox(width: defaultPadding),

@@ -16,6 +16,7 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
+import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/constants.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/layout_constant.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
@@ -86,11 +87,12 @@ getSystemBtnBar() {
             // color: Color.fromARGB(255, 67, 67, 67),
           ),
           decoration: getDecoration(
-              ContextHelper.currentModule.value == SystemModule.workbench,
+              ContextHelper.currentModule.value == SystemModule.workbench.name,
               !Responsive.isDesktop(Get.context!)),
           onPressed: (data) {
-            if (SystemModule.workbench != ContextHelper.currentModule.value) {
-              ContextHelper.switchModule(SystemModule.workbench);
+            if (SystemModule.workbench.name !=
+                ContextHelper.currentModule.value) {
+              ContextHelper.switchModule(SystemModule.workbench.name);
             }
           },
         )),
@@ -99,11 +101,11 @@ getSystemBtnBar() {
             textMsgKey: 'WMS',
             icon: Icon(Icons.warehouse),
             decoration: getDecoration(
-                ContextHelper.currentModule.value == SystemModule.wms,
+                ContextHelper.currentModule.value == SystemModule.wms.name,
                 !Responsive.isDesktop(Get.context!)),
             onPressed: (data) {
-              if (SystemModule.wms != ContextHelper.currentModule.value) {
-                ContextHelper.switchModule(SystemModule.wms);
+              if (SystemModule.wms.name != ContextHelper.currentModule.value) {
+                ContextHelper.switchModule(SystemModule.wms.name);
                 // EHNavigator.navigateTo(
                 //   MapConstant.systemModuleRoute[SystemModule.wms]!,
                 //   navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -117,11 +119,12 @@ getSystemBtnBar() {
             textMsgKey: 'TMS',
             icon: Icon(Icons.local_shipping),
             decoration: getDecoration(
-                ContextHelper.currentModule.value == SystemModule.tms,
+                ContextHelper.currentModule.value == SystemModule.tms.name,
                 !Responsive.isDesktop(Get.context!)),
             onPressed: (data) {
-              if (SystemModule.tms != ContextHelper.currentModule.value) {
-                ContextHelper.switchModule(SystemModule.tms);
+              if (SystemModule.tms.toString() !=
+                  ContextHelper.currentModule.value) {
+                ContextHelper.switchModule(SystemModule.tms.name);
                 // EHNavigator.navigateTo(
                 //   MapConstant.systemModuleRoute[SystemModule.tms]!,
                 //   navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -135,11 +138,13 @@ getSystemBtnBar() {
             textMsgKey: 'common.module.system',
             icon: Icon(Icons.monitor),
             decoration: getDecoration(
-                ContextHelper.currentModule.value == SystemModule.system,
+                ContextHelper.currentModule.value ==
+                    SystemNativeModule.system.name,
                 !Responsive.isDesktop(Get.context!)),
             onPressed: (data) {
-              if (SystemModule.system != ContextHelper.currentModule.value) {
-                ContextHelper.switchModule(SystemModule.system);
+              if (SystemNativeModule.system.toString() !=
+                  ContextHelper.currentModule.value) {
+                ContextHelper.switchModule(SystemNativeModule.system.name);
                 // EHNavigator.navigateTo(
                 //   MapConstant.systemModuleRoute[SystemModule.system]!,
                 //   navigatorKey: NavigationKeys.dashBoardNavKey,
@@ -192,7 +197,7 @@ getFunctionBtnBar() {
         onPressed: (data) async {
           await EHContextHelper.logout();
           ContextHelper.resetAllModuleTabs();
-          ContextHelper.switchModule(SystemModule.workbench);
+          ContextHelper.switchModule(SystemModule.workbench.toString());
         }),
   ];
 }

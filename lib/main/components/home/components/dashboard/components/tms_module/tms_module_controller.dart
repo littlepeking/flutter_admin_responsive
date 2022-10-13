@@ -17,6 +17,7 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_module_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
@@ -27,13 +28,11 @@ import 'package:enhantec_platform_ui/main/components/home/components/examples/co
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TmsModuleController extends GetxController {
-  EHTabsViewController tabViewController = EHTabsViewController();
-
-  late EHTreeController sideMenuTreeController;
-
+class TmsModuleController extends EHModuleController {
   TmsModuleController() {
-    sideMenuTreeController = EHTreeController(
+    moduleTabViewController = EHTabsViewController();
+
+    moduleSideMenuTreeController = EHTreeController(
         allNodesExpanded: true,
         displayMode: !Responsive.isDesktop(Get.context!)
             ? EHTreeDisplayMode.stackMode
@@ -47,7 +46,7 @@ class TmsModuleController extends GetxController {
                   icon: Icons.assignment,
                   displayNameMsgKey: 'wms.shipmentOrders',
                   onTap: () {
-                    tabViewController.getOrAddTab((EHTab<TestController>(
+                    moduleTabViewController.getOrAddTab((EHTab<TestController>(
                         'shipmentOrders',
                         'wms.shipmentOrders',
                         TestController(), (EHController controller) {
@@ -64,6 +63,6 @@ class TmsModuleController extends GetxController {
         ].obs);
   }
   reset() {
-    tabViewController.reset();
+    moduleTabViewController.reset();
   }
 }

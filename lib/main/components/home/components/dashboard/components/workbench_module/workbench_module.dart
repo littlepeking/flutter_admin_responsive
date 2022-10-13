@@ -17,6 +17,7 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_module_widget.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/constants.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_theme_helper.dart';
@@ -27,7 +28,7 @@ import 'package:enhantec_platform_ui/main/components/home/components/side_menu/s
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WorkbenchModuleWidget extends StatelessWidget {
+class WorkbenchModuleWidget extends EHModuleWidget<WorkbenchModuleController> {
   WorkbenchModuleWidget({Key? key}) : super(key: key);
 
   @override
@@ -39,8 +40,9 @@ class WorkbenchModuleWidget extends StatelessWidget {
 
     // wmsModuleController.reset();
 
-    if (workbenchModuleController.tabViewController.tabsConfig.length == 0)
-      workbenchModuleController.tabViewController.tabsConfig.add(EHTab(
+    if (workbenchModuleController.moduleTabViewController.tabsConfig.length ==
+        0)
+      workbenchModuleController.moduleTabViewController.tabsConfig.add(EHTab(
           'welcome',
           'common.general.welcome',
           EHController(),
@@ -83,7 +85,8 @@ class WorkbenchModuleWidget extends StatelessWidget {
                           onPressed: SideMenuController.instance.toggleDrawer,
                         )
                       : null,
-                  controller: workbenchModuleController.tabViewController))
+                  controller:
+                      workbenchModuleController.moduleTabViewController))
         ]));
 
     //     if (!Responsive.isMobile(context)) SizedBox(width: defaultPadding),

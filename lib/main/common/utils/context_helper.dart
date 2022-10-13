@@ -7,21 +7,21 @@ import 'package:enhantec_platform_ui/main/components/home/components/dashboard/c
 import 'package:get/get.dart';
 
 class ContextHelper {
-  static Rx<SystemModule> currentModule = SystemModule.workbench.obs;
+  static Rx<String> currentModule = SystemModule.workbench.name.obs;
 
-  static switchModule(SystemModule systemModule) {
+  static switchModule(String systemModule) {
     currentModule.value = systemModule;
   }
 
   static void resetAllModuleTabs() {
     if (Get.isRegistered<SystemModuleController>())
-      resetTab(Get.find<SystemModuleController>().tabViewController);
+      resetTab(Get.find<SystemModuleController>().moduleTabViewController);
     if (Get.isRegistered<WmsModuleController>())
-      resetTab(Get.find<WmsModuleController>().tabViewController);
+      resetTab(Get.find<WmsModuleController>().moduleTabViewController);
     if (Get.isRegistered<TmsModuleController>())
-      resetTab(Get.find<TmsModuleController>().tabViewController);
+      resetTab(Get.find<TmsModuleController>().moduleTabViewController);
     if (Get.isRegistered<WorkbenchModuleController>())
-      resetTab(Get.find<WorkbenchModuleController>().tabViewController);
+      resetTab(Get.find<WorkbenchModuleController>().moduleTabViewController);
   }
 
   static void resetTab(EHTabsViewController? c) {

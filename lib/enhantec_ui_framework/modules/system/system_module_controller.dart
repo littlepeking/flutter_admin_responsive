@@ -17,6 +17,7 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_module_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/org/organization_tree_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tab.dart';
@@ -34,14 +35,11 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/system/user/u
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SystemModuleController extends EHController {
-  EHTabsViewController tabViewController =
-      EHTabsViewController(showScrollArrow: true);
-
-  late EHTreeController sideMenuTreeController;
-
+class SystemModuleController extends EHModuleController {
   SystemModuleController() {
-    sideMenuTreeController = EHTreeController(
+    moduleTabViewController = EHTabsViewController(showScrollArrow: true);
+
+    moduleSideMenuTreeController = EHTreeController(
         showCheckBox: false,
         allNodesExpanded: true,
         displayMode: !Responsive.isDesktop(Get.context!)
@@ -61,7 +59,7 @@ class SystemModuleController extends EHController {
                     displayNameMsgKey: 'common.security.organization',
                     isChecked: true,
                     onTap: () async {
-                      tabViewController.getOrAddTab(
+                      moduleTabViewController.getOrAddTab(
                           EHTab<OrganizationTreeController>(
                               'organization',
                               'common.security.organization',
@@ -78,21 +76,22 @@ class SystemModuleController extends EHController {
                     displayNameMsgKey: 'common.security.user',
                     isChecked: true,
                     onTap: () {
-                      tabViewController.getOrAddTab(EHTab<UserListController>(
-                          'userList',
-                          'common.security.userList',
-                          UserListController(), (EHController controller) {
+                      moduleTabViewController.getOrAddTab(
+                          EHTab<UserListController>(
+                              'userList',
+                              'common.security.userList',
+                              UserListController(), (EHController controller) {
                         return UserList(controller: controller);
                       },
-                          closable: true,
-                          expandMode: EHTabsViewExpandMode.None));
+                              closable: true,
+                              expandMode: EHTabsViewExpandMode.None));
                       // FocusManager.instance.primaryFocus?.unfocus();
                     }),
                 EHTreeNode(
                     permissionCodes: {'SECURITY_ROLE'},
                     displayNameMsgKey: 'common.security.role',
                     onTap: () async {
-                      tabViewController.getOrAddTab(
+                      moduleTabViewController.getOrAddTab(
                           EHTab<OrgRoleListController>(
                               'role',
                               'common.security.role',
@@ -108,7 +107,7 @@ class SystemModuleController extends EHController {
                     permissionCodes: {'SECURITY_PERMISSION'},
                     displayNameMsgKey: 'common.security.permission',
                     onTap: () async {
-                      tabViewController.getOrAddTab(
+                      moduleTabViewController.getOrAddTab(
                           EHTab<PermissionTreeController>(
                               'permission',
                               'common.security.permission',
@@ -159,6 +158,6 @@ class SystemModuleController extends EHController {
   // }
 
   reset() {
-    tabViewController.reset();
+    moduleTabViewController.reset();
   }
 }

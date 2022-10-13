@@ -17,6 +17,7 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_module_widget.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/constants.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view.dart';
@@ -27,21 +28,16 @@ import 'package:enhantec_platform_ui/main/components/home/components/side_menu/s
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TmsModuleWidget extends StatefulWidget {
+class TmsModuleWidget extends EHModuleWidget<TmsModuleController> {
   TmsModuleWidget({Key? key}) : super(key: key);
 
-  @override
-  _TmsModuleWidgetState createState() => _TmsModuleWidgetState();
-}
-
-class _TmsModuleWidgetState extends State<TmsModuleWidget> {
   @override
   Widget build(BuildContext context) {
     TmsModuleController tmsModuleController =
         Get.put(TmsModuleController(), permanent: true);
 
-    if (tmsModuleController.tabViewController.tabsConfig.length == 0)
-      tmsModuleController.tabViewController.tabsConfig.add(EHTab(
+    if (tmsModuleController.moduleTabViewController.tabsConfig.length == 0)
+      tmsModuleController.moduleTabViewController.tabsConfig.add(EHTab(
           'welcome',
           'common.general.welcome',
           EHController(),
@@ -69,7 +65,7 @@ class _TmsModuleWidgetState extends State<TmsModuleWidget> {
                           onPressed: SideMenuController.instance.toggleDrawer,
                         )
                       : null,
-                  controller: tmsModuleController.tabViewController))
+                  controller: tmsModuleController.moduleTabViewController))
         ]));
   }
 }

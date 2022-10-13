@@ -17,6 +17,7 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_module_widget.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/constants.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_theme_helper.dart';
@@ -27,7 +28,7 @@ import 'package:enhantec_platform_ui/main/components/home/components/side_menu/s
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WmsModuleWidget extends StatelessWidget {
+class WmsModuleWidget extends EHModuleWidget<WmsModuleController> {
   WmsModuleWidget({Key? key}) : super(key: key);
 
   @override
@@ -37,8 +38,8 @@ class WmsModuleWidget extends StatelessWidget {
 
     // wmsModuleController.reset();
 
-    if (wmsModuleController.tabViewController.tabsConfig.length == 0)
-      wmsModuleController.tabViewController.tabsConfig.add(EHTab(
+    if (wmsModuleController.moduleTabViewController.tabsConfig.length == 0)
+      wmsModuleController.moduleTabViewController.tabsConfig.add(EHTab(
           'welcome',
           'common.general.welcome',
           EHController(),
@@ -81,7 +82,7 @@ class WmsModuleWidget extends StatelessWidget {
                           onPressed: SideMenuController.instance.toggleDrawer,
                         )
                       : null,
-                  controller: wmsModuleController.tabViewController))
+                  controller: wmsModuleController.moduleTabViewController))
         ]));
 
     //     if (!Responsive.isMobile(context)) SizedBox(width: defaultPadding),

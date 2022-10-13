@@ -17,8 +17,8 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/layout_constant.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/module_registry.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
-import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
 import 'package:enhantec_platform_ui/main/common/utils/context_helper.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/dashboard_navigation_controller.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +43,10 @@ class Dashboard extends GetView<DashBoardNavigationController> {
             //SizedBox(height: defaultPadding),
             Expanded(
                 child: Obx(() => IndexedStack(
-                      index: ContextHelper.currentModule.value.index,
-                      children: MapConstant.systemModuleMap.values.toList(),
+                      index: ModuleRegistry.systemModuleMap.keys
+                          .toList()
+                          .indexOf(ContextHelper.currentModule.value),
+                      children: ModuleRegistry.systemModuleMap.values.toList(),
                     ))
 
                 // child: Navigator(

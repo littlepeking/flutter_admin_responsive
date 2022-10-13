@@ -45,7 +45,7 @@ class UserListController extends EHPanelController {
         showCheckbox: true,
         disableFixedHeight: true,
         onRowSelected: (data) async => Get.find<SystemModuleController>()
-            .tabViewController
+            .moduleTabViewController
             .getOrAddTab(EHTab<UserEditController>(
                 'editUser',
                 'common.general.edit',

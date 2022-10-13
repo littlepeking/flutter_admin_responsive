@@ -16,7 +16,7 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_module_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_controller.dart';
@@ -24,14 +24,10 @@ import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WorkbenchModuleController extends EHController {
-  EHTabsViewController tabViewController =
-      EHTabsViewController(showScrollArrow: true);
-
-  late EHTreeController sideMenuTreeController;
-
+class WorkbenchModuleController extends EHModuleController {
   WorkbenchModuleController() {
-    sideMenuTreeController = EHTreeController(
+    moduleTabViewController = EHTabsViewController(showScrollArrow: true);
+    moduleSideMenuTreeController = EHTreeController(
         showCheckBox: false,
         allNodesExpanded: true,
         displayMode: !Responsive.isDesktop(Get.context!)
@@ -61,6 +57,6 @@ class WorkbenchModuleController extends EHController {
         ].obs);
   }
   reset() {
-    tabViewController.reset();
+    moduleTabViewController.reset();
   }
 }

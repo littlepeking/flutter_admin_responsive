@@ -12,25 +12,16 @@
  *             (c) COPYRIGHT 2022 Enhantec. ALL RIGHTS RESERVED.
  *
  *******************************************************************************/
+
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-class NavigationKeys {
-  static int rootNavKey = 0;
-  // static int dashBoardNavKey = 1;
-}
+import 'package:enhantec_platform_ui/enhantec_ui_framework/base/eh_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_tree_view/eh_tree_controller.dart';
 
-enum SystemModule {
-  wms,
-  tms,
-  workbench,
-}
+class EHModuleController extends EHController {
+  late EHTreeController moduleSideMenuTreeController;
 
-// class MapConstant {
-//   // static const Map<SystemModule, String> systemModuleRoute = {
-//   //   SystemModule.wms: '/wmsModule',
-//   //   SystemModule.tms: '/tmsModule',
-//   //   SystemModule.system: '/systemModule',
-//   //   SystemModule.workbench: '/workBench',
-//   // };
-// }
+  late EHTabsViewController moduleTabViewController;
+}

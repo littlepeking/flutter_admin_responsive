@@ -46,7 +46,7 @@ class OrgRoleListController extends EHPanelController {
         await OrgRoleComponentController.create(self,
             onRowSelected: (dataRow) async => {
                   Get.find<SystemModuleController>()
-                      .tabViewController
+                      .moduleTabViewController
                       .getOrAddTab(EHTab<RoleEditController>(
                           'editRole',
                           'common.general.edit',

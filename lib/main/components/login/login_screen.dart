@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     EHContextHelper.setPostLogout(
-        () => ContextHelper.switchModule(SystemModule.workbench));
+        () => ContextHelper.switchModule(SystemModule.workbench.toString()));
 
     usernameController.text = 'jessica';
     passwordController.text = 'Laura';
