@@ -30,7 +30,7 @@ import 'package:get/get.dart';
 
 class TmsModuleController extends EHModuleController {
   TmsModuleController() {
-    moduleMsgKey = 'common.module.tms';
+    moduleMsgKey = 'product.module.tms';
 
     moduleIcon = Icon(Icons.local_shipping);
 

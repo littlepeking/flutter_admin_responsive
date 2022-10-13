@@ -28,7 +28,7 @@ class WorkbenchModuleController extends EHModuleController {
   WorkbenchModuleController() {
     isPermissionControl = false;
 
-    moduleMsgKey = 'common.module.workbench';
+    moduleMsgKey = 'product.module.workbench';
 
     moduleIcon = Icon(Icons.monitor);
 

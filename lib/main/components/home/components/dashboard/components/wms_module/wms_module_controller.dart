@@ -32,7 +32,7 @@ import 'package:get/get.dart';
 
 class WmsModuleController extends EHModuleController {
   WmsModuleController() {
-    moduleMsgKey = 'common.module.wms';
+    moduleMsgKey = 'product.module.wms';
 
     moduleIcon = Icon(Icons.warehouse);
 

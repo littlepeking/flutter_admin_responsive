@@ -23,6 +23,10 @@ Map<String, String> zhCNMessages = {
 
   //master data
 
+  'product.module.wms': 'WMS',
+  'product.module.tms': 'TMS',
+  'product.module.workbench': '工作台',
+
   'common.md.masterData': '主数据',
 
   //wms

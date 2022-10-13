@@ -59,7 +59,7 @@ class WorkbenchModuleWidget extends EHModuleWidget<WorkbenchModuleController> {
                 ),
               ),
           showInBottomList: false,
-          tabTranslateParams: {'System': 'common.module.workbench'}));
+          tabTranslateParams: {'System': 'product.module.workbench'}));
 
     return PageStorage(
         bucket: globalPageStorageBucket,

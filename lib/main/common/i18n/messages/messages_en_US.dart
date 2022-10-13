@@ -23,6 +23,10 @@ Map<String, String> enUSMessages = {
 
   //master data
 
+  'product.module.wms': 'WMS',
+  'product.module.tms': 'TMS',
+  'product.module.workbench': 'WorkBench',
+
   'common.md.masterData': 'Master Data',
 
   //wms

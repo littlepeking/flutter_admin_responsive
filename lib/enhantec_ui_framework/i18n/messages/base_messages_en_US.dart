@@ -19,11 +19,7 @@
 Map<String, String> baseEnUSMessages = {
   //module
 
-  'common.module.workbench': 'WorkBench',
   'common.module.system': 'System',
-
-  'common.module.wms': 'WMS',
-  'common.module.tms': 'TMS',
 
   //error
 

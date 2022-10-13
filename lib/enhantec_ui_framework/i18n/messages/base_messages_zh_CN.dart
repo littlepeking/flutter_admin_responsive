@@ -29,7 +29,6 @@ Map<String, String> baseZhCNMessages = {
 
   //module
 
-  'common.module.workbench': '工作台',
   'common.module.system': '系统管理',
 
   //error
