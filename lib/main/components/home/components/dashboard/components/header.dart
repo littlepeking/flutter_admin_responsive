@@ -16,8 +16,8 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/constants.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/layout_constant.dart';
+import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/module_registry.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_image_button.dart';
