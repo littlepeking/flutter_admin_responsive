@@ -16,7 +16,7 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/side_menu/side_menu_controller.dart';
+import 'package:enhantec_platform_ui/framework/modules/side_menu/side_menu_controller.dart';
 import 'package:enhantec_platform_ui/main/components/home/home.dart';
 import 'package:get/get.dart';
 

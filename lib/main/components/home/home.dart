@@ -16,13 +16,13 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/widgets/eh_text.dart';
+import 'package:enhantec_platform_ui/framework/utils/responsive.dart';
+import 'package:enhantec_platform_ui/framework/widgets/eh_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/dashboard/dashboard.dart';
-import '../../../enhantec_ui_framework/modules/side_menu/side_menu.dart';
-import '../../../enhantec_ui_framework/modules/side_menu/side_menu_controller.dart';
+import '../../../framework/modules/side_menu/side_menu.dart';
+import '../../../framework/modules/side_menu/side_menu_controller.dart';
 
 class Home extends GetView {
   @override

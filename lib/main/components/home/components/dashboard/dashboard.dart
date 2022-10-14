@@ -16,13 +16,13 @@
 ///Author: John Wang
 ///john.wang_ca@hotmail.com
 
-import 'package:enhantec_platform_ui/enhantec_ui_framework/constants/layout_constant.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/modules/eh_module_manager.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/eh_context_helper.dart';
-import 'package:enhantec_platform_ui/enhantec_ui_framework/utils/responsive.dart';
+import 'package:enhantec_platform_ui/framework/constants/layout_constant.dart';
+import 'package:enhantec_platform_ui/framework/modules/eh_module_manager.dart';
+import 'package:enhantec_platform_ui/framework/utils/eh_context_helper.dart';
+import 'package:enhantec_platform_ui/framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/main/components/home/components/dashboard/dashboard_navigation_controller.dart';
 import 'package:flutter/material.dart';
-import '../../../../../enhantec_ui_framework/modules/header.dart';
+import '../../../../../framework/modules/header.dart';
 import 'package:get/get.dart';
 
 class Dashboard extends GetView<DashBoardNavigationController> {

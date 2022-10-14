@@ -26,10 +26,10 @@
             "program": "lib/main/main.dart"
         },
         {
-            "name": "Flutter (lib/enhantec_ui_framework/base/eh_panel_controller copy.dart)",
+            "name": "Flutter (lib/framework/base/eh_panel_controller copy.dart)",
             "type": "dart",
             "request": "launch",
-            "program": "lib/enhantec_ui_framework/base/eh_panel_controller copy.dart"
+            "program": "lib/framework/base/eh_panel_controller copy.dart"
         }
     ]
 }
