@@ -24,7 +24,7 @@ import 'package:enhantec_platform_ui/framework/services/eh_rest_service.dart';
 import 'package:enhantec_platform_ui/framework/utils/eh_context_helper.dart';
 import 'package:enhantec_platform_ui/framework/utils/eh_toast_helper.dart';
 import 'package:enhantec_platform_ui/framework/utils/eh_util_helper.dart';
-import 'package:enhantec_platform_ui/main/common/constants/constants.dart';
+import 'package:enhantec_platform_ui/example/main/common/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' hide Response;

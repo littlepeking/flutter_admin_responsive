@@ -17,7 +17,7 @@
 ///john.wang_ca@hotmail.com
 
 import 'package:enhantec_platform_ui/framework/modules/side_menu/side_menu_controller.dart';
-import 'package:enhantec_platform_ui/main/components/home/home.dart';
+import 'package:enhantec_platform_ui/example/main/components/home/home.dart';
 import 'package:get/get.dart';
 
 import '../components/login/login_screen.dart';

@@ -3,7 +3,7 @@ targets:
     builders:
       reflectable:
         generate_for:
-          - lib/main/main.dart
+          - lib/example/main/main.dart
         options:
           formatted: true
       json_serializable:

@@ -23,13 +23,13 @@ import 'package:enhantec_platform_ui/framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/framework/utils/eh_theme_helper.dart';
 import 'package:enhantec_platform_ui/framework/widgets/eh_tabs_view/eh_tabs_view.dart';
 import 'package:enhantec_platform_ui/framework/widgets/eh_tabs_view/eh_tab.dart';
-import 'package:enhantec_platform_ui/main/components/home/components/dashboard/components/wms_module/wms_module_controller.dart';
+import 'package:enhantec_platform_ui/example/main/components/home/components/dashboard/components/workbench_module/workbench_module_controller.dart';
 import 'package:enhantec_platform_ui/framework/modules/side_menu/side_menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WmsModuleWidget extends EHModuleWidget<WmsModuleController> {
-  WmsModuleWidget({super.key, required super.controller});
+class WorkbenchModuleWidget extends EHModuleWidget<WorkbenchModuleController> {
+  WorkbenchModuleWidget({super.key, required super.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class WmsModuleWidget extends EHModuleWidget<WmsModuleController> {
                 ),
               ),
           showInBottomList: false,
-          tabTranslateParams: {'System': 'WMS'}));
+          tabTranslateParams: {'System': 'product.module.workbench'}));
 
     return PageStorage(
         bucket: globalPageStorageBucket,
@@ -71,7 +71,7 @@ class WmsModuleWidget extends EHModuleWidget<WmsModuleController> {
                   expandMode: Responsive.isMobile(context)
                       ? EHTabsViewExpandMode.Scroll
                       : EHTabsViewExpandMode.Expand,
-                  key: PageStorageKey('wmsModuleTabView'),
+                  key: PageStorageKey('WorkbenchModuleTabView'),
                   preTabHeaderWidget: Responsive.isMobile(context)
                       ? IconButton(
                           padding: EdgeInsets.zero,

@@ -21,8 +21,8 @@ import 'package:enhantec_platform_ui/framework/widgets/eh_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/dashboard/dashboard.dart';
-import '../../../framework/modules/side_menu/side_menu.dart';
-import '../../../framework/modules/side_menu/side_menu_controller.dart';
+import '../../../../framework/modules/side_menu/side_menu.dart';
+import '../../../../framework/modules/side_menu/side_menu_controller.dart';
 
 class Home extends GetView {
   @override
