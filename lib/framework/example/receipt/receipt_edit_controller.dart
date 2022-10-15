@@ -24,7 +24,7 @@ import 'package:enhantec_platform_ui/framework/widgets/eh_datagrid/eh_datagrid_c
 import 'package:enhantec_platform_ui/framework/widgets/eh_dropdown.dart';
 import 'package:enhantec_platform_ui/framework/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:enhantec_platform_ui/framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
-import 'package:enhantec_platform_ui/test/TestData.dart';
+import 'package:enhantec_platform_ui/example/TestData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
