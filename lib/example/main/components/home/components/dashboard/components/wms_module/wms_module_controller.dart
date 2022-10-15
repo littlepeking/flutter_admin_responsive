@@ -18,15 +18,15 @@
 
 import 'package:enhantec_platform_ui/framework/base/eh_controller.dart';
 import 'package:enhantec_platform_ui/framework/base/eh_module_controller.dart';
-import 'package:enhantec_platform_ui/framework/example/receipt/receipt_edit.dart';
-import 'package:enhantec_platform_ui/framework/example/receipt/receipt_edit_controller.dart';
+import 'package:enhantec_platform_ui/example/main/components/home/components/dashboard/components/wms_module/components/receipt/receipt_edit.dart';
+import 'package:enhantec_platform_ui/example/main/components/home/components/dashboard/components/wms_module/components/receipt/receipt_edit_controller.dart';
 import 'package:enhantec_platform_ui/framework/utils/responsive.dart';
 import 'package:enhantec_platform_ui/framework/widgets/eh_tabs_view/eh_tab.dart';
 import 'package:enhantec_platform_ui/framework/widgets/eh_tabs_view/eh_tabs_view_controller.dart';
 import 'package:enhantec_platform_ui/framework/widgets/eh_tree_view/eh_tree_controller.dart';
 import 'package:enhantec_platform_ui/framework/widgets/eh_tree_view/eh_tree_node.dart';
-import 'package:enhantec_platform_ui/example/main/components/home/components/examples/components/TestComponent/TestController.dart';
-import 'package:enhantec_platform_ui/example/main/components/home/components/examples/components/TestComponent/test2.dart';
+import 'package:enhantec_platform_ui/example/main/components/home/components/dashboard/components/wms_module/components/TestComponent/TestController.dart';
+import 'package:enhantec_platform_ui/example/main/components/home/components/dashboard/components/wms_module/components/TestComponent/test2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
