@@ -31,7 +31,7 @@ import 'package:enhantec_platform_ui/framework/widgets/eh_popup.dart';
 import 'package:enhantec_platform_ui/framework/widgets/eh_text_field.dart';
 import 'package:enhantec_platform_ui/framework/example/receipt/models/receipt_model.dart';
 import 'package:enhantec_platform_ui/framework/example/receipt/receipt_edit_controller.dart';
-import 'package:enhantec_platform_ui/test/TestData.dart';
+import 'package:enhantec_platform_ui/example/TestData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
